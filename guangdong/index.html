@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yangtze River Delta — Industry Cluster Map | China Industry Atlas</title>
-<meta name="description" content="A map of the Yangtze River Delta's manufacturing clusters: which town makes what across Shanghai, Jiangsu and Zhejiang, filterable by industry.">
+<title>Guangdong — Industry Cluster Map | China Industry Atlas</title>
+<meta name="description" content="A map of Guangdong's manufacturing clusters: which town makes what across all 21 prefectures, filterable by industry.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%23C0402A%22%2F%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2216%22%20r%3D%226.5%22%20fill%3D%22none%22%20stroke%3D%22%23E8EAE3%22%20stroke-width%3D%223%22%2F%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2216%22%20r%3D%221.6%22%20fill%3D%22%23E8EAE3%22%2F%3E%3C%2Fsvg%3E">
-<link rel="canonical" href="https://chinaindustryatlas.com/yrd/">
+<link rel="canonical" href="https://chinaindustryatlas.com/guangdong/">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://chinaindustryatlas.com/yrd/">
-<meta property="og:title" content="Yangtze River Delta — Industry Cluster Map">
-<meta property="og:description" content="Which town makes what across Shanghai, Jiangsu and Zhejiang.">
+<meta property="og:url" content="https://chinaindustryatlas.com/guangdong/">
+<meta property="og:title" content="Guangdong — Industry Cluster Map">
+<meta property="og:description" content="Which town makes what across Guangdong province.">
 <meta property="og:image" content="https://chinaindustryatlas.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -130,15 +130,15 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:2
 <body>
 <header class="top">
   <div class="top-in">
-    <a class="brand" href="/"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">长三角 · Yangtze River Delta</span></a>
+    <a class="brand" href="/"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">广东 · Guangdong</span></a>
     <div class="searchbox"><input id="search" type="search" placeholder="search…" autocomplete="off"></div>
     <a class="back" href="/">← back to atlas</a>
   </div>
 </header>
 
 <div class="wrap hero">
-  <div class="eyebrow">Deep-dive · Shanghai · Jiangsu · Zhejiang</div>
-  <h1 style="margin-top:14px">Yangtze River Delta<span class="cn">长江三角洲</span></h1>
+  <div class="eyebrow">Deep-dive · 广东 · Guangdong</div>
+  <h1 style="margin-top:14px">Guangdong<span class="cn">广东</span></h1>
   <p class="lede" id="lede"></p>
   <div class="readouts">
     <div class="readout"><div class="n" id="rCl">—</div><div class="l">Clusters</div></div>
@@ -149,24 +149,24 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:2
 
 <section id="map-sec">
   <div class="wrap">
-    <div class="sec-head"><span class="num">01</span><h2>The delta, by what it makes</h2>
+    <div class="sec-head"><span class="num">01</span><h2>The province, by what it makes</h2>
       <p>Pick an industry — the towns that own it light up. Hover a pin for the town, click for detail.</p></div>
     <div class="chips" id="catChips"></div>
     <div class="mapwrap">
       <div class="mapcard">
-        <div class="maphead"><span class="t">Yangtze River Delta · 长三角</span><span class="sc">hover a pin · click for detail</span></div>
+        <div class="maphead"><span class="t">Guangdong · 广东</span><span class="sc">hover a pin · click for detail</span></div>
         <div id="map"></div>
         <div class="legend" id="legend"></div>
       </div>
-      <div class="mapside"><div class="panel"><h4>Three provinces</h4><div id="orient"></div></div></div>
+      <div class="mapside"><div class="panel"><h4>Across Guangdong</h4><div id="orient"></div></div></div>
     </div>
   </div>
 </section>
 
 <section id="directory">
   <div class="wrap">
-    <div class="sec-head"><span class="num">02</span><h2>Cluster directory, by province</h2>
-      <p>Click a cluster to fly there. Filter above to isolate an industry across the delta.</p></div>
+    <div class="sec-head"><span class="num">02</span><h2>Cluster directory, by prefecture</h2>
+      <p>Click a cluster to fly there. Filter above to isolate an industry across the province.</p></div>
     <div id="dir"></div>
     <div class="noresults" id="noResults" style="display:none">No clusters match. Try another industry or search term.</div>
   </div>
@@ -175,7 +175,7 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:2
 <section id="notes">
   <div class="wrap">
     <div class="sec-head"><span class="num">03</span><h2>Field notes</h2>
-      <p>How the delta actually works.</p></div>
+      <p>How the province actually works.</p></div>
     <div class="notes-grid" id="notesGrid"></div>
   </div>
 </section>
@@ -186,26 +186,23 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:2
     <p class="meth" id="meth"></p>
     <a class="dl" href="/">← Full atlas</a>
     <a class="dl" href="/prd/">Pearl River Delta →</a>
-    <a class="dl" href="/bohai/">Bohai Rim →</a>
-    <a class="dl" href="/fujian/">Fujian →</a>
-    <a class="dl" href="/zhejiang/">Zhejiang →</a>
-    <a class="dl" href="/jiangsu/">Jiangsu →</a>
-    <a class="dl" href="/yiwu/">Yiwu →</a>
-    <div class="fine">YRD cluster overview · 2026 · Coordinates GCJ-02→WGS-84 corrected · basemap © OpenStreetMap, © CARTO.</div>
+    <a class="dl" href="/guangzhou/">Guangzhou markets →</a>
+    <a class="dl" href="/huaqiangbei/">Huaqiangbei →</a>
+    <div class="fine">Guangdong cluster overview · 2026 · Coordinates GCJ-02→WGS-84 corrected · basemap © OpenStreetMap, © CARTO.</div>
   </div>
 </footer>
 
-<script id="yrd-data" type="application/json">{"meta":{"title":"Yangtze River Delta","hanzi":"长江三角洲","subtitle":"Industry-cluster overview","tagline":"China's other factory floor is a web of one-product towns wrapped around Shanghai — denser in light industry than anywhere on earth. This is the cluster map across Shanghai, Jiangsu and Zhejiang.","clusters":32,"cities":15,"industries":13,"center_lat":30.602554,"center_lng":120.595886,"methodology":"Town and district coordinates are from Google Places, converted from China's GCJ-02 datum to WGS-84 to sit correctly on the OpenStreetMap / CARTO basemap. Each pin marks a place's dominant manufacturing or trade specialty drawn from current sourcing guides; clusters are indicative, not exclusive, and shift over time. Scope is the Shanghai-Jiangsu-Zhejiang core of the Yangtze River Delta; Anhui is the official western extension."},"categories":[{"id":"electronics","name":"Electronics & IC","color":"#2E6E6A"},{"id":"apparel","name":"Apparel & textiles","color":"#C77A4A"},{"id":"home_tex","name":"Home textiles","color":"#B5828C"},{"id":"footwear","name":"Footwear & leather","color":"#9B5A47"},{"id":"furniture","name":"Furniture & flooring","color":"#8A5535"},{"id":"appliances","name":"Home appliances","color":"#3D6A86"},{"id":"hardware","name":"Hardware & metal","color":"#5A6E2E"},{"id":"molds","name":"Molds & plastics","color":"#6C7A7E"},{"id":"eyewear","name":"Eyewear & optical","color":"#4A6B5E"},{"id":"jewelry","name":"Jewelry & pearls","color":"#B5495B"},{"id":"auto","name":"Auto & EV","color":"#46565B"},{"id":"machinery","name":"Machinery & equipment","color":"#7A6A52"},{"id":"trade","name":"Wholesale trade","color":"#C0402A"}],"provinces":[{"id":"shanghai","name":"Shanghai","hanzi":"上海"},{"id":"jiangsu","name":"Jiangsu","hanzi":"江苏"},{"id":"zhejiang","name":"Zhejiang","hanzi":"浙江"}],"clusters":[{"id":"anting","town":"Anting","hanzi":"安亭","province":"shanghai","prefecture":"Jiading","primary":"auto","cats":["auto"],"note":"China's first 'auto town' — SAIC-Volkswagen's base.","lat":31.296199,"lng":121.159516},{"id":"zhangjiang","town":"Zhangjiang","hanzi":"张江","province":"shanghai","prefecture":"Pudong","primary":"electronics","cats":["electronics"],"note":"Chip design, IC and biotech — Shanghai's 'Silicon Valley'.","lat":31.207808,"lng":121.610297},{"id":"lingang","town":"Lingang","hanzi":"临港","province":"shanghai","prefecture":"Pudong","primary":"auto","cats":["auto","electronics"],"note":"Tesla's Gigafactory and the new EV, chip and equipment free-trade zone.","lat":30.891263,"lng":121.920432},{"id":"kunshan","town":"Kunshan","hanzi":"昆山","province":"jiangsu","prefecture":"Suzhou","primary":"electronics","cats":["electronics"],"note":"Laptop and electronics capital (Foxconn) — long built a large share of the world's notebooks.","lat":31.184348,"lng":121.002744},{"id":"suzhou_sip","town":"Suzhou Industrial Park","hanzi":"苏州工业园区","province":"jiangsu","prefecture":"Suzhou","primary":"electronics","cats":["electronics"],"note":"Precision electronics, IC and biomed in the China-Singapore park.","lat":31.321614,"lng":120.766228},{"id":"shengze","town":"Shengze","hanzi":"盛泽","province":"jiangsu","prefecture":"Suzhou","primary":"apparel","cats":["apparel"],"note":"Silk and synthetic textiles; the China Eastern Silk Market.","lat":30.908231,"lng":120.665915},{"id":"changshu","town":"Changshu","hanzi":"常熟","province":"jiangsu","prefecture":"Suzhou","primary":"apparel","cats":["apparel"],"note":"Garment manufacturing and the China Changshu Garment City.","lat":31.655746,"lng":120.747844},{"id":"wuxi","town":"Wuxi","hanzi":"无锡","province":"jiangsu","prefecture":"Wuxi","primary":"electronics","cats":["electronics","machinery"],"note":"Integrated circuits, solar PV and IoT.","lat":31.492878,"lng":120.307761},{"id":"changzhou","town":"Changzhou","hanzi":"常州","province":"jiangsu","prefecture":"Changzhou","primary":"machinery","cats":["machinery","auto"],"note":"Rail transit (CRRC), machinery, solar and graphene.","lat":31.812762,"lng":119.968901},{"id":"nanjing","town":"Nanjing","hanzi":"南京","province":"jiangsu","prefecture":"Nanjing","primary":"electronics","cats":["electronics","machinery"],"note":"Electronics, petrochemicals, autos and display.","lat":32.060455,"lng":118.791286},{"id":"nantong","town":"Nantong","hanzi":"南通","province":"jiangsu","prefecture":"Nantong","primary":"home_tex","cats":["home_tex"],"note":"Home-textiles capital — bedding and curtains (the Jiazhili market).","lat":31.98175,"lng":120.889494},{"id":"danyang","town":"Danyang","hanzi":"丹阳","province":"jiangsu","prefecture":"Zhenjiang","primary":"eyewear","cats":["eyewear"],"note":"World optical-lens capital — produces roughly half the planet's spectacle lenses.","lat":32.011646,"lng":119.602012},{"id":"keqiao","town":"Keqiao","hanzi":"柯桥","province":"zhejiang","prefecture":"Shaoxing","primary":"apparel","cats":["apparel","trade"],"note":"China Textile City — the world's largest fabric market.","lat":29.750686,"lng":120.54902},{"id":"shengzhou","town":"Shengzhou","hanzi":"嵊州","province":"zhejiang","prefecture":"Shaoxing","primary":"apparel","cats":["apparel"],"note":"Necktie capital — a vast share of the world's ties.","lat":29.591082,"lng":120.817566},{"id":"datang","town":"Datang","hanzi":"大唐","province":"zhejiang","prefecture":"Shaoxing","primary":"apparel","cats":["apparel"],"note":"Sock capital (Zhuji) — billions of pairs a year.","lat":29.695798,"lng":120.163021},{"id":"shanxiahu","town":"Shanxiahu / Zhuji","hanzi":"山下湖","province":"zhejiang","prefecture":"Shaoxing","primary":"jewelry","cats":["jewelry"],"note":"Freshwater-pearl capital — the world's pearl trading hub.","lat":29.843922,"lng":120.347361},{"id":"haining","town":"Haining","hanzi":"海宁","province":"zhejiang","prefecture":"Jiaxing","primary":"footwear","cats":["footwear","apparel"],"note":"China Leather City — leather, fur, warp-knit and fashion.","lat":30.511857,"lng":120.676803},{"id":"puyuan","town":"Puyuan","hanzi":"濮院","province":"zhejiang","prefecture":"Jiaxing","primary":"apparel","cats":["apparel"],"note":"Sweater and cashmere knitwear market (Tongxiang).","lat":30.679832,"lng":120.614394},{"id":"zhili","town":"Zhili","hanzi":"织里","province":"zhejiang","prefecture":"Huzhou","primary":"apparel","cats":["apparel"],"note":"China's children's-wear capital — 14,000+ makers.","lat":30.865305,"lng":120.264649},{"id":"anji","town":"Anji","hanzi":"安吉","province":"zhejiang","prefecture":"Huzhou","primary":"furniture","cats":["furniture"],"note":"Office-chair capital — seating and bamboo.","lat":30.640681,"lng":119.677304},{"id":"nanxun","town":"Nanxun","hanzi":"南浔","province":"zhejiang","prefecture":"Huzhou","primary":"furniture","cats":["furniture"],"note":"Wood-flooring capital.","lat":30.83076,"lng":120.279518},{"id":"cixi","town":"Cixi","hanzi":"慈溪","province":"zhejiang","prefecture":"Ningbo","primary":"appliances","cats":["appliances"],"note":"Small-home-appliance capital — heaters, kitchen gadgets, personal care.","lat":30.17208,"lng":121.262124},{"id":"yuyao","town":"Yuyao","hanzi":"余姚","province":"zhejiang","prefecture":"Ningbo","primary":"molds","cats":["molds"],"note":"Plastics and injection-mould base.","lat":30.039433,"lng":121.149891},{"id":"ningbo","town":"Ningbo","hanzi":"宁波","province":"zhejiang","prefecture":"Ningbo","primary":"apparel","cats":["apparel","molds"],"note":"Menswear and knitwear (Youngor, Shanshan), moulds, and a top-three global port.","lat":29.819781,"lng":121.542838},{"id":"hangzhou","town":"Hangzhou","hanzi":"杭州","province":"zhejiang","prefecture":"Hangzhou","primary":"electronics","cats":["electronics","apparel"],"note":"Surveillance and AI hardware (Hikvision, Dahua), silk, and the e-commerce capital (Alibaba).","lat":30.276479,"lng":120.150456},{"id":"yiwu","town":"Yiwu","hanzi":"义乌","province":"zhejiang","prefecture":"Jinhua","primary":"trade","cats":["trade"],"note":"The world's small-commodities market — see the building-level deep-dive.","lat":29.343817,"lng":120.104083},{"id":"yongkang","town":"Yongkang","hanzi":"永康","province":"zhejiang","prefecture":"Jinhua","primary":"hardware","cats":["hardware"],"note":"China's hardware capital — tools, cookware and e-scooters.","lat":28.891367,"lng":120.042635},{"id":"wenzhou","town":"Wenzhou","hanzi":"温州","province":"zhejiang","prefecture":"Wenzhou","primary":"footwear","cats":["footwear","hardware"],"note":"Shoe and leather capital; also lighters, locks and razors.","lat":27.998202,"lng":120.695332},{"id":"yueqing","town":"Yueqing / Liushi","hanzi":"柳市","province":"zhejiang","prefecture":"Wenzhou","primary":"electronics","cats":["electronics","hardware"],"note":"Low-voltage electrical capital — Chint, Delixi and thousands of switchgear makers.","lat":28.041675,"lng":120.888287},{"id":"huangyan","town":"Huangyan","hanzi":"黄岩","province":"zhejiang","prefecture":"Taizhou","primary":"molds","cats":["molds"],"note":"China's mould capital.","lat":28.65278,"lng":121.258728},{"id":"yuhuan","town":"Yuhuan","hanzi":"玉环","province":"zhejiang","prefecture":"Taizhou","primary":"auto","cats":["auto","hardware"],"note":"Auto parts, valves and CNC copper fittings.","lat":28.139132,"lng":121.227457},{"id":"taizhou","town":"Taizhou","hanzi":"台州","province":"zhejiang","prefecture":"Taizhou","primary":"auto","cats":["auto","machinery"],"note":"Geely's birthplace; pumps, sewing machines and plastics.","lat":28.67604,"lng":121.438574}],"orientation":[{"k":"Shanghai — the hub","v":"Autos (SAIC, Tesla at Lingang), chips and biotech (Zhangjiang), finance and trade radiate from the centre."},{"k":"Jiangsu — electronics & heavy","v":"The Suzhou-Wuxi corridor makes laptops, IC and solar; Nantong home textiles; Danyang the world's lenses."},{"k":"Zhejiang — light-industry towns","v":"Dense single-product towns: fabric (Keqiao), leather (Haining), socks, ties, pearls, hardware (Yongkang), appliances (Cixi), moulds, small commodities (Yiwu)."},{"k":"Getting around","v":"The densest high-speed-rail web on earth ties it together — Shanghai, Hangzhou, Suzhou and Nanjing are all within about 1.5 hours."},{"k":"Trade vs make","v":"Yiwu and Keqiao are where goods are traded; the surrounding towns are where they are made."}],"notes":["Zhejiang perfected the “block economy” (块状经济): one town, one product, an entire supply chain in a few streets — socks in Datang, ties in Shengzhou, pearls in Shanxiahu, moulds in Huangyan.","The delta often sits higher up the value chain than the south — chips and precision (Suzhou, Wuxi), optics (Danyang), EVs (Lingang, Geely) — alongside its light-industry towns.","A pin marks the dominant local specialty, not the only one. Shanghai, Hangzhou, Ningbo and Suzhou each make far more than one thing.","Officially the Yangtze River Delta now also includes Anhui (Hefei appliances and displays, Wuhu autos); this map keeps to the Shanghai-Jiangsu-Zhejiang core."]}</script>
+<script id="guangdong-data" type="application/json">{"meta":{"title":"Guangdong","hanzi":"广东","subtitle":"Industry-cluster overview","tagline":"Guangdong is China's export workshop — the Pearl River Delta plus the Chaoshan east, the seafood-and-petrochemical west, and the mineral north. This is the cluster map of the whole province.","clusters":32,"cities":21,"industries":14,"center_lat":23.202694,"center_lng":113.694814,"methodology":"Coordinates are from Google Places, converted from China's GCJ-02 datum to WGS-84 to sit correctly on the OpenStreetMap / CARTO basemap. Each pin marks a place's dominant manufacturing specialty drawn from current sourcing guides; clusters are indicative, not exclusive, and shift over time. The map covers all 21 of Guangdong's prefecture-level cities; the Pearl River Delta overview maps the delta core in its own right."},"categories":[{"id":"electronics","name":"Electronics & telecoms","color":"#2E6E6A"},{"id":"appliances","name":"Home appliances","color":"#3D6A86"},{"id":"apparel","name":"Apparel & textiles","color":"#C77A4A"},{"id":"footwear","name":"Footwear & leather","color":"#9B5A47"},{"id":"ceramics","name":"Ceramics & sanitaryware","color":"#B5495B"},{"id":"furniture","name":"Furniture","color":"#8A5535"},{"id":"lighting","name":"Lighting","color":"#B08A3C"},{"id":"hardware","name":"Hardware & cutlery","color":"#6C7A7E"},{"id":"metals","name":"Metals & materials","color":"#46565B"},{"id":"auto","name":"Auto & EV","color":"#4A6B5E"},{"id":"crafts","name":"Toys & crafts","color":"#A85A86"},{"id":"stone","name":"Stone","color":"#7A6A52"},{"id":"food","name":"Food & seafood","color":"#C0402A"},{"id":"materials","name":"Petrochemicals & chemicals","color":"#7A5A8A"}],"prefectures":[{"id":"guangzhou","name":"Guangzhou","hanzi":"广州"},{"id":"shenzhen","name":"Shenzhen","hanzi":"深圳"},{"id":"foshan","name":"Foshan","hanzi":"佛山"},{"id":"dongguan","name":"Dongguan","hanzi":"东莞"},{"id":"zhongshan","name":"Zhongshan","hanzi":"中山"},{"id":"zhuhai","name":"Zhuhai","hanzi":"珠海"},{"id":"jiangmen","name":"Jiangmen","hanzi":"江门"},{"id":"huizhou","name":"Huizhou","hanzi":"惠州"},{"id":"zhaoqing","name":"Zhaoqing","hanzi":"肇庆"},{"id":"shantou","name":"Shantou","hanzi":"汕头"},{"id":"chaozhou","name":"Chaozhou","hanzi":"潮州"},{"id":"jieyang","name":"Jieyang","hanzi":"揭阳"},{"id":"shanwei","name":"Shanwei","hanzi":"汕尾"},{"id":"meizhou","name":"Meizhou","hanzi":"梅州"},{"id":"zhanjiang","name":"Zhanjiang","hanzi":"湛江"},{"id":"maoming","name":"Maoming","hanzi":"茂名"},{"id":"yangjiang","name":"Yangjiang","hanzi":"阳江"},{"id":"qingyuan","name":"Qingyuan","hanzi":"清远"},{"id":"shaoguan","name":"Shaoguan","hanzi":"韶关"},{"id":"yunfu","name":"Yunfu","hanzi":"云浮"},{"id":"heyuan","name":"Heyuan","hanzi":"河源"}],"clusters":[{"id":"guangzhou","town":"Guangzhou","hanzi":"广州","prefecture":"guangzhou","area":"autos & markets","primary":"auto","cats":["auto","crafts"],"note":"Autos (GAC), Panyu jewelry, beauty, and a whole city of wholesale markets.","lat":23.131757,"lng":113.25903},{"id":"shiling","town":"Shiling (Huadu)","hanzi":"狮岭·花都","prefecture":"guangzhou","area":"leather bags","primary":"footwear","cats":["footwear"],"note":"Leather-goods and handbag capital; Huadu autos nearby.","lat":23.457565,"lng":113.166956},{"id":"shenzhen","town":"Shenzhen","hanzi":"深圳","prefecture":"shenzhen","area":"electronics & tech","primary":"electronics","cats":["electronics"],"note":"Electronics and tech capital — Huaqiangbei, 3C, drones (DJI), telecoms (Huawei, ZTE).","lat":22.545574,"lng":114.054444},{"id":"shiwan","town":"Shiwan (Foshan)","hanzi":"石湾·佛山","prefecture":"foshan","area":"ceramics","primary":"ceramics","cats":["ceramics"],"note":"China's ceramics capital — building and sanitary ceramics (Shiwan, Chancheng).","lat":23.007328,"lng":113.072039},{"id":"shunde","town":"Shunde (Foshan)","hanzi":"顺德·佛山","prefecture":"foshan","area":"appliances","primary":"appliances","cats":["appliances"],"note":"Home-appliance capital — Midea and Galanz; the world's appliance workshop.","lat":22.808151,"lng":113.287873},{"id":"lecong","town":"Lecong (Foshan)","hanzi":"乐从·佛山","prefecture":"foshan","area":"furniture","primary":"furniture","cats":["furniture"],"note":"The world's largest furniture market and a vast furniture cluster.","lat":22.941124,"lng":113.08587},{"id":"nanhai","town":"Nanhai (Foshan)","hanzi":"南海·佛山","prefecture":"foshan","area":"aluminium","primary":"metals","cats":["metals","apparel"],"note":"Aluminium-profile capital; Xiqiao textiles and underwear.","lat":23.031397,"lng":113.137321},{"id":"humen","town":"Humen (Dongguan)","hanzi":"虎门·东莞","prefecture":"dongguan","area":"apparel","primary":"apparel","cats":["apparel"],"note":"Fashion-apparel capital — vast garment manufacturing and wholesale markets.","lat":22.8176,"lng":113.667678},{"id":"houjie","town":"Houjie (Dongguan)","hanzi":"厚街·东莞","prefecture":"dongguan","area":"footwear","primary":"footwear","cats":["footwear"],"note":"Shoe-manufacturing town; also the big furniture-fair grounds.","lat":22.93944,"lng":113.666013},{"id":"dongguan","town":"Dongguan","hanzi":"东莞","prefecture":"dongguan","area":"electronics","primary":"electronics","cats":["electronics"],"note":"World electronics-manufacturing hub — phones and components (Oppo, Vivo, Huawei nearby); Dalingshan furniture, Chang'an moulds.","lat":23.023392,"lng":113.746597},{"id":"guzhen","town":"Guzhen (Zhongshan)","hanzi":"古镇·中山","prefecture":"zhongshan","area":"lighting","primary":"lighting","cats":["lighting"],"note":"Lighting capital — the world's largest LED-lighting cluster and market.","lat":22.633727,"lng":113.182502},{"id":"xiaolan","town":"Xiaolan (Zhongshan)","hanzi":"小榄·中山","prefecture":"zhongshan","area":"hardware & locks","primary":"hardware","cats":["hardware","appliances"],"note":"Hardware and lock capital; acoustic electronics and gas appliances.","lat":22.674952,"lng":113.245603},{"id":"zhuhai","town":"Zhuhai","hanzi":"珠海","prefecture":"zhuhai","area":"Gree & printing","primary":"appliances","cats":["appliances","electronics"],"note":"Gree air-conditioning HQ; printer consumables (ink, cartridges) and electronics.","lat":22.273875,"lng":113.571621},{"id":"shuikou","town":"Shuikou (Kaiping)","hanzi":"水口·开平","prefecture":"jiangmen","area":"faucets","primary":"hardware","cats":["hardware"],"note":"Faucet and sanitary-ware capital; bathroom hardware.","lat":22.460036,"lng":112.753283},{"id":"enping","town":"Enping (Jiangmen)","hanzi":"恩平·江门","prefecture":"jiangmen","area":"microphones","primary":"electronics","cats":["electronics"],"note":"Microphone capital — wireless mics and audio gear.","lat":22.205193,"lng":112.330955},{"id":"huizhou","town":"Huizhou","hanzi":"惠州","prefecture":"huizhou","area":"phones","primary":"electronics","cats":["electronics"],"note":"Electronics and smartphones (TCL, Desay); batteries and displays.","lat":23.115007,"lng":114.410551},{"id":"zhaoqing","town":"Zhaoqing","hanzi":"肇庆","prefecture":"zhaoqing","area":"new-energy autos","primary":"auto","cats":["auto","metals"],"note":"New-energy vehicles (Xpeng) and metalworking and hardware.","lat":23.049522,"lng":112.460026},{"id":"chenghai","town":"Chenghai (Shantou)","hanzi":"澄海·汕头","prefecture":"shantou","area":"toys","primary":"crafts","cats":["crafts"],"note":"China's toy capital — the world's largest toy-manufacturing base.","lat":23.450403,"lng":116.775457},{"id":"gurao","town":"Gurao (Shantou)","hanzi":"谷饶·汕头","prefecture":"shantou","area":"lingerie","primary":"apparel","cats":["apparel"],"note":"Lingerie and underwear manufacturing hub; knitted garments.","lat":23.360132,"lng":116.410392},{"id":"fengxi","town":"Fengxi (Chaozhou)","hanzi":"枫溪·潮州","prefecture":"chaozhou","area":"porcelain","primary":"ceramics","cats":["ceramics"],"note":"Porcelain capital — daily-use and sanitary ceramics, second only to Foshan.","lat":23.649623,"lng":116.585127},{"id":"chaozhou","town":"Chaozhou","hanzi":"潮州","prefecture":"chaozhou","area":"wedding gowns","primary":"apparel","cats":["apparel"],"note":"Wedding-gown and evening-wear capital; Chaozhou embroidery.","lat":23.659446,"lng":116.618594},{"id":"puning","town":"Puning (Jieyang)","hanzi":"普宁·揭阳","prefecture":"jieyang","area":"textiles","primary":"apparel","cats":["apparel"],"note":"Textile and lingerie hub with a major garment market; herbal-medicine trade.","lat":23.298018,"lng":116.163837},{"id":"jieyang","town":"Jieyang","hanzi":"揭阳","prefecture":"jieyang","area":"stainless steel","primary":"metals","cats":["metals"],"note":"Stainless-steel hardware and kitchenware (Jiedong); plastics.","lat":23.552117,"lng":116.368001},{"id":"shanwei","town":"Shanwei","hanzi":"汕尾","prefecture":"shanwei","area":"toys & electronics","primary":"crafts","cats":["crafts","electronics"],"note":"Toys, electronics and gold jewelry (Haifeng).","lat":22.788295,"lng":115.370199},{"id":"meizhou","town":"Meizhou","hanzi":"梅州","prefecture":"meizhou","area":"electronics & food","primary":"electronics","cats":["electronics","food"],"note":"Electronics and building materials; Hakka food and pomelo.","lat":24.291067,"lng":116.117814},{"id":"zhanjiang","town":"Zhanjiang","hanzi":"湛江","prefecture":"zhanjiang","area":"seafood & steel","primary":"food","cats":["food","metals"],"note":"Prawn and seafood-processing capital; steel (Baosteel) and petrochemicals.","lat":21.273723,"lng":110.354444},{"id":"maoming","town":"Maoming","hanzi":"茂名","prefecture":"maoming","area":"petrochemicals","primary":"materials","cats":["materials"],"note":"One of China's great petrochemical bases (Sinopec); lychee.","lat":21.666066,"lng":110.920718},{"id":"yangjiang","town":"Yangjiang","hanzi":"阳江","prefecture":"yangjiang","area":"knives & cutlery","primary":"hardware","cats":["hardware"],"note":"Knife, scissors and cutlery capital — the world's largest kitchen-knife cluster.","lat":21.882032,"lng":112.004613},{"id":"qingyuan","town":"Qingyuan","hanzi":"清远","prefecture":"qingyuan","area":"recycled metals","primary":"metals","cats":["metals","ceramics"],"note":"Recycled copper and aluminium hub; ceramics relocated from Foshan.","lat":23.68447,"lng":113.050668},{"id":"shaoguan","town":"Shaoguan","hanzi":"韶关","prefecture":"shaoguan","area":"steel","primary":"metals","cats":["metals"],"note":"Steel and heavy industry (Shaoguan Steel); machinery and tobacco.","lat":24.813451,"lng":113.59204},{"id":"yunfu","town":"Yunfu","hanzi":"云浮","prefecture":"yunfu","area":"stone","primary":"stone","cats":["stone"],"note":"Stone capital — marble and granite processing.","lat":22.907903,"lng":112.018286},{"id":"heyuan","town":"Heyuan","hanzi":"河源","prefecture":"heyuan","area":"phone parts","primary":"electronics","cats":["electronics"],"note":"Mobile-phone parts and electronics; bottled water and rare earth.","lat":23.74638,"lng":114.69569}],"orientation":[{"k":"The Pearl River Delta","v":"The manufacturing core: Shenzhen electronics, Dongguan and Huizhou phones, Foshan ceramics/appliances/furniture, Zhongshan lighting, Guangzhou autos and markets."},{"k":"Specialised delta towns","v":"Shunde appliances, Lecong furniture, Guzhen lighting, Xiaolan hardware, Humen apparel, Shiling leather, Shuikou faucets — one product per town."},{"k":"Chaoshan east","v":"A distinct world: Chenghai toys (the world's biggest), Chaozhou and Fengxi ceramics, Puning and Gurao lingerie and textiles."},{"k":"West coast","v":"Yangjiang knives and cutlery, Zhanjiang seafood and steel, Maoming petrochemicals."},{"k":"Northern mountains","v":"Yunfu stone, Qingyuan recycled metals and ceramics, Shaoguan steel, Heyuan electronics."}],"notes":["Guangdong is China's export workshop — the Pearl River Delta is among the densest manufacturing regions on earth, ringed by distinct clusters in the east, west and mountainous north.","The delta packs single-product towns as tightly as Zhejiang: appliances in Shunde, furniture in Lecong, lighting in Guzhen, hardware in Xiaolan, apparel in Humen, leather in Shiling.","Beyond the delta, Chaoshan in the east is a world of its own (toys, ceramics, lingerie), the west adds knives (Yangjiang) and petrochemicals (Maoming), and the north adds stone (Yunfu) and metals.","A pin marks a place's dominant specialty, not its only one. The Pearl River Delta overview maps the delta core in its own right; this province map extends to all 21 prefectures, and the Shenzhen and Guangzhou pins link to their building-level deep-dives."]}</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>window.L||document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"><\/scr'+'ipt>')</script>
 <script>
-const D=JSON.parse(document.getElementById('yrd-data').textContent);
+const D=JSON.parse(document.getElementById('guangdong-data').textContent);
 const $=s=>document.querySelector(s), ce=(t,c)=>{const e=document.createElement(t);if(c)e.className=c;return e};
 const CC={}; D.categories.forEach(c=>CC[c.id]=c.color);
 const catName=id=>(D.categories.find(c=>c.id===id)||{}).name||id;
-const provById=id=>D.provinces.find(c=>c.id===id)||{};
+const prefById=id=>D.prefectures.find(c=>c.id===id)||{};
 
-$('#lede').innerHTML=D.meta.tagline.replace("a web of one-product towns","<b>a web of one-product towns</b>");
+$('#lede').innerHTML=D.meta.tagline.replace("export workshop","<b>export workshop</b>");
 $('#rCl').textContent=D.meta.clusters;
 $('#rCi').textContent=D.meta.cities;
 $('#rI').textContent=D.meta.industries;
@@ -213,7 +210,7 @@ $('#meth').textContent=D.meta.methodology;
 
 /* ---------- map ---------- */
 const map=L.map('map',{scrollWheelZoom:false,zoomControl:true,attributionControl:true})
-  .setView([D.meta.center_lat,D.meta.center_lng],8);
+  .setView([D.meta.center_lat,D.meta.center_lng],6);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
   subdomains:'abcd',maxZoom:20,attribution:'&copy; OpenStreetMap &copy; CARTO'
 }).addTo(map);
@@ -221,10 +218,10 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
 const markers={};
 D.clusters.forEach(c=>{
   const m=L.circleMarker([c.lat,c.lng],{radius:8,color:'#ffffff',weight:2,fillColor:CC[c.primary],fillOpacity:1}).addTo(map);
-  m.bindTooltip(c.town+' · '+c.prefecture,{direction:'top',offset:[0,-4],className:'mlabel'});
-  const dd = c.id==='yiwu' ? '<br><a href="/yiwu/">→ district & floor map</a>' : '';
+  m.bindTooltip(c.town+' · '+c.area,{direction:'top',offset:[0,-4],className:'mlabel'});
+  const dd = c.id==='shenzhen' ? '<br><a href="/huaqiangbei/">→ Huaqiangbei building map</a>' : c.id==='guangzhou' ? '<br><a href="/guangzhou/">→ wholesale-market map</a>' : '';
   m.bindPopup(`<div class="pop"><div class="pn">${c.town} <span style="font-weight:400;color:#46565B">${c.hanzi}</span></div>
-    <div class="ph">${c.prefecture}, ${provById(c.province).name} · ${c.cats.map(catName).join(' · ')}</div><div class="pnote">${c.note}</div>${dd}</div>`);
+    <div class="ph">${c.area}, ${prefById(c.prefecture).name} · ${c.cats.map(catName).join(' · ')}</div><div class="pnote">${c.note}</div>${dd}</div>`);
   m.on('click',()=>flashCard(c.id,false));
   markers[c.id]=m;
 });
@@ -257,17 +254,17 @@ function selectCat(id){
 /* ---------- directory ---------- */
 const dir=$('#dir');
 function ccard(c){
-  const dd = c.id==='yiwu' ? '<a class="cdd" href="/yiwu/">→ district & floor map</a>' : '';
+  const dd = c.id==='shenzhen' ? '<a class="cdd" href="/huaqiangbei/">→ Huaqiangbei building map</a>' : c.id==='guangzhou' ? '<a class="cdd" href="/guangzhou/">→ wholesale-market map</a>' : '';
   return `<div class="ccard" id="c-${c.id}" data-id="${c.id}">
     <div class="cn">${c.town}<span class="ch">${c.hanzi}</span></div>
-    <div class="cpref">${c.prefecture}</div>
+    <div class="cpref">${c.area}</div>
     <div class="ctags">${c.cats.map(x=>`<span class="ctag" style="background:${CC[x]}">${catName(x)}</span>`).join('')}</div>
     <div class="cnote">${c.note}</div>${dd}</div>`;
 }
 function renderDir(){
   dir.innerHTML='';
-  D.provinces.forEach(prov=>{
-    const list=D.clusters.filter(c=>c.province===prov.id);
+  D.prefectures.forEach(prov=>{
+    const list=D.clusters.filter(c=>c.prefecture===prov.id);
     if(!list.length) return;
     const g=ce('div','citygrp');g.dataset.city=prov.id;
     g.innerHTML=`<div class="city-h"><h3>${prov.name}<span>${prov.hanzi}</span></h3><span class="zone">${list.length} clusters</span></div>
@@ -280,12 +277,12 @@ function renderDir(){
 }
 function applyFilter(){
   const q=$('#search').value.trim().toLowerCase(); let vis=0;
-  D.provinces.forEach(prov=>{
+  D.prefectures.forEach(prov=>{
     const g=dir.querySelector(`[data-city="${prov.id}"]`); if(!g)return; let shown=0;
     g.querySelectorAll('.ccard').forEach(card=>{
       const c=D.clusters.find(x=>x.id===card.dataset.id);
       const inCat=!activeCat||c.cats.includes(activeCat);
-      const hay=(c.town+' '+c.hanzi+' '+c.prefecture+' '+c.note+' '+c.cats.map(catName).join(' ')+' '+provById(c.province).name).toLowerCase();
+      const hay=(c.town+' '+c.hanzi+' '+c.area+' '+c.note+' '+c.cats.map(catName).join(' ')+' '+prefById(c.prefecture).name).toLowerCase();
       const show=inCat&&(!q||hay.includes(q)); card.style.display=show?'':'none';
       if(show){shown++;vis++}
     });
