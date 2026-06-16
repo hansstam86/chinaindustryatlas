@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Molds & plastics — where it's made in China | China Industry Atlas</title>
+<meta name="description" content="Where molds & plastics is made across China: the clusters by region and sub-segment, filterable.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%23C0402A%22%2F%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2216%22%20r%3D%226.5%22%20fill%3D%22none%22%20stroke%3D%22%23E8EAE3%22%20stroke-width%3D%223%22%2F%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2216%22%20r%3D%221.6%22%20fill%3D%22%23E8EAE3%22%2F%3E%3C%2Fsvg%3E">
+<link rel="canonical" href="https://chinaindustryatlas.com/industry/molds/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://chinaindustryatlas.com/industry/molds/">
+<meta property="og:title" content="Molds & plastics — where it's made in China">
+<meta property="og:description" content="Which town makes what across Shanghai, Jiangsu and Zhejiang.">
+<meta property="og:image" content="https://chinaindustryatlas.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+:root{
+  --paper:#E8EAE3;--paper-2:#F2F3EE;--paper-3:#DFE2DA;
+  --ink:#16242A;--ink-2:#46565B;--ink-3:#6C7A7E;
+  --line:#C7CCC3;--line-2:#D6DAD2;--chop:#C0402A;--brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;--body:"Hanken Grotesk",system-ui,sans-serif;--mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;background-image:radial-gradient(var(--line-2) .5px,transparent .5px);background-size:22px 22px}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--disp);font-weight:800;line-height:1.05;margin:0;letter-spacing:-0.01em}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-3)}
+header.top{position:sticky;top:0;z-index:1100;background:rgba(232,234,227,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top-in{display:flex;align-items:center;gap:18px;height:62px;max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.brand{display:flex;flex-direction:column;line-height:1;text-decoration:none}
+.brand .b1{font-family:var(--disp);font-weight:800;font-size:17px;letter-spacing:-.02em}
+.brand .b2{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--ink-3);margin-top:3px;text-transform:uppercase}
+.back{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none;border-bottom:1.5px solid transparent;padding-bottom:2px}
+.back:hover{color:var(--ink);border-bottom-color:var(--chop)}
+.searchbox{position:relative}
+#search{font-family:var(--mono);font-size:12px;border:1px solid var(--line);background:var(--paper-2);padding:8px 10px 8px 28px;width:160px;color:var(--ink);outline:none}
+#search:focus{border-color:var(--ink-2)}
+.searchbox::before{content:"\2315";position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--ink-3);font-size:15px}
+
+.hero{padding:42px 0 16px}
+.hero h1{font-size:clamp(34px,5.4vw,68px);letter-spacing:-.03em}
+.hero h1 .cn{font-weight:400;font-size:.38em;color:var(--ink-2);margin-left:.3em;letter-spacing:.06em}
+.lede{font-size:18px;color:var(--ink-2);margin:18px 0 0;max-width:66ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:24px;max-width:520px}
+.readout{flex:1;padding:12px 0}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-top:6px}
+
+section{padding:44px 0;border-top:1px solid var(--line)}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:20px;flex-wrap:wrap}
+.sec-head .num{font-family:var(--mono);font-size:12px;color:var(--chop)}
+.sec-head h2{font-size:clamp(24px,3.2vw,36px)}
+.sec-head p{color:var(--ink-2);font-size:14.5px;margin:0;max-width:56ch}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.chip{font-family:var(--mono);font-size:11.5px;letter-spacing:.03em;padding:7px 12px;border:1px solid var(--line);background:var(--paper-2);
+  cursor:pointer;color:var(--ink-2);transition:all .15s;white-space:nowrap}
+.chip:hover{border-color:var(--ink-2);color:var(--ink)}
+.chip.active{color:#fff;border-color:transparent}
+.chip .cd{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+
+.mapwrap{display:grid;grid-template-columns:1.4fr .6fr;gap:22px;align-items:start}
+.mapcard{border:1px solid var(--ink);position:relative;background:var(--paper-3)}
+#map{height:600px;width:100%;background:var(--paper-3)}
+.leaflet-container{font-family:var(--mono);background:var(--paper-3)}
+.mlabel{background:rgba(242,243,238,.95);border:1px solid var(--ink);border-radius:0;color:var(--ink);
+  font-family:var(--mono);font-size:10px;font-weight:700;padding:1px 5px;box-shadow:none;white-space:nowrap}
+.mlabel::before{display:none}
+.leaflet-popup-content-wrapper{border-radius:0;background:var(--paper-2);border:1px solid var(--ink);box-shadow:5px 5px 0 rgba(22,36,42,.18)}
+.leaflet-popup-content{margin:12px 14px;font-family:var(--body)}
+.leaflet-popup-tip{background:var(--paper-2);border:1px solid var(--ink)}
+.pop .pn{font-family:var(--disp);font-weight:800;font-size:16px}
+.pop .ph{font-family:var(--mono);font-size:11px;color:var(--ink-2);margin:2px 0 7px}
+.pop .pnote{font-size:12.5px;color:var(--ink-2)}
+.pop a{color:var(--chop);font-family:var(--mono);font-size:11px}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line);background:var(--paper-2)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+.legend{display:flex;flex-wrap:wrap;gap:9px 13px;padding:11px 15px;border-top:1px solid var(--line);background:var(--paper-2);font-family:var(--mono);font-size:10px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.legend i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.mapside .panel{background:var(--paper-2);border:1px solid var(--line);padding:16px 18px}
+.mapside .panel h4{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--chop);margin-bottom:10px}
+.orow{display:flex;flex-direction:column;gap:2px;padding:8px 0;border-bottom:1px dotted var(--line);font-size:13px}
+.orow:last-child{border-bottom:0}
+.orow .ok{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink)}
+.orow .ov{color:var(--ink-2)}
+
+.citygrp{margin-top:26px}
+.city-h{display:flex;align-items:baseline;gap:12px;border-bottom:1.5px solid var(--ink);padding-bottom:9px;margin-bottom:13px}
+.city-h h3{font-size:20px}.city-h h3 span{font-weight:400;color:var(--ink-2);font-size:.7em;margin-left:.3em}
+.city-h .zone{margin-left:auto;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);border:1px solid var(--line);padding:2px 8px}
+.ccards{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px}
+.ccard{background:var(--paper-2);border:1px solid var(--line);padding:14px 15px;scroll-margin-top:84px;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.ccard:hover{border-color:var(--ink-2)}
+.ccard.flash{border-color:var(--chop);box-shadow:5px 5px 0 var(--chop)}
+.ccard .cn{font-family:var(--disp);font-weight:800;font-size:17px;line-height:1.05}
+.ccard .cn .ch{font-weight:400;font-size:.7em;color:var(--ink-2);margin-left:.3em}
+.ccard .cpref{font-family:var(--mono);font-size:10px;letter-spacing:.05em;color:var(--ink-3);margin-top:4px;text-transform:uppercase}
+.ccard .ctags{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0}
+.ccard .ctag{font-family:var(--mono);font-size:9.5px;padding:2px 7px;border:1px solid var(--line);color:#fff}
+.ccard .cnote{font-size:12.5px;color:var(--ink-2)}
+.ccard .cdd{display:inline-block;margin-top:8px;font-family:var(--mono);font-size:10.5px;color:var(--chop);border-bottom:1px solid var(--chop);text-decoration:none}
+.noresults{font-family:var(--mono);font-size:13px;color:var(--ink-3);padding:24px 0}
+
+.notes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:13px}
+.note{background:var(--paper-2);border:1px solid var(--line);border-left:3px solid var(--chop);padding:15px 17px;font-size:13.5px;color:var(--ink-2)}
+
+footer{background:var(--ink);color:var(--paper-3);padding:40px 0 30px;border-top:3px solid var(--chop)}
+footer h3{color:var(--paper);font-size:22px;margin-bottom:10px}
+footer .meth{font-size:12.5px;line-height:1.6;color:#9FAEAE;max-width:76ch}
+.dl{display:inline-flex;gap:9px;font-family:var(--mono);font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--paper);
+  border:1px solid #3A4A4E;padding:11px 16px;text-decoration:none;margin:16px 10px 0 0;transition:all .15s}
+.dl:hover{background:var(--chop);border-color:var(--chop)}
+footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:26px;border-top:1px solid #2A3A3E;padding-top:16px}
+
+@media(max-width:880px){.mapwrap{grid-template-columns:1fr}#map{height:460px}.searchbox{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="/"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">产业地图 · Industry maps</span></a>
+    <div class="searchbox"><input id="search" type="search" placeholder="search…" autocomplete="off"></div>
+    <a class="back" href="/">← back to atlas</a>
+  </div>
+</header>
+
+<div class="wrap hero">
+  <div class="eyebrow">Industry map · across China</div>
+  <h1 style="margin-top:14px">Molds & plastics<span class="cn">模具塑料</span></h1>
+  <p class="lede" id="lede"></p>
+  <div class="readouts">
+    <div class="readout"><div class="n" id="rCl">—</div><div class="l">Clusters</div></div>
+    <div class="readout"><div class="n" id="rCi">—</div><div class="l">Regions</div></div>
+    <div class="readout"><div class="n" id="rI">—</div><div class="l">Sub-segments</div></div>
+  </div>
+</div>
+
+<section id="map-sec">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">01</span><h2>Where it&#39;s made</h2>
+      <p>Pick a sub-segment — the clusters that own it light up. Hover a pin for the cluster, click for detail.</p></div>
+    <div class="chips" id="catChips"></div>
+    <div class="mapwrap">
+      <div class="mapcard">
+        <div class="maphead"><span class="t">Industry map · 产业地图</span><span class="sc">hover a pin · click for detail</span></div>
+        <div id="map"></div>
+        <div class="legend" id="legend"></div>
+      </div>
+      <div class="mapside"><div class="panel"><h4>Across China</h4><div id="orient"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="directory">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">02</span><h2>Cluster directory, by region</h2>
+      <p>Click a cluster to fly there. Filter above to isolate a sub-segment across China.</p></div>
+    <div id="dir"></div>
+    <div class="noresults" id="noResults" style="display:none">No clusters match. Try another industry or search term.</div>
+  </div>
+</section>
+
+<section id="notes">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">03</span><h2>Field notes</h2>
+      <p>How the industry is distributed.</p></div>
+    <div class="notes-grid" id="notesGrid"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h3>Part of the China Industry Atlas.</h3>
+    <p class="meth" id="meth"></p>
+    <a class="dl" href="/">← Full atlas</a>
+    <a class="dl" href="/#maps">All maps →</a>
+    <a class="dl" href="/#industries">Industry index →</a>
+    <div class="fine">Molds & plastics · industry map · 2026 · cluster locations approximate · basemap © OpenStreetMap, © CARTO.</div>
+  </div>
+</footer>
+
+<script id="ind-data" type="application/json">{"meta":{"title":"Molds & plastics","hanzi":"模具塑料","subtitle":"Where it's made · across China","tagline":"Where molds, tooling and plastic parts are made across China.","clusters":4,"cities":2,"industries":3,"center_lat":31.5,"center_lng":112.0,"methodology":"Cluster locations reuse the China Industry Atlas city coordinates (approximate, plotted on the CARTO basemap). Sub-segment assignments and notes are indicative, drawn from current sourcing knowledge, and shift over time; the big multi-industry cities appear under their dominant role for this industry only."},"categories":[{"id":"molds","name":"Injection molds","color":"#3D6A86"},{"id":"plastics","name":"Plastics & parts","color":"#2E6E6A"},{"id":"tooling","name":"Precision tooling","color":"#46565B"}],"prefectures":[{"id":"prd","name":"Pearl River Delta","hanzi":"珠三角"},{"id":"yrd","name":"Yangtze River Delta","hanzi":"长三角"}],"clusters":[{"id":"taizhou_zj","town":"Taizhou (Zhejiang)","hanzi":"台州","prefecture":"yrd","area":"Zhejiang","primary":"molds","cats":["molds"],"note":"Huangyan — China's mold capital.","lat":28.66,"lng":121.42},{"id":"ningbo","town":"Ningbo","hanzi":"宁波","prefecture":"yrd","area":"Zhejiang","primary":"plastics","cats":["plastics"],"note":"Yuyao Plastic City; Cixi.","lat":29.87,"lng":121.55},{"id":"dongguan","town":"Dongguan","hanzi":"东莞","prefecture":"prd","area":"Guangdong","primary":"tooling","cats":["tooling"],"note":"Chang'an molds, die-casting, CNC.","lat":23.02,"lng":113.75},{"id":"shenzhen","town":"Shenzhen","hanzi":"深圳","prefecture":"prd","area":"Guangdong","primary":"tooling","cats":["tooling"],"note":"Precision tooling for electronics.","lat":22.54,"lng":114.06}],"orientation":[{"k":"Injection molds","v":"Taizhou (Zhejiang)."},{"k":"Plastics & parts","v":"Ningbo."},{"k":"Precision tooling","v":"Dongguan, Shenzhen."}],"notes":["This map shows where molds & plastics is made across China — 4 clusters in 2 of the five mega-regions, grouped by region and coloured by sub-segment.","Each pin marks a cluster's role in this industry; the big cities also make much else. Start from the sub-segment you need, then the region closest to your logistics.","This is the atlas turned ninety degrees: instead of one place and everything it makes, it is one industry and everywhere it is made. For the geography in depth, see the regional and province maps."]}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>window.L||document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"><\/scr'+'ipt>')</script>
+<script>
+const D=JSON.parse(document.getElementById('ind-data').textContent);
+const $=s=>document.querySelector(s), ce=(t,c)=>{const e=document.createElement(t);if(c)e.className=c;return e};
+const CC={}; D.categories.forEach(c=>CC[c.id]=c.color);
+const catName=id=>(D.categories.find(c=>c.id===id)||{}).name||id;
+const prefById=id=>D.prefectures.find(c=>c.id===id)||{};
+
+$('#lede').innerHTML=D.meta.tagline.replace("across China","<b>across China</b>");
+$('#rCl').textContent=D.meta.clusters;
+$('#rCi').textContent=D.meta.cities;
+$('#rI').textContent=D.meta.industries;
+$('#meth').textContent=D.meta.methodology;
+
+/* ---------- map ---------- */
+const map=L.map('map',{scrollWheelZoom:false,zoomControl:true,attributionControl:true})
+  .setView([D.meta.center_lat,D.meta.center_lng],4);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
+  subdomains:'abcd',maxZoom:20,attribution:'&copy; OpenStreetMap &copy; CARTO'
+}).addTo(map);
+
+const markers={};
+D.clusters.forEach(c=>{
+  const m=L.circleMarker([c.lat,c.lng],{radius:8,color:'#ffffff',weight:2,fillColor:CC[c.primary],fillOpacity:1}).addTo(map);
+  m.bindTooltip(c.town+' · '+c.area,{direction:'top',offset:[0,-4],className:'mlabel'});
+  const dd = '';
+  m.bindPopup(`<div class="pop"><div class="pn">${c.town} <span style="font-weight:400;color:#46565B">${c.hanzi}</span></div>
+    <div class="ph">${c.area} · ${prefById(c.prefecture).name} · ${c.cats.map(catName).join(' · ')}</div><div class="pnote">${c.note}</div>${dd}</div>`);
+  m.on('click',()=>flashCard(c.id,false));
+  markers[c.id]=m;
+});
+map.fitBounds(L.featureGroup(Object.values(markers)).getBounds().pad(0.12));
+$('#legend').innerHTML=D.categories.map(c=>`<span><i style="background:${c.color}"></i>${c.name}</span>`).join('');
+
+/* ---------- filter ---------- */
+let activeCat=null;
+const chips=$('#catChips');
+const all=ce('div','chip active');all.textContent='All industries';all.style.background='var(--ink)';all.dataset.cat='';
+all.onclick=()=>selectCat(null);chips.appendChild(all);
+D.categories.forEach(c=>{
+  const ch=ce('div','chip');ch.dataset.cat=c.id;
+  ch.innerHTML=`<span class="cd" style="background:${c.color}"></span>${c.name}`;
+  ch.onclick=()=>selectCat(c.id===activeCat?null:c.id);chips.appendChild(ch);
+});
+function selectCat(id){
+  activeCat=id;
+  document.querySelectorAll('#catChips .chip').forEach(c=>{
+    const on=(c.dataset.cat||'')===(id||'');
+    c.classList.toggle('active',on); c.style.background=on?(id?CC[id]:'var(--ink)'):'';
+  });
+  D.clusters.forEach(c=>{
+    const m=markers[c.id], hit=!id||c.cats.includes(id);
+    m.setStyle({fillOpacity:hit?1:0.15,opacity:hit?1:0.25,radius:id&&hit?10:8});
+  });
+  applyFilter();
+}
+
+/* ---------- directory ---------- */
+const dir=$('#dir');
+function ccard(c){
+  const dd = '';
+  return `<div class="ccard" id="c-${c.id}" data-id="${c.id}">
+    <div class="cn">${c.town}<span class="ch">${c.hanzi}</span></div>
+    <div class="cpref">${c.area}</div>
+    <div class="ctags">${c.cats.map(x=>`<span class="ctag" style="background:${CC[x]}">${catName(x)}</span>`).join('')}</div>
+    <div class="cnote">${c.note}</div>${dd}</div>`;
+}
+function renderDir(){
+  dir.innerHTML='';
+  D.prefectures.forEach(prov=>{
+    const list=D.clusters.filter(c=>c.prefecture===prov.id);
+    if(!list.length) return;
+    const g=ce('div','citygrp');g.dataset.city=prov.id;
+    g.innerHTML=`<div class="city-h"><h3>${prov.name}<span>${prov.hanzi}</span></h3><span class="zone">${list.length} clusters</span></div>
+      <div class="ccards">${list.map(ccard).join('')}</div>`;
+    dir.appendChild(g);
+  });
+  dir.querySelectorAll('.ccard').forEach(el=>el.addEventListener('click',e=>{
+    if(e.target.closest('a'))return; flyTo(el.dataset.id);
+  }));
+}
+function applyFilter(){
+  const q=$('#search').value.trim().toLowerCase(); let vis=0;
+  D.prefectures.forEach(prov=>{
+    const g=dir.querySelector(`[data-city="${prov.id}"]`); if(!g)return; let shown=0;
+    g.querySelectorAll('.ccard').forEach(card=>{
+      const c=D.clusters.find(x=>x.id===card.dataset.id);
+      const inCat=!activeCat||c.cats.includes(activeCat);
+      const hay=(c.town+' '+c.hanzi+' '+c.area+' '+c.note+' '+c.cats.map(catName).join(' ')+' '+prefById(c.prefecture).name).toLowerCase();
+      const show=inCat&&(!q||hay.includes(q)); card.style.display=show?'':'none';
+      if(show){shown++;vis++}
+    });
+    g.style.display=shown?'':'none';
+  });
+  $('#noResults').style.display=vis?'none':'block';
+}
+function flashCard(id,scroll){
+  const c=document.getElementById('c-'+id); if(!c)return;
+  if(scroll!==false)c.scrollIntoView({behavior:'smooth',block:'center'});
+  c.classList.add('flash'); setTimeout(()=>c.classList.remove('flash'),1500);
+}
+function flyTo(id){
+  const m=markers[id];
+  document.getElementById('map-sec').scrollIntoView({behavior:'smooth',block:'start'});
+  if(m) setTimeout(()=>{map.flyTo(m.getLatLng(),12,{duration:.8});m.openPopup();},420);
+}
+renderDir();
+
+$('#orient').innerHTML=D.orientation.map(o=>`<div class="orow"><span class="ok">${o.k}</span><span class="ov">${o.v}</span></div>`).join('');
+$('#notesGrid').innerHTML=D.notes.map(n=>`<div class="note">${n}</div>`).join('');
+$('#search').addEventListener('input',applyFilter);
+setTimeout(()=>map.invalidateSize(),200);
+</script>
+</body>
+</html>
