@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bohai Rim — Industry Cluster Map | China Industry Atlas</title>
-<meta name="description" content="A map of the Bohai Rim's manufacturing clusters: which place makes what across Beijing, Tianjin, Hebei, Shandong and Liaoning, filterable by industry.">
+<title>Shandong — Industry Cluster Map | China Industry Atlas</title>
+<meta name="description" content="A map of Shandong's manufacturing clusters: which town makes what across all 16 prefectures, filterable by industry.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%23C0402A%22%2F%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2216%22%20r%3D%226.5%22%20fill%3D%22none%22%20stroke%3D%22%23E8EAE3%22%20stroke-width%3D%223%22%2F%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2216%22%20r%3D%221.6%22%20fill%3D%22%23E8EAE3%22%2F%3E%3C%2Fsvg%3E">
-<link rel="canonical" href="https://chinaindustryatlas.com/bohai/">
+<link rel="canonical" href="https://chinaindustryatlas.com/shandong/">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://chinaindustryatlas.com/bohai/">
-<meta property="og:title" content="Bohai Rim — Industry Cluster Map">
-<meta property="og:description" content="Which place makes what around the Bohai Sea — Beijing, Tianjin, Hebei, Shandong, Liaoning.">
+<meta property="og:url" content="https://chinaindustryatlas.com/shandong/">
+<meta property="og:title" content="Shandong — Industry Cluster Map">
+<meta property="og:description" content="Which town makes what across Shandong province.">
 <meta property="og:image" content="https://chinaindustryatlas.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -130,15 +130,15 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:2
 <body>
 <header class="top">
   <div class="top-in">
-    <a class="brand" href="/"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">环渤海 · Bohai Rim</span></a>
+    <a class="brand" href="/"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">山东 · Shandong</span></a>
     <div class="searchbox"><input id="search" type="search" placeholder="search…" autocomplete="off"></div>
     <a class="back" href="/">← back to atlas</a>
   </div>
 </header>
 
 <div class="wrap hero">
-  <div class="eyebrow">Deep-dive · 环渤海 · Bohai Economic Rim</div>
-  <h1 style="margin-top:14px">Bohai Rim<span class="cn">环渤海</span></h1>
+  <div class="eyebrow">Deep-dive · 山东 · Shandong</div>
+  <h1 style="margin-top:14px">Shandong<span class="cn">山东</span></h1>
   <p class="lede" id="lede"></p>
   <div class="readouts">
     <div class="readout"><div class="n" id="rCl">—</div><div class="l">Clusters</div></div>
@@ -149,24 +149,24 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:2
 
 <section id="map-sec">
   <div class="wrap">
-    <div class="sec-head"><span class="num">01</span><h2>The rim, by what it makes</h2>
+    <div class="sec-head"><span class="num">01</span><h2>The province, by what it makes</h2>
       <p>Pick an industry — the towns that own it light up. Hover a pin for the town, click for detail.</p></div>
     <div class="chips" id="catChips"></div>
     <div class="mapwrap">
       <div class="mapcard">
-        <div class="maphead"><span class="t">Bohai Rim · 环渤海</span><span class="sc">hover a pin · click for detail</span></div>
+        <div class="maphead"><span class="t">Shandong · 山东</span><span class="sc">hover a pin · click for detail</span></div>
         <div id="map"></div>
         <div class="legend" id="legend"></div>
       </div>
-      <div class="mapside"><div class="panel"><h4>Around the gulf</h4><div id="orient"></div></div></div>
+      <div class="mapside"><div class="panel"><h4>Across Shandong</h4><div id="orient"></div></div></div>
     </div>
   </div>
 </section>
 
 <section id="directory">
   <div class="wrap">
-    <div class="sec-head"><span class="num">02</span><h2>Cluster directory, by province</h2>
-      <p>Click a cluster to fly there. Filter above to isolate an industry across the rim.</p></div>
+    <div class="sec-head"><span class="num">02</span><h2>Cluster directory, by prefecture</h2>
+      <p>Click a cluster to fly there. Filter above to isolate an industry across the province.</p></div>
     <div id="dir"></div>
     <div class="noresults" id="noResults" style="display:none">No clusters match. Try another industry or search term.</div>
   </div>
@@ -175,7 +175,7 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:2
 <section id="notes">
   <div class="wrap">
     <div class="sec-head"><span class="num">03</span><h2>Field notes</h2>
-      <p>How the rim actually works.</p></div>
+      <p>How the province actually works.</p></div>
     <div class="notes-grid" id="notesGrid"></div>
   </div>
 </section>
@@ -185,24 +185,23 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:2
     <h3>Part of the China Industry Atlas.</h3>
     <p class="meth" id="meth"></p>
     <a class="dl" href="/">← Full atlas</a>
-    <a class="dl" href="/prd/">Pearl River Delta →</a>
-    <a class="dl" href="/yrd/">Yangtze River Delta →</a>
-    <a class="dl" href="/shandong/">Shandong →</a>
-    <div class="fine">Bohai cluster overview · 2026 · Coordinates GCJ-02→WGS-84 corrected · basemap © OpenStreetMap, © CARTO.</div>
+    <a class="dl" href="/bohai/">Bohai Rim →</a>
+    <a class="dl" href="/jiangsu/">Jiangsu →</a>
+    <div class="fine">Shandong cluster overview · 2026 · Coordinates GCJ-02→WGS-84 corrected · basemap © OpenStreetMap, © CARTO.</div>
   </div>
 </footer>
 
-<script id="bohai-data" type="application/json">{"meta":{"title":"Bohai Rim","hanzi":"环渤海","subtitle":"Industry-cluster overview","tagline":"China's northern workshop rings a gulf, not a river — heavy industry, brand champions and a hidden belt of one-county-one-product towns. This is the cluster map around the Bohai Sea.","clusters":27,"cities":20,"industries":13,"center_lat":38.59944,"center_lng":118.594317,"methodology":"Place coordinates are from Google Places, converted from China's GCJ-02 datum to WGS-84 to sit correctly on the OpenStreetMap / CARTO basemap. Each pin marks a place's dominant manufacturing or trade specialty drawn from current sourcing guides; clusters are indicative, not exclusive, and shift over time. Scope is the broad Bohai Economic Rim (Beijing, Tianjin, Hebei, Shandong, Liaoning); Jing-Jin-Ji is its core."},"categories":[{"id":"tech","name":"Tech & R&D","color":"#4A6B5E"},{"id":"electronics","name":"Electronics & solar","color":"#2E6E6A"},{"id":"appliances","name":"Home appliances","color":"#3D6A86"},{"id":"vehicles","name":"Vehicles & EV","color":"#46565B"},{"id":"machinery","name":"Machinery & engines","color":"#7A6A52"},{"id":"steel","name":"Steel & heavy metals","color":"#8A5535"},{"id":"chemicals","name":"Chemicals & materials","color":"#7A5A8A"},{"id":"apparel","name":"Apparel & textiles","color":"#C77A4A"},{"id":"footwear","name":"Footwear, leather & fur","color":"#9B5A47"},{"id":"hardware","name":"Hardware & wire","color":"#5A6E2E"},{"id":"bags","name":"Bags & luggage","color":"#B08A3C"},{"id":"shipbuilding","name":"Shipbuilding & marine","color":"#2E5A6E"},{"id":"trade","name":"Wholesale trade","color":"#C0402A"}],"provinces":[{"id":"beijing","name":"Beijing","hanzi":"北京"},{"id":"tianjin","name":"Tianjin","hanzi":"天津"},{"id":"hebei","name":"Hebei","hanzi":"河北"},{"id":"shandong","name":"Shandong","hanzi":"山东"},{"id":"liaoning","name":"Liaoning","hanzi":"辽宁"}],"clusters":[{"id":"zhongguancun","town":"Zhongguancun","hanzi":"中关村","province":"beijing","prefecture":"Haidian","primary":"tech","cats":["tech","electronics"],"note":"China's tech and R&D core — software, AI and chip design; the old electronics malls gave way to startups.","lat":39.978675,"lng":116.309972},{"id":"yizhuang","town":"Yizhuang (BDA)","hanzi":"亦庄","province":"beijing","prefecture":"Daxing","primary":"electronics","cats":["electronics","vehicles"],"note":"Beijing Economic-Technological Development Area — chips (SMIC), displays (BOE), robotics and EVs.","lat":39.790277,"lng":116.482411},{"id":"binhai","town":"Binhai New Area","hanzi":"滨海新区","province":"tianjin","prefecture":"Binhai","primary":"machinery","cats":["machinery","chemicals","vehicles"],"note":"Petrochemicals, Airbus A320 final assembly, autos and offshore equipment; the great northern port.","lat":39.002303,"lng":117.704435},{"id":"wuqing","town":"Wuqing","hanzi":"武清","province":"tianjin","prefecture":"Wuqing","primary":"vehicles","cats":["vehicles"],"note":"China's bicycle and e-bike capital; also autos and parts.","lat":39.382833,"lng":117.037952},{"id":"tangshan","town":"Tangshan","hanzi":"唐山","province":"hebei","prefecture":"Tangshan","primary":"steel","cats":["steel","machinery"],"note":"China's steel capital — more steel than almost any country; also rail stock, ceramics and robots.","lat":39.629142,"lng":118.173942},{"id":"baoding","town":"Baoding","hanzi":"保定","province":"hebei","prefecture":"Baoding","primary":"vehicles","cats":["vehicles","electronics"],"note":"Great Wall Motors' home and 'China Electric Valley' — solar (Yingli), wind and power equipment.","lat":38.87306,"lng":115.458272},{"id":"baigou","town":"Baigou","hanzi":"白沟","province":"hebei","prefecture":"Baoding","primary":"bags","cats":["bags","trade"],"note":"China's luggage and bag capital — a vast production base and wholesale market.","lat":39.127447,"lng":116.038468},{"id":"anping","town":"Anping","hanzi":"安平","province":"hebei","prefecture":"Hengshui","primary":"hardware","cats":["hardware"],"note":"The wire-mesh capital — 6,700+ factories and over half of China's wire-mesh exports.","lat":38.233876,"lng":115.513086},{"id":"xinji","town":"Xinji","hanzi":"辛集","province":"hebei","prefecture":"Shijiazhuang","primary":"footwear","cats":["footwear","apparel"],"note":"One of China's largest leather and fur garment bases and markets.","lat":37.942442,"lng":115.21183},{"id":"gaoyang","town":"Gaoyang","hanzi":"高阳","province":"hebei","prefecture":"Baoding","primary":"apparel","cats":["apparel"],"note":"China's towel capital — towels, bath textiles and bedding.","lat":38.689198,"lng":115.774565},{"id":"qinghe","town":"Qinghe","hanzi":"清河","province":"hebei","prefecture":"Xingtai","primary":"apparel","cats":["apparel"],"note":"China's cashmere capital — the world's largest cashmere processing and trading hub.","lat":37.089932,"lng":115.678435},{"id":"shahe","town":"Shahe","hanzi":"沙河","province":"hebei","prefecture":"Xingtai","primary":"chemicals","cats":["chemicals"],"note":"Flat-glass and glassware capital.","lat":36.905332,"lng":114.578029},{"id":"shijiazhuang","town":"Shijiazhuang","hanzi":"石家庄","province":"hebei","prefecture":"Shijiazhuang","primary":"chemicals","cats":["chemicals","apparel"],"note":"Provincial capital — pharmaceuticals (CSPC) and textiles.","lat":38.042139,"lng":114.508324},{"id":"botou","town":"Botou","hanzi":"泊头","province":"hebei","prefecture":"Cangzhou","primary":"hardware","cats":["hardware","machinery"],"note":"Pipe fittings, casting and auto dies and moulds.","lat":38.083118,"lng":116.572701},{"id":"qingdao","town":"Qingdao","hanzi":"青岛","province":"shandong","prefecture":"Qingdao","primary":"appliances","cats":["appliances","electronics","vehicles"],"note":"Home-appliance capital — Haier, Hisense; plus tires, trains (CRRC Sifang), beer and a top-10 port.","lat":36.065954,"lng":120.377857},{"id":"weifang","town":"Weifang","hanzi":"潍坊","province":"shandong","prefecture":"Weifang","primary":"machinery","cats":["machinery","electronics"],"note":"Diesel engines (Weichai), agricultural machinery and acoustics/MEMS (Goertek).","lat":36.706416,"lng":119.155878},{"id":"jinan","town":"Jinan","hanzi":"济南","province":"shandong","prefecture":"Jinan","primary":"machinery","cats":["machinery","vehicles"],"note":"Heavy trucks (Sinotruk), heavy industry and software.","lat":36.65141,"lng":117.113962},{"id":"zibo","town":"Zibo","hanzi":"淄博","province":"shandong","prefecture":"Zibo","primary":"chemicals","cats":["chemicals"],"note":"Ceramics, petrochemicals and new materials.","lat":36.812576,"lng":118.04872},{"id":"yantai","town":"Yantai","hanzi":"烟台","province":"shandong","prefecture":"Yantai","primary":"vehicles","cats":["vehicles","chemicals"],"note":"Autos and parts, wine and electronics; gold processing at nearby Zhaoyuan.","lat":37.462559,"lng":121.442804},{"id":"weihai","town":"Weihai","hanzi":"威海","province":"shandong","prefecture":"Weihai","primary":"apparel","cats":["apparel"],"note":"Fishing-tackle and outdoor-gear capital; swimwear, tires and marine industries.","lat":37.512449,"lng":122.116655},{"id":"linyi","town":"Linyi","hanzi":"临沂","province":"shandong","prefecture":"Linyi","primary":"trade","cats":["trade"],"note":"Northern China's wholesale-commodity capital — the 'Yiwu of the north'.","lat":35.154517,"lng":118.358579},{"id":"dongying","town":"Dongying","hanzi":"东营","province":"shandong","prefecture":"Dongying","primary":"chemicals","cats":["chemicals"],"note":"Shengli oilfield and the Yellow River Delta — petrochemicals, rubber and oil equipment.","lat":37.432972,"lng":118.668993},{"id":"dezhou","town":"Dezhou","hanzi":"德州","province":"shandong","prefecture":"Dezhou","primary":"electronics","cats":["electronics"],"note":"China's 'Solar Valley' — solar water heaters and renewable-energy equipment (Himin).","lat":37.42209,"lng":116.38923},{"id":"shenyang","town":"Shenyang","hanzi":"沈阳","province":"liaoning","prefecture":"Shenyang","primary":"machinery","cats":["machinery","vehicles"],"note":"Heavy machinery, machine tools, aerospace and autos (BMW Brilliance).","lat":41.802352,"lng":123.426834},{"id":"dalian","town":"Dalian","hanzi":"大连","province":"liaoning","prefecture":"Dalian","primary":"shipbuilding","cats":["shipbuilding","chemicals","electronics"],"note":"Shipbuilding, the great northeastern port, petrochemicals and IT/software outsourcing.","lat":38.913213,"lng":121.609757},{"id":"anshan","town":"Anshan","hanzi":"鞍山","province":"liaoning","prefecture":"Anshan","primary":"steel","cats":["steel"],"note":"Steel city — Ansteel, one of China's oldest iron-and-steel bases.","lat":41.10585,"lng":122.989099},{"id":"wafangdian","town":"Wafangdian","hanzi":"瓦房店","province":"liaoning","prefecture":"Dalian","primary":"machinery","cats":["machinery"],"note":"China's bearing capital.","lat":39.565786,"lng":121.98374}],"orientation":[{"k":"Beijing-Tianjin core","v":"R&D, chips and services in Beijing; petrochem, aerospace, autos and the port in Tianjin — the Jing-Jin-Ji heart."},{"k":"Hebei — heavy + specialty","v":"Tangshan steel plus a belt of one-county-one-product towns: wire mesh (Anping), bags (Baigou), leather/fur (Xinji), towels (Gaoyang), cashmere (Qinghe)."},{"k":"Shandong — appliances & engines","v":"Qingdao appliances, Weifang engines, Jinan trucks, Zibo chemicals, Linyi wholesale — heavy and brand-led."},{"k":"Liaoning — the old base","v":"Shenyang machinery, Dalian shipbuilding, Anshan steel, Wafangdian bearings — China's first heavy-industry heartland."},{"k":"Character","v":"More state-owned and heavy than the southern deltas, but Hebei's county clusters rival anything in Zhejiang."}],"notes":["It is a rim, not a delta: industry rings the Bohai gulf — Liaoning to the north, Hebei and Tianjin to the west, Shandong to the south.","The north skews heavier and more state-owned than the deltas — steel (Tangshan, Anshan), engines (Weifang), trucks (Jinan), ships (Dalian), chemicals — alongside brand champions like Haier and Great Wall.","Yet Hebei hides true single-product clusters every bit as specialised as Zhejiang's: Anping makes the world's wire mesh, Qinghe its cashmere, Baigou its bags, Gaoyang its towels.","Jing-Jin-Ji (Beijing-Tianjin-Hebei) is the official megaregion at the core; Shandong and Liaoning complete the wider Bohai Economic Rim."]}</script>
+<script id="shandong-data" type="application/json">{"meta":{"title":"Shandong","hanzi":"山东","subtitle":"Industry-cluster overview","tagline":"Shandong pairs national brand champions with one-product specialist towns: Haier and Weichai alongside the garlic, gold and fishing-tackle capitals. This is the cluster map of the province.","clusters":26,"cities":16,"industries":13,"center_lat":36.399803,"center_lng":118.294208,"methodology":"Coordinates are from Google Places, converted from China's GCJ-02 datum to WGS-84 to sit correctly on the OpenStreetMap / CARTO basemap. Each pin marks a place's dominant manufacturing specialty drawn from current sourcing guides; clusters are indicative, not exclusive, and shift over time. The map covers all 16 of Shandong's prefecture-level cities; the Bohai Rim overview maps Shandong's coastal majors within its wider region."},"categories":[{"id":"appliances","name":"Home appliances","color":"#3D6A86"},{"id":"electronics","name":"Electronics & acoustics","color":"#2E6E6A"},{"id":"machinery","name":"Machinery & engines","color":"#7A6A52"},{"id":"vehicles","name":"Vehicles & trucks","color":"#46565B"},{"id":"ceramics","name":"Ceramics & glass","color":"#B5495B"},{"id":"food","name":"Food, drink & agriculture","color":"#6E8A3C"},{"id":"metals","name":"Metals & mining","color":"#8A6A3C"},{"id":"materials","name":"Petrochemicals & chemicals","color":"#7A5A8A"},{"id":"textiles","name":"Textiles & apparel","color":"#C77A4A"},{"id":"trade","name":"Wholesale trade","color":"#C0402A"},{"id":"furniture","name":"Furniture & wood","color":"#8A5535"},{"id":"solar","name":"Solar & new energy","color":"#B08A3C"},{"id":"crafts","name":"Crafts & sporting goods","color":"#A85A86"}],"prefectures":[{"id":"qingdao","name":"Qingdao","hanzi":"青岛"},{"id":"weifang","name":"Weifang","hanzi":"潍坊"},{"id":"jinan","name":"Jinan","hanzi":"济南"},{"id":"zibo","name":"Zibo","hanzi":"淄博"},{"id":"yantai","name":"Yantai","hanzi":"烟台"},{"id":"weihai","name":"Weihai","hanzi":"威海"},{"id":"linyi","name":"Linyi","hanzi":"临沂"},{"id":"jining","name":"Jining","hanzi":"济宁"},{"id":"dongying","name":"Dongying","hanzi":"东营"},{"id":"dezhou","name":"Dezhou","hanzi":"德州"},{"id":"zaozhuang","name":"Zaozhuang","hanzi":"枣庄"},{"id":"taian","name":"Tai'an","hanzi":"泰安"},{"id":"rizhao","name":"Rizhao","hanzi":"日照"},{"id":"liaocheng","name":"Liaocheng","hanzi":"聊城"},{"id":"binzhou","name":"Binzhou","hanzi":"滨州"},{"id":"heze","name":"Heze","hanzi":"菏泽"}],"clusters":[{"id":"qingdao","town":"Qingdao","hanzi":"青岛","prefecture":"qingdao","area":"appliances","primary":"appliances","cats":["appliances","electronics"],"note":"Home-appliance capital — Haier, Hisense; plus tires, trains (CRRC Sifang) and Tsingtao beer.","lat":36.065954,"lng":120.377857},{"id":"jimo","town":"Jimo (Qingdao)","hanzi":"即墨·青岛","prefecture":"qingdao","area":"garments","primary":"textiles","cats":["textiles"],"note":"Garment and knitwear wholesale base; one of north China's biggest clothing markets.","lat":36.388989,"lng":120.442064},{"id":"pingdu","town":"Pingdu (Qingdao)","hanzi":"平度·青岛","prefecture":"qingdao","area":"false eyelashes","primary":"crafts","cats":["crafts"],"note":"False-eyelash capital — a large share of the world's lashes and hair products.","lat":36.786413,"lng":119.954738},{"id":"weifang","town":"Weifang","hanzi":"潍坊","prefecture":"weifang","area":"engines","primary":"machinery","cats":["machinery","electronics"],"note":"Diesel engines (Weichai), agricultural machinery (Lovol) and acoustics/MEMS (Goertek); kites.","lat":36.706416,"lng":119.155878},{"id":"shouguang","town":"Shouguang (Weifang)","hanzi":"寿光·潍坊","prefecture":"weifang","area":"vegetables","primary":"food","cats":["food"],"note":"China's vegetable capital — the largest greenhouse-vegetable base and wholesale market.","lat":36.856666,"lng":118.810366},{"id":"jinan","town":"Jinan","hanzi":"济南","prefecture":"jinan","area":"heavy trucks","primary":"vehicles","cats":["vehicles","machinery"],"note":"Heavy-truck capital (Sinotruk); heavy industry, transformers and software.","lat":36.65141,"lng":117.113962},{"id":"zibo","town":"Zibo","hanzi":"淄博","prefecture":"zibo","area":"ceramics","primary":"ceramics","cats":["ceramics","materials"],"note":"Ceramics base — building and art ceramics; petrochemicals and new materials.","lat":36.812576,"lng":118.04872},{"id":"boshan","town":"Boshan (Zibo)","hanzi":"博山·淄博","prefecture":"zibo","area":"glass","primary":"ceramics","cats":["ceramics"],"note":"Lampwork and art-glass capital; daily glassware and inner-painted bottles.","lat":36.494698,"lng":117.855951},{"id":"yantai","town":"Yantai","hanzi":"烟台","prefecture":"yantai","area":"wine","primary":"food","cats":["food","vehicles"],"note":"China's wine capital (Changyu); autos and parts, electronics and seafood.","lat":37.462559,"lng":121.442804},{"id":"zhaoyuan","town":"Zhaoyuan (Yantai)","hanzi":"招远·烟台","prefecture":"yantai","area":"gold","primary":"metals","cats":["metals"],"note":"China's gold capital — gold mining and processing.","lat":37.354374,"lng":120.428987},{"id":"weihai","town":"Weihai","hanzi":"威海","prefecture":"weihai","area":"fishing tackle","primary":"crafts","cats":["crafts","vehicles"],"note":"World fishing-tackle capital — rods and reels; tires (Triangle), swimwear and marine industry.","lat":37.512449,"lng":122.116655},{"id":"linyi","town":"Linyi","hanzi":"临沂","prefecture":"linyi","area":"wholesale trade","primary":"trade","cats":["trade"],"note":"Northern China's wholesale-commodity capital — the 'Yiwu of the north'; vast logistics.","lat":35.154517,"lng":118.358579},{"id":"linyiwood","town":"Linyi (Fei County)","hanzi":"临沂·费县","prefecture":"linyi","area":"plywood","primary":"furniture","cats":["furniture"],"note":"Plywood and engineered-board capital — much of China's plywood output.","lat":35.145716,"lng":117.730101},{"id":"jining","town":"Jining","hanzi":"济宁","prefecture":"jining","area":"construction machinery","primary":"machinery","cats":["machinery"],"note":"Construction and mining machinery (Shantui bulldozers); coal and engineering equipment.","lat":35.415038,"lng":116.581949},{"id":"jinxiang","town":"Jinxiang (Jining)","hanzi":"金乡·济宁","prefecture":"jining","area":"garlic","primary":"food","cats":["food"],"note":"World garlic capital — the dominant garlic production and export base.","lat":35.067164,"lng":116.305931},{"id":"liangshan","town":"Liangshan (Jining)","hanzi":"梁山·济宁","prefecture":"jining","area":"trailers","primary":"vehicles","cats":["vehicles"],"note":"Semi-trailer and special-vehicle capital — China's largest commercial-vehicle base.","lat":35.786523,"lng":116.099993},{"id":"dongying","town":"Dongying","hanzi":"东营","prefecture":"dongying","area":"oil & petrochem","primary":"materials","cats":["materials"],"note":"Shengli oilfield and the Yellow River Delta — petrochemicals, rubber and oil equipment.","lat":37.432972,"lng":118.668993},{"id":"dezhou","town":"Dezhou","hanzi":"德州","prefecture":"dezhou","area":"solar","primary":"solar","cats":["solar"],"note":"'Solar Valley' — solar water heaters and renewable-energy equipment (Himin); HVAC.","lat":37.42209,"lng":116.38923},{"id":"zaozhuang","town":"Zaozhuang","hanzi":"枣庄","prefecture":"zaozhuang","area":"chemicals & lithium","primary":"materials","cats":["materials","solar"],"note":"Coal chemicals and machine tools; a growing lithium-battery and new-energy base.","lat":34.811508,"lng":117.316055},{"id":"taian","town":"Tai'an","hanzi":"泰安","prefecture":"taian","area":"textiles","primary":"textiles","cats":["textiles","machinery"],"note":"Textiles, fibreglass and vehicles; transformers and tourism (Mount Tai).","lat":36.19969,"lng":117.082331},{"id":"rizhao","town":"Rizhao","hanzi":"日照","prefecture":"rizhao","area":"steel & port","primary":"metals","cats":["metals","materials"],"note":"Steel (Rizhao Steel) and a major bulk port; pulp, paper and tires.","lat":35.416749,"lng":119.521763},{"id":"liaocheng","town":"Liaocheng (Linqing)","hanzi":"聊城·临清","prefecture":"liaocheng","area":"bearings","primary":"metals","cats":["metals","machinery"],"note":"Bearings (Linqing) and non-ferrous metals; auto parts.","lat":36.692583,"lng":115.469985},{"id":"binzhou","town":"Binzhou","hanzi":"滨州","prefecture":"binzhou","area":"aluminium & textiles","primary":"metals","cats":["metals","textiles"],"note":"Weiqiao — the world's largest aluminium producer and one of the largest cotton-textile makers.","lat":37.381455,"lng":117.966881},{"id":"boxing","town":"Boxing (Binzhou)","hanzi":"博兴·滨州","prefecture":"binzhou","area":"kitchenware","primary":"metals","cats":["metals"],"note":"Commercial-kitchen and stainless-steel kitchenware capital.","lat":37.027635,"lng":118.247116},{"id":"caoxian","town":"Cao County (Heze)","hanzi":"曹县·菏泽","prefecture":"heze","area":"Hanfu & costumes","primary":"crafts","cats":["crafts","furniture"],"note":"Hanfu and performance-costume capital; coffins and rosewood furniture — a famous e-commerce county.","lat":34.81855,"lng":115.544172},{"id":"heze","town":"Heze","hanzi":"菏泽","prefecture":"heze","area":"peony & pharma","primary":"food","cats":["food","materials"],"note":"Peony capital (oil and tea) and a fine-chemical and pharmaceutical base.","lat":35.234027,"lng":115.475305}],"orientation":[{"k":"Coastal brand champions","v":"Qingdao appliances (Haier, Hisense) and beer, Yantai wine (Changyu), Weihai fishing tackle, Weifang's Weichai engines and Goertek acoustics."},{"k":"Heavy industry","v":"Jinan heavy trucks (Sinotruk), Jining mining and construction machinery (Shantui), Rizhao steel, Dongying's Shengli oilfield and petrochemicals."},{"k":"Agriculture & food","v":"Shouguang the vegetable capital, Jinxiang the world's garlic capital, Heze peony — the plain's food-processing belt."},{"k":"Metals & materials","v":"Zhaoyuan gold, Binzhou's Weiqiao (the world's largest aluminium maker) and cotton textiles, Linqing bearings, Boxing kitchenware."},{"k":"Specialist towns","v":"Liangshan trailers, Pingdu eyelashes, Cao County Hanfu and costumes, Dezhou's Solar Valley, Zibo and Boshan ceramics and glass, Linyi's wholesale-trade city."}],"notes":["Shandong is one of China's biggest manufacturing and agricultural provinces, unusual for how it pairs heavyweight national brands (Haier, Hisense, Weichai, Sinotruk, Tsingtao, Changyu, Weiqiao) with intensely specialised towns.","The coast carries the brand champions and ports (Qingdao, Yantai, Weihai, Rizhao), while the inland plain runs on agriculture, food processing, machinery and metals.","The specialist towns are remarkable: Shouguang grows the nation's vegetables, Jinxiang most of its garlic, Zhaoyuan mines its gold, Weihai makes the world's fishing tackle, Pingdu its false eyelashes, Cao County its Hanfu.","A pin marks a place's dominant specialty, not its only one; the big cities make many things. The Bohai Rim overview maps Shandong's coastal majors alongside Beijing, Tianjin, Hebei and Liaoning; this map zooms in on the whole province."]}</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>window.L||document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"><\/scr'+'ipt>')</script>
 <script>
-const D=JSON.parse(document.getElementById('bohai-data').textContent);
+const D=JSON.parse(document.getElementById('shandong-data').textContent);
 const $=s=>document.querySelector(s), ce=(t,c)=>{const e=document.createElement(t);if(c)e.className=c;return e};
 const CC={}; D.categories.forEach(c=>CC[c.id]=c.color);
 const catName=id=>(D.categories.find(c=>c.id===id)||{}).name||id;
-const provById=id=>D.provinces.find(c=>c.id===id)||{};
+const prefById=id=>D.prefectures.find(c=>c.id===id)||{};
 
-$('#lede').innerHTML=D.meta.tagline.replace("rings a gulf, not a river","<b>rings a gulf, not a river</b>");
+$('#lede').innerHTML=D.meta.tagline.replace("national brand champions","<b>national brand champions</b>");
 $('#rCl').textContent=D.meta.clusters;
 $('#rCi').textContent=D.meta.cities;
 $('#rI').textContent=D.meta.industries;
@@ -210,7 +209,7 @@ $('#meth').textContent=D.meta.methodology;
 
 /* ---------- map ---------- */
 const map=L.map('map',{scrollWheelZoom:false,zoomControl:true,attributionControl:true})
-  .setView([D.meta.center_lat,D.meta.center_lng],6);
+  .setView([D.meta.center_lat,D.meta.center_lng],7);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
   subdomains:'abcd',maxZoom:20,attribution:'&copy; OpenStreetMap &copy; CARTO'
 }).addTo(map);
@@ -218,10 +217,10 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
 const markers={};
 D.clusters.forEach(c=>{
   const m=L.circleMarker([c.lat,c.lng],{radius:8,color:'#ffffff',weight:2,fillColor:CC[c.primary],fillOpacity:1}).addTo(map);
-  m.bindTooltip(c.town+' · '+c.prefecture,{direction:'top',offset:[0,-4],className:'mlabel'});
+  m.bindTooltip(c.town+' · '+c.area,{direction:'top',offset:[0,-4],className:'mlabel'});
   const dd = '';
   m.bindPopup(`<div class="pop"><div class="pn">${c.town} <span style="font-weight:400;color:#46565B">${c.hanzi}</span></div>
-    <div class="ph">${c.prefecture}, ${provById(c.province).name} · ${c.cats.map(catName).join(' · ')}</div><div class="pnote">${c.note}</div>${dd}</div>`);
+    <div class="ph">${c.area}, ${prefById(c.prefecture).name} · ${c.cats.map(catName).join(' · ')}</div><div class="pnote">${c.note}</div>${dd}</div>`);
   m.on('click',()=>flashCard(c.id,false));
   markers[c.id]=m;
 });
@@ -257,14 +256,14 @@ function ccard(c){
   const dd = '';
   return `<div class="ccard" id="c-${c.id}" data-id="${c.id}">
     <div class="cn">${c.town}<span class="ch">${c.hanzi}</span></div>
-    <div class="cpref">${c.prefecture}</div>
+    <div class="cpref">${c.area}</div>
     <div class="ctags">${c.cats.map(x=>`<span class="ctag" style="background:${CC[x]}">${catName(x)}</span>`).join('')}</div>
     <div class="cnote">${c.note}</div>${dd}</div>`;
 }
 function renderDir(){
   dir.innerHTML='';
-  D.provinces.forEach(prov=>{
-    const list=D.clusters.filter(c=>c.province===prov.id);
+  D.prefectures.forEach(prov=>{
+    const list=D.clusters.filter(c=>c.prefecture===prov.id);
     if(!list.length) return;
     const g=ce('div','citygrp');g.dataset.city=prov.id;
     g.innerHTML=`<div class="city-h"><h3>${prov.name}<span>${prov.hanzi}</span></h3><span class="zone">${list.length} clusters</span></div>
@@ -277,12 +276,12 @@ function renderDir(){
 }
 function applyFilter(){
   const q=$('#search').value.trim().toLowerCase(); let vis=0;
-  D.provinces.forEach(prov=>{
+  D.prefectures.forEach(prov=>{
     const g=dir.querySelector(`[data-city="${prov.id}"]`); if(!g)return; let shown=0;
     g.querySelectorAll('.ccard').forEach(card=>{
       const c=D.clusters.find(x=>x.id===card.dataset.id);
       const inCat=!activeCat||c.cats.includes(activeCat);
-      const hay=(c.town+' '+c.hanzi+' '+c.prefecture+' '+c.note+' '+c.cats.map(catName).join(' ')+' '+provById(c.province).name).toLowerCase();
+      const hay=(c.town+' '+c.hanzi+' '+c.area+' '+c.note+' '+c.cats.map(catName).join(' ')+' '+prefById(c.prefecture).name).toLowerCase();
       const show=inCat&&(!q||hay.includes(q)); card.style.display=show?'':'none';
       if(show){shown++;vis++}
     });

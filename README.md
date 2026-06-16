@@ -7,6 +7,7 @@ Static site on GitHub Pages. No build step. Leaflet from cdnjs (unpkg fallback);
 /yrd/ ........................ Yangtze River Delta industry-cluster map
 /bohai/ ...................... Bohai Rim industry-cluster map
 /guangdong/ .................. Guangdong province industry-cluster map (all 21 prefectures)
+/shandong/ ................... Shandong province industry-cluster map (all 16 prefectures)
 /jiangsu/ .................... Jiangsu province industry-cluster map
 /zhejiang/ ................... Zhejiang province industry-cluster map
 /fujian/ ..................... Fujian province industry-cluster map
@@ -19,5 +20,5 @@ CNAME, .nojekyll, robots.txt, sitemap.xml
 
 ## Update the live deploy
     git add -A
-    git commit -m "Add Guangdong province industry-cluster map"
+    git commit -m "Add Shandong province industry-cluster map"
     git push

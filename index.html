@@ -245,6 +245,19 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:3
   .menu-btn{display:block}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
+
+/* maps directory */
+#maps .maps-group{margin-top:30px}
+#maps .maps-group:first-of-type{margin-top:2px}
+#maps .mg-h{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:15px}
+#maps .maps-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:13px}
+.mapcard-link{display:block;text-decoration:none;border:1px solid var(--line);background:var(--paper-2);padding:15px 17px;position:relative;transition:border-color .15s ease,transform .15s ease,box-shadow .15s ease}
+.mapcard-link:hover{border-color:var(--chop);transform:translateY(-2px);box-shadow:0 6px 18px rgba(22,36,42,.07)}
+.mapcard-link .mc-t{font-family:var(--disp);font-weight:700;font-size:17px;color:var(--ink);line-height:1.15}
+.mapcard-link .mc-cn{font-family:var(--disp);font-weight:400;font-size:12.5px;color:var(--ink-3);margin-left:7px}
+.mapcard-link .mc-d{font-family:var(--mono);font-size:11px;letter-spacing:.02em;color:var(--ink-2);margin-top:7px}
+.mapcard-link .mc-ar{position:absolute;top:14px;right:15px;font-size:13px;color:var(--ink-3);transition:color .15s ease,transform .15s ease}
+.mapcard-link:hover .mc-ar{color:var(--chop);transform:translate(2px,-2px)}
 </style>
 </head>
 <body>
@@ -252,18 +265,8 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:3
   <div class="top-in">
     <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">中国产业地图 · One City One Industry</span></div>
     <nav class="main" id="nav">
-      <a href="#map">Map</a><a href="#industries">Industries</a><a href="#cities">Cities</a>
-      <a href="#towns">Towns</a><a href="#logistics">Logistics</a><a href="#notes">Field Notes</a>
-      <a href="/huaqiangbei/" class="nav-dd">Huaqiangbei&#8201;↗</a>
-      <a href="/yiwu/" class="nav-dd">Yiwu&#8201;↗</a>
-      <a href="/prd/" class="nav-dd">PRD&nbsp;map&#8201;↗</a>
-      <a href="/yrd/" class="nav-dd">YRD&nbsp;map&#8201;↗</a>
-      <a href="/bohai/" class="nav-dd">Bohai&nbsp;map&#8201;↗</a>
-      <a href="/guangzhou/" class="nav-dd">Guangzhou&#8201;↗</a>
-      <a href="/fujian/" class="nav-dd">Fujian&nbsp;map&#8201;↗</a>
-      <a href="/zhejiang/" class="nav-dd">Zhejiang&nbsp;map&#8201;↗</a>
-      <a href="/jiangsu/" class="nav-dd">Jiangsu&nbsp;map&#8201;↗</a>
-      <a href="/guangdong/" class="nav-dd">Guangdong&nbsp;map&#8201;↗</a>
+      <a href="#maps">Maps</a><a href="#industries">Industries</a><a href="#cities">Cities</a>
+      <a href="#towns">Towns</a><a href="#logistics">Logistics</a><a href="#notes">Field notes</a>
     </nav>
     <div class="searchbox"><input id="search" type="search" placeholder="search…" autocomplete="off"></div>
     <button class="menu-btn" id="menuBtn" aria-label="Menu">≡</button>
@@ -292,9 +295,45 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:3
   </div>
 </div>
 
+<section id="maps">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">01</span><h2>The maps</h2>
+      <p>Eleven companion maps go deeper than the national overview: three mega-regions, five province deep-dives, and three single-market and building maps. Each opens in its own page.</p></div>
+
+    <div class="maps-group">
+      <div class="mg-h">Mega-regions</div>
+      <div class="maps-grid">
+        <a class="mapcard-link" href="/prd/"><span class="mc-ar">↗</span><div class="mc-t">Pearl River Delta<span class="mc-cn">珠三角</span></div><div class="mc-d">30 clusters · 9 cities</div></a>
+        <a class="mapcard-link" href="/yrd/"><span class="mc-ar">↗</span><div class="mc-t">Yangtze River Delta<span class="mc-cn">长三角</span></div><div class="mc-d">32 clusters · 15 cities</div></a>
+        <a class="mapcard-link" href="/bohai/"><span class="mc-ar">↗</span><div class="mc-t">Bohai Rim<span class="mc-cn">环渤海</span></div><div class="mc-d">27 clusters · 20 cities</div></a>
+      </div>
+    </div>
+
+    <div class="maps-group">
+      <div class="mg-h">Province deep-dives</div>
+      <div class="maps-grid">
+        <a class="mapcard-link" href="/guangdong/"><span class="mc-ar">↗</span><div class="mc-t">Guangdong<span class="mc-cn">广东</span></div><div class="mc-d">32 clusters · 21 prefectures</div></a>
+        <a class="mapcard-link" href="/shandong/"><span class="mc-ar">↗</span><div class="mc-t">Shandong<span class="mc-cn">山东</span></div><div class="mc-d">26 clusters · 16 prefectures</div></a>
+        <a class="mapcard-link" href="/jiangsu/"><span class="mc-ar">↗</span><div class="mc-t">Jiangsu<span class="mc-cn">江苏</span></div><div class="mc-d">27 clusters · 13 prefectures</div></a>
+        <a class="mapcard-link" href="/zhejiang/"><span class="mc-ar">↗</span><div class="mc-t">Zhejiang<span class="mc-cn">浙江</span></div><div class="mc-d">30 clusters · 11 prefectures</div></a>
+        <a class="mapcard-link" href="/fujian/"><span class="mc-ar">↗</span><div class="mc-t">Fujian<span class="mc-cn">福建</span></div><div class="mc-d">21 clusters · 9 prefectures</div></a>
+      </div>
+    </div>
+
+    <div class="maps-group">
+      <div class="mg-h">Markets &amp; buildings</div>
+      <div class="maps-grid">
+        <a class="mapcard-link" href="/guangzhou/"><span class="mc-ar">↗</span><div class="mc-t">Guangzhou markets<span class="mc-cn">广州</span></div><div class="mc-d">20 wholesale markets</div></a>
+        <a class="mapcard-link" href="/huaqiangbei/"><span class="mc-ar">↗</span><div class="mc-t">Huaqiangbei<span class="mc-cn">华强北</span></div><div class="mc-d">16 electronics buildings</div></a>
+        <a class="mapcard-link" href="/yiwu/"><span class="mc-ar">↗</span><div class="mc-t">Yiwu<span class="mc-cn">义乌</span></div><div class="mc-d">6 market districts</div></a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="industries">
   <div class="wrap">
-    <div class="sec-head"><span class="num">01</span><h2>Industry index</h2>
+    <div class="sec-head"><span class="num">02</span><h2>Industry index</h2>
       <p>Start with what you're sourcing. Select a category to highlight the cities that own it.</p></div>
     <div class="matrix" id="matrix"></div>
   </div>
@@ -302,7 +341,7 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:3
 
 <section id="cities">
   <div class="wrap">
-    <div class="sec-head"><span class="num">02</span><h2>The cities</h2>
+    <div class="sec-head"><span class="num">03</span><h2>The cities</h2>
       <p>Grouped by mega-region. Open any card for its markets, districts, anchor firms, and a sourcing note.</p></div>
     <div class="chips" id="regionChips"></div>
     <div id="directory"></div>
@@ -312,7 +351,7 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:3
 
 <section id="towns">
   <div class="wrap">
-    <div class="sec-head"><span class="num">03</span><h2>One-product towns</h2>
+    <div class="sec-head"><span class="num">04</span><h2>One-product towns</h2>
       <p>The purest expression of the principle — single towns that supply much of the world's stock of one thing.</p></div>
     <div class="towns" id="townGrid"></div>
   </div>
@@ -320,7 +359,7 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:3
 
 <section id="logistics">
   <div class="wrap">
-    <div class="sec-head"><span class="num">04</span><h2>Getting it out</h2>
+    <div class="sec-head"><span class="num">05</span><h2>Getting it out</h2>
       <p>Ports, shipping modes, and the Incoterms that decide who carries the risk.</p></div>
     <div class="logi-grid">
       <div>
@@ -339,7 +378,7 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:3
 
 <section id="notes">
   <div class="wrap">
-    <div class="sec-head"><span class="num">05</span><h2>Field notes</h2>
+    <div class="sec-head"><span class="num">06</span><h2>Field notes</h2>
       <p>Sourcing, quality, compliance, and negotiation — the practice behind the map.</p></div>
     <div class="notes-grid" id="notesGrid"></div>
     <div class="cols2" style="margin-top:30px">
