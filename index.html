@@ -258,8 +258,11 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:3
 .mapcard-link .mc-d{font-family:var(--mono);font-size:11px;letter-spacing:.02em;color:var(--ink-2);margin-top:7px}
 .mapcard-link .mc-ar{position:absolute;top:14px;right:15px;font-size:13px;color:var(--ink-3);transition:color .15s ease,transform .15s ease}
 .mapcard-link:hover .mc-ar{color:var(--chop);transform:translate(2px,-2px)}
-.icell h4 .imap{font-family:var(--mono);font-size:10px;letter-spacing:.04em;color:var(--ink-3);text-decoration:none;border-bottom:1px solid var(--line);white-space:nowrap}
-.icell h4 .imap:hover{color:var(--chop);border-bottom-color:var(--chop)}
+.icell{position:relative}
+.icell h4{padding-right:18px}
+.icell .imap-ar{position:absolute;top:14px;right:15px;font-size:13px;color:var(--ink-3);transition:color .15s ease,transform .15s ease}
+.icell:hover{background:var(--paper-3)}
+.icell:hover .imap-ar{color:var(--chop);transform:translate(2px,-2px)}
 </style>
 </head>
 <body>
@@ -286,7 +289,7 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:3
         <div class="readout"><div class="n" id="rTowns">—</div><div class="l">Specialist towns</div></div>
         <div class="readout"><div class="n" id="rRegions">—</div><div class="l">Mega-regions</div></div>
       </div>
-      <div class="hint"><span class="dot"></span> Pick an industry below to light up its cities</div>
+      <div class="hint"><span class="dot"></span> Pick an industry below to open its where-it&#39;s-made map</div>
     </div>
     <div class="mapcard" id="map">
       <span class="corner c-tl"></span><span class="corner c-tr"></span><span class="corner c-bl"></span><span class="corner c-br"></span>
@@ -361,7 +364,7 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:3
 <section id="industries">
   <div class="wrap">
     <div class="sec-head"><span class="num">02</span><h2>Industry index</h2>
-      <p>Start with what you're sourcing. Select a category to highlight the cities that own it.</p></div>
+      <p>Start with what you're sourcing. Open any category for a national map of where it&#39;s made.</p></div>
     <div class="matrix" id="matrix"></div>
   </div>
 </section>
@@ -515,9 +518,9 @@ let activeIndustry=null;
 const matrix=$('#matrix');
 DATA.industry_index.forEach(row=>{
   const cell=ce('div','icell'); cell.dataset.ind=row.industry;
-  cell.innerHTML=`<h4>${row.industry}${row.slug?` <a class="imap" href="/industry/${row.slug}/">map&#8202;↗</a>`:``}</h4><div class="ip">${row.products}</div>
+  cell.innerHTML=`<h4>${row.industry}<span class="imap-ar">↗</span></h4><div class="ip">${row.products}</div>
     <div class="ic">${row.cities.map(id=>(DATA.cities.find(c=>c.id===id)||{}).name).filter(Boolean).join(' · ')}</div>`;
-  cell.addEventListener('click',e=>{if(e.target.closest('a'))return;selectIndustry(row.industry===activeIndustry?null:row.industry);});
+  cell.addEventListener('click',()=>{if(row.slug)location.href='/industry/'+row.slug+'/';});
   matrix.appendChild(cell);
 });
 function selectIndustry(ind){
