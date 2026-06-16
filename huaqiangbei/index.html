@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Huaqiangbei — Building & Floor Map | China Industry Atlas</title>
+<meta name="description" content="A real map of Shenzhen's Huaqiangbei electronics market: every tower and market pinned on its true location, filterable by what you're sourcing.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%23C0402A%22%2F%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2216%22%20r%3D%226.5%22%20fill%3D%22none%22%20stroke%3D%22%23E8EAE3%22%20stroke-width%3D%223%22%2F%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2216%22%20r%3D%221.6%22%20fill%3D%22%23E8EAE3%22%2F%3E%3C%2Fsvg%3E">
+<link rel="canonical" href="https://chinaindustryatlas.com/huaqiangbei/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://chinaindustryatlas.com/huaqiangbei/">
+<meta property="og:title" content="Huaqiangbei — Building & Floor Map">
+<meta property="og:description" content="A real map of the world's largest electronics market, filterable by what you're sourcing.">
+<meta property="og:image" content="https://chinaindustryatlas.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./leaflet.css">
+<style>
+:root{
+  --paper:#E8EAE3;--paper-2:#F2F3EE;--paper-3:#DFE2DA;
+  --ink:#16242A;--ink-2:#46565B;--ink-3:#6C7A7E;
+  --line:#C7CCC3;--line-2:#D6DAD2;--chop:#C0402A;--brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;--body:"Hanken Grotesk",system-ui,sans-serif;--mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;background-image:radial-gradient(var(--line-2) .5px,transparent .5px);background-size:22px 22px}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--disp);font-weight:800;line-height:1.05;margin:0;letter-spacing:-0.01em}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-3)}
+header.top{position:sticky;top:0;z-index:1100;background:rgba(232,234,227,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top-in{display:flex;align-items:center;gap:18px;height:62px;max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.brand{display:flex;flex-direction:column;line-height:1;text-decoration:none}
+.brand .b1{font-family:var(--disp);font-weight:800;font-size:17px;letter-spacing:-.02em}
+.brand .b2{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--ink-3);margin-top:3px;text-transform:uppercase}
+.back{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none;border-bottom:1.5px solid transparent;padding-bottom:2px}
+.back:hover{color:var(--ink);border-bottom-color:var(--chop)}
+.searchbox{position:relative}
+#search{font-family:var(--mono);font-size:12px;border:1px solid var(--line);background:var(--paper-2);padding:8px 10px 8px 28px;width:160px;color:var(--ink);outline:none}
+#search:focus{border-color:var(--ink-2)}
+.searchbox::before{content:"\2315";position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--ink-3);font-size:15px}
+
+.hero{padding:42px 0 16px}
+.hero h1{font-size:clamp(40px,6vw,76px);letter-spacing:-.03em}
+.hero h1 .cn{font-weight:400;font-size:.4em;color:var(--ink-2);margin-left:.3em;letter-spacing:.06em}
+.lede{font-size:18px;color:var(--ink-2);margin:18px 0 0;max-width:64ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:24px;max-width:520px}
+.readout{flex:1;padding:12px 0}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-top:6px}
+
+section{padding:44px 0;border-top:1px solid var(--line)}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:20px;flex-wrap:wrap}
+.sec-head .num{font-family:var(--mono);font-size:12px;color:var(--chop)}
+.sec-head h2{font-size:clamp(24px,3.2vw,36px)}
+.sec-head p{color:var(--ink-2);font-size:14.5px;margin:0;max-width:54ch}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.chip{font-family:var(--mono);font-size:11.5px;letter-spacing:.03em;padding:7px 12px;border:1px solid var(--line);background:var(--paper-2);
+  cursor:pointer;color:var(--ink-2);transition:all .15s;white-space:nowrap}
+.chip:hover{border-color:var(--ink-2);color:var(--ink)}
+.chip.active{color:#fff;border-color:transparent}
+.chip .cd{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+
+.mapwrap{display:grid;grid-template-columns:1.32fr .68fr;gap:22px;align-items:start}
+.mapcard{border:1px solid var(--ink);position:relative;background:var(--paper-3)}
+#map{height:580px;width:100%;background:var(--paper-3)}
+.leaflet-container{font-family:var(--mono);background:var(--paper-3)}
+.mlabel{background:rgba(242,243,238,.92);border:1px solid var(--line);border-radius:0;color:var(--ink);
+  font-family:var(--mono);font-size:10px;font-weight:700;padding:1px 5px;box-shadow:none;white-space:nowrap}
+.mlabel::before{display:none}
+.leaflet-popup-content-wrapper{border-radius:0;background:var(--paper-2);border:1px solid var(--ink);box-shadow:5px 5px 0 rgba(22,36,42,.18)}
+.leaflet-popup-content{margin:12px 14px;font-family:var(--body)}
+.leaflet-popup-tip{background:var(--paper-2);border:1px solid var(--ink)}
+.pop .pn{font-family:var(--disp);font-weight:800;font-size:16px}
+.pop .ph{font-family:var(--mono);font-size:11px;color:var(--ink-2);margin:2px 0 7px}
+.pop .pf{font-size:12px;color:var(--ink);border-left:3px solid var(--brass);padding-left:8px;margin-bottom:7px}
+.pop .pnote{font-size:12.5px;color:var(--ink-2)}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line);background:var(--paper-2)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+.legend{display:flex;flex-wrap:wrap;gap:9px 13px;padding:11px 15px;border-top:1px solid var(--line);background:var(--paper-2);font-family:var(--mono);font-size:10px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.legend i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.mapside .panel{background:var(--paper-2);border:1px solid var(--line);padding:16px 18px}
+.mapside .panel h4{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--chop);margin-bottom:10px}
+.orow{display:flex;gap:10px;padding:7px 0;border-bottom:1px dotted var(--line);font-size:13px}
+.orow:last-child{border-bottom:0}
+.orow .ok{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink);min-width:92px;flex:0 0 92px}
+.orow .ov{color:var(--ink-2)}
+
+.tier{margin-top:28px}
+.tier-h{display:flex;align-items:baseline;gap:12px;border-bottom:1.5px solid var(--ink);padding-bottom:9px;margin-bottom:14px}
+.tier-h h3{font-size:21px}.tier-h .tb{font-size:13px;color:var(--ink-2)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:13px}
+.bcard{background:var(--paper-2);border:1px solid var(--line);padding:16px 17px;scroll-margin-top:84px;transition:border-color .15s,box-shadow .15s;cursor:pointer}
+.bcard:hover{border-color:var(--ink-2)}
+.bcard.flash{border-color:var(--chop);box-shadow:5px 5px 0 var(--chop)}
+.bcard .bn{font-family:var(--disp);font-weight:800;font-size:19px;line-height:1.05}
+.bcard .bh{font-family:var(--mono);font-size:11.5px;color:var(--ink-2);margin-top:4px}
+.bcard .baddr{font-family:var(--mono);font-size:10px;letter-spacing:.04em;color:var(--ink-3);margin-top:7px}
+.bcard .btags{display:flex;flex-wrap:wrap;gap:5px;margin:10px 0}
+.bcard .btag{font-family:var(--mono);font-size:10px;padding:2px 7px;border:1px solid var(--line);color:#fff}
+.bcard .bfloors{font-size:12.5px;color:var(--ink);background:var(--paper);border-left:3px solid var(--brass);padding:7px 10px;margin:4px 0 10px}
+.bcard .bfloors .fl{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--brass);display:block;margin-bottom:3px}
+.bcard .bnote{font-size:13.5px;color:var(--ink-2)}
+.noresults{font-family:var(--mono);font-size:13px;color:var(--ink-3);padding:24px 0}
+
+.notes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:13px}
+.note{background:var(--paper-2);border:1px solid var(--line);border-left:3px solid var(--chop);padding:15px 17px;font-size:13.5px;color:var(--ink-2)}
+
+footer{background:var(--ink);color:var(--paper-3);padding:40px 0 30px;border-top:3px solid var(--chop)}
+footer h3{color:var(--paper);font-size:22px;margin-bottom:10px}
+footer .meth{font-size:12.5px;line-height:1.6;color:#9FAEAE;max-width:74ch}
+.dl{display:inline-flex;gap:9px;font-family:var(--mono);font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--paper);
+  border:1px solid #3A4A4E;padding:11px 16px;text-decoration:none;margin:16px 10px 0 0;transition:all .15s}
+.dl:hover{background:var(--chop);border-color:var(--chop)}
+footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:26px;border-top:1px solid #2A3A3E;padding-top:16px}
+
+@media(max-width:880px){.mapwrap{grid-template-columns:1fr}#map{height:440px}.searchbox{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="/"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">华强北 · Huaqiangbei deep-dive</span></a>
+    <div class="searchbox"><input id="search" type="search" placeholder="search…" autocomplete="off"></div>
+    <a class="back" href="/">← back to atlas</a>
+  </div>
+</header>
+
+<div class="wrap hero">
+  <div class="eyebrow">Deep-dive · Shenzhen · 深圳</div>
+  <h1 style="margin-top:14px">Huaqiangbei<span class="cn">华强北</span></h1>
+  <p class="lede" id="lede"></p>
+  <div class="readouts">
+    <div class="readout"><div class="n" id="rB">—</div><div class="l">Buildings mapped</div></div>
+    <div class="readout"><div class="n" id="rM">—</div><div class="l">Merchants</div></div>
+    <div class="readout"><div class="n" id="rA">—</div><div class="l">Square km</div></div>
+  </div>
+</div>
+
+<section id="map-sec">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">01</span><h2>The district, by building</h2>
+      <p>Real coordinates on a live map. Pick what you're sourcing — the buildings that carry it light up.</p></div>
+    <div class="chips" id="catChips"></div>
+    <div class="mapwrap">
+      <div class="mapcard">
+        <div class="maphead"><span class="t">Huaqiangbei · 华强北</span><span class="sc">click a pin for detail</span></div>
+        <div id="map"></div>
+        <div class="legend" id="legend"></div>
+      </div>
+      <div class="mapside"><div class="panel"><h4>Orientation</h4><div id="orient"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="directory">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">02</span><h2>Building directory</h2>
+      <p>Grouped by role. Click a card to fly there on the map.</p></div>
+    <div id="dir"></div>
+    <div class="noresults" id="noResults" style="display:none">No buildings match. Try another category or search term.</div>
+  </div>
+</section>
+
+<section id="notes">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">03</span><h2>Field notes</h2>
+      <p>What the tourist guides leave out.</p></div>
+    <div class="notes-grid" id="notesGrid"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h3>Part of the China Industry Atlas.</h3>
+    <p class="meth" id="meth"></p>
+    <a class="dl" href="/">← Full atlas</a>
+    <a class="dl" href="/China-Industry-Atlas-2026.pdf" download>↓ Field guide (PDF)</a>
+    <div class="fine">Huaqiangbei deep-dive · 2026 · Coordinates GCJ-02→WGS-84 corrected · basemap © OpenStreetMap, © CARTO.</div>
+  </div>
+</footer>
+
+<script id="hqb-data" type="application/json">{"meta":{"title":"Huaqiangbei","hanzi":"华强北","subtitle":"Building & floor directory","tagline":"The world's largest electronics market is not one place — it's ~20 vertical malls, each owning a category. This is the building-by-building map, on real coordinates.","area":"1.45 km²","merchants":"200,000+","center_lat":22.544784,"center_lng":114.082071,"methodology":"Building locations are real coordinates from Google Places, converted from China's GCJ-02 datum to WGS-84 so they sit correctly on the OpenStreetMap / CARTO basemap. Built in the spirit of Andrew “bunnie” Huang's classic map but drawn fresh; it does not reproduce his work. Pins are accurate to the building; floor details are approximate and booth-level vendor lists are omitted because they change too fast to trust."},"categories":[{"id":"components","name":"Components & ICs","color":"#C0402A"},{"id":"phones","name":"Phones & parts","color":"#2E6E6A"},{"id":"consumer","name":"Consumer electronics","color":"#9C7A3C"},{"id":"computers","name":"Computers","color":"#3D6A86"},{"id":"accessories","name":"Accessories & cases","color":"#A8606F"},{"id":"security","name":"Security & CCTV","color":"#5A6E2E"},{"id":"cameras","name":"Cameras","color":"#46565B"},{"id":"cosmetics","name":"Cosmetics (yes, really)","color":"#8A5A86"}],"tiers":[{"id":"anchor","name":"Anchor towers","blurb":"If you only work four buildings, these are them."},{"id":"phones","name":"Phones & mobile parts","blurb":"Where you can assemble a phone from loose parts."},{"id":"components","name":"Components & broad-line","blurb":"Parts, computers, and one-stop export markets."},{"id":"niche","name":"Niche & specialist","blurb":"Single-category buildings worth a dedicated trip."}],"buildings":[{"id":"seg_plaza","name":"SEG Plaza","short":"SEG Plaza","hanzi":"赛格电子市场 / 赛格广场","tier":"anchor","primary":"components","cats":["components","computers","consumer"],"addr":"1002 Huaqiang North Rd","floors":"Market on the lower floors (≈1–10); upper floors are trading-company offices","note":"The component heart of the district and its main landmark — ICs, PCBs, passives, connectors, batteries, power supplies, tools. The ground floor leans components and small digital. Start here.","lat":22.544013,"lng":114.082462},{"id":"seg_market","name":"SEG Electronics Market","short":"SEG Electronics Mkt","hanzi":"赛格电子市场","tier":"anchor","primary":"components","cats":["components","computers"],"addr":"Beside SEG Plaza (linked by flyover)","floors":"About 5 floors","note":"The original booth-style component market next to the tower — five floors of parts and gadgets, bargain everything. With SEG Plaza this is the deepest component pool in the district.","lat":22.544177,"lng":114.082005},{"id":"huaqiang_ew","name":"Huaqiang Electronic World","short":"Huaqiang EW","hanzi":"华强电子世界","tier":"anchor","primary":"consumer","cats":["consumer","components","computers","accessories"],"addr":"1015 Huaqiang North Rd","floors":"Floors 1–4, each a different category","note":"The more modern face of HQB — proper storefronts rather than booths, skewing to finished goods and consumer electronics. Strong for accessories, audio, LED, assembled goods, and second-hand computers.","lat":22.545608,"lng":114.080929},{"id":"mingtong","name":"Mingtong Digital City","short":"Mingtong","hanzi":"明通数码城","tier":"anchor","primary":"cosmetics","cats":["cosmetics","phones"],"addr":"23 Huafa North Rd (near Exit D)","floors":"Multi-floor","note":"The big caveat: Mingtong has pivoted heavily to imported beauty and cosmetics. Phone screens, batteries and repair parts still trade here, but expect roughly half the building to be cosmetics now.","lat":22.547849,"lng":114.083838},{"id":"yuanwang","name":"Yuanwang Digital Mall","short":"Yuanwang","hanzi":"远望数码城","tier":"anchor","primary":"phones","cats":["phones","accessories","cameras"],"addr":"Shennan Middle Rd","floors":"Floors 1–2 phones, parts, chargers, cases, screens, batteries · Floor 3 bulk and refurbished phones with on-site repair · cameras, laptops and security gear higher up","note":"The mobile-phone epicenter — wholesale parts, screen replacements, and used/refurbished phones graded by condition. The district's main phone-repair and second-hand hub.","lat":22.542894,"lng":114.083325},{"id":"tongtiandi","name":"Tongtiandi Telecom Market","short":"Tongtiandi","hanzi":"通天地通讯市场","tier":"phones","primary":"phones","cats":["phones"],"addr":"2071 Shennan Middle Rd","floors":"Top floor finished phones · middle floors MacBooks, iPads, watches, batteries · lower floors iPhone components. Cash, little English, closes ~8:30pm","note":"The big second-hand iPhone market — every part to rebuild a phone, plus finished devices traded in bulk.","lat":22.542993,"lng":114.084893},{"id":"longsheng","name":"Longsheng Phone Wholesale Center","short":"Longsheng","hanzi":"龙胜手机批发","tier":"phones","primary":"phones","cats":["phones","accessories"],"addr":"1 Huafa North Rd","floors":"Multi-floor","note":"A dedicated mobile-phone and accessories wholesale center in the northern phone cluster.","lat":22.546301,"lng":114.083962},{"id":"hualianfa","name":"Hualianfa Building","short":"Hualianfa","hanzi":"华联发大厦","tier":"phones","primary":"phones","cats":["phones"],"addr":"2006 Huaqiang North Rd","floors":"Phone wholesale, floors 1–5","note":"Wholesale of the latest finished phones — iPhone, Xiaomi, Huawei, Samsung and the domestic brands.","lat":22.547435,"lng":114.08193},{"id":"manhar","name":"Manha Commercial Plaza","short":"Manha","hanzi":"曼哈数码广场","tier":"phones","primary":"phones","cats":["phones","consumer"],"addr":"2022 Huaqiang North Rd","floors":"Multi-floor","note":"Second-hand phones and assorted wholesale goods, next to Yuanwang in the northern cluster.","lat":22.548195,"lng":114.081895},{"id":"yitong","name":"Yiyitong Phone Accessories","short":"Yiyitong","hanzi":"一一通手机配件","tier":"phones","primary":"accessories","cats":["accessories","phones"],"addr":"Near Huaqiangbei station (Shennan Middle Rd)","floors":"Multi-floor","note":"Phone parts and accessories beside the metro — cases, cables, spares of every kind.","lat":22.542857,"lng":114.08132},{"id":"intl_ec","name":"Shenzhen International Electronics City","short":"Intl Electronics City","hanzi":"国际电子城","tier":"components","primary":"consumer","cats":["consumer","security","cameras","computers"],"addr":"1022 Huaqiang North Rd","floors":"F1 branded phones, security, comms, appliances, repair · F2 stage audio, cameras, game consoles, computers","note":"Smaller but broad — a good single stop for pro-audio, cameras and a mix of categories.","lat":22.545002,"lng":114.082277},{"id":"baohua","name":"Baohua Building","short":"Baohua","hanzi":"宝华大厦","tier":"components","primary":"computers","cats":["computers","consumer"],"addr":"1016 Huaqiang North Rd","floors":"Multi-floor","note":"Computer and digital products from ISO9001-certified vendors; tidy underground shops.","lat":22.544581,"lng":114.081958},{"id":"cybermart","name":"Saibo Digital Plaza","short":"Saibo","hanzi":"赛博数码广场","tier":"components","primary":"computers","cats":["computers","consumer","phones"],"addr":"1050 Huaqiang North Rd (floors 1–4)","floors":"Floors 1–4","note":"Communications, electronic and digital goods across many brands; cheap and broad.","lat":22.546849,"lng":114.081992},{"id":"xinyazhou","name":"Xinyazhou Electronics Market","short":"Xinyazhou","hanzi":"新亚洲电子商城","tier":"components","primary":"components","cats":["components"],"addr":"213 Zhenzhong Rd","floors":"Multi-floor","note":"Electronic components with one-stop service including customs clearance, tax and logistics — useful for export buyers.","lat":22.545366,"lng":114.079811},{"id":"pacific_sec","name":"Pacific Security Market","short":"Pacific Security","hanzi":"太平洋安防专业市场","tier":"niche","primary":"security","cats":["security","accessories"],"addr":"181 Zhenzhong Rd","floors":"Basement–4F now phone cases · 5–6F security & surveillance","note":"Once the pure security market; today its lower floors are wall-to-wall phone cases (a major bulk-buy source) with CCTV, cameras and access control pushed up to floors 5–6.","lat":22.545282,"lng":114.083146},{"id":"duhui","name":"Duhui Electronic City","short":"Duhui","hanzi":"都会电子城","tier":"niche","primary":"consumer","cats":["consumer"],"addr":"Erhao Rd (Duhui 100 Bldg)","floors":"Multi-floor","note":"A more modern mall on the western edge with business, storage and transport services bundled in.","lat":22.544439,"lng":114.080052}],"orientation":[{"k":"Getting there","v":"Metro Line 1, 2 or 7 to Huaqiangbei Station. Exit C is closest to SEG Plaza; Exit D is closest to Mingtong and Huaqiang Electronic World. About 10 minutes from the Futian / Hong Kong border crossing."},{"k":"Components","v":"SEG Plaza and the SEG Electronics Market first — ICs, PCBs, passives, connectors, tools."},{"k":"Consumer electronics","v":"Huaqiang Electronic World; Saibo for cheap broad-line."},{"k":"Phones & parts","v":"Yuanwang and the northern cluster (Longsheng, Manha); Tongtiandi for iPhone parts."},{"k":"Phone cases in bulk","v":"Pacific Security's lower floors — now a phone-case bazaar."},{"k":"Security / cameras","v":"Pacific Security (floors 5–6); cameras also at International Electronics City."},{"k":"Pace","v":"Work one or two buildings per day. Trying to cover everything in a day is how you see nothing."}],"notes":["Building and floor are the durable unit. Individual booths churn constantly — the SEG component floor is stable; the specific vendor on it next year may not be.","The grey-market and second-hand phone trade runs openly in the northern buildings. Verify provenance and IMEI on anything sold as new, sealed, or pre-owned.","Prices for obvious foreign visitors get marked up. A calculator, a target price, and willingness to walk are the whole negotiation.","The line between the physical market and online (1688, Pinduoduo, livestream) has blurred — many booths are now fulfilment fronts for online stores."]}</script>
+<script src="./leaflet.js"></script>
+<script>
+const D=JSON.parse(document.getElementById('hqb-data').textContent);
+const $=s=>document.querySelector(s), ce=(t,c)=>{const e=document.createElement(t);if(c)e.className=c;return e};
+const CC={}; D.categories.forEach(c=>CC[c.id]=c.color);
+const catName=id=>(D.categories.find(c=>c.id===id)||{}).name||id;
+
+$('#lede').innerHTML=D.meta.tagline.replace("~20 vertical malls","<b>~20 vertical malls</b>");
+$('#rB').textContent=D.buildings.length;
+$('#rM').textContent=D.meta.merchants;
+$('#rA').textContent=D.meta.area.replace(' km²','');
+$('#meth').textContent=D.meta.methodology;
+
+/* ---------- Leaflet map ---------- */
+const map=L.map('map',{scrollWheelZoom:false,zoomControl:true,attributionControl:true})
+  .setView([D.meta.center_lat,D.meta.center_lng],16);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
+  subdomains:'abcd',maxZoom:20,attribution:'&copy; OpenStreetMap &copy; CARTO'
+}).addTo(map);
+
+const markers={};
+D.buildings.forEach(b=>{
+  const m=L.circleMarker([b.lat,b.lng],{
+    radius:b.tier==='anchor'?9:6.5, color:'#ffffff', weight:2, fillColor:CC[b.primary], fillOpacity:1
+  }).addTo(map);
+  m.bindTooltip(b.short,{permanent:b.tier==='anchor',direction:'right',offset:[6,0],className:'mlabel'});
+  m.bindPopup(`<div class="pop"><div class="pn">${b.name}</div><div class="ph">${b.hanzi} · ${b.addr}</div>
+    ${b.floors?`<div class="pf">${b.floors}</div>`:''}<div class="pnote">${b.note}</div></div>`);
+  m.on('click',()=>flashCard(b.id,false));
+  m._b=b; markers[b.id]=m;
+});
+const grp=L.featureGroup(Object.values(markers)); map.fitBounds(grp.getBounds().pad(0.18));
+
+$('#legend').innerHTML=D.categories.map(c=>`<span><i style="background:${c.color}"></i>${c.name}</span>`).join('');
+
+/* ---------- category filter ---------- */
+let activeCat=null;
+const chips=$('#catChips');
+const all=ce('div','chip active');all.textContent='All categories';all.style.background='var(--ink)';all.dataset.cat='';
+all.onclick=()=>selectCat(null);chips.appendChild(all);
+D.categories.forEach(c=>{
+  const ch=ce('div','chip');ch.dataset.cat=c.id;
+  ch.innerHTML=`<span class="cd" style="background:${c.color}"></span>${c.name}`;
+  ch.onclick=()=>selectCat(c.id===activeCat?null:c.id);chips.appendChild(ch);
+});
+function selectCat(id){
+  activeCat=id;
+  document.querySelectorAll('#catChips .chip').forEach(c=>{
+    const on=(c.dataset.cat||'')===(id||'');
+    c.classList.toggle('active',on); c.style.background=on?(id?CC[id]:'var(--ink)'):'';
+  });
+  D.buildings.forEach(b=>{
+    const m=markers[b.id], hit=!id||b.cats.includes(id);
+    m.setStyle({fillOpacity:hit?1:0.18, opacity:hit?1:0.25, radius:(b.tier==='anchor'?9:6.5)*(id&&hit?1.3:1)});
+    const tt=m.getTooltip();
+    if(tt){ if(id){ hit?m.openTooltip():m.closeTooltip(); } else { b.tier==='anchor'?m.openTooltip():m.closeTooltip(); } }
+  });
+  applyFilter();
+}
+
+/* ---------- directory ---------- */
+const dir=$('#dir');
+function card(b){
+  return `<div class="bcard" id="b-${b.id}" data-id="${b.id}">
+    <div class="bn">${b.name}</div><div class="bh">${b.hanzi}</div>
+    <div class="baddr">${b.addr}</div>
+    <div class="btags">${b.cats.map(c=>`<span class="btag" style="background:${CC[c]}">${catName(c)}</span>`).join('')}</div>
+    ${b.floors?`<div class="bfloors"><span class="fl">Floors</span>${b.floors}</div>`:''}
+    <div class="bnote">${b.note}</div></div>`;
+}
+function renderDir(){
+  dir.innerHTML='';
+  D.tiers.forEach(t=>{
+    const list=D.buildings.filter(b=>b.tier===t.id);
+    const g=ce('div','tier');g.dataset.tier=t.id;
+    g.innerHTML=`<div class="tier-h"><h3>${t.name}</h3><span class="tb">${t.blurb}</span></div><div class="cards">${list.map(card).join('')}</div>`;
+    dir.appendChild(g);
+  });
+  dir.querySelectorAll('.bcard').forEach(c=>c.addEventListener('click',()=>flyTo(c.dataset.id)));
+}
+function applyFilter(){
+  const q=$('#search').value.trim().toLowerCase(); let vis=0;
+  D.tiers.forEach(t=>{
+    const g=dir.querySelector(`[data-tier="${t.id}"]`); let shown=0;
+    g.querySelectorAll('.bcard').forEach(card=>{
+      const b=D.buildings.find(x=>x.id===card.dataset.id);
+      const inCat=!activeCat||b.cats.includes(activeCat);
+      const hay=(b.name+' '+b.hanzi+' '+b.addr+' '+(b.floors||'')+' '+b.note+' '+b.cats.map(catName).join(' ')).toLowerCase();
+      const show=inCat&&(!q||hay.includes(q)); card.style.display=show?'':'none';
+      if(show){shown++;vis++}
+    });
+    g.style.display=shown?'':'none';
+  });
+  $('#noResults').style.display=vis?'none':'block';
+}
+function flashCard(id,scroll){
+  const c=document.getElementById('b-'+id); if(!c)return;
+  if(scroll!==false)c.scrollIntoView({behavior:'smooth',block:'center'});
+  c.classList.add('flash'); setTimeout(()=>c.classList.remove('flash'),1500);
+}
+function flyTo(id){
+  const m=markers[id]; if(!m)return;
+  document.getElementById('map-sec').scrollIntoView({behavior:'smooth',block:'start'});
+  setTimeout(()=>{map.flyTo(m.getLatLng(),18,{duration:.8});m.openPopup();},420);
+}
+renderDir();
+
+$('#orient').innerHTML=D.orientation.map(o=>`<div class="orow"><span class="ok">${o.k}</span><span class="ov">${o.v}</span></div>`).join('');
+$('#notesGrid').innerHTML=D.notes.map(n=>`<div class="note">${n}</div>`).join('');
+$('#search').addEventListener('input',applyFilter);
+setTimeout(()=>map.invalidateSize(),200);
+</script>
+</body>
+</html>
