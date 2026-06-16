@@ -255,6 +255,7 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:3
       <a href="#map">Map</a><a href="#industries">Industries</a><a href="#cities">Cities</a>
       <a href="#towns">Towns</a><a href="#logistics">Logistics</a><a href="#notes">Field Notes</a>
       <a href="/huaqiangbei/" class="nav-dd">Huaqiangbei&#8201;↗</a>
+      <a href="/yiwu/" class="nav-dd">Yiwu&#8201;↗</a>
     </nav>
     <div class="searchbox"><input id="search" type="search" placeholder="search…" autocomplete="off"></div>
     <button class="menu-btn" id="menuBtn" aria-label="Menu">≡</button>
@@ -505,6 +506,7 @@ function cardHTML(c){
       ${c.anchors&&c.anchors.length?`<div class="blk"><div class="blk-h">Anchor firms</div><div class="anchors">${c.anchors.join('  ·  ')}</div></div>`:''}
       <div class="blk"><div class="sourcing"><div class="sh">Sourcing note</div>${c.sourcing}</div></div>
       ${c.id==='shenzhen'?'<a class="deepdive" href="/huaqiangbei/">Explore the Huaqiangbei building map →</a>':''}
+      ${c.id==='yiwu'?'<a class="deepdive" href="/yiwu/">Explore the Yiwu district & floor map →</a>':''}
     </div>
   </div>`;
 }
