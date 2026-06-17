@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ningbo-Zhoushan — the heaviest port on Earth by cargo tonnage | China Industry Atlas</title>
+<meta name="description" content="A deep dive on Ningbo-Zhoushan: the world's #1 port by cargo tonnage, its giant ore and oil terminals, and the Zhejiang clusters whose goods ship out through it.">
+<link rel="canonical" href="https://chinaindustryatlas.com/ports/ningbo-zhoushan/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/ports/ningbo-zhoushan/">
+<meta property="og:title" content="Ningbo-Zhoushan — the tonnage king">
+<meta property="og:description" content="Fewer boxes than Shanghai, but the most cargo by weight of any port on Earth.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Port deep-dives</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<div class="wrap hero">
+  <div class="eyebrow">Port deep-dive · Zhejiang</div>
+  <h1>Ningbo-Zhoushan<span class="cn">宁波舟山港 · the tonnage king</span></h1>
+  <p class="lede">Two hundred kilometres south of Shanghai is the port that moves the <b>most cargo by weight of anywhere on Earth</b>. It counts fewer boxes than Shanghai, but it carries more of the heavy stuff that keeps the country's industry fed.</p>
+  <div class="readouts"><div class="readout"><div class="n">39.3 M</div><div class="l">containers (TEU), world #3</div></div><div class="readout"><div class="n">#1</div><div class="l">port on Earth by cargo tonnage</div></div><div class="readout"><div class="n">~1.3 bn t</div><div class="l">of cargo a year — ore, oil, goods</div></div></div>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">Where it is · what flows in and out</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend"><span><i class="dot" style="background:var(--chop);border-radius:0;transform:rotate(45deg)"></i>The port</span><span><i class="dot" style="background:var(--chop)"></i>Terminal / feeder</span><span><i style="border-top-color:var(--chop);border-top-style:dashed"></i>Shipping lane out</span><span><i class="dot" style="background:var(--ink-2)"></i>Reference city</span></div></div></div>
+<section><div class="wrap dd-grid"><div><div class="sec"><div class="num">01</div><h2>The heaviest port in the world</h2><p>Formed by merging the ports of Ningbo and Zhoushan, this Zhejiang giant is the world's number-three container port — 39.3 million TEU in 2024, growing double digits — but by sheer cargo tonnage it is number one on the planet, moving on the order of 1.3 billion tonnes a year. Shanghai counts the most boxes; Ningbo moves the most weight.</p><div class="pull">Shanghai counts the most boxes. Ningbo moves the most weight.</div></div><div class="sec"><div class="num">02</div><h2>Where the bulk comes in</h2><p>It earns that crown on the heavy, unglamorous cargo. Ningbo-Zhoushan runs some of the largest iron-ore and crude-oil transfer terminals in the world: the ore for China's steel mills, the oil for its refineries, the coal for its power — much of it lands here on deep natural water and moves up the Yangtze. It is a port that feeds the industrial machine as much as it ships the machine's output.</p></div><div class="sec"><div class="num">03</div><h2>And the goods go out</h2><p>Behind it sits Zhejiang, the densest cluster economy in China — the socks of Datang, the umbrellas of Songxia, the two million small commodities of Yiwu, plus the province's chemicals, textiles and appliances. More than three hundred container routes, over 250 of them international, carry that output out, with an especially strong pull toward Europe.</p></div><div class="sec"><div class="num">04</div><h2>Deep water, smart port</h2><p>Its structural edge is depth: natural channels over thirty metres let the largest ships berth fully laden, where shallower rivals cannot. Add aggressive automation and smart-port investment, and Ningbo-Zhoushan is the one quietly closing the gap on Shanghai.</p></div></div>
+<aside><div class="facts"><h4>The facts</h4><div class="frow"><div class="k">Place</div><div class="v">Zhejiang — merged Ningbo &amp; Zhoushan deep-water facilities</div></div><div class="frow"><div class="k">Rank</div><div class="v">World #3 by containers; #1 by cargo tonnage</div></div><div class="frow"><div class="k">2024</div><div class="v">39.3M TEU; on the order of 1.3 billion tonnes</div></div><div class="frow"><div class="k">Handles</div><div class="v">Iron ore, crude oil, coal IN; manufactured goods OUT</div></div><div class="frow"><div class="k">Hinterland</div><div class="v">Zhejiang's cluster towns (Datang, Songxia, Yiwu) + the Yangtze</div></div><div class="frow"><div class="k">Edge</div><div class="v">Natural deep water >30 m; 300+ routes, 250+ international</div></div><div class="frow"><div class="k">Goes to</div><div class="v">Especially Europe</div></div></div></aside></div></section>
+<section><div class="wrap"><div class="fine" style="max-width:80ch">Sources (2024-2026): Port Technology International, Container News, Upply, yiwuagent. ~39.3M TEU (2024) and world-leading tonnage are widely reported; the ~1.3 bn-tonne figure and cargo mix are characterised from trade reporting. Second in the atlas's Port deep-dive series.</div></div></section>
+<footer><div class="wrap"><div class="ftlinks"><a class="dl" href="/">← Full atlas</a><a class="dl" href="/ports/shanghai/">Shanghai →</a><a class="dl" href="/deep-dives/datang/">Datang →</a><a class="dl" href="/deep-dives/yiwu/">Yiwu →</a></div>
+  <div class="fine">Port deep-dive · Ningbo-Zhoushan · 2026 · locations and lanes indicative · basemap © OpenStreetMap, © CARTO.</div></div></footer>
+<script>if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}</script>
+<script>
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([29.95,121.4],8);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:12,subdomains:'abcd'}).addTo(map);
+
+function ref(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);
+}
+function term(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div style="width:10px;height:10px;border-radius:50%;background:#C0402A;border:2px solid #E8EAE3;box-shadow:0 0 0 1px #C0402A"></div>',iconSize:[10,10],iconAnchor:[5,5],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);
+}
+function lane(from,to,label,endlbl){
+  L.polyline([from,to],{color:'#C0402A',weight:3,opacity:.85,dashArray:'7,7'}).addTo(map).bindTooltip(label,{sticky:true,className:'pinlbl'});
+  L.marker(to,{icon:L.divIcon({html:'<div class="pinlbl" style="color:#C0402A">'+endlbl+'</div>',iconSize:[1,1],iconAnchor:[-2,4],className:''})}).addTo(map);
+}
+function port(c,name,big){
+  L.marker(c,{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map).bindTooltip(name,{direction:'top',offset:[0,-7],className:'pinlbl'});
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl big">'+big+'</div>',iconSize:[1,1],iconAnchor:[-9,6],className:''})}).addTo(map);
+}
+
+
+port([29.87,121.85],"Ningbo-Zhoushan — Beilun & Zhoushan","Ningbo-Zhoushan 宁波舟山");
+ref([29.31,120.07],"Yiwu — feeds it"); ref([29.82,120.19],"Datang"); ref([30.27,120.16],"Hangzhou"); ref([31.23,121.47],"Shanghai");
+lane([29.87,121.85],[29.9,124.3],"East across the Pacific to the Americas","→ to the Americas");
+lane([29.87,121.85],[27.6,122.3],"South toward Malacca, Suez and Europe","→ to Europe");
+
+</script>
+</body></html>

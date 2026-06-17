@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yiwu — the market that sells everything, born of chicken feathers for sugar | China Industry Atlas</title>
+<meta name="description" content="A deep dive on Yiwu, the Zhejiang city whose Futian Market is the world's largest small-commodities wholesale hub — 75,000 booths selling to 210 countries, grown from a centuries-old peddler culture.">
+<link rel="canonical" href="https://chinaindustryatlas.com/deep-dives/yiwu/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/deep-dives/yiwu/">
+<meta property="og:title" content="Yiwu — the world's market">
+<meta property="og:description" content="How a centuries-old peddler culture became the world's largest small-commodities market.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Town deep-dives</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<div class="wrap hero">
+  <div class="eyebrow">Town deep-dive · Zhejiang</div>
+  <h1>Yiwu<span class="cn">义乌 · the world's market</span></h1>
+  <p class="lede">Every other town in this series <b>makes</b> something. Yiwu <b>sells</b> it. Under one roof, 75,000 booths offer two million kinds of small things to buyers from 210 countries — a habit the city has been practising, one chicken feather at a time, for centuries.</p>
+  <div class="readouts">
+    <div class="readout"><div class="n">75,000</div><div class="l">market booths in one complex</div></div>
+    <div class="readout"><div class="n">~2 M</div><div class="l">kinds of products, sold to 210 countries</div></div>
+    <div class="readout"><div class="n">~60%</div><div class="l">of the world's Christmas decorations</div></div>
+  </div>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">The market the production towns feed · and the world buys from</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend">
+    <span><i class="dot" style="background:var(--chop);border-radius:0;transform:rotate(45deg)"></i>Yiwu (the market)</span>
+    <span><i style="border-top-color:var(--chop);border-top-style:dashed"></i>Goods in from the towns, out to the world</span>
+    <span><i class="dot" style="background:var(--chop)"></i>A supplier town</span>
+    <span><i class="dot" style="background:var(--ink-2)"></i>Reference city</span>
+  </div></div></div>
+<section><div class="wrap dd-grid"><div>
+  <div class="sec"><div class="num">01</div><h2>The source of the world</h2>
+    <p>Yiwu is a county-level city in Jinhua, Zhejiang, about an hour from Hangzhou by high-speed train, and its Futian Market — the Yiwu International Trade City — is the largest small-commodities wholesale market on Earth: more than four square kilometres of floor, around <b>75,000 booths</b>, some two million kinds of product across twenty-six categories, selling to roughly 210 countries. If you own a cheap plastic thing — a hair clip, a keyring, a string of fairy lights — the odds are good it passed through here. Around sixty percent of the world's Christmas decorations come from this one place. And Yiwu itself makes almost none of it.</p></div>
+  <div class="sec"><div class="num">02</div><h2>Chicken feathers for sugar</h2>
+    <p>The trading instinct is very old. Yiwu was founded over two thousand years ago on poor, stony soil that never rewarded farming, so its people traded instead. For centuries, peddlers walked the surrounding countryside shaking a small rattle-drum, swapping homemade brown-sugar sweets and trinkets for chicken feathers — used for fertiliser, dusters and quilts. The practice even had a name: <b>"chicken feathers for sugar"</b> (鸡毛换糖). It was tiny, itinerant, margin-of-survival commerce, and it bred a whole town to think like merchants long before there was anything grand to sell.</p>
+    <div class="pull">Yiwu makes almost nothing, and sells everything. The skill was bred over centuries, one chicken feather at a time.</div></div>
+  <div class="sec"><div class="num">03</div><h2>One official's decision</h2>
+    <p>That instinct survived even when private trade was banned under the planned economy; Yiwu's peddlers simply kept at it, quietly and illegally. The turn came in 1982, when the county's party secretary, <b>Xie Gaohua</b>, took the political risk of formally opening Yiwu's first small-commodities market — legalising what the town had always done. He was transferred out soon after, but the market only grew: past ten thousand booths by 1991, then explosively after China joined the WTO in 2001, and in 2011 it was made a national trade-pilot city with a bespoke customs regime built for shipping tiny, mixed lots of cheap goods.</p></div>
+  <div class="sec"><div class="num">04</div><h2>The nervous system of small things</h2>
+    <p>What Yiwu became is not a factory town but a <b>distribution brain</b>. The socks of Datang, the umbrellas of Songxia and the output of a thousand other workshops flow here to be sold by the container to buyers from everywhere; thousands of foreign traders live in the city, enough that it has a mosque and an "exotic street", and a published "Yiwu Index" tracks small-commodity prices as a rough barometer of world demand. Then it reached outward: the Yiwu-Madrid freight train, launched in 2014, is one of the longest rail routes in the world, with a Yiwu-London service following in 2017, sending Chinese goods overland to Europe.</p></div>
+  <div class="sec"><div class="num">05</div><h2>The capstone</h2>
+    <p>Yiwu is the market pattern, the same family as Huaqiangbei — but for the entire physical-goods world rather than electronics, and with the deepest roots of any town here. Huaqiangbei's traders came from Chaoshan; Yiwu's merchant culture is <b>native</b>, centuries old, bred by poor soil. Lay the whole series out and the division of labour is plain: most of these places <b>make</b> one thing (Zheng'an, Songxia, Foshan, Dafen, Datang), a couple were <b>seeded from outside</b> (Dafen, Kunshan), and two are <b>markets</b> that sell what everyone else makes — Huaqiangbei for electronics, Yiwu for everything else. Yiwu is the place where "made in China" quietly turns into "sold to the world".</p></div>
+</div>
+<aside><div class="facts"><h4>The facts</h4>
+  <div class="frow"><div class="k">Place</div><div class="v">Yiwu, a county-level city in Jinhua, Zhejiang (~1h from Hangzhou by HSR)</div></div>
+  <div class="frow"><div class="k">What</div><div class="v">Yiwu International Trade City (Futian Market) — world's largest small-commodities wholesale market</div></div>
+  <div class="frow"><div class="k">Size</div><div class="v"><b>~4 km²</b> of floor; ~75,000 booths; ~2 million product types; 26 categories; sells to ~210 countries</div></div>
+  <div class="frow"><div class="k">Signature</div><div class="v">~60% of the world's Christmas decorations</div></div>
+  <div class="frow"><div class="k">Deep origin</div><div class="v">"Chicken feathers for sugar" (鸡毛换糖) peddler tradition; town founded 222 BC; poor soil → trade</div></div>
+  <div class="frow"><div class="k">The pivot</div><div class="v">First official market opened 1982 (party sec. Xie Gaohua); >10,000 booths by 1991; WTO 2001</div></div>
+  <div class="frow"><div class="k">Reach</div><div class="v">Thousands of resident foreign traders; the "Yiwu Index"; Belt-and-Road rail to Madrid (2014) &amp; London (2017)</div></div>
+</div></aside></div></section>
+<section><div class="wrap"><div class="fine" style="max-width:80ch">
+  Sources (2016-2026): Wikipedia, European Business Review, Al Jazeera, Grokipedia, and trade reporting. Figures vary by source and year — ~75,000 booths, ~2 million product types, ~210 export markets and ~60% of the world's Christmas decorations are the commonly cited ones, treated here as orders of magnitude. Eighth in the atlas's Town deep-dive series.
+</div></div></section>
+<footer><div class="wrap">
+  <div class="ftlinks">
+    <a class="dl" href="/">← Full atlas</a>
+    <a class="dl" href="/deep-dives/datang/">Datang →</a>
+    <a class="dl" href="/deep-dives/huaqiangbei/">Huaqiangbei →</a>
+    <a class="dl" href="/getting-it-out/">Getting it out →</a>
+  </div>
+  <div class="fine">Town deep-dive · Yiwu · 2026 · locations and flows indicative · basemap © OpenStreetMap, © CARTO.</div>
+</div></footer>
+<script>if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}</script>
+<script>
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([30.0,119.8],7);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:11,subdomains:'abcd'}).addTo(map);
+const YIWU=[29.31,120.07], DATANG=[29.82,120.19], NINGBO=[29.87,121.54], WEST=[31.0,117.5], HANGZHOU=[30.27,120.16], SHANGHAI=[31.23,121.47];
+L.polyline([DATANG,YIWU],{color:'#C0402A',weight:2.5,opacity:.7}).addTo(map)
+  .bindTooltip('Production towns like Datang feed the market',{sticky:true,className:'pinlbl'});
+L.polyline([YIWU,NINGBO],{color:'#C0402A',weight:3,opacity:.85,dashArray:'6,6'}).addTo(map)
+  .bindTooltip('Out to the world by sea — via Ningbo-Zhoushan',{sticky:true,className:'pinlbl'});
+L.polyline([YIWU,[30.4,118.6],WEST],{color:'#C0402A',weight:3,opacity:.85,dashArray:'6,6'}).addTo(map)
+  .bindTooltip('Out to Europe by rail — the Yiwu-Madrid freight train (2014)',{sticky:true,className:'pinlbl'});
+function cluster(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div style="width:10px;height:10px;border-radius:50%;background:#C0402A;border:2px solid #E8EAE3;box-shadow:0 0 0 1px #C0402A"></div>',iconSize:[10,10],iconAnchor:[5,5],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);
+}
+function ref(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);
+}
+cluster(DATANG,"Datang — socks (a supplier town)");
+ref(NINGBO,"Ningbo — port");
+ref(HANGZHOU,"Hangzhou");
+ref(SHANGHAI,"Shanghai");
+L.marker([31.0,117.5],{icon:L.divIcon({html:'<div class="pinlbl" style="color:#C0402A">→ to Europe by rail</div>',iconSize:[1,1],iconAnchor:[-2,4],className:''})}).addTo(map);
+L.marker(YIWU,{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map).bindTooltip("Yiwu — the world's small-commodities market",{direction:'top',offset:[0,-7],className:'pinlbl'});
+L.marker(YIWU,{icon:L.divIcon({html:'<div class="pinlbl big">Yiwu 义乌</div>',iconSize:[1,1],iconAnchor:[-9,6],className:''})}).addTo(map);
+</script>
+</body></html>

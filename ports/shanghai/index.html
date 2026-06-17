@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shanghai — the world's busiest container port, first ever past 50 million TEU | China Industry Atlas</title>
+<meta name="description" content="A deep dive on the Port of Shanghai: the world's #1 container port, the offshore Yangshan automated terminal, and what the Yangtze Delta ships through it.">
+<link rel="canonical" href="https://chinaindustryatlas.com/ports/shanghai/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/ports/shanghai/">
+<meta property="og:title" content="Shanghai — the container king">
+<meta property="og:description" content="The world's busiest container port, and the offshore terminal built to handle it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Port deep-dives</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<div class="wrap hero">
+  <div class="eyebrow">Port deep-dive · Shanghai</div>
+  <h1>Shanghai<span class="cn">上海港 · the container king</span></h1>
+  <p class="lede">At the mouth of the Yangtze sits the busiest container port on Earth. In 2024 it became the <b>first port in history to move more than 50 million containers in a year</b> — the single largest doorway between China's workshop and the world.</p>
+  <div class="readouts"><div class="readout"><div class="n">51.5 M</div><div class="l">containers (TEU) in 2024</div></div><div class="readout"><div class="n">World #1</div><div class="l">busiest container port, 10+ years</div></div><div class="readout"><div class="n">~130k</div><div class="l">containers handled every day</div></div></div>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">Where it is · what flows in and out</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend"><span><i class="dot" style="background:var(--chop);border-radius:0;transform:rotate(45deg)"></i>The port</span><span><i class="dot" style="background:var(--chop)"></i>Terminal / feeder</span><span><i style="border-top-color:var(--chop);border-top-style:dashed"></i>Shipping lane out</span><span><i class="dot" style="background:var(--ink-2)"></i>Reference city</span></div></div></div>
+<section><div class="wrap dd-grid"><div><div class="sec"><div class="num">01</div><h2>The busiest gate on Earth</h2><p>The Port of Shanghai has been the world's number-one container port for over a decade, and in 2024 it crossed a line no port had reached before: 51.5 million TEU, the first ever past fifty million, roughly 130,000 containers moved every single day. If the world's factory has a front door, this is it.</p></div><div class="sec"><div class="num">02</div><h2>Yangshan, built on the sea</h2><p>There was a catch in the geography: the Yangtze silts, and its estuary is too shallow for the largest ships. So China built a port on the open water instead. <b>Yangshan deep-water port</b> sits on islands some thirty kilometres offshore in Hangzhou Bay, reached by the 32.5-kilometre Donghai Bridge, and its Phase IV is one of the largest fully automated container terminals in the world — driverless cranes and vehicles working the quay around the clock. The older Waigaoqiao terminals handle the rest on the estuary.</p><div class="pull">If the world's factory has a front door, this is it.</div></div><div class="sec"><div class="num">03</div><h2>What sails out</h2><p>Behind Shanghai lies the Yangtze River Delta, the richest manufacturing region on the planet, and almost everything it makes leaves through here: electronics, machinery, chemicals, apparel — and, increasingly, cars. Tesla's Shanghai gigafactory and China's own EV makers have turned the port into a leading vehicle-export gateway. The boxes go mostly east across the Pacific to the Americas, and south through the South China Sea toward Europe.</p></div><div class="sec"><div class="num">04</div><h2>The barometer</h2><p>Because so much passes through it, Shanghai's container count is read as a gauge of world trade itself — and that makes it sensitive. Tariff deadlines and trade tension show up here first, as surges of front-loaded cargo and bursts of congestion. The busiest gate is also the most watched.</p></div></div>
+<aside><div class="facts"><h4>The facts</h4><div class="frow"><div class="k">Place</div><div class="v">At the mouth of the Yangtze, Shanghai</div></div><div class="frow"><div class="k">Rank</div><div class="v">World's #1 container port, 10+ years running</div></div><div class="frow"><div class="k">2024</div><div class="v">51.5M TEU — first port ever past 50 million</div></div><div class="frow"><div class="k">Key terminals</div><div class="v">Yangshan deep-water (offshore) + Waigaoqiao (estuary)</div></div><div class="frow"><div class="k">How</div><div class="v">Yangshan Phase IV fully automated; 32.5 km Donghai Bridge to the islands</div></div><div class="frow"><div class="k">Ships out</div><div class="v">Electronics, machinery, EVs &amp; autos, chemicals, apparel</div></div><div class="frow"><div class="k">Goes to</div><div class="v">The Americas (trans-Pacific); Europe (via the South China Sea &amp; Suez)</div></div></div></aside></div></section>
+<section><div class="wrap"><div class="fine" style="max-width:80ch">Sources (2024-2026): Port Technology International, Container News, Upply, SeaVantage, Shanghai Port. Throughput ~51.5M TEU (2024) is widely reported; cargo-mix and terminal details are characterised from trade reporting. First in the atlas's Port deep-dive series.</div></div></section>
+<footer><div class="wrap"><div class="ftlinks"><a class="dl" href="/">← Full atlas</a><a class="dl" href="/ports/ningbo-zhoushan/">Ningbo-Zhoushan →</a><a class="dl" href="/getting-it-out/">Getting it out →</a><a class="dl" href="/deep-dives/yiwu/">Yiwu →</a></div>
+  <div class="fine">Port deep-dive · Shanghai · 2026 · locations and lanes indicative · basemap © OpenStreetMap, © CARTO.</div></div></footer>
+<script>if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}</script>
+<script>
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([30.85,121.7],8);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:12,subdomains:'abcd'}).addTo(map);
+
+function ref(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);
+}
+function term(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div style="width:10px;height:10px;border-radius:50%;background:#C0402A;border:2px solid #E8EAE3;box-shadow:0 0 0 1px #C0402A"></div>',iconSize:[10,10],iconAnchor:[5,5],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);
+}
+function lane(from,to,label,endlbl){
+  L.polyline([from,to],{color:'#C0402A',weight:3,opacity:.85,dashArray:'7,7'}).addTo(map).bindTooltip(label,{sticky:true,className:'pinlbl'});
+  L.marker(to,{icon:L.divIcon({html:'<div class="pinlbl" style="color:#C0402A">'+endlbl+'</div>',iconSize:[1,1],iconAnchor:[-2,4],className:''})}).addTo(map);
+}
+function port(c,name,big){
+  L.marker(c,{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map).bindTooltip(name,{direction:'top',offset:[0,-7],className:'pinlbl'});
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl big">'+big+'</div>',iconSize:[1,1],iconAnchor:[-9,6],className:''})}).addTo(map);
+}
+
+
+port([31.23,121.47],"Shanghai — Waigaoqiao terminals","Shanghai 上海");
+term([30.63,122.05],"Yangshan deep-water port");
+ref([31.30,120.58],"Suzhou"); ref([30.27,120.16],"Hangzhou"); ref([29.87,121.62],"Ningbo");
+lane([30.63,122.05],[30.9,124.2],"East across the Pacific to the Americas","→ to the Americas");
+lane([30.63,122.05],[28.6,122.2],"South through the South China Sea, on to Europe","→ to Europe");
+
+</script>
+</body></html>

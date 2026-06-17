@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kunshan — the borrowed boat that built China's richest county on Taiwanese capital | China Industry Atlas</title>
+<meta name="description" content="A deep dive on Kunshan, the Jiangsu county that became China's richest by importing Taiwan's electronics industry wholesale across the strait, once making a third of the world's laptops.">
+<link rel="canonical" href="https://chinaindustryatlas.com/deep-dives/kunshan/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/deep-dives/kunshan/">
+<meta property="og:title" content="Kunshan — the borrowed boat">
+<meta property="og:description" content="How a Jiangsu county got rich by importing Taiwan's electronics industry across the strait.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Town deep-dives</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<div class="wrap hero">
+  <div class="eyebrow">Town deep-dive · Jiangsu</div>
+  <h1>Kunshan<span class="cn">昆山 · Little Taipei</span></h1>
+  <p class="lede">An hour west of Shanghai sits <b>China's richest county</b>. It did not grow its own industry the way the other towns did. It <b>imported one wholesale, across a strait</b> — and at its peak made a third of the world's laptops.</p>
+  <div class="readouts">
+    <div class="readout"><div class="n">~1/3</div><div class="l">of the world's laptops, at peak</div></div>
+    <div class="readout"><div class="n">5,300+</div><div class="l">Taiwanese companies (2020)</div></div>
+    <div class="readout"><div class="n">#1</div><div class="l">richest county in China, since 2005</div></div>
+  </div>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">Where it is · and where the industry came from</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend">
+    <span><i class="dot" style="background:var(--chop);border-radius:0;transform:rotate(45deg)"></i>Kunshan (the borrowed-boat county)</span>
+    <span><i style="border-top-color:var(--chop);border-top-style:dashed"></i>Taiwanese capital crosses the strait (from 1990)</span>
+    <span><i class="dot" style="background:var(--ink-2)"></i>Reference city</span>
+  </div></div></div>
+<section><div class="wrap dd-grid"><div>
+  <div class="sec"><div class="num">01</div><h2>An hour west of Shanghai</h2>
+    <p>Kunshan is not even a city in its own right; it is a county-level city under Suzhou, in southern Jiangsu, sitting on the flat ground between Suzhou and Shanghai about fifty kilometres from the latter. And yet for the better part of two decades it has been the <b>richest county in China</b>, top of the national county-economy rankings since 2005 and the first to pass two hundred billion yuan of output. Around two million people live there, and enough of them speak with a Taiwan accent that the place earned a nickname: Little Taipei.</p></div>
+  <div class="sec"><div class="num">02</div><h2>The Kunshan road</h2>
+    <p>What makes Kunshan unusual is that it had almost nothing to start with — no special-economic-zone status, no port, no resource, no famous craft. What it had was a location next to Shanghai and a local government willing to gamble. In 1985 the county built its own development zone with its own money, before it had any national approval to do so. That improvisation became known as the <b>"Kunshan road"</b>: a poor farming county betting everything on its ability to attract investment it did not yet have.</p></div>
+  <div class="sec"><div class="num">03</div><h2>The boat from across the strait</h2>
+    <p>The investment, when it came, was Taiwanese. The first Taiwan-funded factory opened in 1990; through the 2000s, as Taiwan's electronics industry moved assembly to the mainland, Kunshan became its base. By 2020 there were more than <b>5,300 Taiwanese companies</b> and around a hundred thousand Taiwanese residents, and Taiwan-funded firms were tied to roughly thirty percent of the county's GDP, half its industrial output and seventy percent of its trade. Foxconn — Terry Gou's Hon Hai — built one of its great mainland complexes here; so did Compal, Wistron, Quanta and Pegatron, alongside the panel maker AUO. The technology, the brands and the know-how were Taiwanese; the land, the labour and the policy were local. In the Chinese phrase, Kunshan borrowed a boat to go to sea.</p>
+    <div class="pull">The other towns grew their industry from within. Kunshan imported one wholesale, across a strait, and built the richest county in China on it.</div></div>
+  <div class="sec"><div class="num">04</div><h2>The world's laptop bench</h2>
+    <p>The result was a concentration with few parallels anywhere. At its height Kunshan turned out roughly <b>a third of all the laptops on Earth</b>, its contract makers building notebooks for Apple, Dell, Lenovo, HP, Asus and Acer, plus iPhone parts, circuit boards and display panels. The dependence ran both ways: when COVID-era lockdowns shut Kunshan's lines, analysts warned of a global laptop shortage and rated the risk as larger than the closure of Shanghai itself. A single county had become a load-bearing part of the world's computer supply.</p></div>
+  <div class="sec"><div class="num">05</div><h2>The boat may sail on</h2>
+    <p>That is also the vulnerability. The model now faces real strain: US-China tensions, rising wages, and the pull of Vietnam and of cheaper inland cities such as Chongqing and Chengdu are drawing Taiwanese production away. Foxconn, locals say, is no longer the "golden bowl" it once was, and Kunshan is busy reinventing itself again — toward robotics, biopharmaceuticals and renewable energy. The pattern is the sharp one. Where Zheng'an, Songxia, Foshan, Dafen and Huaqiangbei each grew their industry from <b>within</b> — from skills, heritage, a single founder, or a merchant network — Kunshan grew it from <b>without</b>, importing an entire foreign industry across a strait. That made it spectacularly rich, and spectacularly exposed: cross-strait integration built Kunshan, and cross-strait friction is the thing it has most to fear.</p></div>
+</div>
+<aside><div class="facts"><h4>The facts</h4>
+  <div class="frow"><div class="k">Place</div><div class="v">Kunshan, a county-level city under Suzhou, Jiangsu (between Suzhou &amp; Shanghai)</div></div>
+  <div class="frow"><div class="k">Status</div><div class="v">China's richest county since 2005; ~2M people; "Little Taipei"</div></div>
+  <div class="frow"><div class="k">Taiwan link</div><div class="v">First Taiwan factory 1990; <b>~5,300</b> Taiwanese firms, ~100,000 Taiwanese residents (2020); ~$70bn invested</div></div>
+  <div class="frow"><div class="k">Taiwan's share</div><div class="v">~30% of GDP, ~50% of industrial output, ~70% of trade tied to Taiwan-funded firms</div></div>
+  <div class="frow"><div class="k">Laptops</div><div class="v"><b>~1/3</b> of world output at peak; Foxconn, Compal, Wistron, Quanta, Pegatron; AUO panels</div></div>
+  <div class="frow"><div class="k">Origin model</div><div class="v">The "Kunshan road" — a self-funded development zone (1985), filled with foreign (Taiwanese) capital</div></div>
+  <div class="frow"><div class="k">Now</div><div class="v">Production drifting to Vietnam &amp; inland China; upgrading to robotics, biopharma, renewables</div></div>
+</div></aside></div></section>
+<section><div class="wrap"><div class="fine" style="max-width:80ch">
+  Sources (2014-2026): South China Morning Post, Financial Times, China Daily, China Briefing, People's Daily, Britannica. Figures vary by source and year — about a third of the world's laptops at peak, ~5,300 Taiwanese firms and ~100,000 Taiwanese residents (2020), and China's top-ranked county since 2005 are the commonly cited ones, treated here as orders of magnitude. Sixth in the atlas's Town deep-dive series.
+</div></div></section>
+<footer><div class="wrap">
+  <div class="ftlinks">
+    <a class="dl" href="/">← Full atlas</a>
+    <a class="dl" href="/deep-dives/huaqiangbei/">Huaqiangbei →</a>
+    <a class="dl" href="/manufacturing-in-motion/">Manufacturing in motion →</a>
+    <a class="dl" href="/one-product-towns/">One-product towns →</a>
+  </div>
+  <div class="fine">Town deep-dive · Kunshan · 2026 · location approximate · basemap © OpenStreetMap, © CARTO.</div>
+</div></footer>
+<script>if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}</script>
+<script>
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([28.3,121.4],6);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:10,subdomains:'abcd'}).addTo(map);
+const KUNSHAN=[31.39,120.98], TAIPEI=[25.03,121.56], SHANGHAI=[31.23,121.47], SUZHOU=[31.30,120.58];
+L.polyline([TAIPEI,[28.2,122.0],KUNSHAN],{color:'#C0402A',weight:3,opacity:.85,dashArray:'6,6'}).addTo(map)
+  .bindTooltip('Taiwanese capital, firms and know-how came across the strait (from 1990)',{sticky:true,className:'pinlbl'});
+function ref(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);
+}
+ref(SHANGHAI,"Shanghai");
+ref(SUZHOU,"Suzhou");
+ref(TAIPEI,"Taipei — Taiwan");
+L.marker(KUNSHAN,{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map).bindTooltip("Kunshan — the borrowed-boat county",{direction:'top',offset:[0,-7],className:'pinlbl'});
+L.marker(KUNSHAN,{icon:L.divIcon({html:'<div class="pinlbl big">Kunshan 昆山</div>',iconSize:[1,1],iconAnchor:[-9,6],className:''})}).addTo(map);
+</script>
+</body></html>

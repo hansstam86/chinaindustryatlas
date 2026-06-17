@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shanghai, treaty port to global city — a century of reinvention, era by era | China Industry Atlas</title>
+<meta name="description" content="An interactive map of Shanghai's evolution from the 1843 treaty port to today: Puxi, the socialist workshop, the 1990 leap across the Huangpu into Pudong, and the industries it served in each era.">
+<link rel="canonical" href="https://chinaindustryatlas.com/shanghai-evolution/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://chinaindustryatlas.com/shanghai-evolution/">
+<meta property="og:title" content="Shanghai — treaty port to global city">
+<meta property="og:description" content="Step through the eras: the Bund, the socialist workshop, the leap into Pudong, and what the city made.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --line-2:#D6DAD2;
+  --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --r-prd:#C0402A; --r-yrd:#2E6E6A; --r-bohai:#9C7A3C; --r-sea_strait:#B5642E; --r-central_west:#5A6E2E;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.55}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 30px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(40px,7vw,76px);line-height:.96;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.38em;letter-spacing:.06em;color:var(--ink-2);margin-top:10px;font-family:var(--disp)}
+.lede{font-size:18px;color:var(--ink-2);margin:18px 0 0;max-width:64ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:24px;max-width:560px}
+.readout{flex:1;padding:12px 0}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:23px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:6px}
+section{padding:46px 0;border-top:1px solid var(--line)}
+.sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+.sec-head .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec-head h2{font-family:var(--disp);font-weight:800;font-size:clamp(24px,3.4vw,34px);margin:0;letter-spacing:-.01em}
+.sec-head p{margin:0;color:var(--ink-2);font-size:15px;flex:1;min-width:280px}
+.mapgrid{display:grid;grid-template-columns:1fr 320px;gap:18px}
+@media(max-width:860px){.mapgrid{grid-template-columns:1fr}}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2)}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line);background:var(--paper-2)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:560px;width:100%;background:var(--paper-3)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.chip{font-family:var(--mono);font-size:12px;padding:7px 13px;border:1px solid var(--line);background:var(--paper-2);cursor:pointer;color:var(--ink-2);display:flex;align-items:center;gap:7px}
+.chip:hover{border-color:var(--ink-3)}
+.chip.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip .sw{width:9px;height:9px;border-radius:50%}
+.side .panel{border:1px solid var(--line);background:var(--paper-2);padding:16px 17px}
+.side .panel+.panel{margin-top:14px}
+.side h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 12px}
+.corr{display:flex;gap:10px;padding:9px 0;border-top:1px solid var(--line)}
+.corr:first-of-type{border-top:0}
+.corr .ck{width:10px;height:10px;border-radius:50%;margin-top:5px;flex:none}
+.corr .cn{font-family:var(--disp);font-weight:700;font-size:14px}
+.corr .cd{font-size:12.5px;color:var(--ink-2)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:9px;height:9px;border-top:0;border-radius:50%}
+.tbls{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:760px){.tbls{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:400}
+td.d{font-family:var(--mono);color:var(--chop);white-space:nowrap}
+.blk-h{font-family:var(--disp);font-weight:700;font-size:17px;margin:0 0 12px}
+.notes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:760px){.notes{grid-template-columns:1fr}}
+.note{border:1px solid var(--line);background:var(--paper-2);padding:15px 16px;font-size:13.5px;color:var(--ink-2)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3)}
+.leaflet-container{background:var(--paper-3)}
+.portlbl{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--ink);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.exitlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.portdot{width:13px;height:13px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+
+.era-h{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--chop);text-transform:uppercase}
+.era-lead{font-weight:700;color:var(--ink);margin:7px 0 9px;font-size:15px}
+.era-b{color:var(--ink-2);font-size:14px;line-height:1.62}
+.arc{padding:8px 0;border-top:1px solid var(--line)}
+.arc:first-child{border-top:0}
+.arc .y{font-family:var(--mono);font-size:11px;color:var(--chop)}
+.arc .t{font-size:13.5px;color:var(--ink);margin-top:1px}
+.swatch{width:14px;height:10px;display:inline-block;border:1px solid var(--line)}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">城市 · City evolution</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+
+<div class="wrap hero">
+  <div class="eyebrow">City evolution · 1843 → today</div>
+  <h1>Shanghai<span class="cn">上海 · treaty port to global city</span></h1>
+  <p class="lede">Shanghai is the opposite of an overnight city. A century ago it was already the largest, richest city in Asia; then it spent forty years frozen as the nation's socialist workshop, sending its wealth to Beijing; and in 1990 it was unleashed, leaping across the Huangpu into the farmland of <b>Pudong</b>. Step through its eras.</p>
+  <div class="readouts">
+    <div class="readout"><div class="n" id="rPop">~5.4 M</div><div class="l">Permanent population</div></div>
+    <div class="readout"><div class="n" id="rGDP">—</div><div class="l">GDP</div></div>
+    <div class="readout"><div class="n" id="rTall">~84 m</div><div class="l">Tallest structure</div></div>
+  </div>
+</div>
+
+<section><div class="wrap">
+  <div class="sec-head"><span class="num">01</span><h2>Watch it reinvent itself</h2>
+    <p>Pick an era. The historic core of Puxi sits west of the Huangpu; from 1990 the shaded footprint leaps east across the river into Pudong and out toward the airport, the offshore port and Lingang, and the industries of that era light up.</p></div>
+  <div class="chips" id="eraChips"></div>
+  <div class="mapgrid">
+    <div><div class="mapcard">
+      <div class="maphead"><span class="t">Shanghai, era by era · 上海</span><span class="sc">hover a dot · drag to pan</span></div>
+      <div id="map"></div>
+      <div class="legend" id="legend"></div>
+    </div></div>
+    <div class="side">
+      <div class="panel"><h4>This era</h4><div id="thisEra"></div></div>
+      <div class="panel"><h4>The whole arc</h4><div id="arc"></div></div>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><span class="num">02</span><h2>What Shanghai made, by era</h2>
+    <p>Same city, five different economies — the longest record of reinvention of any place in the atlas.</p></div>
+  <div style="overflow-x:auto"><table id="tbl"></table></div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><span class="num">03</span><h2>Field notes</h2></div>
+  <div class="notes" id="notes"></div>
+  <div class="fine" id="sources" style="margin-top:22px"></div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="ftlinks">
+    <a class="dl" href="/">← Full atlas</a>
+    <a class="dl" href="/shenzhen-evolution/">Shenzhen evolution →</a>
+    <a class="dl" href="/ports/shanghai/">Shanghai port →</a>
+    <a class="dl" href="/cathedrals/">Cathedral factories →</a>
+  </div>
+  <div class="fine">City evolution · Shanghai · 2026 · footprint &amp; river course schematic · basemap © OpenStreetMap, © CARTO.</div>
+</div></footer>
+
+<script id="evo-data" type="application/json">{"eras":[{"k":"Treaty port","yr":"1843–1949","pop":"~5.4 M","gdp":"—","tall":"~84 m (Park Hotel, 1934)","lead":"Textiles, trade &amp; finance","narr":"Opened as a treaty port in 1843, Shanghai became the largest and richest city in Asia, the 'Paris of the East'. Foreign concessions lined the Bund with banks and trading houses, cotton mills made it China's first great industrial centre, and in 1934 the Art-Deco Park Hotel rose as the tallest building in the country."},{"k":"Socialist workshop","yr":"1949–1990","pop":"~13.3 M","gdp":"~¥76 bn (1990)","tall":"~84 m (still the Park Hotel)","lead":"Steel, ships &amp; 'Shanghai brand' goods","narr":"After 1949 Shanghai became the planned economy's workshop and cash box: the country's single biggest industrial producer, steel from Baosteel, ships from Jiangnan, machinery, textiles and famous 'Shanghai brand' watches and bicycles, while most of its revenue went to Beijing. Its skyline was frozen; the Park Hotel stayed the tallest building for half a century."},{"k":"Pudong unleashed","yr":"1990s","pop":"~16.4 M","gdp":"~¥480 bn (2000)","tall":"468 m (Oriental Pearl, 1994)","lead":"Finance, real estate &amp; autos","narr":"On 18 April 1990 the central government opened Pudong, the farmland and warehouses across the Huangpu. The stock exchange reopened that year; Lujiazui became a financial district; the Oriental Pearl (1994) and Jin Mao (1999) rose from the mud; and Santanas rolled off the SAIC-Volkswagen line. The city leapt the river."},{"k":"Port &amp; chips","yr":"2000s","pop":"~23.0 M","gdp":"~¥1.7 tn (2010)","tall":"492 m (World Financial Center, 2008)","lead":"Semiconductors, the world's busiest port &amp; petrochem","narr":"Pudong filled out eastward. Zhangjiang Hi-Tech Park drew the chip industry (SMIC, founded 2000) and pharma; the Yangshan deep-water port opened offshore in 2005 and Shanghai became the world's busiest container port; the Maglev and Pudong airport linked it to the world; and World Expo 2010 announced its arrival."},{"k":"Finance &amp; frontier","yr":"2010s–today","pop":"~24.8 M","gdp":"~¥4.7 tn (2023)","tall":"632 m (Shanghai Tower, 2015)","lead":"Chips, biopharma, EVs &amp; aerospace","narr":"Shanghai became a global hub. The Free-Trade Zone opened in 2013 and the STAR 'Nasdaq' board in 2019; Tesla built its first overseas gigafactory in Lingang (2019); COMAC's C919 airliner is assembled here; and integrated circuits, biopharma and AI sit beside the finance of Lujiazui. The Shanghai Tower caps the skyline at 632 metres."}],"sites":[{"id":"bund","name":"The Bund","lat":31.24,"lng":121.49,"era":0,"what":"banks &amp; trading houses (treaty port)"},{"id":"yangpu","name":"Yangpu mills","lat":31.27,"lng":121.53,"era":0,"what":"cotton mills — China's first industry"},{"id":"baosteel","name":"Baosteel (Baoshan)","lat":31.4,"lng":121.49,"era":1,"what":"steel (built from 1978)"},{"id":"jiangnan","name":"Jiangnan Shipyard","lat":31.18,"lng":121.49,"era":1,"what":"shipbuilding (since 1865)"},{"id":"lujiazui","name":"Lujiazui","lat":31.235,"lng":121.505,"era":2,"what":"finance district — Oriental Pearl, Jin Mao"},{"id":"anting","name":"Anting / SAIC","lat":31.3,"lng":121.18,"era":2,"what":"autos (SAIC-VW Santana from 1984)"},{"id":"zhangjiang","name":"Zhangjiang Hi-Tech","lat":31.205,"lng":121.595,"era":3,"what":"semiconductors (SMIC 2000) &amp; pharma"},{"id":"waigaoqiao","name":"Waigaoqiao","lat":31.355,"lng":121.58,"era":3,"what":"port &amp; first bonded zone / FTZ"},{"id":"pvg","name":"Pudong Int'l Airport","lat":31.15,"lng":121.808,"era":3,"what":"aviation hub (1999) &amp; Maglev"},{"id":"yangshan","name":"Yangshan deep-water port","lat":30.63,"lng":122.07,"era":3,"what":"offshore port (2005) — world's busiest"},{"id":"hongqiao","name":"Hongqiao hub","lat":31.195,"lng":121.32,"era":4,"what":"Yangtze Delta gateway (2010)"},{"id":"lingang","name":"Lingang","lat":30.9,"lng":121.92,"era":4,"what":"Tesla gigafactory &amp; FTZ special area (2019)"},{"id":"comac","name":"COMAC","lat":31.11,"lng":121.77,"era":4,"what":"aerospace — the C919 airliner"}],"table":[["Treaty port (–1949)","Textiles, banking, trade, shipping","The Bund, cotton mills"],["Socialist workshop (1949–90)","Steel, ships, machinery, 'Shanghai brand' goods","Baosteel, Jiangnan Shipyard"],["Pudong unleashed (1990s)","Finance, real estate, autos","Lujiazui, SAIC-VW"],["Port &amp; chips (2000s)","Semiconductors, world's busiest port, petrochem","Zhangjiang / SMIC, Yangshan"],["Finance &amp; frontier (2010s–)","Chips, biopharma, EVs, aerospace, finance","Tesla Lingang, COMAC, the FTZ"]],"notes":["Frozen at the top. From 1934 the Art-Deco Park Hotel was the tallest building in Shanghai, and stayed so for about half a century. As the planned economy's biggest earner the city sent most of its revenue to Beijing and built almost nothing tall until Pudong opened in 1990.","The river was the edge. For a century Shanghai meant Puxi, west of the Huangpu; the eastern bank was farms, warehouses and once a notorious slum. The 1990 decision to open Pudong sent the city across the water, and Lujiazui's fields became a supertall skyline in two decades.","Always reinventing. Shanghai kept changing what it made — textiles and trade as a treaty port, steel and ships under Mao, finance and cars after Pudong, then chips, medicines, electric cars and even airliners. Same city, five different economies."],"sources":"Sources (2024-2026): census &amp; Shanghai Statistical Yearbook (population ~5.4 M in 1949 to ~24.8 M today; UN puts the wider urban area higher), Shanghai Municipal Statistics / Britannica / Statista (GDP ~¥76 bn in 1990 to ~¥4.7 tn in 2023), Wikipedia (Pudong opened 18 April 1990; tallest-buildings list), China Daily. Footprint polygons and the course of the Huangpu are schematic, not surveyed; site locations are approximate."}</script>
+<script>
+if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}
+</script>
+<script>
+const D=JSON.parse(document.getElementById('evo-data').textContent);
+const $=s=>document.querySelector(s);
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([31.0,121.78],9);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:13,subdomains:'abcd'}).addTo(map);
+
+const PUXI=[[31.18,121.40],[31.20,121.49],[31.27,121.50],[31.31,121.46],[31.27,121.39],[31.20,121.37]];
+const PUDONG=[[31.10,121.50],[31.17,121.52],[31.37,121.61],[31.40,121.57],[31.30,121.82],[31.10,121.86],[31.04,121.70],[31.07,121.52]];
+const HUANGPU=[[31.41,121.51],[31.34,121.515],[31.28,121.505],[31.245,121.497],[31.21,121.505],[31.17,121.495],[31.10,121.505],[31.04,121.56]];
+const pudongPoly=L.polygon(PUDONG,{color:'#C0402A',weight:1.5,fill:true,fillColor:'#C0402A',fillOpacity:0,opacity:0}).addTo(map);
+const puxiPoly=L.polygon(PUXI,{color:'#46565B',weight:1.3,fill:true,fillColor:'#46565B',fillOpacity:.13,opacity:.85}).addTo(map);
+const huangpu=L.polyline(HUANGPU,{color:'#2E6E9E',weight:3.2,opacity:.85}).addTo(map);
+huangpu.bindTooltip("the Huangpu — the old edge of the city",{sticky:true,className:'portlbl'});
+const mk=L.layerGroup().addTo(map);
+
+function draw(i){
+  document.querySelectorAll('#eraChips .chip').forEach((c,idx)=>c.classList.toggle('active',idx===i));
+  const e=D.eras[i];
+  $('#rPop').textContent=e.pop; $('#rGDP').innerHTML=e.gdp; $('#rTall').textContent=e.tall;
+  $('#thisEra').innerHTML='<div class="era-h">'+e.k+' · '+e.yr+'</div><div class="era-lead">'+e.lead+'</div><div class="era-b">'+e.narr+'</div>';
+  pudongPoly.setStyle({fillOpacity:i>=2?.16:0,opacity:i>=2?.9:0});
+  mk.clearLayers();
+  D.sites.forEach(s=>{ if(s.era>i) return;
+    const on=(s.era===i);
+    const html=on?'<div style="width:12px;height:12px;border-radius:50%;background:#C0402A;border:2px solid #E8EAE3;box-shadow:0 0 0 1px #C0402A"></div>'
+                 :'<div style="width:7px;height:7px;border-radius:50%;background:#46565B;border:1.5px solid #E8EAE3"></div>';
+    const sz=on?12:7;
+    mk.addLayer(L.marker([s.lat,s.lng],{icon:L.divIcon({html:html,iconSize:[sz,sz],iconAnchor:[sz/2,sz/2],className:''})}).bindTooltip(s.name+' — '+s.what,{direction:'top',className:'portlbl'}));
+    if(on) mk.addLayer(L.marker([s.lat,s.lng],{icon:L.divIcon({html:'<div class="portlbl" style="font-weight:700;color:#16242A">'+s.name+'</div>',iconSize:[1,1],iconAnchor:[-8,5],className:''})}));
+  });
+}
+
+const chipWrap=$('#eraChips');
+D.eras.forEach((e,idx)=>{
+  const c=document.createElement('div'); c.className='chip'+(idx===0?' active':''); c.innerHTML=e.k;
+  c.addEventListener('click',()=>draw(idx)); chipWrap.appendChild(c);
+});
+$('#legend').innerHTML=
+  `<span><i class="swatch" style="background:rgba(70,86,91,.13);border-color:#46565B"></i>Puxi — the historic core</span>`
+ +`<span><i class="swatch" style="background:rgba(192,64,42,.16);border-color:#C0402A"></i>Pudong — opened 1990</span>`
+ +`<span><i style="border-top:3px solid #2E6E9E;width:14px;display:inline-block"></i>the Huangpu</span>`
+ +`<span><i class="dot" style="background:#C0402A"></i>industry of this era</span>`
+ +`<span><i class="dot" style="background:#46565B;width:7px;height:7px"></i>from earlier eras</span>`;
+$('#arc').innerHTML=D.eras.map((e)=>`<div class="arc"><div class="y">${e.k} · ${e.yr} · ${e.pop}</div><div class="t">${e.lead}</div></div>`).join('');
+$('#tbl').innerHTML='<tr><th>Era</th><th>Lead industries</th><th>Emblems</th></tr>'+
+  D.table.map(([d,ind,em])=>`<tr><td><b>${d}</b></td><td class="d" style="white-space:normal">${ind}</td><td>${em}</td></tr>`).join('');
+$('#notes').innerHTML=D.notes.map(n=>`<div class="note">${n}</div>`).join('');
+$('#sources').textContent=D.sources;
+draw(0);
+</script>
+</body>
+</html>

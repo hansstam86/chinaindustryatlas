@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shenzhen — the Pearl River Delta's high-tech export gateway | China Industry Atlas</title>
+<meta name="description" content="A deep dive on the Port of Shenzhen: the fastest-growing of China's big four, Yantian's megaship terminal, and the electronics it ships to the world.">
+<link rel="canonical" href="https://chinaindustryatlas.com/ports/shenzhen/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/ports/shenzhen/">
+<meta property="og:title" content="Shenzhen — the electronics gateway">
+<meta property="og:description" content="Where the Pearl River Delta's phones, drones and electronics get on the boat.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Port deep-dives</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<div class="wrap hero">
+  <div class="eyebrow">Port deep-dive · Guangdong</div>
+  <h1>Shenzhen<span class="cn">深圳港 · the electronics gateway</span></h1>
+  <p class="lede">In the Pearl River Delta is China's <b>high-tech door to the world</b> — the port that ships the phones, drones and electronics the region is famous for, and the fastest-growing of China's big four.</p>
+  <div class="readouts"><div class="readout"><div class="n">~30 M</div><div class="l">containers (TEU), world #4</div></div><div class="readout"><div class="n">+12%</div><div class="l">growth in 2024 — fastest of the big four</div></div><div class="readout"><div class="n">Yantian</div><div class="l">deep-water terminal for the largest megaships</div></div></div>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">Where it is · what flows in and out</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend"><span><i class="dot" style="background:var(--chop);border-radius:0;transform:rotate(45deg)"></i>The port</span><span><i class="dot" style="background:var(--chop)"></i>Terminal / feeder</span><span><i style="border-top-color:var(--chop);border-top-style:dashed"></i>Shipping lane out</span><span><i class="dot" style="background:var(--ink-2)"></i>Reference city</span></div></div></div>
+<section><div class="wrap dd-grid"><div><div class="sec"><div class="num">01</div><h2>The south's high-tech door</h2><p>The Port of Shenzhen handled around 30 million TEU in 2024, the world's number four, and grew about twelve percent — the fastest of China's big four. It is not one port but a string of terminals wrapped around the Greater Bay Area: Yantian in the east, Shekou and Chiwan in the west.</p></div><div class="sec"><div class="num">02</div><h2>What it ships</h2><p>Shenzhen ships what the Pearl River Delta makes, and the delta makes the world's electronics: phones, laptops, drones, components, consumer gadgets — the highest value-per-box cargo in the country. The output of the Huaqiangbei ecosystem, of DJI and Huawei and the southern contract-assembly lines, leaves through here, bound above all for the United States.</p><div class="pull">The PRD makes the world's gadgets; Shenzhen is where they get on the boat.</div></div><div class="sec"><div class="num">03</div><h2>Yantian, for the giants</h2><p>Yantian's deep water lets it take the largest container ships afloat, which is why it is a primary trans-Pacific gateway. It sits right next to Hong Kong, whose own once-dominant port has faded as Shenzhen rose — the trade did not disappear, it moved a few kilometres north.</p></div><div class="sec"><div class="num">04</div><h2>On the front line</h2><p>Because it ships high-value electronics to America, Shenzhen feels trade tension before anywhere else: tariff-deadline cargo surges, episodic congestion, and a hard push toward automation and slot coordination. More than a port, it is a barometer of China's trade posture.</p></div></div>
+<aside><div class="facts"><h4>The facts</h4><div class="frow"><div class="k">Place</div><div class="v">Pearl River Delta, Guangdong</div></div><div class="frow"><div class="k">Rank</div><div class="v">World #4; fastest-growing of China's big four</div></div><div class="frow"><div class="k">2024</div><div class="v">~30M TEU, about +12%</div></div><div class="frow"><div class="k">Terminals</div><div class="v">Yantian (east, deep-water) + Shekou / Chiwan (west)</div></div><div class="frow"><div class="k">Ships out</div><div class="v">Phones, drones, electronics, high-value tech</div></div><div class="frow"><div class="k">Goes to</div><div class="v">Especially the United States (trans-Pacific)</div></div><div class="frow"><div class="k">Neighbour</div><div class="v">Hong Kong, whose volumes faded as Shenzhen rose</div></div></div></aside></div></section>
+<section><div class="wrap"><div class="fine" style="max-width:80ch">Sources (2024-2026): Port Technology International, Container News, SeaVantage, Upply. ~30M TEU (2024) and ~12% growth are widely reported; the electronics-heavy cargo mix and US orientation are characterised from trade reporting. Third in the atlas's Port deep-dive series.</div></div></section>
+<footer><div class="wrap"><div class="ftlinks"><a class="dl" href="/">← Full atlas</a><a class="dl" href="/ports/shanghai/">Shanghai →</a><a class="dl" href="/deep-dives/huaqiangbei/">Huaqiangbei →</a><a class="dl" href="/frontier/">Frontier industries →</a></div>
+  <div class="fine">Port deep-dive · Shenzhen · 2026 · locations and lanes indicative · basemap © OpenStreetMap, © CARTO.</div></div></footer>
+<script>if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}</script>
+<script>
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([22.55,114.0],9);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:12,subdomains:'abcd'}).addTo(map);
+
+function ref(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);
+}
+function term(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div style="width:10px;height:10px;border-radius:50%;background:#C0402A;border:2px solid #E8EAE3;box-shadow:0 0 0 1px #C0402A"></div>',iconSize:[10,10],iconAnchor:[5,5],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);
+}
+function lane(from,to,label,endlbl){
+  L.polyline([from,to],{color:'#C0402A',weight:3,opacity:.85,dashArray:'7,7'}).addTo(map).bindTooltip(label,{sticky:true,className:'pinlbl'});
+  L.marker(to,{icon:L.divIcon({html:'<div class="pinlbl" style="color:#C0402A">'+endlbl+'</div>',iconSize:[1,1],iconAnchor:[-2,4],className:''})}).addTo(map);
+}
+function port(c,name,big){
+  L.marker(c,{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map).bindTooltip(name,{direction:'top',offset:[0,-7],className:'pinlbl'});
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl big">'+big+'</div>',iconSize:[1,1],iconAnchor:[-9,6],className:''})}).addTo(map);
+}
+
+
+port([22.57,114.27],"Shenzhen — Yantian terminal","Shenzhen 深圳");
+term([22.48,113.88],"Shekou / Chiwan terminals");
+ref([22.32,114.17],"Hong Kong"); ref([23.05,113.75],"Dongguan"); ref([23.13,113.26],"Guangzhou");
+lane([22.57,114.27],[21.7,115.2],"East across the Pacific to the United States","→ to the US");
+lane([22.48,113.88],[21.5,113.4],"South through the South China Sea, on to Europe","→ to Europe");
+
+</script>
+</body></html>

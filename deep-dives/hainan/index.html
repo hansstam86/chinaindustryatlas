@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hainan — the whole-island free trade port bet, a forward look | China Industry Atlas</title>
+<meta name="description" content="A forward-looking deep dive on Hainan, the tropical island China is turning into its largest free trade port: the December 2025 island-wide customs closure, zero tariffs, dual 15% tax, and the industries it is betting on.">
+<link rel="canonical" href="https://chinaindustryatlas.com/deep-dives/hainan/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/deep-dives/hainan/">
+<meta property="og:title" content="Hainan — the free trade port bet">
+<meta property="og:description" content="China is turning a whole tropical island into its largest free trade port. A forward look at the bet.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · 前瞻 · A forward look</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<div class="wrap hero">
+  <div class="eyebrow">A forward look · Hainan</div>
+  <h1>Hainan<span class="cn">海南 · the free trade port bet</span></h1>
+  <p class="lede">Most of this atlas looks at what China has already built. This one looks ahead. On 18 December 2025 China turned an entire tropical island into a single <b>free trade port</b> — its own customs, tax and regulatory system — in what officials call the boldest reform experiment since 1978. Whether it works is the open question of the next decade.</p>
+  <div class="readouts">
+    <div class="readout"><div class="n">Dec 2025</div><div class="l">island-wide customs closure — the whole island is now a free port</div></div>
+    <div class="readout"><div class="n">~6,600</div><div class="l">goods at zero tariff (74% of lines, up from 21%)</div></div>
+    <div class="readout"><div class="n">dual 15%</div><div class="l">corporate &amp; top-talent tax rate (vs 25–45% on the mainland)</div></div>
+  </div>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">One island, two customs lines, several bets</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend">
+    <span><i class="dot" style="background:var(--chop)"></i>An emerging FTP cluster</span>
+    <span><i style="border-top-color:var(--chop);border-top-style:dashed"></i>'First line' — free, to the world</span>
+    <span><i style="border-top-color:var(--ink);border-top-style:solid"></i>'Second line' — controlled, to the mainland</span>
+    <span><i class="dot" style="background:var(--ink-2)"></i>Mainland reference</span>
+  </div></div></div>
+<section><div class="wrap dd-grid"><div>
+  <div class="sec"><div class="num">01</div><h2>The boldest bet</h2>
+    <p>China has more than twenty free-trade zones, but they are urban districts or industrial parks that tweak the rules at the edges. Hainan is different in kind: as of 18 December 2025 the <b>whole island</b> — about 35,000 km² and ten million people — became one special customs territory, inside China's borders but outside its ordinary customs regime. The governing idea is a single sentence: <b>free at the first line, controlled at the second, free flow within</b>. The first line is the boundary with the rest of the world; the second is the strait between Hainan and the mainland.</p></div>
+  <div class="sec"><div class="num">02</div><h2>How the port works</h2>
+    <p>The product Hainan is selling is not a thing but a set of rules. Goods arriving from overseas are now zero-tariff across roughly 6,600 categories — 74 percent of all tariff lines, up from 21 percent — covering nearly all production equipment and raw materials. A <b>value-added processing</b> rule lets a company import parts duty-free, add at least 30 percent of value on the island, and ship the finished product to the mainland tariff-free, sidestepping the usual trade walls. Companies in encouraged industries pay 15 percent corporate tax and high-end staff cap out at 15 percent personal tax, against 25 and up to 45 on the mainland. Fifty-nine nationalities enter visa-free.</p>
+    <div class="pull">Hainan isn't selling a product. It's selling a set of rules — zero tariffs, low taxes, open borders — and betting an economy will grow around them.</div></div>
+  <div class="sec"><div class="num">03</div><h2>What it's betting on</h2>
+    <p>The island is spreading its bets across a handful of nodes. <b>Sanya</b> and <b>Haikou</b> anchor tourism and the duty-free shopping that already pulls in mainland buyers. <b>Yangpu</b> in the northwest is the deep-water port and petrochemical base, the natural home for offshore processing under the value-added rule. <b>Wenchang</b> on the northeast coast is China's seaside rocket base and a commercial-space cluster. <b>Boao Lecheng</b> is a medical-tourism zone where drugs and devices not yet approved on the mainland can be used. And <b>Yazhou Bay</b>, by Sanya, pairs deep-sea research with the Nanfan winter seed-breeding base, China's crop-breeding 'Silicon Valley'. Around it all: tropical agriculture and offshore energy.</p></div>
+  <div class="sec"><div class="num">04</div><h2>The ghost of 1988</h2>
+    <p>None of this is guaranteed, and Hainan has been here before. It was made a province and China's largest Special Economic Zone in 1988, then a property bubble burst in the 1990s and the island spent thirty years lagging the mainland coast. The free trade port is a policy bet with real execution risk: the whole model depends on the second line actually stopping duty-free goods from leaking to the mainland, on attracting companies that genuinely operate there rather than shell registrations, and on competing with entrenched Hong Kong and Singapore — all from a small population and a thin industrial base far from the big clusters.</p></div>
+  <div class="sec"><div class="num">05</div><h2>Why it might be different</h2>
+    <p>What has changed is the weight behind it. The central backing is heavier than in 1988, the timeline is explicit — master plan in 2020, customs closure in 2025, a mature port targeted for 2035 and a globally influential one for 2050 — and the positioning is sharper: a tariff-free, low-tax gateway sitting between China and ASEAN, aimed squarely at the trade that now runs through Malacca and Singapore. Whether Hainan becomes a second Hong Kong or an expensive experiment is exactly the kind of question this atlas will be able to answer in a decade. For now it is the most interesting blank space on China's industrial map.</p></div>
+</div>
+<aside><div class="facts"><h4>The facts</h4>
+  <div class="frow"><div class="k">What</div><div class="v">Hainan Free Trade Port — the whole island (~35,000 km², ~10M people) as one special customs zone</div></div>
+  <div class="frow"><div class="k">The pivot</div><div class="v"><b>Island-wide customs closure launched 18 Dec 2025</b></div></div>
+  <div class="frow"><div class="k">Model</div><div class="v">First line (to overseas) free · second line (to mainland) controlled · free flow within</div></div>
+  <div class="frow"><div class="k">Trade</div><div class="v">Zero tariff on ~6,600 goods (74% of lines, up from 21%); ≥30% value-added → tariff-free to the mainland</div></div>
+  <div class="frow"><div class="k">Tax</div><div class="v">"Dual 15%" — 15% corporate (encouraged industries) + 15% cap for high-end talent</div></div>
+  <div class="frow"><div class="k">People</div><div class="v">Visa-free for 59 countries; eased entry &amp; exit</div></div>
+  <div class="frow"><div class="k">Betting on</div><div class="v">Tourism &amp; duty-free, offshore processing (Yangpu), space (Wenchang), medical tourism (Boao Lecheng), deep sea &amp; seeds (Yazhou Bay), tropical agriculture</div></div>
+  <div class="frow"><div class="k">Trajectory</div><div class="v">Master plan 2020 → closure 2025 → mature FTP 2035 → global FTP 2050</div></div>
+  <div class="frow"><div class="k">Caveat</div><div class="v">A province &amp; largest SEZ since 1988 that underdelivered — an unproven institutional bet</div></div>
+</div></aside></div></section>
+<section><div class="wrap"><div class="fine" style="max-width:80ch">
+  Sources (2025-2026): China Briefing, Norton Rose Fulbright, Asia Times, ORCA, ARC Advisory, and Chinese government announcements around the 18 December 2025 customs closure. This is a forward-looking entry: tariff, tax and target-date figures are policy settings and stated goals, not outcomes. A 'forward look' in the atlas's deep-dive series.
+</div></div></section>
+<footer><div class="wrap">
+  <div class="ftlinks">
+    <a class="dl" href="/">← Full atlas</a>
+    <a class="dl" href="/shenzhen-evolution/">Shenzhen evolution →</a>
+    <a class="dl" href="/getting-it-out/">Getting it out →</a>
+    <a class="dl" href="/frontier/">Frontier industries →</a>
+  </div>
+  <div class="fine">A forward look · Hainan · 2026 · clusters and customs lines indicative · basemap © OpenStreetMap, © CARTO.</div>
+</div></footer>
+<script>if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}</script>
+<script>
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([19.5,109.6],8);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:11,subdomains:'abcd'}).addTo(map);
+const HAIKOU=[20.04,110.32], SANYA=[18.25,109.51], YANGPU=[19.73,109.18], WENCHANG=[19.61,110.85], BOAO=[19.16,110.57], YAZHOU=[18.35,109.10];
+// second line (controlled) to the mainland, north across the strait
+L.polyline([HAIKOU,[20.95,110.15]],{color:'#16242A',weight:3,opacity:.85}).addTo(map)
+  .bindTooltip("'Second line' — controlled: goods to the mainland are taxed as imports",{sticky:true,className:'pinlbl'});
+// first line (free) out to the world / ASEAN, SW
+L.polyline([YANGPU,[18.7,107.7]],{color:'#C0402A',weight:3,opacity:.85,dashArray:'7,7'}).addTo(map)
+  .bindTooltip("'First line' — free: goods from overseas enter at zero tariff",{sticky:true,className:'pinlbl'});
+function node(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div style="width:11px;height:11px;border-radius:50%;background:#C0402A;border:2px solid #E8EAE3;box-shadow:0 0 0 1px #C0402A"></div>',iconSize:[11,11],iconAnchor:[5.5,5.5],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);
+}
+function ref(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);
+}
+node(YANGPU,"Yangpu — port &amp; petrochem / offshore processing");
+node(WENCHANG,"Wenchang — the space coast");
+node(BOAO,"Boao Lecheng — medical tourism");
+node(YAZHOU,"Yazhou Bay — deep sea &amp; seed breeding");
+node(SANYA,"Sanya — tourism &amp; duty-free");
+ref([21.27,110.36],"Zhanjiang — Guangdong (mainland)");
+L.marker([18.55,108.0],{icon:L.divIcon({html:'<div class="pinlbl" style="color:#C0402A">→ to ASEAN &amp; the world</div>',iconSize:[1,1],iconAnchor:[-2,4],className:''})}).addTo(map);
+L.marker(HAIKOU,{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map).bindTooltip("Haikou — capital: services, finance, duty-free",{direction:'top',offset:[0,-7],className:'pinlbl'});
+L.marker(HAIKOU,{icon:L.divIcon({html:'<div class="pinlbl big">Haikou 海口</div>',iconSize:[1,1],iconAnchor:[-9,6],className:''})}).addTo(map);
+</script>
+</body></html>
