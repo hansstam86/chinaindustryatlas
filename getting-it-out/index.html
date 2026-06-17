@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Getting it out — export gateways & transit times | China Industry Atlas</title>
+<meta name="description" content="How goods leave China: the gateway ports each region ships through, the China-Europe rail corridor, sea lanes, and indicative transit times to the world.">
+<link rel="canonical" href="https://chinaindustryatlas.com/getting-it-out/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://chinaindustryatlas.com/getting-it-out/">
+<meta property="og:title" content="Getting it out — export gateways & transit times">
+<meta property="og:description" content="The gateways China's goods leave through, and how long they take to reach the world.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --line-2:#D6DAD2;
+  --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --r-prd:#C0402A; --r-yrd:#2E6E6A; --r-bohai:#9C7A3C; --r-sea_strait:#B5642E; --r-central_west:#5A6E2E;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.55}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 30px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(40px,7vw,76px);line-height:.96;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.38em;letter-spacing:.06em;color:var(--ink-2);margin-top:10px;font-family:var(--disp)}
+.lede{font-size:18px;color:var(--ink-2);margin:18px 0 0;max-width:64ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:24px;max-width:560px}
+.readout{flex:1;padding:12px 0}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:23px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:6px}
+section{padding:46px 0;border-top:1px solid var(--line)}
+.sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+.sec-head .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec-head h2{font-family:var(--disp);font-weight:800;font-size:clamp(24px,3.4vw,34px);margin:0;letter-spacing:-.01em}
+.sec-head p{margin:0;color:var(--ink-2);font-size:15px;flex:1;min-width:280px}
+.mapgrid{display:grid;grid-template-columns:1fr 320px;gap:18px}
+@media(max-width:860px){.mapgrid{grid-template-columns:1fr}}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2)}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line);background:var(--paper-2)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:560px;width:100%;background:var(--paper-3)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.chip{font-family:var(--mono);font-size:12px;padding:7px 13px;border:1px solid var(--line);background:var(--paper-2);cursor:pointer;color:var(--ink-2);display:flex;align-items:center;gap:7px}
+.chip:hover{border-color:var(--ink-3)}
+.chip.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip .sw{width:9px;height:9px;border-radius:50%}
+.side .panel{border:1px solid var(--line);background:var(--paper-2);padding:16px 17px}
+.side .panel+.panel{margin-top:14px}
+.side h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 12px}
+.corr{display:flex;gap:10px;padding:9px 0;border-top:1px solid var(--line)}
+.corr:first-of-type{border-top:0}
+.corr .ck{width:10px;height:10px;border-radius:50%;margin-top:5px;flex:none}
+.corr .cn{font-family:var(--disp);font-weight:700;font-size:14px}
+.corr .cd{font-size:12.5px;color:var(--ink-2)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:9px;height:9px;border-top:0;border-radius:50%}
+.tbls{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:760px){.tbls{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:400}
+td.d{font-family:var(--mono);color:var(--chop);white-space:nowrap}
+.blk-h{font-family:var(--disp);font-weight:700;font-size:17px;margin:0 0 12px}
+.notes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:760px){.notes{grid-template-columns:1fr}}
+.note{border:1px solid var(--line);background:var(--paper-2);padding:15px 16px;font-size:13.5px;color:var(--ink-2)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3)}
+.leaflet-container{background:var(--paper-3)}
+.portlbl{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--ink);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.exitlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.portdot{width:13px;height:13px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">出口与物流 · Export &amp; transit</span></div>
+    <a class="back" href="/">← back to atlas</a>
+  </div>
+</header>
+
+<div class="wrap hero">
+  <div class="eyebrow">Export &amp; transit · across China</div>
+  <h1>Getting it out<span class="cn">出口与物流</span></h1>
+  <p class="lede" id="lede"></p>
+  <div class="readouts">
+    <div class="readout"><div class="n" id="rPorts">—</div><div class="l">Gateway ports</div></div>
+    <div class="readout"><div class="n" id="rModes">—</div><div class="l">Shipping modes</div></div>
+    <div class="readout"><div class="n" id="rEU">—</div><div class="l">Rail days to EU</div></div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="num">01</span><h2>How it leaves</h2>
+      <p>Everything made across China still has to leave it. Each region funnels to a gateway port; the inland hubs increasingly leave by rail to Europe. Toggle a mode to isolate it.</p></div>
+    <div class="chips" id="modeChips"></div>
+    <div class="mapgrid">
+      <div>
+        <div class="mapcard">
+          <div class="maphead"><span class="t">Ports, corridors &amp; sea lanes · 中国</span><span class="sc">hover a node · drag to pan</span></div>
+          <div id="map"></div>
+          <div class="legend" id="legend"></div>
+        </div>
+      </div>
+      <div class="side">
+        <div class="panel">
+          <h4>The corridors</h4>
+          <div id="corridors"></div>
+        </div>
+        <div class="panel">
+          <h4>Reading the map</h4>
+          <div style="font-size:13px;color:var(--ink-2)">Diamonds are the seven gateway ports. Coloured lines run from each production region to the port it ships through. The gold line is the China-Europe Railway, fanning in from the inland launch cities and exiting northwest through the Alashankou/Khorgos crossing. Dashed grey arrows mark where the sea lanes head offshore.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="num">02</span><h2>How long it takes</h2>
+      <p>Indicative door-to-port transit by mode and destination. Ranges, not quotes — actual times shift with season, carrier, and customs.</p></div>
+    <div class="tbls">
+      <div>
+        <div class="blk-h">To the major markets</div>
+        <div style="overflow-x:auto"><table id="transitTbl"></table></div>
+      </div>
+      <div>
+        <div class="blk-h">By shipping mode</div>
+        <div style="overflow-x:auto"><table id="modeTbl"></table></div>
+        <div class="blk-h" style="margin-top:24px">Gateway ports</div>
+        <div style="overflow-x:auto"><table id="portTbl"></table></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="num">03</span><h2>Field notes</h2>
+      <p>How the export side actually works.</p></div>
+    <div class="notes" id="notes"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="ftlinks">
+      <a class="dl" href="/">← Full atlas</a>
+      <a class="dl" href="/#maps">All maps →</a>
+      <a class="dl" href="/one-product-towns/">One-product towns →</a>
+    </div>
+    <div class="fine">Export &amp; transit · 2026 · transit times indicative · port locations approximate · basemap © OpenStreetMap, © CARTO.</div>
+  </div>
+</footer>
+
+<script id="flow-data" type="application/json">{"meta":{"tagline":"Everything made across China still has to leave it — here are the gateways it leaves through and how long it takes to reach the world."},"rail_days_eu":"15-25","ports":[{"id":"yantian","name":"Shenzhen / Yantian","short":"Yantian","lat":22.56,"lng":114.27,"best":"Electronics, general cargo, e-commerce"},{"id":"nansha","name":"Guangzhou / Nansha","short":"Nansha","lat":22.76,"lng":113.62,"best":"General cargo, furniture, small commodities"},{"id":"ningbo","name":"Ningbo-Zhoushan","short":"Ningbo","lat":29.95,"lng":121.95,"best":"Heavy goods, auto parts, NEV (Ro-Ro)"},{"id":"shanghai","name":"Shanghai / Yangshan","short":"Shanghai","lat":30.63,"lng":122.06,"best":"All cargo, high-value, refrigerated"},{"id":"xiamen","name":"Xiamen","short":"Xiamen","lat":24.45,"lng":118.08,"best":"Southeast-Asia routes, electronics"},{"id":"qingdao","name":"Qingdao","short":"Qingdao","lat":36.07,"lng":120.38,"best":"Northern exports, appliances, bulk"},{"id":"tianjin","name":"Tianjin","short":"Tianjin","lat":38.98,"lng":117.78,"best":"North China, heavy machinery, aerospace"}],"flows":[{"region":"prd","lat":23.0,"lng":113.4,"to":"yantian","w":5,"label":"Pearl River Delta → Yantian"},{"region":"prd","lat":23.0,"lng":113.4,"to":"nansha","w":3,"label":"Pearl River Delta → Nansha"},{"region":"yrd","lat":30.7,"lng":120.4,"to":"shanghai","w":6,"label":"Yangtze River Delta → Shanghai"},{"region":"yrd","lat":30.7,"lng":120.4,"to":"ningbo","w":5,"label":"Yangtze River Delta → Ningbo-Zhoushan"},{"region":"sea_strait","lat":25.2,"lng":118.3,"to":"xiamen","w":3,"label":"Southeast coast → Xiamen"},{"region":"bohai","lat":36.4,"lng":118.7,"to":"qingdao","w":4,"label":"Bohai Rim → Qingdao"},{"region":"bohai","lat":37.6,"lng":117.6,"to":"tianjin","w":3,"label":"Bohai Rim → Tianjin"},{"region":"central_west","lat":30.6,"lng":108.0,"to":"shanghai","w":3,"label":"Central & West → Shanghai (Yangtze barge + rail)"}],"sea_exits":[{"lat":22.56,"lng":114.27,"tlat":20.0,"tlng":116.6,"label":"ocean lanes: EU 30-40d · US 18-35d · SE Asia 5-10d"},{"lat":30.63,"lng":122.06,"tlat":30.9,"tlng":125.2,"label":""},{"lat":29.95,"lng":121.95,"tlat":28.6,"tlng":124.8,"label":""},{"lat":36.07,"lng":120.38,"tlat":35.4,"tlng":123.2,"label":""},{"lat":24.45,"lng":118.08,"tlat":22.6,"tlng":120.2,"label":""}],"rail":{"from":[{"lat":29.56,"lng":106.55},{"lat":30.57,"lng":104.07},{"lat":34.34,"lng":108.94},{"lat":34.75,"lng":113.63},{"lat":29.31,"lng":120.07},{"lat":30.59,"lng":114.31}],"hub":{"lat":45.17,"lng":82.57},"exit":{"lat":46.2,"lng":76.5}},"transit":[{"dest":"EU (Rotterdam, Hamburg)","sea":"30-40d","rail":"15-25d","air":"5-8d"},{"dest":"US West Coast","sea":"14-20d","rail":"","air":"6-10d"},{"dest":"US East Coast","sea":"25-35d","rail":"","air":"8-12d"},{"dest":"Southeast Asia","sea":"5-10d","rail":"7-12d","air":"3-5d"},{"dest":"Middle East / Gulf","sea":"18-25d","rail":"","air":"6-9d"}],"modes":[{"method":"Sea (FCL)","time":"25-40d","cost":"Lowest","best":"Large orders, heavy or bulk cargo"},{"method":"Sea (LCL)","time":"30-45d","cost":"Low","best":"Smaller, less-than-container loads"},{"method":"Rail to EU","time":"15-25d","cost":"Medium","best":"EU-bound; speed/cost balance"},{"method":"Rail to ASEAN","time":"7-12d","cost":"Medium","best":"Southeast-Asia-bound cargo"},{"method":"Air freight","time":"5-10d","cost":"High","best":"Urgent, light, high-value"},{"method":"Express courier","time":"3-7d","cost":"Highest","best":"Samples, small parcels, documents"},{"method":"Ro-Ro","time":"25-35d","cost":"Medium","best":"Vehicles, NEV exports, heavy equipment"}],"corridors":[{"name":"South — the PRD gateways","color":"#C0402A","desc":"Shenzhen/Yantian and Guangzhou/Nansha. Electronics and consumer goods to the world; the densest e-commerce export pipe."},{"name":"East — the YRD gateways","color":"#2E6E6A","desc":"Shanghai/Yangshan and Ningbo-Zhoushan, the world's two busiest ports by volume. Everything from chips to autos; Ningbo leads NEV Ro-Ro."},{"name":"North — Bohai gateways","color":"#9C7A3C","desc":"Qingdao and Tianjin. Appliances, machinery, bulk and aerospace out of the north."},{"name":"Southeast coast","color":"#B5642E","desc":"Xiamen, convenient for ASEAN routes and Fujian's electronics, footwear and batteries."},{"name":"China-Europe Railway","color":"#9C7A3C","desc":"Inland hubs — Chongqing, Chengdu, Xi'an, Zhengzhou, Wuhan, Yiwu — exit northwest via Alashankou/Khorgos. ~15-25 days to the EU, between sea and air on cost and speed."}],"notes":["Pick the gateway, not just the factory. A maker near Ningbo or Yantian can shave real money and days off freight versus shipping a heavy or bulky product across the country to a different port.","The rail corridor changed the inland math. For EU-bound goods from Chongqing, Chengdu or Xi'an, China-Europe rail beats sea on time and air on cost — a big reason production keeps moving inland.","Incoterms decide who carries the risk across all of this. FOB hands you control at the port of departure; DDP is easiest for small cross-border parcels but watch the hidden margin. Times here are indicative ranges, not quotes."]}</script>
+<script>
+if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}
+</script>
+<script>
+const D=JSON.parse(document.getElementById('flow-data').textContent);
+const $=s=>document.querySelector(s);
+const RC={prd:'#C0402A',yrd:'#2E6E6A',bohai:'#9C7A3C',sea_strait:'#B5642E',central_west:'#5A6E2E'};
+const RAIL='#9C7A3C', SEA='#6C7A7E';
+
+$('#lede').innerHTML=D.meta.tagline.replace("across China","<b>across China</b>");
+$('#rPorts').textContent=D.ports.length;
+$('#rModes').textContent=D.modes.length;
+$('#rEU').textContent=D.rail_days_eu;
+
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([32,110],4);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:9,subdomains:'abcd'}).addTo(map);
+
+const portById={}; D.ports.forEach(p=>portById[p.id]=p);
+const G={flows:[],sea:[],rail:[]};
+
+// region -> port flows
+D.flows.forEach(f=>{
+  const p=portById[f.to];
+  const ln=L.polyline([[f.lat,f.lng],[p.lat,p.lng]],{color:RC[f.region],weight:f.w||3,opacity:.8}).addTo(map);
+  ln.bindTooltip(f.label,{sticky:true,className:'exitlbl'});
+  G.flows.push(ln);
+});
+// port nodes
+D.ports.forEach(p=>{
+  L.marker([p.lat,p.lng],{icon:L.divIcon({className:'',html:'<div class="portdot"></div>',iconSize:[13,13],iconAnchor:[6,6]})}).addTo(map)
+    .bindTooltip(p.name+' — '+p.best,{direction:'top',offset:[0,-6],className:'exitlbl'});
+  L.marker([p.lat,p.lng],{icon:L.divIcon({className:'',html:'<div class="portlbl">'+p.short+'</div>',iconSize:[1,1],iconAnchor:[-9,6]})}).addTo(map);
+});
+// sea-lane exits
+D.sea_exits.forEach(s=>{
+  const ln=L.polyline([[s.lat,s.lng],[s.tlat,s.tlng]],{color:SEA,weight:2,opacity:.75,dashArray:'5,5'}).addTo(map);
+  G.sea.push(ln);
+  if(s.label) L.marker([s.tlat,s.tlng],{icon:L.divIcon({className:'',html:'<div class="exitlbl">→ '+s.label+'</div>',iconSize:[1,1],iconAnchor:[-4,6]})}).addTo(map);
+});
+// china-europe rail: launch cities -> hub -> off-edge
+const hub=D.rail.hub;
+D.rail.from.forEach(c=>{
+  G.rail.push(L.polyline([[c.lat,c.lng],[hub.lat,hub.lng]],{color:RAIL,weight:2,opacity:.7,dashArray:'2,5'}).addTo(map));
+});
+G.rail.push(L.polyline([[hub.lat,hub.lng],[D.rail.exit.lat,D.rail.exit.lng]],{color:RAIL,weight:4,opacity:.9,dashArray:'8,5'}).addTo(map));
+L.marker([hub.lat,hub.lng],{icon:L.divIcon({className:'',html:'<div class="exitlbl">Alashankou / Khorgos</div>',iconSize:[1,1],iconAnchor:[-7,4]})}).addTo(map);
+L.marker([D.rail.exit.lat,D.rail.exit.lng],{icon:L.divIcon({className:'',html:'<div class="exitlbl" style="color:'+RAIL+';font-weight:700">→ Europe '+D.rail_days_eu+'d</div>',iconSize:[1,1],iconAnchor:[10,6]})}).addTo(map);
+
+// legend
+$('#legend').innerHTML=
+  Object.entries({'Pearl R. Delta':RC.prd,'Yangtze R. Delta':RC.yrd,'Bohai & North':RC.bohai,'SE coast':RC.sea_strait,'Central & West':RC.central_west})
+    .map(([k,v])=>`<span><i style="border-top-color:${v}"></i>${k}</span>`).join('')
+  +`<span><i style="border-top-color:${RAIL};border-top-style:dashed"></i>China-Europe rail</span>`
+  +`<span><i style="border-top-color:${SEA};border-top-style:dashed"></i>Sea lane</span>`
+  +`<span><i class="dot" style="background:var(--chop)"></i>Gateway port</span>`;
+
+// mode chips
+const modes=[{k:'all',n:'All flows'},{k:'sea',n:'Sea freight'},{k:'rail',n:'China-Europe rail'}];
+const chipWrap=$('#modeChips');
+function setMode(m){
+  document.querySelectorAll('#modeChips .chip').forEach(c=>c.classList.toggle('active',c.dataset.m===m));
+  const seaOn=(m==='all'||m==='sea'), railOn=(m==='all'||m==='rail');
+  G.flows.forEach(l=>l.setStyle({opacity:seaOn?.85:.12}));
+  G.sea.forEach(l=>l.setStyle({opacity:seaOn?.75:.1}));
+  G.rail.forEach(l=>l.setStyle({opacity:railOn?(l.options.weight>=4?.9:.7):.1}));
+}
+modes.forEach(mo=>{
+  const c=document.createElement('div'); c.className='chip'+(mo.k==='all'?' active':''); c.dataset.m=mo.k; c.textContent=mo.n;
+  c.addEventListener('click',()=>setMode(mo.k)); chipWrap.appendChild(c);
+});
+
+// corridors panel
+$('#corridors').innerHTML=D.corridors.map(c=>
+  `<div class="corr"><span class="ck" style="background:${c.color}"></span><div><div class="cn">${c.name}</div><div class="cd">${c.desc}</div></div></div>`).join('');
+
+// transit table
+const dest=D.transit;
+$('#transitTbl').innerHTML='<tr><th>Destination</th><th>Sea</th><th>Rail</th><th>Air</th></tr>'+
+  dest.map(d=>`<tr><td>${d.dest}</td><td class="d">${d.sea||'—'}</td><td class="d">${d.rail||'—'}</td><td class="d">${d.air||'—'}</td></tr>`).join('');
+// mode table
+$('#modeTbl').innerHTML='<tr><th>Mode</th><th>Time</th><th>Cost</th><th>Best for</th></tr>'+
+  D.modes.map(m=>`<tr><td>${m.method}</td><td class="d">${m.time}</td><td>${m.cost}</td><td>${m.best}</td></tr>`).join('');
+// port table
+$('#portTbl').innerHTML='<tr><th>Port</th><th>Best for</th></tr>'+
+  D.ports.map(p=>`<tr><td>${p.name}</td><td>${p.best}</td></tr>`).join('');
+// notes
+$('#notes').innerHTML=D.notes.map(n=>`<div class="note">${n}</div>`).join('');
+</script>
+</body>
+</html>

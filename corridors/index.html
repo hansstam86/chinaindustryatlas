@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The great corridors — moving power and water across China | China Industry Atlas</title>
+<meta name="description" content="China re-plumbing a continent: the West-East ultra-high-voltage power grid (西电东送) and the South-North Water Transfer (南水北调), on one map.">
+<link rel="canonical" href="https://chinaindustryatlas.com/corridors/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://chinaindustryatlas.com/corridors/">
+<meta property="og:title" content="The great corridors — power west-to-east, water south-to-north">
+<meta property="og:description" content="The UHV power grid and the South-North Water Transfer, the two megaprojects re-plumbing China.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --line-2:#D6DAD2;
+  --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --r-prd:#C0402A; --r-yrd:#2E6E6A; --r-bohai:#9C7A3C; --r-sea_strait:#B5642E; --r-central_west:#5A6E2E;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.55}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 30px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(40px,7vw,76px);line-height:.96;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.38em;letter-spacing:.06em;color:var(--ink-2);margin-top:10px;font-family:var(--disp)}
+.lede{font-size:18px;color:var(--ink-2);margin:18px 0 0;max-width:64ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:24px;max-width:560px}
+.readout{flex:1;padding:12px 0}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:23px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:6px}
+section{padding:46px 0;border-top:1px solid var(--line)}
+.sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+.sec-head .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec-head h2{font-family:var(--disp);font-weight:800;font-size:clamp(24px,3.4vw,34px);margin:0;letter-spacing:-.01em}
+.sec-head p{margin:0;color:var(--ink-2);font-size:15px;flex:1;min-width:280px}
+.mapgrid{display:grid;grid-template-columns:1fr 320px;gap:18px}
+@media(max-width:860px){.mapgrid{grid-template-columns:1fr}}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2)}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line);background:var(--paper-2)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:560px;width:100%;background:var(--paper-3)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.chip{font-family:var(--mono);font-size:12px;padding:7px 13px;border:1px solid var(--line);background:var(--paper-2);cursor:pointer;color:var(--ink-2);display:flex;align-items:center;gap:7px}
+.chip:hover{border-color:var(--ink-3)}
+.chip.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip .sw{width:9px;height:9px;border-radius:50%}
+.side .panel{border:1px solid var(--line);background:var(--paper-2);padding:16px 17px}
+.side .panel+.panel{margin-top:14px}
+.side h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 12px}
+.corr{display:flex;gap:10px;padding:9px 0;border-top:1px solid var(--line)}
+.corr:first-of-type{border-top:0}
+.corr .ck{width:10px;height:10px;border-radius:50%;margin-top:5px;flex:none}
+.corr .cn{font-family:var(--disp);font-weight:700;font-size:14px}
+.corr .cd{font-size:12.5px;color:var(--ink-2)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:9px;height:9px;border-top:0;border-radius:50%}
+.tbls{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:760px){.tbls{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:400}
+td.d{font-family:var(--mono);color:var(--chop);white-space:nowrap}
+.blk-h{font-family:var(--disp);font-weight:700;font-size:17px;margin:0 0 12px}
+.notes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:760px){.notes{grid-template-columns:1fr}}
+.note{border:1px solid var(--line);background:var(--paper-2);padding:15px 16px;font-size:13.5px;color:var(--ink-2)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3)}
+.leaflet-container{background:var(--paper-3)}
+.portlbl{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--ink);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.exitlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.portdot{width:13px;height:13px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+
+.srcsq{width:11px;height:11px;background:#C0402A;border:2px solid var(--paper);box-shadow:0 0 0 1px #C0402A}
+.loaddot{width:11px;height:11px;border-radius:50%;background:#C0402A;border:2px solid var(--paper);box-shadow:0 0 0 1px #C0402A}
+.waternode{width:11px;height:11px;border-radius:50%;background:#2E6E9E;border:2px solid var(--paper);box-shadow:0 0 0 1px #2E6E9E}
+.nlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">西电东送 · 南水北调 · The great corridors</span></div>
+    <a class="back" href="/">← back to atlas</a>
+  </div>
+</header>
+
+<div class="wrap hero">
+  <div class="eyebrow">Moving power &amp; water · across China</div>
+  <h1>The great corridors<span class="cn">西电东送 · 南水北调</span></h1>
+  <p class="lede" id="lede"></p>
+  <div class="readouts">
+    <div class="readout"><div class="n" id="rA">45</div><div class="l">UHV power lines in service</div></div>
+    <div class="readout"><div class="n" id="rB">340 GW</div><div class="l">West-east transfer capacity</div></div>
+    <div class="readout"><div class="n" id="rC">44.8 bn m³</div><div class="l">Water sent north per year (planned)</div></div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="num">01</span><h2>Re-plumbing a continent</h2>
+      <p>Two corridors on one map. Red lines carry <b>electricity west-to-east</b> (西电东送); blue lines move <b>water south-to-north</b> (南水北调). Toggle to isolate one.</p></div>
+    <div class="chips" id="modeChips"></div>
+    <div class="mapgrid">
+      <div>
+        <div class="mapcard">
+          <div class="maphead"><span class="t">Power grid &amp; water transfer · 大动脉</span><span class="sc">hover a line · drag to pan</span></div>
+          <div id="map"></div>
+          <div class="legend" id="legend"></div>
+        </div>
+      </div>
+      <div class="side">
+        <div class="panel"><h4>The two corridors</h4><div id="corridors"></div></div>
+        <div class="panel"><h4>By the numbers</h4><div id="bynum"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="num">02</span><h2>The lines and the routes</h2>
+      <p>A representative set of the major ultra-high-voltage corridors, and the three water routes.</p></div>
+    <div class="tbls">
+      <div>
+        <div class="blk-h">West-East power: major UHV corridors</div>
+        <div style="overflow-x:auto"><table id="powerTbl"></table></div>
+      </div>
+      <div>
+        <div class="blk-h">South-North water: the three routes</div>
+        <div style="overflow-x:auto"><table id="waterTbl"></table></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="num">03</span><h2>Field notes</h2>
+      <p>Why China moves the resource, not the people.</p></div>
+    <div class="notes" id="notes"></div>
+    <div class="fine" id="sources" style="margin-top:22px"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="ftlinks">
+      <a class="dl" href="/">← Full atlas</a>
+      <a class="dl" href="/#maps">All maps →</a>
+      <a class="dl" href="/power-frontier/">The power frontier →</a>
+      <a class="dl" href="/raw-materials/">Where it starts →</a>
+    </div>
+    <div class="fine">The great corridors · 2026 · line and canal paths indicative, not surveyed alignments · basemap © OpenStreetMap, © CARTO.</div>
+  </div>
+</footer>
+
+<script id="corr-data" type="application/json">{"meta":{"tagline":"China is re-plumbing the continent: ultra-high-voltage lines carrying power west-to-east, and giant canals moving water south-to-north, mapped across China."},"nodes":{"hami":["Hami",42.83,93.51,"src"],"changji":["Changji",44.0,87.3,"src"],"qingyang":["Gansu · Qingyang",35.73,107.64,"src"],"hexi":["Gansu · Hexi",39.74,98.5,"src"],"ningxia":["Ningxia",37.4,106.3,"src"],"qinghai":["Qinghai",36.1,100.6,"src"],"ordos":["W. Inner Mongolia",39.6,109.8,"src"],"xiangjiaba":["Sichuan · Xiangjiaba",28.6,104.4,"src"],"baihetan":["Baihetan",27.2,102.9,"src"],"yunnan":["Yunnan",25.0,101.5,"src"],"medog":["Tibet · Medog",29.46,95.36,"src"],"zhengzhou":["Zhengzhou",34.75,113.63,"load"],"guquan":["Anhui · Guquan",30.95,118.75,"load"],"taian":["Shandong · Tai'an",36.2,117.1,"load"],"shaoxing":["Zhejiang · Shaoxing",30.0,120.58,"load"],"zhumadian":["Henan · Zhumadian",33.0,114.0,"load"],"shaoyang":["Hunan · Shaoyang",27.0,111.5,"load"],"beijing":["Beijing-Tianjin-Hebei",39.9,116.4,"load"],"shanghai":["Shanghai",31.2,121.5,"load"],"suzhou":["Jiangsu",31.3,120.6,"load"],"hangzhou":["Zhejiang",30.3,120.2,"load"],"guangzhou":["Guangdong (PRD)",23.13,113.26,"load"]},"power":[["hami","zhengzhou","Tianzhong ±800 kV","Xinjiang wind/solar/coal · 2,210 km","North",false],["changji","guquan","Changji–Guquan ±1,100 kV","the world's highest-voltage line · ~3,300 km","North",false],["qingyang","taian","Longdong–Shandong ±800 kV","first wind-solar-thermal-storage line (2025)","North",false],["ningxia","shaoxing","Lingshao ±800 kV","Ningxia to the Yangtze Delta","North",false],["qinghai","zhumadian","Qinghai–Henan ±800 kV","the first all-renewable UHV line","North",false],["hexi","shaoyang","Qishao ±800 kV","Gansu wind to Hunan","Central",false],["ordos","beijing","W. Inner Mongolia–Jing-Jin-Ji ±800 kV","desert wind/solar to the capital region (by 2027)","North",false],["xiangjiaba","shanghai","Xiangjiaba–Shanghai ±800 kV","China's first UHVDC (2010) · Jinsha hydro","Central",false],["baihetan","suzhou","Baihetan–Jiangsu ±800 kV","SW hydro to the Yangtze Delta","Central",false],["baihetan","hangzhou","Baihetan–Zhejiang ±800 kV","SW hydro to Zhejiang","Central",false],["yunnan","guangzhou","Yunnan–Guangdong ±800 kV","CSG · Yunnan hydro to the Pearl River Delta","South",false],["medog","guangzhou","Medog / Yarlung Tsangpo","under construction · ~60 GW planned, about 3x the Three Gorges","South",true]],"water":[{"name":"Central route","cn":"中线","from":"Danjiangkou Reservoir","to":"Beijing & Tianjin","status":"Operational since 2014 · gravity-fed · supplies much of Beijing's tap water","dash":false,"points":[[32.58,111.52],[33.0,112.5],[34.75,113.63],[36.1,114.4],[38.04,114.51],[38.87,115.46],[39.9,116.4]],"branch":[[38.87,115.46],[39.13,117.2]]},{"name":"Eastern route","cn":"东线","from":"Yangtze at Jiangdu","to":"Shandong & Tianjin","status":"Operational since 2014 · upgrades the ancient Grand Canal · 20+ pumping stations","dash":false,"points":[[32.4,119.43],[33.5,119.0],[35.41,116.59],[36.46,115.98],[37.45,116.31],[39.13,117.2]],"branch":[[35.41,116.59],[36.7,119.1]]},{"name":"Western route","cn":"西线","from":"upper Yangtze tributaries","to":"Yellow River headwaters","status":"Planned, not yet built · crosses the Tibetan Plateau at 3,000-5,000 m","dash":true,"points":[[31.0,101.0],[32.4,101.2],[34.0,101.6]],"branch":null}],"waternodes":[["Danjiangkou",32.58,111.52],["Yangtze · Jiangdu",32.4,119.43],["Tianjin",39.13,117.2],["Yellow R. headwaters (planned)",34.0,101.6]],"notes":["Two slogans, one idea. 西电东送 ('west power, east delivery') and 南水北调 ('south water, north diversion') are the same instinct at continental scale: move the resource to the people instead of the people to the resource. China runs about 45 ultra-high-voltage lines carrying ~340 GW eastward, and the world's largest water-transfer scheme moving tens of billions of cubic metres north each year.","The grid is the enabler. None of the desert solar, plateau hydro or far-west wind on the power-frontier map matters without wires to the coast. UHV direct-current 'super-highways' (up to ±1,100 kV) push bulk power 2,000-3,000 km with low losses, which is how China can put generation in Xinjiang and load in Shanghai. State Grid plans 15 more UHV lines for 2026-2030.","Power and water are converging on Tibet. The new Yarlung Tsangpo (Medog) project, begun in 2025, is pitched as a ~60 GW, ~300 TWh hydropower giant, roughly triple the Three Gorges, and framed as part of west-to-east power delivery; the planned western water route taps the same Tibetan rivers. Both sit on transboundary rivers (the Brahmaputra, and nearby the Mekong), which makes the plumbing a geopolitical question with India and Southeast Asia, not only an engineering one."],"sources":"Sources (2025-2026, schematic): State Grid & China Southern Power Grid (45 UHV lines, ~340 GW west-east capacity); Ministry of Water Resources (South-North Water Transfer, ~44.8 bn m3/yr planned across three routes); PowerChina / state media (Yarlung Tsangpo / Medog, begun Jul 2025, ~60 GW planned). Line and canal paths are indicative, not surveyed alignments."}</script>
+<script>
+if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}
+</script>
+<script>
+const D=JSON.parse(document.getElementById('corr-data').textContent);
+const $=s=>document.querySelector(s);
+const POWER='#C0402A', WATER='#2E6E9E';
+$('#lede').innerHTML=D.meta.tagline.replace("across China","<b>across China</b>");
+
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([32.5,106.0],4);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:9,subdomains:'abcd'}).addTo(map);
+const N=D.nodes; const G={power:[],water:[]};
+
+// power lines
+D.power.forEach(([f,t,name,carries,corr,dash])=>{
+  const a=N[f], b=N[t];
+  const ln=L.polyline([[a[1],a[2]],[b[1],b[2]]],{color:POWER,weight:dash?2.5:3,opacity:.82,dashArray:dash?'7,6':null}).addTo(map);
+  ln.bindTooltip(name+' — '+carries,{sticky:true,className:'nlbl'});
+  G.power.push(ln);
+});
+// power nodes
+Object.entries(N).forEach(([id,[name,lat,lng,kind]])=>{
+  const cls = kind==='src' ? 'srcsq' : 'loaddot';
+  L.marker([lat,lng],{icon:L.divIcon({html:'<div class="'+cls+'"></div>',iconSize:[11,11],iconAnchor:[5,5],className:''})}).addTo(map)
+    .bindTooltip(name,{direction:'top',offset:[0,-5],className:'nlbl'});
+  L.marker([lat,lng],{icon:L.divIcon({html:'<div class="nlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-7,5],className:''})}).addTo(map);
+});
+// water routes
+D.water.forEach(r=>{
+  const ln=L.polyline(r.points,{color:WATER,weight:r.dash?3:4,opacity:.85,dashArray:r.dash?'7,6':null}).addTo(map);
+  ln.bindTooltip(r.name+' — '+r.status,{sticky:true,className:'nlbl'}); G.water.push(ln);
+  if(r.branch){ G.water.push(L.polyline(r.branch,{color:WATER,weight:r.dash?3:4,opacity:.85,dashArray:r.dash?'7,6':null}).addTo(map)); }
+});
+// water nodes
+D.waternodes.forEach(([name,lat,lng])=>{
+  L.marker([lat,lng],{icon:L.divIcon({html:'<div class="waternode"></div>',iconSize:[11,11],iconAnchor:[5,5],className:''})}).addTo(map)
+    .bindTooltip(name,{direction:'top',offset:[0,-5],className:'nlbl'});
+  L.marker([lat,lng],{icon:L.divIcon({html:'<div class="nlbl" style="color:'+WATER+'">'+name+'</div>',iconSize:[1,1],iconAnchor:[-7,5],className:''})}).addTo(map);
+});
+
+// legend
+$('#legend').innerHTML=
+  `<span><i style="border-top-color:${POWER}"></i>Power · west → east</span>`
+ +`<span><i style="border-top-color:${WATER}"></i>Water · south → north</span>`
+ +`<span><i style="border-top-color:var(--ink-3);border-top-style:dashed"></i>Under construction / planned</span>`
+ +`<span><i class="dot" style="background:${POWER};border-radius:0"></i>Generation source</span>`
+ +`<span><i class="dot" style="background:${POWER}"></i>Load centre</span>`;
+
+// toggle
+const modes=[{k:'all',n:'Both corridors'},{k:'power',n:'Power (west→east)'},{k:'water',n:'Water (south→north)'}];
+const chipWrap=$('#modeChips');
+function setLayer(m){
+  document.querySelectorAll('#modeChips .chip').forEach(c=>c.classList.toggle('active',c.dataset.m===m));
+  const pOn=(m==='all'||m==='power'), wOn=(m==='all'||m==='water');
+  G.power.forEach(l=>l.setStyle({opacity:pOn?.82:.08}));
+  G.water.forEach(l=>l.setStyle({opacity:wOn?.85:.08}));
+}
+modes.forEach(mo=>{
+  const c=document.createElement('div'); c.className='chip'+(mo.k==='all'?' active':''); c.dataset.m=mo.k; c.textContent=mo.n;
+  c.addEventListener('click',()=>setLayer(mo.k)); chipWrap.appendChild(c);
+});
+
+// side: two corridors
+$('#corridors').innerHTML=
+  `<div class="corr"><span class="ck" style="background:${POWER}"></span><div><div class="cn">Power — west to east (西电东送)</div><div class="cd">Hydro, wind, solar and coal from the interior, carried to the coastal load centres by ultra-high-voltage line. ~45 lines, ~340 GW.</div></div></div>`
+ +`<div class="corr"><span class="ck" style="background:${WATER}"></span><div><div class="cn">Water — south to north (南水北调)</div><div class="cd">Yangtze-basin water lifted and channelled to the dry north along three routes, central and eastern already running, western still planned.</div></div></div>`;
+// side: by the numbers
+$('#bynum').innerHTML=[
+  ['±1,100 kV','highest-voltage line on Earth (Changji–Guquan)'],
+  ['2014','central & eastern water routes opened'],
+  ['~330,000','people relocated for the central route'],
+  ['~60 GW','planned Yarlung Tsangpo / Medog dam, ~3x Three Gorges'],
+].map(([n,l])=>`<div class="corr"><span class="cn" style="font-family:var(--mono);color:var(--chop);min-width:74px">${n}</span><div class="cd">${l}</div></div>`).join('');
+
+// tables
+$('#powerTbl').innerHTML='<tr><th>Corridor</th><th>From → To</th><th>Carries</th></tr>'+
+  D.power.map(([f,t,name,carries,corr,dash])=>`<tr><td>${name}</td><td class="d" style="white-space:normal">${N[f][0]} → ${N[t][0]}</td><td>${carries}</td></tr>`).join('');
+$('#waterTbl').innerHTML='<tr><th>Route</th><th>From → To</th><th>Status</th></tr>'+
+  D.water.map(r=>`<tr><td>${r.name} <span style="color:var(--ink-3)">${r.cn}</span></td><td class="d" style="white-space:normal;color:${WATER}">${r.from} → ${r.to}</td><td>${r.status}</td></tr>`).join('');
+// notes + sources
+$('#notes').innerHTML=D.notes.map(n=>`<div class="note">${n}</div>`).join('');
+$('#sources').textContent=D.sources;
+</script>
+</body>
+</html>

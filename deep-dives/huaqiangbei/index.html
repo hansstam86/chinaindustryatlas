@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Huaqiangbei — the market that makes everything, and the Chaoshan traders who run it | China Industry Atlas</title>
+<meta name="description" content="A deep dive on Huaqiangbei, the world's largest electronics market in Shenzhen — its origins in a relocated arsenal, the shanzhai era, and the Chaoshan (Teochew) merchant networks that run the floor.">
+<link rel="canonical" href="https://chinaindustryatlas.com/deep-dives/huaqiangbei/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/deep-dives/huaqiangbei/">
+<meta property="og:title" content="Huaqiangbei — the market that makes everything">
+<meta property="og:description" content="The world's largest electronics market, the shanzhai engine, and the Chaoshan traders behind it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Town deep-dives</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<div class="wrap hero">
+  <div class="eyebrow">Town deep-dive · Shenzhen</div>
+  <h1>Huaqiangbei<span class="cn">华强北 · the market that makes everything</span></h1>
+  <p class="lede">It does not make a single product. Across a square mile of stacked malls, <b>two hundred thousand traders</b> sell every electronic part there is — and a surprising share of them came from one corner of Guangdong: <b>Chaoshan</b>.</p>
+  <div class="readouts">
+    <div class="readout"><div class="n">200k+</div><div class="l">merchants in one district</div></div>
+    <div class="readout"><div class="n">1 metre</div><div class="l">the counter that made millionaires</div></div>
+    <div class="readout"><div class="n">~500 M</div><div class="l">shanzhai phones a year, mid-2000s peak</div></div>
+  </div>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">Where it is · and where the traders came from</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend">
+    <span><i class="dot" style="background:var(--chop);border-radius:0;transform:rotate(45deg)"></i>Huaqiangbei (the market)</span>
+    <span><i style="border-top-color:var(--chop);border-top-style:dashed"></i>Many traders came from Chaoshan</span>
+    <span><i class="dot" style="background:var(--ink-2)"></i>Reference city</span>
+  </div></div></div>
+<section><div class="wrap dd-grid"><div>
+  <div class="sec"><div class="num">01</div><h2>Not a factory town</h2>
+    <p>Every other deep dive in this atlas is a place that makes a thing. Huaqiangbei makes the <b>market</b>. Spread across roughly a square mile of multi-floor malls in Futian, central Shenzhen, it is the largest electronics market on Earth: somewhere around two hundred thousand merchants, a dozen-plus mega-markets, annual sales in the tens of billions of yuan. You can buy a single resistor or a finished drone, and a hardware startup can prototype a whole product in an afternoon without leaving the block. It is less a cluster than the nervous system of the entire delta's electronics supply chain.</p></div>
+  <div class="sec"><div class="num">02</div><h2>From an arsenal to Akihabara</h2>
+    <p>The name is a fossil. In 1979 a defence-electronics plant, the North Guangdong Arsenal, was moved into Shenzhen and renamed <b>Huaqiang</b>, "powerful China"; the road beside it became Huaqiang Road, and the district to its north became Huaqiangbei. The turn from factories to trading came in 1988, when Ma Fuyuan of the state-owned SEG group opened the <b>SEG Electronics Market</b>, modelled deliberately on Tokyo's Akihabara — the first market in China to sell domestic and foreign components side by side. The plants emptied out, the malls filled up, and the famous "one-metre counters" multiplied: stalls barely a metre wide from which, by one official's count, more than fifty of the earliest traders became billionaires.</p></div>
+  <div class="sec"><div class="num">03</div><h2>The Chaozhou connection</h2>
+    <p>Walk the floors and you keep hearing one dialect. A large share of Huaqiangbei's traders are <b>Chaoshan</b> (Teochew) people, from the eastern Guangdong region around Chaozhou, Shantou and Jieyang — one of the great merchant cultures of the Chinese world, with perhaps thirty million people across China and Southeast Asia and an outsized presence in electronics. Their trading style fits the one-metre counter almost too well: <b>thin margins, fast turnover, huge volume</b> — in the dialect, fifty in cash beats a hundred on credit. And it runs on kinship: a fellow villager will front you stock, name a supplier, or move a container, so trust is enforced by clan and native place rather than by contract. The electronic network sits on top of a human one.</p>
+    <div class="pull">Huaqiangbei does not make a product. It makes the market that lets ten thousand small firms act like one enormous, flexible factory.</div></div>
+  <div class="sec"><div class="num">04</div><h2>The shanzhai engine</h2>
+    <p>In the mid-2000s that dense market met a technology that suited it perfectly. MediaTek's turn-key phone chipsets let a tiny outfit design a handset in weeks, and Huaqiangbei became the fastest hardware-iteration machine in the world: three to five new phone models a day, perhaps <b>five hundred million</b> "shanzhai" phones a year at the peak, shipped to India, Africa and the Middle East. Phones came with four SIM slots, built-in lighters, the shape of a sports car or a grenade. The one-metre counter had become a product-development lab — and a young Pony Ma had assembled PCs in these halls a decade earlier, before founding Tencent.</p></div>
+  <div class="sec"><div class="num">05</div><h2>What it became</h2>
+    <p>Crackdowns on counterfeits from around 2015 and the rise of the smartphone ended the pure shanzhai era; the pandemic pushed much of the wholesale trade online. Huaqiangbei pivoted to legitimate components, finished goods, maker workshops and prototyping services, and a brisk line in tech tourism. But the thing that makes it hard to copy was never a product. It is the <b>density</b> — thousands of specialised traders, mostly bound by Chaoshan ties, packed close enough that the whole bazaar behaves like one enormous, reconfigurable factory. That social and spatial layer is the real Huaqiangbei, and it is exactly the part a rival city cannot simply build.</p></div>
+</div>
+<aside><div class="facts"><h4>The facts</h4>
+  <div class="frow"><div class="k">Place</div><div class="v">Huaqiangbei, Futian district, Shenzhen (~1.45 km²)</div></div>
+  <div class="frow"><div class="k">What</div><div class="v">World's largest electronics market; ~200,000 merchants; sales in the tens of billions of yuan</div></div>
+  <div class="frow"><div class="k">Name from</div><div class="v">The "Huaqiang" defence-electronics plant relocated to Shenzhen, 1979</div></div>
+  <div class="frow"><div class="k">Catalyst</div><div class="v">SEG Electronics Market, 1988 — China's first components market, Akihabara-style</div></div>
+  <div class="frow"><div class="k">Who runs it</div><div class="v">Heavily <b>Chaoshan (Teochew)</b> merchant networks — thin margins, fast turnover, kinship trust</div></div>
+  <div class="frow"><div class="k">Shanzhai peak</div><div class="v">~500M phones/yr (mid-2000s); MediaTek turn-key chipsets; 3-5 new models a day</div></div>
+  <div class="frow"><div class="k">Now</div><div class="v">Components, finished goods, maker / prototyping, tech tourism (crackdown 2015; online wholesale post-2020)</div></div>
+</div></aside></div></section>
+<section><div class="wrap"><div class="fine" style="max-width:80ch">
+  Sources (2022-2026): Global Sources, jingsourcing, Elecrow, EJET, La Roja Travel, Teochew/Chaoshan business profiles, Wikipedia. The Chaoshan share of traders is widely reported rather than precisely measured; merchant and shanzhai figures vary by source and are treated here as orders of magnitude. Fifth in the atlas's Town deep-dive series.
+</div></div></section>
+<footer><div class="wrap">
+  <div class="ftlinks">
+    <a class="dl" href="/">← Full atlas</a>
+    <a class="dl" href="/deep-dives/dafen/">Dafen →</a>
+    <a class="dl" href="/getting-it-out/">Getting it out →</a>
+    <a class="dl" href="/frontier/">Frontier industries →</a>
+  </div>
+  <div class="fine">Town deep-dive · Huaqiangbei · 2026 · location approximate · basemap © OpenStreetMap, © CARTO.</div>
+</div></footer>
+<script>if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}</script>
+<script>
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([23.0,115.45],8);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:11,subdomains:'abcd'}).addTo(map);
+const HQB=[22.546,114.085], CHAOSHAN=[23.45,116.62], HK=[22.32,114.17], GZ=[23.13,113.26];
+L.polyline([CHAOSHAN,[23.0,115.4],HQB],{color:'#C0402A',weight:3,opacity:.85,dashArray:'6,6'}).addTo(map)
+  .bindTooltip('Many of Huaqiangbei\'s traders came from the Chaoshan (Teochew) region',{sticky:true,className:'pinlbl'});
+function ref(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);
+}
+ref(CHAOSHAN,"Chaoshan (Chaozhou · Shantou · Jieyang)");
+ref(GZ,"Guangzhou");
+ref(HK,"Hong Kong");
+L.marker(HQB,{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map).bindTooltip("Huaqiangbei — the electronics market",{direction:'top',offset:[0,-7],className:'pinlbl'});
+L.marker(HQB,{icon:L.divIcon({html:'<div class="pinlbl big">Huaqiangbei 华强北</div>',iconSize:[1,1],iconAnchor:[-9,6],className:''})}).addTo(map);
+</script>
+</body></html>

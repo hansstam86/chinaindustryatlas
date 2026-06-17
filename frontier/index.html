@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frontier industries — where it's made in China | China Industry Atlas</title>
+<meta name="description" content="Where frontier industries is made across China: the clusters by region and sub-segment, filterable.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%23C0402A%22%2F%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2216%22%20r%3D%226.5%22%20fill%3D%22none%22%20stroke%3D%22%23E8EAE3%22%20stroke-width%3D%223%22%2F%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2216%22%20r%3D%221.6%22%20fill%3D%22%23E8EAE3%22%2F%3E%3C%2Fsvg%3E">
+<link rel="canonical" href="https://chinaindustryatlas.com/frontier/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://chinaindustryatlas.com/frontier/">
+<meta property="og:title" content="Frontier industries — where it's made in China">
+<meta property="og:description" content="Which town makes what across Shanghai, Jiangsu and Zhejiang.">
+<meta property="og:image" content="https://chinaindustryatlas.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+:root{
+  --paper:#E8EAE3;--paper-2:#F2F3EE;--paper-3:#DFE2DA;
+  --ink:#16242A;--ink-2:#46565B;--ink-3:#6C7A7E;
+  --line:#C7CCC3;--line-2:#D6DAD2;--chop:#C0402A;--brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;--body:"Hanken Grotesk",system-ui,sans-serif;--mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;background-image:radial-gradient(var(--line-2) .5px,transparent .5px);background-size:22px 22px}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--disp);font-weight:800;line-height:1.05;margin:0;letter-spacing:-0.01em}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-3)}
+header.top{position:sticky;top:0;z-index:1100;background:rgba(232,234,227,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top-in{display:flex;align-items:center;gap:18px;height:62px;max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.brand{display:flex;flex-direction:column;line-height:1;text-decoration:none}
+.brand .b1{font-family:var(--disp);font-weight:800;font-size:17px;letter-spacing:-.02em}
+.brand .b2{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--ink-3);margin-top:3px;text-transform:uppercase}
+.back{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none;border-bottom:1.5px solid transparent;padding-bottom:2px}
+.back:hover{color:var(--ink);border-bottom-color:var(--chop)}
+.searchbox{position:relative}
+#search{font-family:var(--mono);font-size:12px;border:1px solid var(--line);background:var(--paper-2);padding:8px 10px 8px 28px;width:160px;color:var(--ink);outline:none}
+#search:focus{border-color:var(--ink-2)}
+.searchbox::before{content:"\2315";position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--ink-3);font-size:15px}
+
+.hero{padding:42px 0 16px}
+.hero h1{font-size:clamp(34px,5.4vw,68px);letter-spacing:-.03em}
+.hero h1 .cn{font-weight:400;font-size:.38em;color:var(--ink-2);margin-left:.3em;letter-spacing:.06em}
+.lede{font-size:18px;color:var(--ink-2);margin:18px 0 0;max-width:66ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:24px;max-width:520px}
+.readout{flex:1;padding:12px 0}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-top:6px}
+
+section{padding:44px 0;border-top:1px solid var(--line)}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:20px;flex-wrap:wrap}
+.sec-head .num{font-family:var(--mono);font-size:12px;color:var(--chop)}
+.sec-head h2{font-size:clamp(24px,3.2vw,36px)}
+.sec-head p{color:var(--ink-2);font-size:14.5px;margin:0;max-width:56ch}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.chip{font-family:var(--mono);font-size:11.5px;letter-spacing:.03em;padding:7px 12px;border:1px solid var(--line);background:var(--paper-2);
+  cursor:pointer;color:var(--ink-2);transition:all .15s;white-space:nowrap}
+.chip:hover{border-color:var(--ink-2);color:var(--ink)}
+.chip.active{color:#fff;border-color:transparent}
+.chip .cd{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+
+.mapwrap{display:grid;grid-template-columns:1.4fr .6fr;gap:22px;align-items:start}
+.mapcard{border:1px solid var(--ink);position:relative;background:var(--paper-3)}
+#map{height:600px;width:100%;background:var(--paper-3)}
+.leaflet-container{font-family:var(--mono);background:var(--paper-3)}
+.mlabel{background:rgba(242,243,238,.95);border:1px solid var(--ink);border-radius:0;color:var(--ink);
+  font-family:var(--mono);font-size:10px;font-weight:700;padding:1px 5px;box-shadow:none;white-space:nowrap}
+.mlabel::before{display:none}
+.leaflet-popup-content-wrapper{border-radius:0;background:var(--paper-2);border:1px solid var(--ink);box-shadow:5px 5px 0 rgba(22,36,42,.18)}
+.leaflet-popup-content{margin:12px 14px;font-family:var(--body)}
+.leaflet-popup-tip{background:var(--paper-2);border:1px solid var(--ink)}
+.pop .pn{font-family:var(--disp);font-weight:800;font-size:16px}
+.pop .ph{font-family:var(--mono);font-size:11px;color:var(--ink-2);margin:2px 0 7px}
+.pop .pnote{font-size:12.5px;color:var(--ink-2)}
+.pop a{color:var(--chop);font-family:var(--mono);font-size:11px}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line);background:var(--paper-2)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+.legend{display:flex;flex-wrap:wrap;gap:9px 13px;padding:11px 15px;border-top:1px solid var(--line);background:var(--paper-2);font-family:var(--mono);font-size:10px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.legend i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.mapside .panel{background:var(--paper-2);border:1px solid var(--line);padding:16px 18px}
+.mapside .panel h4{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--chop);margin-bottom:10px}
+.orow{display:flex;flex-direction:column;gap:2px;padding:8px 0;border-bottom:1px dotted var(--line);font-size:13px}
+.orow:last-child{border-bottom:0}
+.orow .ok{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink)}
+.orow .ov{color:var(--ink-2)}
+
+.citygrp{margin-top:26px}
+.city-h{display:flex;align-items:baseline;gap:12px;border-bottom:1.5px solid var(--ink);padding-bottom:9px;margin-bottom:13px}
+.city-h h3{font-size:20px}.city-h h3 span{font-weight:400;color:var(--ink-2);font-size:.7em;margin-left:.3em}
+.city-h .zone{margin-left:auto;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);border:1px solid var(--line);padding:2px 8px}
+.ccards{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px}
+.ccard{background:var(--paper-2);border:1px solid var(--line);padding:14px 15px;scroll-margin-top:84px;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.ccard:hover{border-color:var(--ink-2)}
+.ccard.flash{border-color:var(--chop);box-shadow:5px 5px 0 var(--chop)}
+.ccard .cn{font-family:var(--disp);font-weight:800;font-size:17px;line-height:1.05}
+.ccard .cn .ch{font-weight:400;font-size:.7em;color:var(--ink-2);margin-left:.3em}
+.ccard .cpref{font-family:var(--mono);font-size:10px;letter-spacing:.05em;color:var(--ink-3);margin-top:4px;text-transform:uppercase}
+.ccard .ctags{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0}
+.ccard .ctag{font-family:var(--mono);font-size:9.5px;padding:2px 7px;border:1px solid var(--line);color:#fff}
+.ccard .cnote{font-size:12.5px;color:var(--ink-2)}
+.ccard .cdd{display:inline-block;margin-top:8px;font-family:var(--mono);font-size:10.5px;color:var(--chop);border-bottom:1px solid var(--chop);text-decoration:none}
+.noresults{font-family:var(--mono);font-size:13px;color:var(--ink-3);padding:24px 0}
+
+.notes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:13px}
+.note{background:var(--paper-2);border:1px solid var(--line);border-left:3px solid var(--chop);padding:15px 17px;font-size:13.5px;color:var(--ink-2)}
+
+footer{background:var(--ink);color:var(--paper-3);padding:40px 0 30px;border-top:3px solid var(--chop)}
+footer h3{color:var(--paper);font-size:22px;margin-bottom:10px}
+footer .meth{font-size:12.5px;line-height:1.6;color:#9FAEAE;max-width:76ch}
+.dl{display:inline-flex;gap:9px;font-family:var(--mono);font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--paper);
+  border:1px solid #3A4A4E;padding:11px 16px;text-decoration:none;margin:16px 10px 0 0;transition:all .15s}
+.dl:hover{background:var(--chop);border-color:var(--chop)}
+footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:26px;border-top:1px solid #2A3A3E;padding-top:16px}
+
+@media(max-width:880px){.mapwrap{grid-template-columns:1fr}#map{height:460px}.searchbox{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="/"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">产业地图 · Industry maps</span></a>
+    <div class="searchbox"><input id="search" type="search" placeholder="search…" autocomplete="off"></div>
+    <a class="back" href="/">← back to atlas</a>
+  </div>
+</header>
+
+<div class="wrap hero">
+  <div class="eyebrow">The emerging bets · across China</div>
+  <h1 style="margin-top:14px">Frontier industries<span class="cn">未来产业</span></h1>
+  <p class="lede" id="lede"></p>
+  <div class="readouts">
+    <div class="readout"><div class="n" id="rCl">—</div><div class="l">Frontier hubs</div></div>
+    <div class="readout"><div class="n" id="rCi">—</div><div class="l">Regions</div></div>
+    <div class="readout"><div class="n" id="rI">—</div><div class="l">Domains</div></div>
+  </div>
+</div>
+
+<section id="map-sec">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">01</span><h2>Where the future is being built</h2>
+      <p>Pick a domain — its frontier hubs light up. Each pin is an emerging industry and the city quietly betting on it.</p></div>
+    <div class="chips" id="catChips"></div>
+    <div class="mapwrap">
+      <div class="mapcard">
+        <div class="maphead"><span class="t">Emerging industries · 未来产业</span><span class="sc">hover a pin · click for detail</span></div>
+        <div id="map"></div>
+        <div class="legend" id="legend"></div>
+      </div>
+      <div class="mapside"><div class="panel"><h4>Across China</h4><div id="orient"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="directory">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">02</span><h2>Frontier directory, by region</h2>
+      <p>Click a frontier to fly there. Filter above to isolate a domain across China.</p></div>
+    <div id="dir"></div>
+    <div class="noresults" id="noResults" style="display:none">No clusters match. Try another industry or search term.</div>
+  </div>
+</section>
+
+<section id="notes">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">03</span><h2>Field notes</h2>
+      <p>How to read the frontier.</p></div>
+    <div class="notes-grid" id="notesGrid"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h3>Part of the China Industry Atlas.</h3>
+    <p class="meth" id="meth"></p>
+    <a class="dl" href="/">← Full atlas</a>
+    <a class="dl" href="/#maps">All maps →</a>
+    <a class="dl" href="/#industries">Industry index →</a>
+    <div class="fine">Frontier industries · industry map · 2026 · cluster locations approximate · basemap © OpenStreetMap, © CARTO.</div>
+  </div>
+</footer>
+
+<script id="ind-data" type="application/json">{"meta":{"title":"Frontier industries","hanzi":"未来产业","subtitle":"The emerging bets, in the spirit of an atlas obscura","tagline":"The industries China is pouring capital into before the rest of the world is watching — the chips, robots, rockets and quantum labs that are not famous clusters yet, mapped across China.","clusters":21,"cities":5,"industries":6,"center_lat":31.5,"center_lng":115.5,"methodology":"A curated watch-list of emerging industries and the cities investing heavily in them, in the spirit of an 'atlas obscura'. Inclusion reflects investment momentum and strategic priority, not current revenue or market leadership; figures are 2025-2026 and move fast. Verified anchors: AgiBot top humanoid shipper 2025 (Omdia); CATL/BYD/DJI per their sectors; Origin Quantum open-sourced its quantum OS in Feb 2026. Some firms named appear on US export-control lists."},"categories":[{"id":"ai_compute","name":"AI compute","color":"#C0402A"},{"id":"foundry_memory","name":"Chip foundry & memory","color":"#7A5A8A"},{"id":"chip_tools","name":"Chip tools & materials","color":"#46565B"},{"id":"humanoids","name":"Humanoid robots","color":"#2E6E6A"},{"id":"aerospace","name":"Aerospace & low-altitude","color":"#B08A3C"},{"id":"deep_science","name":"Deep science","color":"#6E8A3C"}],"prefectures":[{"id":"prd","name":"Pearl River Delta","hanzi":"珠三角"},{"id":"yrd","name":"Yangtze River Delta","hanzi":"长三角"},{"id":"bohai","name":"Bohai Rim & North","hanzi":"环渤海"},{"id":"central_west","name":"Central & West","hanzi":"中西部"},{"id":"sea_strait","name":"Southeast coast","hanzi":"东南沿海"}],"clusters":[{"id":"huawei","town":"Huawei Ascend","hanzi":"华为昇腾","prefecture":"prd","area":"Shenzhen, Guangdong","primary":"ai_compute","cats":["ai_compute"],"note":"China's main answer to Nvidia. The Ascend 910 line (about 60% of an H100 per chip) networked into 'Super Pod' clusters of thousands; DeepSeek and ByteDance now test on it.","lat":22.65,"lng":114.06},{"id":"cambricon","town":"Cambricon","hanzi":"寒武纪","prefecture":"bohai","area":"Beijing","primary":"ai_compute","cats":["ai_compute"],"note":"China's most valuable AI-chip pure-play (Hurun, 2025); custom AI accelerators rather than GPUs, ramping as Nvidia retreats.","lat":39.98,"lng":116.31},{"id":"shanghai","town":"Shanghai GPU 'Four Dragons'","hanzi":"沪上GPU四小龙","prefecture":"yrd","area":"Shanghai","primary":"ai_compute","cats":["ai_compute"],"note":"Biren, Moore Threads, MetaX and Enflame — ex-Nvidia teams chasing a homegrown GPU, riding a wave of 2025 STAR-Market IPOs.","lat":31.21,"lng":121.59},{"id":"rockchip","town":"Rockchip","hanzi":"瑞芯微","prefecture":"sea_strait","area":"Fuzhou, Fujian","primary":"ai_compute","cats":["ai_compute"],"note":"The quiet edge-AI workhorse: Fuzhou's NPU SoCs (the RK3588 and kin) sit inside a huge share of the world's single-board computers and smart gadgets.","lat":26.07,"lng":119.3},{"id":"smic","town":"SMIC","hanzi":"中芯国际","prefecture":"yrd","area":"Shanghai","primary":"foundry_memory","cats":["foundry_memory"],"note":"China's largest chip foundry, pushing the most advanced nodes sanctions still allow; its shares more than doubled in 2025.","lat":31.21,"lng":121.61},{"id":"hua","town":"Hua Hong","hanzi":"华虹","prefecture":"yrd","area":"Wuxi, Jiangsu","primary":"foundry_memory","cats":["foundry_memory"],"note":"The 'other' national foundry, scaling the mature-node capacity China needs by the wafer-million.","lat":31.49,"lng":120.31},{"id":"ymtc","town":"YMTC","hanzi":"长江存储","prefecture":"central_west","area":"Wuhan, Hubei","primary":"foundry_memory","cats":["foundry_memory"],"note":"China's 3D NAND flash champion, still climbing the layer count despite the US blacklist.","lat":30.49,"lng":114.42},{"id":"cxmt","town":"CXMT","hanzi":"长鑫存储","prefecture":"central_west","area":"Hefei, Anhui","primary":"foundry_memory","cats":["foundry_memory"],"note":"The domestic DRAM breakthrough: from ~6% of world DRAM toward double digits, and selling DDR5 from 2025.","lat":31.82,"lng":117.23},{"id":"smee","town":"SMEE","hanzi":"上海微电子","prefecture":"yrd","area":"Shanghai","primary":"chip_tools","cats":["chip_tools"],"note":"The most-watched address in Chinese tech: the company carrying China's hopes of a homemade lithography machine.","lat":31.18,"lng":121.43},{"id":"naura","town":"Naura","hanzi":"北方华创","prefecture":"bohai","area":"Beijing","primary":"chip_tools","cats":["chip_tools"],"note":"The toolmaker quietly de-risking China's fabs — the etch, deposition and unglamorous gear behind every chip.","lat":40.06,"lng":116.23},{"id":"third-gen","town":"Third-gen semiconductors (SiC/GaN)","hanzi":"第三代半导体","prefecture":"bohai","area":"Jinan, Shandong","primary":"chip_tools","cats":["chip_tools"],"note":"Silicon-carbide power chips (SICC and peers) for EVs and grids — the 'third-generation' semiconductors where China is closer to the front.","lat":36.65,"lng":117.12},{"id":"agibot","town":"AgiBot","hanzi":"智元机器人","prefecture":"yrd","area":"Shanghai","primary":"humanoids","cats":["humanoids"],"note":"The world's top humanoid shipper in 2025 (~5,100 units, ~30-39% global share); industrial robots and a national data-collection base.","lat":31.18,"lng":121.5},{"id":"unitree","town":"Unitree","hanzi":"宇树科技","prefecture":"yrd","area":"Hangzhou, Zhejiang","primary":"humanoids","cats":["humanoids"],"note":"The viral one: backflipping machines and the cheapest humanoids on the market (~$16k); a STAR-Market IPO in the works.","lat":30.27,"lng":120.16},{"id":"ubtech","town":"UBTech","hanzi":"优必选","prefecture":"prd","area":"Shenzhen, Guangdong","primary":"humanoids","cats":["humanoids"],"note":"Humanoids built for the factory floor; piloting on BYD, Foxconn and carmaker assembly lines.","lat":22.54,"lng":113.95},{"id":"ehang","town":"EHang","hanzi":"亿航","prefecture":"prd","area":"Guangzhou, Guangdong","primary":"aerospace","cats":["aerospace"],"note":"The world's first fully certified pilotless air taxi (EH216-S); commercial sightseeing flights and the poster child of the 'low-altitude economy.'","lat":23.13,"lng":113.26},{"id":"qianfan","town":"Qianfan (G60) constellation","hanzi":"千帆星座","prefecture":"yrd","area":"Shanghai","primary":"aerospace","cats":["aerospace"],"note":"Shanghai's answer to Starlink: the Thousand Sails megaconstellation, racing to put thousands of broadband satellites in low orbit.","lat":31.05,"lng":121.3},{"id":"private","town":"Private rocket startups","hanzi":"民营火箭","prefecture":"bohai","area":"Beijing","primary":"aerospace","cats":["aerospace"],"note":"China's 'answer to SpaceX': LandSpace and a pack of startups (Galactic Energy, iSpace, Space Pioneer) chasing reusable methane rockets.","lat":39.92,"lng":116.46},{"id":"origin","town":"Origin Quantum / 'Quantum Avenue'","hanzi":"本源量子","prefecture":"central_west","area":"Hefei, Anhui","primary":"deep_science","cats":["deep_science"],"note":"Hefei is China's quantum capital: Origin Quantum, spun from USTC, built the Wukong machine and open-sourced a quantum OS to the world.","lat":31.84,"lng":117.28},{"id":"energy","town":"Energy Singularity (fusion)","hanzi":"能量奇点","prefecture":"yrd","area":"Shanghai","primary":"deep_science","cats":["deep_science"],"note":"A startup that fired up HH70, billed as the first fully high-temperature-superconducting fusion tokamak — a private-sector 'artificial sun.'","lat":31.0,"lng":121.62},{"id":"synthetic","town":"Synthetic biology","hanzi":"合成生物","prefecture":"bohai","area":"Tianjin","primary":"deep_science","cats":["deep_science"],"note":"Brewing nylon, chemicals and proteins from sugar with engineered microbes (Cathay Biotech and the CAS industrial-biotech institute).","lat":39.09,"lng":117.2},{"id":"brain-computer","town":"Brain-computer interfaces","hanzi":"脑机接口","prefecture":"bohai","area":"Beijing","primary":"deep_science","cats":["deep_science"],"note":"A named 'future industry': state brain-science labs and startups running early human-implant trials — China's Neuralink race.","lat":39.99,"lng":116.4}],"orientation":[{"k":"AI compute","v":"Huawei Ascend, Cambricon, Shanghai GPU 'Four Dragons', Rockchip."},{"k":"Chip foundry & memory","v":"SMIC, Hua Hong, YMTC, CXMT."},{"k":"Chip tools & materials","v":"SMEE, Naura, Third-gen semiconductors."},{"k":"Humanoid robots","v":"AgiBot, Unitree, UBTech."},{"k":"Aerospace & low-altitude","v":"EHang, Qianfan, Private rocket startups."},{"k":"Deep science","v":"Origin Quantum, Energy Singularity, Synthetic biology, Brain-computer interfaces."}],"notes":["These are bets, not yet empires. Unlike the cluster maps, most pins here mark industries still proving themselves — humanoids that mostly perform at galas, eVTOLs awaiting global certification, GPU startups still chasing profitability. The capital and policy are real; the revenue often is not yet. Several chip names here (SMIC, YMTC, CXMT, Cambricon) sit on US entity lists, and are on the frontier precisely because China must now build at home what it can no longer buy. Treat this as a watch-list, not a league table.","Follow the policy term. Many of these fall under China's official 'future industries' (未来产业) and 'new quality productive forces' banners — quantum, fusion, brain-computer interfaces, commercial space, the low-altitude economy. Where Beijing names a frontier, guidance funds, subsidies and local-government land tend to follow within a year or two.","Hefei is the quiet capital. Watch the inland city that keeps reappearing: Hefei hosts quantum (Origin Quantum's 'Quantum Avenue'), the EAST fusion 'artificial sun', CXMT's DRAM, BOE's displays and an eVTOL cluster. Its lab-to-industry model — patient government capital plus USTC science — is now being copied nationwide."]}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>window.L||document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"><\/scr'+'ipt>')</script>
+<script>
+const D=JSON.parse(document.getElementById('ind-data').textContent);
+const $=s=>document.querySelector(s), ce=(t,c)=>{const e=document.createElement(t);if(c)e.className=c;return e};
+const CC={}; D.categories.forEach(c=>CC[c.id]=c.color);
+const catName=id=>(D.categories.find(c=>c.id===id)||{}).name||id;
+const prefById=id=>D.prefectures.find(c=>c.id===id)||{};
+
+$('#lede').innerHTML=D.meta.tagline.replace("across China","<b>across China</b>");
+$('#rCl').textContent=D.meta.clusters;
+$('#rCi').textContent=D.meta.cities;
+$('#rI').textContent=D.meta.industries;
+$('#meth').textContent=D.meta.methodology;
+
+/* ---------- map ---------- */
+const map=L.map('map',{scrollWheelZoom:false,zoomControl:true,attributionControl:true})
+  .setView([D.meta.center_lat,D.meta.center_lng],4);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
+  subdomains:'abcd',maxZoom:20,attribution:'&copy; OpenStreetMap &copy; CARTO'
+}).addTo(map);
+
+const markers={};
+D.clusters.forEach(c=>{
+  const m=L.circleMarker([c.lat,c.lng],{radius:8,color:'#ffffff',weight:2,fillColor:CC[c.primary],fillOpacity:1}).addTo(map);
+  m.bindTooltip(c.town+' · '+c.area,{direction:'top',offset:[0,-4],className:'mlabel'});
+  const dd = '';
+  m.bindPopup(`<div class="pop"><div class="pn">${c.town} <span style="font-weight:400;color:#46565B">${c.hanzi}</span></div>
+    <div class="ph">${c.area} · ${prefById(c.prefecture).name} · ${c.cats.map(catName).join(' · ')}</div><div class="pnote">${c.note}</div>${dd}</div>`);
+  m.on('click',()=>flashCard(c.id,false));
+  markers[c.id]=m;
+});
+map.fitBounds(L.featureGroup(Object.values(markers)).getBounds().pad(0.12));
+$('#legend').innerHTML=D.categories.map(c=>`<span><i style="background:${c.color}"></i>${c.name}</span>`).join('');
+
+/* ---------- filter ---------- */
+let activeCat=null;
+const chips=$('#catChips');
+const all=ce('div','chip active');all.textContent='All domains';all.style.background='var(--ink)';all.dataset.cat='';
+all.onclick=()=>selectCat(null);chips.appendChild(all);
+D.categories.forEach(c=>{
+  const ch=ce('div','chip');ch.dataset.cat=c.id;
+  ch.innerHTML=`<span class="cd" style="background:${c.color}"></span>${c.name}`;
+  ch.onclick=()=>selectCat(c.id===activeCat?null:c.id);chips.appendChild(ch);
+});
+function selectCat(id){
+  activeCat=id;
+  document.querySelectorAll('#catChips .chip').forEach(c=>{
+    const on=(c.dataset.cat||'')===(id||'');
+    c.classList.toggle('active',on); c.style.background=on?(id?CC[id]:'var(--ink)'):'';
+  });
+  D.clusters.forEach(c=>{
+    const m=markers[c.id], hit=!id||c.cats.includes(id);
+    m.setStyle({fillOpacity:hit?1:0.15,opacity:hit?1:0.25,radius:id&&hit?10:8});
+  });
+  applyFilter();
+}
+
+/* ---------- directory ---------- */
+const dir=$('#dir');
+function ccard(c){
+  const dd = '';
+  return `<div class="ccard" id="c-${c.id}" data-id="${c.id}">
+    <div class="cn">${c.town}<span class="ch">${c.hanzi}</span></div>
+    <div class="cpref">${c.area}</div>
+    <div class="ctags">${c.cats.map(x=>`<span class="ctag" style="background:${CC[x]}">${catName(x)}</span>`).join('')}</div>
+    <div class="cnote">${c.note}</div>${dd}</div>`;
+}
+function renderDir(){
+  dir.innerHTML='';
+  D.prefectures.forEach(prov=>{
+    const list=D.clusters.filter(c=>c.prefecture===prov.id);
+    if(!list.length) return;
+    const g=ce('div','citygrp');g.dataset.city=prov.id;
+    g.innerHTML=`<div class="city-h"><h3>${prov.name}<span>${prov.hanzi}</span></h3><span class="zone">${list.length} clusters</span></div>
+      <div class="ccards">${list.map(ccard).join('')}</div>`;
+    dir.appendChild(g);
+  });
+  dir.querySelectorAll('.ccard').forEach(el=>el.addEventListener('click',e=>{
+    if(e.target.closest('a'))return; flyTo(el.dataset.id);
+  }));
+}
+function applyFilter(){
+  const q=$('#search').value.trim().toLowerCase(); let vis=0;
+  D.prefectures.forEach(prov=>{
+    const g=dir.querySelector(`[data-city="${prov.id}"]`); if(!g)return; let shown=0;
+    g.querySelectorAll('.ccard').forEach(card=>{
+      const c=D.clusters.find(x=>x.id===card.dataset.id);
+      const inCat=!activeCat||c.cats.includes(activeCat);
+      const hay=(c.town+' '+c.hanzi+' '+c.area+' '+c.note+' '+c.cats.map(catName).join(' ')+' '+prefById(c.prefecture).name).toLowerCase();
+      const show=inCat&&(!q||hay.includes(q)); card.style.display=show?'':'none';
+      if(show){shown++;vis++}
+    });
+    g.style.display=shown?'':'none';
+  });
+  $('#noResults').style.display=vis?'none':'block';
+}
+function flashCard(id,scroll){
+  const c=document.getElementById('c-'+id); if(!c)return;
+  if(scroll!==false)c.scrollIntoView({behavior:'smooth',block:'center'});
+  c.classList.add('flash'); setTimeout(()=>c.classList.remove('flash'),1500);
+}
+function flyTo(id){
+  const m=markers[id];
+  document.getElementById('map-sec').scrollIntoView({behavior:'smooth',block:'start'});
+  if(m) setTimeout(()=>{map.flyTo(m.getLatLng(),12,{duration:.8});m.openPopup();},420);
+}
+renderDir();
+
+$('#orient').innerHTML=D.orientation.map(o=>`<div class="orow"><span class="ok">${o.k}</span><span class="ov">${o.v}</span></div>`).join('');
+$('#notesGrid').innerHTML=D.notes.map(n=>`<div class="note">${n}</div>`).join('');
+$('#search').addEventListener('input',applyFilter);
+setTimeout(()=>map.invalidateSize(),200);
+</script>
+</body>
+</html>

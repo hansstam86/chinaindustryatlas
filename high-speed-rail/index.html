@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How people move — China's high-speed rail and the inland shift | China Industry Atlas</title>
+<meta name="description" content="China's high-speed rail network (八纵八横): how 50,000 km of 350 km/h line moves people into and out of regions, and why it helps industry move inland.">
+<link rel="canonical" href="https://chinaindustryatlas.com/high-speed-rail/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://chinaindustryatlas.com/high-speed-rail/">
+<meta property="og:title" content="How people move — China's high-speed rail">
+<meta property="og:description" content="The 8+8 high-speed rail grid, the people layer behind the inland industrial shift.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --line-2:#D6DAD2;
+  --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --r-prd:#C0402A; --r-yrd:#2E6E6A; --r-bohai:#9C7A3C; --r-sea_strait:#B5642E; --r-central_west:#5A6E2E;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.55}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 30px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(40px,7vw,76px);line-height:.96;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.38em;letter-spacing:.06em;color:var(--ink-2);margin-top:10px;font-family:var(--disp)}
+.lede{font-size:18px;color:var(--ink-2);margin:18px 0 0;max-width:64ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:24px;max-width:560px}
+.readout{flex:1;padding:12px 0}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:23px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:6px}
+section{padding:46px 0;border-top:1px solid var(--line)}
+.sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+.sec-head .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec-head h2{font-family:var(--disp);font-weight:800;font-size:clamp(24px,3.4vw,34px);margin:0;letter-spacing:-.01em}
+.sec-head p{margin:0;color:var(--ink-2);font-size:15px;flex:1;min-width:280px}
+.mapgrid{display:grid;grid-template-columns:1fr 320px;gap:18px}
+@media(max-width:860px){.mapgrid{grid-template-columns:1fr}}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2)}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line);background:var(--paper-2)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:560px;width:100%;background:var(--paper-3)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.chip{font-family:var(--mono);font-size:12px;padding:7px 13px;border:1px solid var(--line);background:var(--paper-2);cursor:pointer;color:var(--ink-2);display:flex;align-items:center;gap:7px}
+.chip:hover{border-color:var(--ink-3)}
+.chip.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip .sw{width:9px;height:9px;border-radius:50%}
+.side .panel{border:1px solid var(--line);background:var(--paper-2);padding:16px 17px}
+.side .panel+.panel{margin-top:14px}
+.side h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 12px}
+.corr{display:flex;gap:10px;padding:9px 0;border-top:1px solid var(--line)}
+.corr:first-of-type{border-top:0}
+.corr .ck{width:10px;height:10px;border-radius:50%;margin-top:5px;flex:none}
+.corr .cn{font-family:var(--disp);font-weight:700;font-size:14px}
+.corr .cd{font-size:12.5px;color:var(--ink-2)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:9px;height:9px;border-top:0;border-radius:50%}
+.tbls{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:760px){.tbls{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:400}
+td.d{font-family:var(--mono);color:var(--chop);white-space:nowrap}
+.blk-h{font-family:var(--disp);font-weight:700;font-size:17px;margin:0 0 12px}
+.notes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:760px){.notes{grid-template-columns:1fr}}
+.note{border:1px solid var(--line);background:var(--paper-2);padding:15px 16px;font-size:13.5px;color:var(--ink-2)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3)}
+.leaflet-container{background:var(--paper-3)}
+.portlbl{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--ink);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.exitlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.portdot{width:13px;height:13px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+
+.hubd{border-radius:50%;background:var(--ink);border:2px solid var(--paper);box-shadow:0 0 0 1px var(--ink)}
+.hubd.big{width:14px;height:14px}
+.hubd.mid{width:10px;height:10px}
+.hubd.sm{width:7px;height:7px;background:var(--ink-2);box-shadow:0 0 0 1px var(--ink-2)}
+.nlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.nlbl.big{font-size:11px;font-weight:700;color:var(--ink)}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">八纵八横 · High-speed rail</span></div>
+    <a class="back" href="/">← back to atlas</a>
+  </div>
+</header>
+
+<div class="wrap hero">
+  <div class="eyebrow">How people move · across China</div>
+  <h1>The people layer<span class="cn">八纵八横 · 高铁</span></h1>
+  <p class="lede" id="lede"></p>
+  <div class="readouts">
+    <div class="readout"><div class="n" id="rA">50,000 km</div><div class="l">HSR network — largest on Earth</div></div>
+    <div class="readout"><div class="n" id="rB">350 km/h</div><div class="l">Top service speed (CR450: 400)</div></div>
+    <div class="readout"><div class="n" id="rC">97%</div><div class="l">of cities over 500k now connected</div></div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="num">01</span><h2>Knitting the country together</h2>
+      <p>The 'eight vertical, eight horizontal' grid. Teal lines run <b>north-south</b> (纵); brass lines run <b>east-west</b> (横). Big dots are the crossroads where trunk lines meet. Toggle to isolate a direction.</p></div>
+    <div class="chips" id="modeChips"></div>
+    <div class="mapgrid">
+      <div>
+        <div class="mapcard">
+          <div class="maphead"><span class="t">High-speed rail trunk grid · 高铁</span><span class="sc">hover a line · drag to pan</span></div>
+          <div id="map"></div>
+          <div class="legend" id="legend"></div>
+        </div>
+      </div>
+      <div class="side">
+        <div class="panel"><h4>The 8 + 8 grid</h4><div id="grid"></div></div>
+        <div class="panel"><h4>Where it changes the map</h4><div id="cross"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="num">02</span><h2>The corridors and the crossroads</h2>
+      <p>A representative set of the trunk corridors, and the junctions they create.</p></div>
+    <div class="tbls">
+      <div>
+        <div class="blk-h">Trunk corridors (八纵八横)</div>
+        <div style="overflow-x:auto"><table id="corrTbl"></table></div>
+      </div>
+      <div>
+        <div class="blk-h">The great crossroads</div>
+        <div style="overflow-x:auto"><table id="crossTbl"></table></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="num">03</span><h2>Field notes</h2>
+      <p>Why moving people is its own kind of infrastructure.</p></div>
+    <div class="notes" id="notes"></div>
+    <div class="fine" id="sources" style="margin-top:22px"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="ftlinks">
+      <a class="dl" href="/">← Full atlas</a>
+      <a class="dl" href="/#maps">All maps →</a>
+      <a class="dl" href="/manufacturing-in-motion/">Manufacturing in motion →</a>
+      <a class="dl" href="/getting-it-out/">Getting it out →</a>
+    </div>
+    <div class="fine">High-speed rail · 2026 · corridor paths indicative, not exact alignments · basemap © OpenStreetMap, © CARTO.</div>
+  </div>
+</footer>
+
+<script id="hsr-data" type="application/json">{"meta":{"tagline":"High-speed rail is the people layer: ~50,000 km of 350 km/h line knitting the coast to the interior, and a big reason industry can now move inland, mapped across China."},"hubs":{"beijing":["Beijing",39.9,116.4,1],"shanghai":["Shanghai",31.2,121.47,1],"guangzhou":["Guangzhou",23.13,113.26,1],"wuhan":["Wuhan",30.59,114.3,1],"zhengzhou":["Zhengzhou",34.75,113.63,1],"xian":["Xi'an",34.27,108.95,1],"chengdu":["Chengdu",30.66,104.07,1],"chongqing":["Chongqing",29.56,106.55,1],"shenzhen":["Shenzhen",22.55,114.06,2],"changsha":["Changsha",28.23,112.94,2],"lanzhou":["Lanzhou",36.06,103.83,2],"kunming":["Kunming",25.04,102.71,2],"urumqi":["Urumqi",43.83,87.62,2],"harbin":["Harbin",45.8,126.53,2],"guiyang":["Guiyang",26.65,106.63,2],"nanning":["Nanning",22.82,108.32,2],"taiyuan":["Taiyuan",37.87,112.55,2],"hefei":["Hefei",31.82,117.23,2],"nanjing":["Nanjing",32.06,118.8,2],"hangzhou":["Hangzhou",30.27,120.16,2],"fuzhou":["Fuzhou",26.07,119.3,2],"jinan":["Jinan",36.65,117.0,2],"tianjin":["Tianjin",39.13,117.2,3],"shijiazhuang":["Shijiazhuang",38.04,114.51,3],"ningbo":["Ningbo",29.87,121.55,3],"xiamen":["Xiamen",24.48,118.09,3],"shenyang":["Shenyang",41.8,123.43,3],"yinchuan":["Yinchuan",38.49,106.23,3],"xining":["Xining",36.62,101.78,3],"nanchang":["Nanchang",28.68,115.86,3],"qingdao":["Qingdao",36.07,120.38,3],"xuzhou":["Xuzhou",34.27,117.18,3]},"corridors":[["Coastal","沿海","v","the coastal spine",["tianjin","shanghai","ningbo","fuzhou","xiamen","shenzhen"]],["Beijing–Shanghai","京沪","v","the world's busiest HSR line",["beijing","tianjin","jinan","nanjing","shanghai"]],["Beijing–Guangzhou–HK","京广·京港","v","the great north-south trunk",["beijing","shijiazhuang","zhengzhou","wuhan","changsha","guangzhou","shenzhen"]],["Beijing–Harbin","京哈","v","into the northeast",["beijing","shenyang","harbin"]],["Hohhot–Nanning","呼南","v","the central north-south line",["taiyuan","zhengzhou","changsha","guiyang","nanning"]],["Baotou–Hainan","包海","v","the western north-south line",["yinchuan","xian","chongqing","guiyang","nanning"]],["Beijing–Lanzhou","京兰","h","capital to the northwest",["beijing","taiyuan","yinchuan","lanzhou"]],["Qingdao–Yinchuan","青银","h","Shandong to the northwest",["qingdao","jinan","shijiazhuang","taiyuan","yinchuan"]],["Xuzhou–Lanzhou","徐兰","h","the northwest spine via Xi'an",["xuzhou","zhengzhou","xian","lanzhou"]],["Lanzhou–Urumqi","兰新","h","to the far west",["lanzhou","xining","urumqi"]],["Yangtze (Shanghai–Chengdu)","沿江","h","the corridor that carries talent to the inland hubs",["shanghai","nanjing","hefei","wuhan","chongqing","chengdu"]],["Shanghai–Kunming","沪昆","h","east coast to the southwest",["shanghai","hangzhou","nanchang","changsha","guiyang","kunming"]],["Xiamen–Chongqing","厦渝","h","southeast coast to the interior",["xiamen","changsha","chongqing"]],["Guangzhou–Kunming","广昆","h","the south to the southwest",["guangzhou","guiyang","kunming"]]],"crossroads":[["Wuhan","Where Beijing-Guangzhou crosses the Yangtze corridor — the country's great rail crossroads."],["Zhengzhou","The other crossroads: Beijing-Guangzhou meets Xuzhou-Lanzhou; gateway to the centre."],["Xi'an","The pivot to the northwest, where the Yangtze and northwest spines turn toward Lanzhou and Urumqi."],["Chengdu-Chongqing","The inland megaregion the Yangtze corridor now reaches in a few hours from the coast."],["Yangtze Delta","Shanghai-Nanjing-Hangzhou-Hefei, knitted into a single ~1-hour labour market."],["Greater Bay Area","Guangzhou-Shenzhen-Hong Kong, minutes apart by frequent high-speed service."]],"notes":["The people layer. The freight, power and water maps move things; high-speed rail moves people. More than 50,000 km of 350 km/h line, about two-thirds of the world's total, now reaches ~97% of cities above half a million people, carrying over 4.5 billion passenger trips in 2025. It is the layer that decides where talent can live and work.","Why this matters for the inland shift. Goods can always be trucked or railed out; people are the harder constraint. HSR is part of why factories can move to Chengdu, Chongqing, Wuhan, Zhengzhou and Xi'an (see the Manufacturing in motion map): an engineer or manager can now reach those cities from the coast in hours, and each has become a crossroads where several trunk lines meet. The Yangtze corridor (Shanghai-Nanjing-Hefei-Wuhan-Chongqing-Chengdu) is the spine of that shift.","The 8+8 grid, and what's next. The network is planned as 'eight vertical and eight horizontal' corridors (八纵八横), tying the coastal megaregions to the interior and out to Urumqi and Kunming; the framework is now largely complete and headed for ~60,000 km by 2030. The next-generation CR450, built for 400 km/h commercial speed, enters service in 2026, tightening the travel-time map further."],"sources":"Sources (2025-2026, schematic): China Railway / China State Railway Group (HSR >50,000 km end-2025, ~2/3 of world total, 97.2% of cities >500k, 4.588 bn passenger trips 2025, '8 vertical + 8 horizontal' grid); Railway Gazette and state media (CR450 400 km/h commercial service from 2026). Corridor paths are indicative, not exact alignments."}</script>
+<script>
+if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}
+</script>
+<script>
+const D=JSON.parse(document.getElementById('hsr-data').textContent);
+const $=s=>document.querySelector(s);
+const VERT='#2E6E6A', HORZ='#9C7A3C';
+$('#lede').innerHTML=D.meta.tagline.replace("across China","<b>across China</b>");
+
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([33.0,108.0],4);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:9,subdomains:'abcd'}).addTo(map);
+const H=D.hubs; const G={v:[],h:[]};
+
+// corridors
+D.corridors.forEach(([name,cn,orient,role,path])=>{
+  const pts=path.map(id=>[H[id][1],H[id][2]]);
+  const col=orient==='v'?VERT:HORZ;
+  const ln=L.polyline(pts,{color:col,weight:3,opacity:.8}).addTo(map);
+  ln.bindTooltip(name+' '+cn+' — '+role,{sticky:true,className:'nlbl'});
+  G[orient].push(ln);
+});
+// hubs
+Object.entries(H).forEach(([id,[name,lat,lng,tier]])=>{
+  const sz = tier===1?'big':(tier===2?'mid':'sm');
+  const px = tier===1?14:(tier===2?10:7);
+  L.marker([lat,lng],{icon:L.divIcon({html:'<div class="hubd '+sz+'"></div>',iconSize:[px,px],iconAnchor:[px/2,px/2],className:''})}).addTo(map)
+    .bindTooltip(name,{direction:'top',offset:[0,-5],className:'nlbl'});
+  if(tier<=2){
+    L.marker([lat,lng],{icon:L.divIcon({html:'<div class="nlbl'+(tier===1?' big':'')+'">'+name+'</div>',iconSize:[1,1],iconAnchor:[-7,5],className:''})}).addTo(map);
+  }
+});
+
+// legend
+$('#legend').innerHTML=
+  `<span><i style="border-top-color:${VERT}"></i>Vertical · north–south (纵)</span>`
+ +`<span><i style="border-top-color:${HORZ}"></i>Horizontal · east–west (横)</span>`
+ +`<span><i class="dot" style="background:var(--ink)"></i>Crossroads hub</span>`
+ +`<span><i class="dot" style="background:var(--ink-2);width:7px;height:7px"></i>Other hub</span>`;
+
+// toggle
+const modes=[{k:'all',n:'Whole grid'},{k:'v',n:'Vertical (N–S)'},{k:'h',n:'Horizontal (E–W)'}];
+const chipWrap=$('#modeChips');
+function setDir(m){
+  document.querySelectorAll('#modeChips .chip').forEach(c=>c.classList.toggle('active',c.dataset.m===m));
+  const vOn=(m==='all'||m==='v'), hOn=(m==='all'||m==='h');
+  G.v.forEach(l=>l.setStyle({opacity:vOn?.8:.08}));
+  G.h.forEach(l=>l.setStyle({opacity:hOn?.8:.08}));
+}
+modes.forEach(mo=>{
+  const c=document.createElement('div'); c.className='chip'+(mo.k==='all'?' active':''); c.dataset.m=mo.k; c.textContent=mo.n;
+  c.addEventListener('click',()=>setDir(mo.k)); chipWrap.appendChild(c);
+});
+
+// side: grid
+$('#grid').innerHTML=
+  `<div class="corr"><span class="ck" style="background:${VERT}"></span><div><div class="cn">Vertical — north to south (纵)</div><div class="cd">Coastal, Beijing-Shanghai, Beijing-Guangzhou-HK and more: the spines that run down the country.</div></div></div>`
+ +`<div class="corr"><span class="ck" style="background:${HORZ}"></span><div><div class="cn">Horizontal — east to west (横)</div><div class="cd">The Yangtze corridor, Xuzhou-Lanzhou-Urumqi, Shanghai-Kunming: the lines that pull the coast inland.</div></div></div>`;
+// side: crossroads
+$('#cross').innerHTML=D.crossroads.slice(0,4).map(([h,w])=>
+  `<div class="corr"><span class="ck" style="background:var(--ink)"></span><div><div class="cn">${h}</div><div class="cd">${w}</div></div></div>`).join('');
+
+// tables
+$('#corrTbl').innerHTML='<tr><th>Corridor</th><th>Runs</th><th>Role</th></tr>'+
+  D.corridors.map(([name,cn,orient,role,path])=>{
+    const ends=H[path[0]][0]+' → '+H[path[path.length-1]][0];
+    const col=orient==='v'?VERT:HORZ;
+    return `<tr><td>${name} <span style="color:var(--ink-3)">${cn}</span></td><td class="d" style="white-space:normal;color:${col}">${ends}</td><td>${role}</td></tr>`;
+  }).join('');
+$('#crossTbl').innerHTML='<tr><th>Hub</th><th>Why it matters</th></tr>'+
+  D.crossroads.map(([h,w])=>`<tr><td class="d" style="white-space:normal">${h}</td><td>${w}</td></tr>`).join('');
+// notes + sources
+$('#notes').innerHTML=D.notes.map(n=>`<div class="note">${n}</div>`).join('');
+$('#sources').textContent=D.sources;
+</script>
+</body>
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The power frontier — where it's made in China | China Industry Atlas</title>
+<meta name="description" content="Where the power frontier is made across China: the clusters by region and sub-segment, filterable.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%23C0402A%22%2F%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2216%22%20r%3D%226.5%22%20fill%3D%22none%22%20stroke%3D%22%23E8EAE3%22%20stroke-width%3D%223%22%2F%3E%3Ccircle%20cx%3D%2216%22%20cy%3D%2216%22%20r%3D%221.6%22%20fill%3D%22%23E8EAE3%22%2F%3E%3C%2Fsvg%3E">
+<link rel="canonical" href="https://chinaindustryatlas.com/power-frontier/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://chinaindustryatlas.com/power-frontier/">
+<meta property="og:title" content="The power frontier — where it's made in China">
+<meta property="og:description" content="Which town makes what across Shanghai, Jiangsu and Zhejiang.">
+<meta property="og:image" content="https://chinaindustryatlas.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+:root{
+  --paper:#E8EAE3;--paper-2:#F2F3EE;--paper-3:#DFE2DA;
+  --ink:#16242A;--ink-2:#46565B;--ink-3:#6C7A7E;
+  --line:#C7CCC3;--line-2:#D6DAD2;--chop:#C0402A;--brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;--body:"Hanken Grotesk",system-ui,sans-serif;--mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;background-image:radial-gradient(var(--line-2) .5px,transparent .5px);background-size:22px 22px}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--disp);font-weight:800;line-height:1.05;margin:0;letter-spacing:-0.01em}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-3)}
+header.top{position:sticky;top:0;z-index:1100;background:rgba(232,234,227,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top-in{display:flex;align-items:center;gap:18px;height:62px;max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.brand{display:flex;flex-direction:column;line-height:1;text-decoration:none}
+.brand .b1{font-family:var(--disp);font-weight:800;font-size:17px;letter-spacing:-.02em}
+.brand .b2{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--ink-3);margin-top:3px;text-transform:uppercase}
+.back{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none;border-bottom:1.5px solid transparent;padding-bottom:2px}
+.back:hover{color:var(--ink);border-bottom-color:var(--chop)}
+.searchbox{position:relative}
+#search{font-family:var(--mono);font-size:12px;border:1px solid var(--line);background:var(--paper-2);padding:8px 10px 8px 28px;width:160px;color:var(--ink);outline:none}
+#search:focus{border-color:var(--ink-2)}
+.searchbox::before{content:"\2315";position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--ink-3);font-size:15px}
+
+.hero{padding:42px 0 16px}
+.hero h1{font-size:clamp(34px,5.4vw,68px);letter-spacing:-.03em}
+.hero h1 .cn{font-weight:400;font-size:.38em;color:var(--ink-2);margin-left:.3em;letter-spacing:.06em}
+.lede{font-size:18px;color:var(--ink-2);margin:18px 0 0;max-width:66ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:24px;max-width:520px}
+.readout{flex:1;padding:12px 0}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-top:6px}
+
+section{padding:44px 0;border-top:1px solid var(--line)}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:20px;flex-wrap:wrap}
+.sec-head .num{font-family:var(--mono);font-size:12px;color:var(--chop)}
+.sec-head h2{font-size:clamp(24px,3.2vw,36px)}
+.sec-head p{color:var(--ink-2);font-size:14.5px;margin:0;max-width:56ch}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.chip{font-family:var(--mono);font-size:11.5px;letter-spacing:.03em;padding:7px 12px;border:1px solid var(--line);background:var(--paper-2);
+  cursor:pointer;color:var(--ink-2);transition:all .15s;white-space:nowrap}
+.chip:hover{border-color:var(--ink-2);color:var(--ink)}
+.chip.active{color:#fff;border-color:transparent}
+.chip .cd{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+
+.mapwrap{display:grid;grid-template-columns:1.4fr .6fr;gap:22px;align-items:start}
+.mapcard{border:1px solid var(--ink);position:relative;background:var(--paper-3)}
+#map{height:600px;width:100%;background:var(--paper-3)}
+.leaflet-container{font-family:var(--mono);background:var(--paper-3)}
+.mlabel{background:rgba(242,243,238,.95);border:1px solid var(--ink);border-radius:0;color:var(--ink);
+  font-family:var(--mono);font-size:10px;font-weight:700;padding:1px 5px;box-shadow:none;white-space:nowrap}
+.mlabel::before{display:none}
+.leaflet-popup-content-wrapper{border-radius:0;background:var(--paper-2);border:1px solid var(--ink);box-shadow:5px 5px 0 rgba(22,36,42,.18)}
+.leaflet-popup-content{margin:12px 14px;font-family:var(--body)}
+.leaflet-popup-tip{background:var(--paper-2);border:1px solid var(--ink)}
+.pop .pn{font-family:var(--disp);font-weight:800;font-size:16px}
+.pop .ph{font-family:var(--mono);font-size:11px;color:var(--ink-2);margin:2px 0 7px}
+.pop .pnote{font-size:12.5px;color:var(--ink-2)}
+.pop a{color:var(--chop);font-family:var(--mono);font-size:11px}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line);background:var(--paper-2)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+.legend{display:flex;flex-wrap:wrap;gap:9px 13px;padding:11px 15px;border-top:1px solid var(--line);background:var(--paper-2);font-family:var(--mono);font-size:10px;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.legend i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.mapside .panel{background:var(--paper-2);border:1px solid var(--line);padding:16px 18px}
+.mapside .panel h4{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--chop);margin-bottom:10px}
+.orow{display:flex;flex-direction:column;gap:2px;padding:8px 0;border-bottom:1px dotted var(--line);font-size:13px}
+.orow:last-child{border-bottom:0}
+.orow .ok{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink)}
+.orow .ov{color:var(--ink-2)}
+
+.citygrp{margin-top:26px}
+.city-h{display:flex;align-items:baseline;gap:12px;border-bottom:1.5px solid var(--ink);padding-bottom:9px;margin-bottom:13px}
+.city-h h3{font-size:20px}.city-h h3 span{font-weight:400;color:var(--ink-2);font-size:.7em;margin-left:.3em}
+.city-h .zone{margin-left:auto;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);border:1px solid var(--line);padding:2px 8px}
+.ccards{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px}
+.ccard{background:var(--paper-2);border:1px solid var(--line);padding:14px 15px;scroll-margin-top:84px;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.ccard:hover{border-color:var(--ink-2)}
+.ccard.flash{border-color:var(--chop);box-shadow:5px 5px 0 var(--chop)}
+.ccard .cn{font-family:var(--disp);font-weight:800;font-size:17px;line-height:1.05}
+.ccard .cn .ch{font-weight:400;font-size:.7em;color:var(--ink-2);margin-left:.3em}
+.ccard .cpref{font-family:var(--mono);font-size:10px;letter-spacing:.05em;color:var(--ink-3);margin-top:4px;text-transform:uppercase}
+.ccard .ctags{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0}
+.ccard .ctag{font-family:var(--mono);font-size:9.5px;padding:2px 7px;border:1px solid var(--line);color:#fff}
+.ccard .cnote{font-size:12.5px;color:var(--ink-2)}
+.ccard .cdd{display:inline-block;margin-top:8px;font-family:var(--mono);font-size:10.5px;color:var(--chop);border-bottom:1px solid var(--chop);text-decoration:none}
+.noresults{font-family:var(--mono);font-size:13px;color:var(--ink-3);padding:24px 0}
+
+.notes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:13px}
+.note{background:var(--paper-2);border:1px solid var(--line);border-left:3px solid var(--chop);padding:15px 17px;font-size:13.5px;color:var(--ink-2)}
+
+footer{background:var(--ink);color:var(--paper-3);padding:40px 0 30px;border-top:3px solid var(--chop)}
+footer h3{color:var(--paper);font-size:22px;margin-bottom:10px}
+footer .meth{font-size:12.5px;line-height:1.6;color:#9FAEAE;max-width:76ch}
+.dl{display:inline-flex;gap:9px;font-family:var(--mono);font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--paper);
+  border:1px solid #3A4A4E;padding:11px 16px;text-decoration:none;margin:16px 10px 0 0;transition:all .15s}
+.dl:hover{background:var(--chop);border-color:var(--chop)}
+footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:26px;border-top:1px solid #2A3A3E;padding-top:16px}
+
+@media(max-width:880px){.mapwrap{grid-template-columns:1fr}#map{height:460px}.searchbox{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="/"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">产业地图 · Industry maps</span></a>
+    <div class="searchbox"><input id="search" type="search" placeholder="search…" autocomplete="off"></div>
+    <a class="back" href="/">← back to atlas</a>
+  </div>
+</header>
+
+<div class="wrap hero">
+  <div class="eyebrow">Cheap power, empty land · the western interior</div>
+  <h1 style="margin-top:14px">The power frontier<span class="cn">西部能源</span></h1>
+  <p class="lede" id="lede"></p>
+  <div class="readouts">
+    <div class="readout"><div class="n" id="rCl">—</div><div class="l">Western sites</div></div>
+    <div class="readout"><div class="n" id="rCi">—</div><div class="l">Belts</div></div>
+    <div class="readout"><div class="n" id="rI">—</div><div class="l">Domains</div></div>
+  </div>
+</div>
+
+<section id="map-sec">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">01</span><h2>Why everything energy-hungry heads west</h2>
+      <p>Pick a domain — the western sites light up. The thread is cheap power and room to build, for things the crowded coast cannot host.</p></div>
+    <div class="chips" id="catChips"></div>
+    <div class="mapwrap">
+      <div class="mapcard">
+        <div class="maphead"><span class="t">Cheap power, empty land · 西部</span><span class="sc">hover a pin · click for detail</span></div>
+        <div id="map"></div>
+        <div class="legend" id="legend"></div>
+      </div>
+      <div class="mapside"><div class="panel"><h4>Across China</h4><div id="orient"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="directory">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">02</span><h2>Western sites, by belt</h2>
+      <p>Click a site to fly there. Filter above to isolate a domain across the west.</p></div>
+    <div id="dir"></div>
+    <div class="noresults" id="noResults" style="display:none">No clusters match. Try another industry or search term.</div>
+  </div>
+</section>
+
+<section id="notes">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">03</span><h2>Field notes</h2>
+      <p>How the west works.</p></div>
+    <div class="notes-grid" id="notesGrid"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h3>Part of the China Industry Atlas.</h3>
+    <p class="meth" id="meth"></p>
+    <a class="dl" href="/">← Full atlas</a>
+    <a class="dl" href="/#maps">All maps →</a>
+    <a class="dl" href="/#industries">Industry index →</a>
+    <div class="fine">The power frontier · industry map · 2026 · cluster locations approximate · basemap © OpenStreetMap, © CARTO.</div>
+  </div>
+</footer>
+
+<script id="ind-data" type="application/json">{"meta":{"title":"The power frontier","hanzi":"西部能源","subtitle":"Cheap power, empty land, and the things that need both","tagline":"The coast has the people; the interior has cheap power and empty land. This is where China sends what is power-hungry, space-hungry, or both — data centres, smelters, desert solar and giant science, mapped across China.","clusters":17,"cities":3,"industries":5,"center_lat":33.0,"center_lng":101.0,"methodology":"A map of the western interior, where cheap power and open land pull energy- and space-intensive activity inland. Locations are approximate; capacities and statuses are 2024-2025 and shift with policy and rainfall. Anchors: Gui'an hosts Apple's China iCloud and Huawei Cloud; Baihetan is the world's second-largest hydro station; Talatan is reported as the world's largest solar park; the Kubuqi 'solar great wall' targets ~100 GW by 2030; FAST is the largest single-dish radio telescope."},"categories":[{"id":"compute","name":"Data centers (east-data-west-compute)","color":"#C0402A"},{"id":"hydro_metals","name":"Hydropower & green metals","color":"#2E6E6A"},{"id":"solar_wind","name":"Solar & wind mega-bases","color":"#B08A3C"},{"id":"coal_power","name":"Coal & power bases","color":"#46565B"},{"id":"big_science","name":"Big science","color":"#7A5A8A"}],"prefectures":[{"id":"southwest","name":"Southwest","hanzi":"西南"},{"id":"northwest","name":"Northwest & Xinjiang","hanzi":"西北"},{"id":"north","name":"North & Inner Mongolia","hanzi":"华北·内蒙古"}],"clusters":[{"id":"guian_new_area","town":"Gui'an New Area","hanzi":"贵安新区","prefecture":"southwest","area":"Guizhou","primary":"compute","cats":["compute"],"note":"The flagship of 'east data, west compute'. Apple's China iCloud and Huawei Cloud run here; ~92 EFLOPS of capacity, almost all of it AI, on cheap hydropower and a cool climate.","lat":26.36,"lng":106.39},{"id":"ulanqab___hohhot","town":"Ulanqab / Hohhot","hanzi":"乌兰察布","prefecture":"north","area":"Inner Mongolia","primary":"compute","cats":["compute"],"note":"The northern compute hub: a cold, dry, windy plateau ideal for cooling servers, wired to Beijing-Tianjin-Hebei demand.","lat":41.02,"lng":113.13},{"id":"zhongwei","town":"Zhongwei","hanzi":"中卫","prefecture":"northwest","area":"Ningxia","primary":"compute","cats":["compute"],"note":"A desert 'cloud base' on the edge of the Tengger sands, powered by nearby solar.","lat":37.51,"lng":105.19},{"id":"qingyang","town":"Qingyang","hanzi":"庆阳","prefecture":"northwest","area":"Gansu","primary":"compute","cats":["compute"],"note":"Gansu's national hub node, betting cheap land and renewables can pull data work inland.","lat":35.73,"lng":107.64},{"id":"yunnan_green-aluminium_park","town":"Yunnan green-aluminium park","hanzi":"云南绿色铝","prefecture":"southwest","area":"Wenshan / Honghe, Yunnan","primary":"hydro_metals","cats":["hydro_metals"],"note":"China's largest 'green metal' migration: Hongqiao moved ~4 million tonnes of aluminium smelting here from coal-fired Shandong, chasing Yunnan's hydropower.","lat":23.37,"lng":104.24},{"id":"baihetan_dam","town":"Baihetan Dam","hanzi":"白鹤滩","prefecture":"southwest","area":"Jinsha River, Sichuan-Yunnan","primary":"hydro_metals","cats":["hydro_metals"],"note":"The world's second-largest hydropower station (16 GW); an anchor of the west-to-east power grid (西电东送).","lat":27.22,"lng":102.92},{"id":"qujing_silicon","town":"Qujing silicon","hanzi":"曲靖硅","prefecture":"southwest","area":"Yunnan","primary":"hydro_metals","cats":["hydro_metals"],"note":"Hydro-powered polysilicon and silicon metal — the 'green' feedstock for solar, drawn south for clean power.","lat":25.49,"lng":103.8},{"id":"kubuqi_solar_great_wall","town":"Kubuqi 'Solar Great Wall'","hanzi":"库布其光伏长城","prefecture":"north","area":"Ordos, Inner Mongolia","primary":"solar_wind","cats":["solar_wind"],"note":"A wall of panels ~400 km long aiming at 100 GW by 2030, visible from orbit; the flagship base mixes solar, wind and back-up coal, and even uses coal-mine water to wash the panels.","lat":40.2,"lng":108.3},{"id":"talatan_solar_park","town":"Talatan Solar Park","hanzi":"塔拉滩","prefecture":"northwest","area":"Gonghe, Qinghai","primary":"solar_wind","cats":["solar_wind"],"note":"Reported as the world's largest solar park, spread across the Tibetan Plateau and paired with Longyangxia hydro for a giant solar-hydro hybrid.","lat":36.13,"lng":100.62},{"id":"xinjiang_giga-bases","town":"Xinjiang giga-bases","hanzi":"新疆风光基地","prefecture":"northwest","area":"Hami / Junggar, Xinjiang","primary":"solar_wind","cats":["solar_wind"],"note":"Vast wind-and-solar bases on empty desert, exported east by ultra-high-voltage line.","lat":42.83,"lng":93.51},{"id":"ordos_energy_base","town":"Ordos energy base","hanzi":"鄂尔多斯","prefecture":"north","area":"Inner Mongolia","primary":"coal_power","cats":["coal_power"],"note":"China's coal capital and a coal-to-chemicals giant; the cheap baseload that also underwrites the desert solar next door.","lat":39.61,"lng":109.78},{"id":"yulin","town":"Yulin","hanzi":"榆林","prefecture":"north","area":"Shaanxi","primary":"coal_power","cats":["coal_power"],"note":"China's coal-chemical capital, turning coal into olefins, methanol and fuels at vast scale.","lat":38.28,"lng":109.74},{"id":"ningdong_energy_base","town":"Ningdong energy base","hanzi":"宁东","prefecture":"northwest","area":"Ningxia","primary":"coal_power","cats":["coal_power"],"note":"A national coal-to-liquids and chemicals base, home to one of the world's largest coal-to-oil plants.","lat":38.1,"lng":106.55},{"id":"fast_radio_telescope","town":"FAST radio telescope","hanzi":"中国天眼","prefecture":"southwest","area":"Pingtang, Guizhou","primary":"big_science","cats":["big_science"],"note":"'China's Sky Eye': the world's largest single-dish radio telescope, 500 m across, cradled in a natural karst bowl inside a radio-silence zone.","lat":25.65,"lng":106.86},{"id":"lhaaso_cosmic-ray_observatory","town":"LHAASO cosmic-ray observatory","hanzi":"高海拔宇宙线观测站","prefecture":"southwest","area":"Daocheng, Sichuan","primary":"big_science","cats":["big_science"],"note":"A cosmic-ray array at 4,410 m on a Sichuan plateau, hunting the universe's highest-energy particles; the DSRT solar 'thousand-eye' radio ring sits alongside.","lat":29.36,"lng":100.13},{"id":"jinping_underground_lab","town":"Jinping Underground Lab","hanzi":"锦屏地下实验室","prefecture":"southwest","area":"Liangshan, Sichuan","primary":"big_science","cats":["big_science"],"note":"The world's deepest and largest underground laboratory, 2,400 m under a mountain, listening in silence for dark matter.","lat":28.15,"lng":101.71},{"id":"lenghu_observatory","town":"Lenghu observatory","hanzi":"冷湖","prefecture":"northwest","area":"Qinghai","primary":"big_science","cats":["big_science"],"note":"A Mars-like desert town reborn as one of the world's best optical-astronomy sites: thin, dry, dark air at altitude.","lat":38.8,"lng":93.36}],"orientation":[{"k":"Data centers (east-data-west-compute)","v":"Gui'an New Area, Ulanqab / Hohhot, Zhongwei, Qingyang."},{"k":"Hydropower & green metals","v":"Yunnan green-aluminium park, Baihetan Dam, Qujing silicon."},{"k":"Solar & wind mega-bases","v":"Kubuqi 'Solar Great Wall', Talatan Solar Park, Xinjiang giga-bases."},{"k":"Coal & power bases","v":"Ordos energy base, Yulin, Ningdong energy base."},{"k":"Big science","v":"FAST radio telescope, LHAASO cosmic-ray observatory, Jinping Underground Lab, Lenghu observatory."}],"notes":["One logic, many forms. The coast has the people and the money; the interior has cheap power and empty land. So China sends west whatever is power-hungry or space-hungry and can tolerate distance: AI data centres under 'east data, west compute' (东数西算), aluminium and silicon smelting, desert-scale solar, and giant scientific instruments. Electricity and land, not labour, are the location decision here.","Green, but drought-exposed. Yunnan draws around 80% of its power from hydro, which is why Hongqiao shifted roughly 4 million tonnes of aluminium smelting there from coal-fired Shandong — China's largest 'green metal' migration. But dry years force power cuts and smelter curtailments, the hydro frontier's recurring weakness, and the west-to-east transmission grid (西电东送) adds another claim on the same rivers.","Empty land is a feature, not a bug. The remoteness that makes the west cheap to power also makes it ideal for science that needs silence, darkness or altitude: the FAST radio telescope sits in a karst bowl inside a radio-quiet zone; the LHAASO array sits at 4,410 m; the Jinping lab hides under 2,400 m of rock to listen for dark matter; and Lenghu, a Mars-like Qinghai desert town, is being rebuilt as China's best optical-astronomy site."]}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>window.L||document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"><\/scr'+'ipt>')</script>
+<script>
+const D=JSON.parse(document.getElementById('ind-data').textContent);
+const $=s=>document.querySelector(s), ce=(t,c)=>{const e=document.createElement(t);if(c)e.className=c;return e};
+const CC={}; D.categories.forEach(c=>CC[c.id]=c.color);
+const catName=id=>(D.categories.find(c=>c.id===id)||{}).name||id;
+const prefById=id=>D.prefectures.find(c=>c.id===id)||{};
+
+$('#lede').innerHTML=D.meta.tagline.replace("across China","<b>across China</b>");
+$('#rCl').textContent=D.meta.clusters;
+$('#rCi').textContent=D.meta.cities;
+$('#rI').textContent=D.meta.industries;
+$('#meth').textContent=D.meta.methodology;
+
+/* ---------- map ---------- */
+const map=L.map('map',{scrollWheelZoom:false,zoomControl:true,attributionControl:true})
+  .setView([D.meta.center_lat,D.meta.center_lng],4);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
+  subdomains:'abcd',maxZoom:20,attribution:'&copy; OpenStreetMap &copy; CARTO'
+}).addTo(map);
+
+const markers={};
+D.clusters.forEach(c=>{
+  const m=L.circleMarker([c.lat,c.lng],{radius:8,color:'#ffffff',weight:2,fillColor:CC[c.primary],fillOpacity:1}).addTo(map);
+  m.bindTooltip(c.town+' · '+c.area,{direction:'top',offset:[0,-4],className:'mlabel'});
+  const dd = '';
+  m.bindPopup(`<div class="pop"><div class="pn">${c.town} <span style="font-weight:400;color:#46565B">${c.hanzi}</span></div>
+    <div class="ph">${c.area} · ${prefById(c.prefecture).name} · ${c.cats.map(catName).join(' · ')}</div><div class="pnote">${c.note}</div>${dd}</div>`);
+  m.on('click',()=>flashCard(c.id,false));
+  markers[c.id]=m;
+});
+map.fitBounds(L.featureGroup(Object.values(markers)).getBounds().pad(0.12));
+$('#legend').innerHTML=D.categories.map(c=>`<span><i style="background:${c.color}"></i>${c.name}</span>`).join('');
+
+/* ---------- filter ---------- */
+let activeCat=null;
+const chips=$('#catChips');
+const all=ce('div','chip active');all.textContent='All domains';all.style.background='var(--ink)';all.dataset.cat='';
+all.onclick=()=>selectCat(null);chips.appendChild(all);
+D.categories.forEach(c=>{
+  const ch=ce('div','chip');ch.dataset.cat=c.id;
+  ch.innerHTML=`<span class="cd" style="background:${c.color}"></span>${c.name}`;
+  ch.onclick=()=>selectCat(c.id===activeCat?null:c.id);chips.appendChild(ch);
+});
+function selectCat(id){
+  activeCat=id;
+  document.querySelectorAll('#catChips .chip').forEach(c=>{
+    const on=(c.dataset.cat||'')===(id||'');
+    c.classList.toggle('active',on); c.style.background=on?(id?CC[id]:'var(--ink)'):'';
+  });
+  D.clusters.forEach(c=>{
+    const m=markers[c.id], hit=!id||c.cats.includes(id);
+    m.setStyle({fillOpacity:hit?1:0.15,opacity:hit?1:0.25,radius:id&&hit?10:8});
+  });
+  applyFilter();
+}
+
+/* ---------- directory ---------- */
+const dir=$('#dir');
+function ccard(c){
+  const dd = '';
+  return `<div class="ccard" id="c-${c.id}" data-id="${c.id}">
+    <div class="cn">${c.town}<span class="ch">${c.hanzi}</span></div>
+    <div class="cpref">${c.area}</div>
+    <div class="ctags">${c.cats.map(x=>`<span class="ctag" style="background:${CC[x]}">${catName(x)}</span>`).join('')}</div>
+    <div class="cnote">${c.note}</div>${dd}</div>`;
+}
+function renderDir(){
+  dir.innerHTML='';
+  D.prefectures.forEach(prov=>{
+    const list=D.clusters.filter(c=>c.prefecture===prov.id);
+    if(!list.length) return;
+    const g=ce('div','citygrp');g.dataset.city=prov.id;
+    g.innerHTML=`<div class="city-h"><h3>${prov.name}<span>${prov.hanzi}</span></h3><span class="zone">${list.length} clusters</span></div>
+      <div class="ccards">${list.map(ccard).join('')}</div>`;
+    dir.appendChild(g);
+  });
+  dir.querySelectorAll('.ccard').forEach(el=>el.addEventListener('click',e=>{
+    if(e.target.closest('a'))return; flyTo(el.dataset.id);
+  }));
+}
+function applyFilter(){
+  const q=$('#search').value.trim().toLowerCase(); let vis=0;
+  D.prefectures.forEach(prov=>{
+    const g=dir.querySelector(`[data-city="${prov.id}"]`); if(!g)return; let shown=0;
+    g.querySelectorAll('.ccard').forEach(card=>{
+      const c=D.clusters.find(x=>x.id===card.dataset.id);
+      const inCat=!activeCat||c.cats.includes(activeCat);
+      const hay=(c.town+' '+c.hanzi+' '+c.area+' '+c.note+' '+c.cats.map(catName).join(' ')+' '+prefById(c.prefecture).name).toLowerCase();
+      const show=inCat&&(!q||hay.includes(q)); card.style.display=show?'':'none';
+      if(show){shown++;vis++}
+    });
+    g.style.display=shown?'':'none';
+  });
+  $('#noResults').style.display=vis?'none':'block';
+}
+function flashCard(id,scroll){
+  const c=document.getElementById('c-'+id); if(!c)return;
+  if(scroll!==false)c.scrollIntoView({behavior:'smooth',block:'center'});
+  c.classList.add('flash'); setTimeout(()=>c.classList.remove('flash'),1500);
+}
+function flyTo(id){
+  const m=markers[id];
+  document.getElementById('map-sec').scrollIntoView({behavior:'smooth',block:'start'});
+  if(m) setTimeout(()=>{map.flyTo(m.getLatLng(),12,{duration:.8});m.openPopup();},420);
+}
+renderDir();
+
+$('#orient').innerHTML=D.orientation.map(o=>`<div class="orow"><span class="ok">${o.k}</span><span class="ov">${o.v}</span></div>`).join('');
+$('#notesGrid').innerHTML=D.notes.map(n=>`<div class="note">${n}</div>`).join('');
+$('#search').addEventListener('input',applyFilter);
+setTimeout(()=>map.invalidateSize(),200);
+</script>
+</body>
+</html>

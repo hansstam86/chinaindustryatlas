@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manufacturing in motion — is the factory floor leaving China? | China Industry Atlas</title>
+<meta name="description" content="How manufacturing is moving: the shift inland within China, and the China+1 offshoring to Vietnam, India and Mexico — with the data on whether production is really leaving China.">
+<link rel="canonical" href="https://chinaindustryatlas.com/manufacturing-in-motion/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://chinaindustryatlas.com/manufacturing-in-motion/">
+<meta property="og:title" content="Manufacturing in motion — is the factory floor leaving China?">
+<meta property="og:description" content="The shift inland within China and the China+1 move to Vietnam, India and Mexico — and whether it adds up to real decoupling.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --line-2:#D6DAD2;
+  --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --r-prd:#C0402A; --r-yrd:#2E6E6A; --r-bohai:#9C7A3C; --r-sea_strait:#B5642E; --r-central_west:#5A6E2E;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.55}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 30px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(40px,7vw,76px);line-height:.96;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.38em;letter-spacing:.06em;color:var(--ink-2);margin-top:10px;font-family:var(--disp)}
+.lede{font-size:18px;color:var(--ink-2);margin:18px 0 0;max-width:64ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:24px;max-width:560px}
+.readout{flex:1;padding:12px 0}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:23px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:6px}
+section{padding:46px 0;border-top:1px solid var(--line)}
+.sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+.sec-head .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec-head h2{font-family:var(--disp);font-weight:800;font-size:clamp(24px,3.4vw,34px);margin:0;letter-spacing:-.01em}
+.sec-head p{margin:0;color:var(--ink-2);font-size:15px;flex:1;min-width:280px}
+.mapgrid{display:grid;grid-template-columns:1fr 320px;gap:18px}
+@media(max-width:860px){.mapgrid{grid-template-columns:1fr}}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2)}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line);background:var(--paper-2)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:560px;width:100%;background:var(--paper-3)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.chip{font-family:var(--mono);font-size:12px;padding:7px 13px;border:1px solid var(--line);background:var(--paper-2);cursor:pointer;color:var(--ink-2);display:flex;align-items:center;gap:7px}
+.chip:hover{border-color:var(--ink-3)}
+.chip.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip .sw{width:9px;height:9px;border-radius:50%}
+.side .panel{border:1px solid var(--line);background:var(--paper-2);padding:16px 17px}
+.side .panel+.panel{margin-top:14px}
+.side h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 12px}
+.corr{display:flex;gap:10px;padding:9px 0;border-top:1px solid var(--line)}
+.corr:first-of-type{border-top:0}
+.corr .ck{width:10px;height:10px;border-radius:50%;margin-top:5px;flex:none}
+.corr .cn{font-family:var(--disp);font-weight:700;font-size:14px}
+.corr .cd{font-size:12.5px;color:var(--ink-2)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:9px;height:9px;border-top:0;border-radius:50%}
+.tbls{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:760px){.tbls{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:400}
+td.d{font-family:var(--mono);color:var(--chop);white-space:nowrap}
+.blk-h{font-family:var(--disp);font-weight:700;font-size:17px;margin:0 0 12px}
+.notes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:760px){.notes{grid-template-columns:1fr}}
+.note{border:1px solid var(--line);background:var(--paper-2);padding:15px 16px;font-size:13.5px;color:var(--ink-2)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3)}
+.leaflet-container{background:var(--paper-3)}
+.portlbl{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--ink);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.exitlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.portdot{width:13px;height:13px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+
+.hubdot{width:10px;height:10px;border-radius:50%;background:#9C7A3C;border:2px solid var(--paper);box-shadow:0 0 0 1px #9C7A3C}
+.destdot{width:12px;height:12px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.hublbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">产业转移 · Manufacturing in motion</span></div>
+    <a class="back" href="/">← back to atlas</a>
+  </div>
+</header>
+
+<div class="wrap hero">
+  <div class="eyebrow">The changing map · is the factory floor moving?</div>
+  <h1>Manufacturing in motion<span class="cn">产业转移</span></h1>
+  <p class="lede" id="lede"></p>
+  <div class="readouts">
+    <div class="readout"><div class="n" id="rA">—</div><div class="l">China's share of world manufacturing</div></div>
+    <div class="readout"><div class="n" id="rB">—</div><div class="l">China's share of US imports since 2017</div></div>
+    <div class="readout"><div class="n" id="rC">—</div><div class="l">iPhones now assembled in India</div></div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="num">01</span><h2>Where it's moving</h2>
+      <p>Two different motions on one map. Gold lines are the shift <b>inland within China</b>; red lines are <b>offshoring</b> to China's neighbours and Mexico. Toggle to isolate one.</p></div>
+    <div class="chips" id="modeChips"></div>
+    <div class="mapgrid">
+      <div>
+        <div class="mapcard">
+          <div class="maphead"><span class="t">Inland shift &amp; China+1 · 产业转移</span><span class="sc">hover a line · drag to pan</span></div>
+          <div id="map"></div>
+          <div class="legend" id="legend"></div>
+        </div>
+      </div>
+      <div class="side">
+        <div class="panel"><h4>The two motions</h4><div id="motions"></div></div>
+        <div class="panel"><h4>Offshore assembly bases</h4><div id="destlist"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="num">02</span><h2>What's moving — and the catch</h2>
+      <p>The sectors genuinely relocating, where they are going, and why the move is shallower than it looks.</p></div>
+    <div class="tbls">
+      <div>
+        <div class="blk-h">What's moving out</div>
+        <div style="overflow-x:auto"><table id="moversTbl"></table></div>
+      </div>
+      <div>
+        <div class="blk-h">The counter-current</div>
+        <div style="overflow-x:auto"><table id="realityTbl"></table></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="num">03</span><h2>Is Vietnam the next China?</h2>
+      <p>The honest read, holding both the movement and the dependence in view.</p></div>
+    <div class="notes" id="notes"></div>
+    <div class="fine" id="sources" style="margin-top:22px"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="ftlinks">
+      <a class="dl" href="/">← Full atlas</a>
+      <a class="dl" href="/#maps">All maps →</a>
+      <a class="dl" href="/getting-it-out/">Getting it out →</a>
+      <a class="dl" href="/one-product-towns/">One-product towns →</a>
+    </div>
+    <div class="fine">Manufacturing in motion · 2026 · flows illustrative, not measured tonnage · figures indicative · basemap © OpenStreetMap, © CARTO.</div>
+  </div>
+</footer>
+
+<script id="motion-data" type="application/json">{"meta":{"tagline":"Manufacturing is moving — but mostly inside China, not out of it. The map of where, and the honest answer to whether Vietnam is the next China, mapped across China and its neighbours.","center_lat":17.5,"center_lng":104.0,"zoom":3},"stats":{"world_mfg":"~30%","us_imports":"21→7%","india_iphone":"~25%"},"inland":[{"hub":"Chongqing","fromLat":22.8,"fromLng":113.6,"lat":29.56,"lng":106.55,"note":"Laptops — about a third of the world's notebooks; motorcycles, NEV"},{"hub":"Chengdu","fromLat":22.8,"fromLng":113.6,"lat":30.57,"lng":104.07,"note":"iPad and electronics assembly, IC packaging, software"},{"hub":"Xi'an","fromLat":30.9,"fromLng":121.0,"lat":34.34,"lng":108.94,"note":"Samsung NAND memory; Longi solar; the China-Europe rail head"},{"hub":"Zhengzhou","fromLat":22.8,"fromLng":113.6,"lat":34.75,"lng":113.63,"note":"Foxconn's largest iPhone campus"},{"hub":"Wuhan","fromLat":30.9,"fromLng":121.0,"lat":30.59,"lng":114.31,"note":"Memory (YMTC), optoelectronics, NEV (Dongfeng)"},{"hub":"Hefei","fromLat":30.9,"fromLng":121.0,"lat":31.82,"lng":117.23,"note":"Memory (CXMT), displays (BOE), NEV (NIO, VW)"}],"offshore":[{"name":"Bac Ninh / Hanoi","short":"Hanoi","lat":21.0,"lng":105.85,"what":"Electronics assembly — Samsung, Foxconn, Luxshare","catch":"~80% of export value is imported components","fromLat":22.6,"fromLng":114.0},{"name":"Ho Chi Minh City","short":"HCMC","lat":10.82,"lng":106.63,"what":"Footwear, apparel, furniture (Nike, Adidas)","catch":"Fabric, soles and hardware still largely Chinese","fromLat":22.6,"fromLng":114.0},{"name":"Chennai","short":"Chennai","lat":13.08,"lng":80.27,"what":"iPhone assembly — Foxconn, Tata","catch":"~25% of Apple output; ~20% local value-add","fromLat":22.6,"fromLng":114.0},{"name":"Delhi / Noida","short":"Delhi","lat":28.6,"lng":77.2,"what":"Smartphones & electronics (PLI-driven)","catch":"Components imported; local base still young","fromLat":22.6,"fromLng":114.0},{"name":"Jakarta","short":"Jakarta","lat":-6.2,"lng":106.85,"what":"Electronics, EVs, footwear","catch":"Aimed at the large domestic market too","fromLat":22.6,"fromLng":114.0},{"name":"Bangkok","short":"Bangkok","lat":13.75,"lng":100.5,"what":"Autos, electronics, solar","catch":"Chinese EV plants — BYD, MG, GWM","fromLat":22.6,"fromLng":114.0},{"name":"Phnom Penh","short":"Phnom Penh","lat":11.56,"lng":104.9,"what":"Apparel, solar module assembly","catch":"Often Chinese-owned, built to dodge US duties","fromLat":22.6,"fromLng":114.0},{"name":"Dhaka","short":"Dhaka","lat":23.81,"lng":90.41,"what":"Garments — the low-cost apparel floor","catch":"Yarn and fabric largely imported","fromLat":22.6,"fromLng":114.0}],"mexico":{"fromLat":22.6,"fromLng":114.0,"exitLat":18.5,"exitLng":133.5,"short":"Mexico · N. America","label":"→ Mexico / North America — autos, appliances, electronics; nearshoring plus Chinese firms using USMCA access"},"movers":[{"sector":"Footwear & apparel","to":"Vietnam, Indonesia, Bangladesh, Cambodia, India","catch":"The most labor-intensive stage; but yarn, fabric and soles are still largely Chinese"},{"sector":"Electronics assembly","to":"Vietnam, India","catch":"Final assembly only — ~80% of Vietnam's electronics export value is imported components"},{"sector":"Smartphones","to":"India","catch":"Apple now assembles ~25% of iPhones there; local value-add ~20% vs ~40-45% in China"},{"sector":"Solar modules","to":"Vietnam, Malaysia, Cambodia, Thailand","catch":"Plants are largely Chinese-owned, built to clear US anti-dumping duties"},{"sector":"Autos & appliances","to":"Mexico","catch":"Nearshoring plus Chinese firms using USMCA; Mexico is now adding its own tariffs on Chinese goods"},{"sector":"Furniture","to":"Vietnam","catch":"Shifted after the 2018 tariffs; inputs, foam and hardware still sourced from China"}],"reality":[{"sig":"China ≈ 30% of world manufacturing","mean":"Steady-to-rising even as its US import share fell — more than the next three economies combined"},{"sig":"Vietnam buys ≈ $186B from China (2025)","mean":"Up ~29%, about 40% of all its imports — rising in lockstep with its exports to the US"},{"sig":"iPhone value-add in India ≈ 20%","mean":"vs ~40-45% in China; the deep value (chips, camera, display, tooling) stays upstream in China"},{"sig":"Most offshore plants are Chinese-owned","mean":"CATL, BYD, Trina, JA Solar across SE Asia; auto-parts makers in Mexico — relocating to keep market access"},{"sig":"Pure rerouting is limited","mean":"But the US supplier pool shifted toward China-linked countries, so US reliance on Chinese value is now more indirect than gone"}],"notes":["Two motions, not one. The loud story is offshoring, but the larger movement is inside China: production sliding off the expensive coast into Chengdu, Chongqing, Wuhan, Hefei, Zhengzhou and Xi'an, pulled by cheaper land and labour and by China-Europe rail. China's own map is redrawing faster than the world's.","Is Vietnam the next China? Not in the way the trade numbers imply. Vietnam, India and Mexico are capturing final assembly and the most labour-intensive stages — real, and visible in 'Made in' labels and US import stats. But they lean heavily on Chinese components, materials and machinery; Vietnam's imports from China climb in step with its exports to the US, and much of the new capacity is Chinese-owned, relocated to keep tariff access. It is China-plus-a-finishing-shop, not China replaced.","What is genuinely leaving — and what is not. Labour-intensive, low-value, tariff-exposed final assembly is diversifying away for good: shoes, garments, simple electronics, solar modules. The component ecosystem, the materials, the machinery and the dense supplier clustering this atlas maps are not — and China's share of global manufacturing value-added has held or risen even as its bilateral US share collapsed from ~21% to ~7%. Whether the finishing layer ever grows its own roots depends on how fast India and Vietnam build component bases, and how hard rerouting rules start to bite."],"sources":"Sources (2024-2025, indicative): UNIDO & CSIS ChinaPower (manufacturing share); US Census Bureau via Bloomberg (US import share); CEPR (Alfaro-Chor) & US Federal Reserve (reallocation); ADB & OECD (Vietnam import content); Bloomberg & Canalys (iPhone India); Rhodium Group (Chinese FDI in ASEAN); Brookings (Mexico nearshoring)."}</script>
+<script>
+if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}
+</script>
+<script>
+const D=JSON.parse(document.getElementById('motion-data').textContent);
+const $=s=>document.querySelector(s);
+const GOLD='#9C7A3C', RED='#C0402A';
+$('#lede').innerHTML=D.meta.tagline.replace("across China","<b>across China</b>");
+$('#rA').textContent=D.stats.world_mfg; $('#rB').textContent=D.stats.us_imports; $('#rC').textContent=D.stats.india_iphone;
+
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([D.meta.center_lat,D.meta.center_lng],D.meta.zoom);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:9,subdomains:'abcd'}).addTo(map);
+const G={inland:[],off:[]};
+
+// inland shift (within China)
+D.inland.forEach(f=>{
+  const ln=L.polyline([[f.fromLat,f.fromLng],[f.lat,f.lng]],{color:GOLD,weight:3,opacity:.85}).addTo(map);
+  ln.bindTooltip(f.hub+' — '+f.note,{sticky:true,className:'exitlbl'}); G.inland.push(ln);
+  L.marker([f.lat,f.lng],{icon:L.divIcon({html:'<div class="hubdot"></div>',iconSize:[10,10],iconAnchor:[5,5],className:''})}).addTo(map)
+    .bindTooltip(f.hub+' — '+f.note,{direction:'top',offset:[0,-6],className:'exitlbl'});
+  L.marker([f.lat,f.lng],{icon:L.divIcon({html:'<div class="hublbl">'+f.hub+'</div>',iconSize:[1,1],iconAnchor:[-7,5],className:''})}).addTo(map);
+});
+// offshoring (China+1)
+D.offshore.forEach(o=>{
+  const ln=L.polyline([[o.fromLat,o.fromLng],[o.lat,o.lng]],{color:RED,weight:3,opacity:.8}).addTo(map);
+  ln.bindTooltip(o.name+' — '+o.what,{sticky:true,className:'exitlbl'}); G.off.push(ln);
+  L.marker([o.lat,o.lng],{icon:L.divIcon({html:'<div class="destdot"></div>',iconSize:[12,12],iconAnchor:[6,6],className:''})}).addTo(map)
+    .bindTooltip('<b>'+o.name+'</b> — '+o.what+'<br>Catch: '+o.catch,{direction:'top',offset:[0,-6],className:'exitlbl'});
+  L.marker([o.lat,o.lng],{icon:L.divIcon({html:'<div class="portlbl">'+o.short+'</div>',iconSize:[1,1],iconAnchor:[-8,5],className:''})}).addTo(map);
+});
+// mexico off-map arrow
+const mx=D.mexico;
+const mxln=L.polyline([[mx.fromLat,mx.fromLng],[mx.exitLat,mx.exitLng]],{color:RED,weight:3,opacity:.85,dashArray:'8,5'}).addTo(map);
+mxln.bindTooltip(mx.label,{sticky:true,className:'exitlbl'}); G.off.push(mxln);
+L.marker([mx.exitLat,mx.exitLng],{icon:L.divIcon({html:'<div class="exitlbl" style="color:'+RED+';font-weight:700">→ '+mx.short+'</div>',iconSize:[1,1],iconAnchor:[14,6],className:''})}).addTo(map);
+
+// legend
+$('#legend').innerHTML=
+  `<span><i style="border-top-color:${GOLD}"></i>Inland shift (within China)</span>`
+ +`<span><i style="border-top-color:${RED}"></i>Offshoring (China+1)</span>`
+ +`<span><i class="dot" style="background:${GOLD}"></i>Inland hub</span>`
+ +`<span><i class="dot" style="background:${RED};border-radius:0;transform:rotate(45deg)"></i>Offshore base</span>`;
+
+// motion toggle
+const motions=[{k:'all',n:'Both motions'},{k:'inland',n:'Inland shift'},{k:'off',n:'Offshoring (China+1)'}];
+const chipWrap=$('#modeChips');
+function setMotion(m){
+  document.querySelectorAll('#modeChips .chip').forEach(c=>c.classList.toggle('active',c.dataset.m===m));
+  const inOn=(m==='all'||m==='inland'), offOn=(m==='all'||m==='off');
+  G.inland.forEach(l=>l.setStyle({opacity:inOn?.85:.1}));
+  G.off.forEach(l=>l.setStyle({opacity:offOn?.82:.1}));
+}
+motions.forEach(mo=>{
+  const c=document.createElement('div'); c.className='chip'+(mo.k==='all'?' active':''); c.dataset.m=mo.k; c.textContent=mo.n;
+  c.addEventListener('click',()=>setMotion(mo.k)); chipWrap.appendChild(c);
+});
+
+// side: two motions
+$('#motions').innerHTML=
+  `<div class="corr"><span class="ck" style="background:${GOLD}"></span><div><div class="cn">Inland shift — within China</div><div class="cd">Coast → Chengdu, Chongqing, Wuhan, Hefei, Zhengzhou, Xi'an. Cheaper land and labour plus China-Europe rail pull production inland.</div></div></div>`
+ +`<div class="corr"><span class="ck" style="background:${RED}"></span><div><div class="cn">Offshoring — China+1</div><div class="cd">Final assembly and labour-intensive stages move to Vietnam, India, Mexico and beyond — often run by Chinese firms keeping tariff access.</div></div></div>`;
+// side: offshore list
+$('#destlist').innerHTML=D.offshore.map(o=>
+  `<div class="corr"><span class="ck" style="background:${RED};border-radius:0;transform:rotate(45deg)"></span><div><div class="cn">${o.name}</div><div class="cd">${o.what}. <i>${o.catch}</i></div></div></div>`).join('');
+
+// tables
+$('#moversTbl').innerHTML='<tr><th>Sector</th><th>Going to</th><th>The catch</th></tr>'+
+  D.movers.map(m=>`<tr><td>${m.sector}</td><td>${m.to}</td><td>${m.catch}</td></tr>`).join('');
+$('#realityTbl').innerHTML='<tr><th>Signal</th><th>What it means</th></tr>'+
+  D.reality.map(r=>`<tr><td class="d" style="white-space:normal">${r.sig}</td><td>${r.mean}</td></tr>`).join('');
+// notes + sources
+$('#notes').innerHTML=D.notes.map(n=>`<div class="note">${n}</div>`).join('');
+$('#sources').textContent=D.sources;
+</script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Foshan — the ancient town that became a city of one-industry clusters | China Industry Atlas</title>
+<meta name="description" content="A deep dive on Foshan: an ancient ceramics town that reinvented itself into 41 one-industry townships, home to Midea and Galanz, and a fifth of China's home appliances.">
+<link rel="canonical" href="https://chinaindustryatlas.com/deep-dives/foshan/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/deep-dives/foshan/">
+<meta property="og:title" content="Foshan — the city of specialised towns">
+<meta property="og:description" content="How an ancient pottery town kept reinventing what it made — into appliances, furniture and robots.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Town deep-dives</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<div class="wrap hero">
+  <div class="eyebrow">Town deep-dive · Guangdong</div>
+  <h1>Foshan<span class="cn">佛山 · the city of specialised towns</span></h1>
+  <p class="lede">An ancient pottery town that kept reinventing what it made. Foshan now holds <b>41 townships, each specialised in a single industry</b> — and turns out about a fifth of China's home appliances. Where Zheng'an was engineered and Songxia grew young, Foshan simply never stopped.</p>
+  <div class="readouts">
+    <div class="readout"><div class="n">~1/5</div><div class="l">of China's home appliances (Shunde)</div></div>
+    <div class="readout"><div class="n">41</div><div class="l">one-industry townships in one city</div></div>
+    <div class="readout"><div class="n">~½</div><div class="l">of the world's microwaves, one Foshan firm</div></div>
+  </div>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">A city of one-industry towns</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend">
+    <span><i class="dot" style="background:var(--chop);border-radius:0;transform:rotate(45deg)"></i>Foshan (the city)</span>
+    <span><i class="dot" style="background:var(--chop)"></i>Specialised town</span>
+    <span><i class="dot" style="background:var(--ink-2)"></i>Reference city</span>
+  </div></div></div>
+<section><div class="wrap dd-grid"><div>
+  <div class="sec"><div class="num">01</div><h2>The town that was always making something</h2>
+    <p>Foshan sits just west of Guangzhou, in the old heart of the Pearl River Delta, and unlike most of the clusters in this atlas it did not begin in the reform era. For centuries it was one of imperial China's famous commercial towns, known nationwide for its ceramics, ironware and textiles, for Cantonese opera, and for a martial-arts lineage that produced Wong Fei-hung and Ip Man. A dragon kiln at Shiwan has reportedly been fired more or less continuously for around five hundred years. Foshan came to the modern economy already knowing how to make things and sell them.</p></div>
+  <div class="sec"><div class="num">02</div><h2>The Shunde model</h2>
+    <p>What turned that heritage into industrial weight was Shunde district and the boldest privatisation experiment of the reform era. In the 1980s, town- and village-owned collective enterprises sprang up across the delta's old mulberry-and-fishpond land; after Deng Xiaoping's 1992 southern tour urged Shunde to "dare to be first", local officials pushed these town-owned firms into private hands. The best-known graduate is <b>Midea</b>, founded by He Xiangjian back in 1968 and now a Fortune Global 500 appliance maker. Down the road, <b>Galanz</b> began in 1978 trading duck feathers, moved into microwave ovens in 1992, and within a decade was making something like half the world's microwaves.</p>
+    <div class="pull">Foshan never had to discover manufacturing. It had been making things for the world for centuries; it just kept changing what.</div></div>
+  <div class="sec"><div class="num">03</div><h2>A city of one-industry towns</h2>
+    <p>The structure underneath is the striking part. Foshan is not one cluster but a mosaic of them: <b>41 townships each specialised in a single industry</b>, more than any other prefecture in Guangdong. Appliances concentrate in Ronggui and Beijiao; furniture in Lecong and Longjiang (Lecong runs the largest furniture wholesale market on Earth); ceramics in Shiwan and Nanzhuang; aluminium in Dali; textiles in Xiqiao; even flowers in Chencun. Each town is a more or less complete supply chain, and together they make Foshan the fourth-largest economy in the Greater Bay Area.</p></div>
+  <div class="sec"><div class="num">04</div><h2>Climbing the ladder</h2>
+    <p>Crucially, Foshan did not stay cheap. Midea bought Germany's KUKA, one of the world's leading industrial-robot makers, and brought automation home; the ceramics firms (Monalisa, Dongpeng) and the kiln-machinery maker Keda export worldwide; Haitian, the soy-sauce giant, is here too. The city now markets itself around industrial design, robotics, new-energy vehicles and biopharma. The pottery town learned to make appliances, and the appliance town learned to make the robots that make the appliances.</p></div>
+  <div class="sec"><div class="num">05</div><h2>The third pattern</h2>
+    <p>Put Foshan beside the other deep dives and a third route appears. Zheng'an had to <b>import</b> its industry and be coaxed home by the state; Songxia <b>grew</b> one young product organically next to its inputs; Foshan <b>compounded</b>, layering new industries on a commercial culture centuries old and on the most aggressive privatisation model in the country. Its lesson is the quiet one: a deep manufacturing culture, left to specialise and reinvest, tends to climb rather than hollow out.</p></div>
+</div>
+<aside><div class="facts"><h4>The facts</h4>
+  <div class="frow"><div class="k">Place</div><div class="v">Foshan, Guangdong (PRD, west of Guangzhou); 4th-largest Greater Bay Area economy</div></div>
+  <div class="frow"><div class="k">Heritage</div><div class="v">Ancient ceramics town (Shiwan); Cantonese opera; kung fu (Wong Fei-hung, Ip Man)</div></div>
+  <div class="frow"><div class="k">Structure</div><div class="v"><b>41</b> one-industry townships — first in Guangdong</div></div>
+  <div class="frow"><div class="k">Appliances</div><div class="v">Shunde ~1/5 of China's output; Midea (Fortune 500, owns KUKA), Galanz (~½ of world microwaves)</div></div>
+  <div class="frow"><div class="k">Furniture</div><div class="v">Lecong — world's largest furniture market; Longjiang</div></div>
+  <div class="frow"><div class="k">Ceramics</div><div class="v">Shiwan &amp; Nanzhuang tiles; Monalisa, Dongpeng, Keda machinery</div></div>
+  <div class="frow"><div class="k">Model</div><div class="v">Collective enterprise → privatised giant ("Shunde model", Deng 1992)</div></div>
+</div></aside></div></section>
+<section><div class="wrap"><div class="fine" style="max-width:80ch">
+  Sources (2018-2026): SCMP, HKTDC, China Today, Wikipedia (Midea, Galanz), CommonWealth Magazine. Figures (one-fifth of China's appliances, 41 specialised townships, about half the world's microwaves) are the commonly cited ones and are treated here as orders of magnitude. Third in the atlas's Town deep-dive series.
+</div></div></section>
+<footer><div class="wrap">
+  <div class="ftlinks">
+    <a class="dl" href="/">← Full atlas</a>
+    <a class="dl" href="/deep-dives/zhengan/">Zheng'an →</a>
+    <a class="dl" href="/deep-dives/songxia/">Songxia →</a>
+    <a class="dl" href="/one-product-towns/">One-product towns →</a>
+  </div>
+  <div class="fine">Town deep-dive · Foshan · 2026 · cluster locations approximate · basemap © OpenStreetMap, © CARTO.</div>
+</div></footer>
+<script>if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}</script>
+<script>
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([22.95,113.55],9);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:12,subdomains:'abcd'}).addTo(map);
+function town(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div style="width:10px;height:10px;border-radius:50%;background:#C0402A;border:2px solid #E8EAE3;box-shadow:0 0 0 1px #C0402A"></div>',iconSize:[10,10],iconAnchor:[5,5],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);
+}
+function ref(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);
+}
+town([22.99,113.06],"Shiwan — ceramics");
+town([22.84,113.24],"Shunde — appliances");
+town([22.93,113.27],"Lecong — furniture market");
+town([23.16,113.13],"Dali — aluminium");
+ref([23.13,113.26],"Guangzhou");
+ref([22.55,114.06],"Shenzhen");
+ref([22.32,114.17],"Hong Kong");
+L.marker([23.02,113.10],{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map).bindTooltip("Foshan — the city of specialised towns",{direction:'top',offset:[0,-7],className:'pinlbl'});
+L.marker([23.02,113.10],{icon:L.divIcon({html:'<div class="pinlbl big">Foshan 佛山</div>',iconSize:[1,1],iconAnchor:[-9,6],className:''})}).addTo(map);
+</script>
+</body></html>

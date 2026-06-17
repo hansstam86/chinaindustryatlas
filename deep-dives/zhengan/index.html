@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zheng'an — the county that makes one in seven of the world's guitars | China Industry Atlas</title>
+<meta name="description" content="A deep dive on Zheng'an, a remote, once-impoverished county in Guizhou that became the world's largest guitar producer — by exporting its people, then bringing the skill home.">
+<link rel="canonical" href="https://chinaindustryatlas.com/deep-dives/zhengan/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/deep-dives/zhengan/">
+<meta property="og:title" content="Zheng'an — the guitar county">
+<meta property="og:description" content="How a mountainous county with no railway came to make about one in seven of the world's guitars.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Town deep-dives</span></div>
+    <a class="back" href="/">← back to atlas</a>
+  </div>
+</header>
+
+<div class="wrap hero">
+  <div class="eyebrow">Town deep-dive · Guizhou</div>
+  <h1>Zheng'an<span class="cn">正安 · the guitar county</span></h1>
+  <p class="lede">A mountain county in northern Guizhou, with thin soil and <b>no railway station</b>, somehow makes <b>about one in seven of the world's guitars</b>. It got there by exporting its people for a generation, then bringing the skill home.</p>
+  <div class="readouts">
+    <div class="readout"><div class="n">1 in 7</div><div class="l">guitars worldwide made here</div></div>
+    <div class="readout"><div class="n">130+</div><div class="l">guitar firms in one county park</div></div>
+    <div class="readout"><div class="n">60,000+</div><div class="l">locals who first learned the trade in Guangdong</div></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="mapcard">
+    <div class="maphead"><span class="t">Where it is · and how the trade came home</span><span class="sc">drag to pan</span></div>
+    <div id="map"></div>
+    <div class="legend">
+      <span><i class="dot" style="background:var(--chop);border-radius:0;transform:rotate(45deg)"></i>Zheng'an (the guitar county)</span>
+      <span><i style="border-top-color:var(--chop);border-top-style:dashed"></i>The trade comes home (1990s-2013)</span>
+      <span><i class="dot" style="background:var(--ink-2)"></i>Reference city</span>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap dd-grid">
+    <div>
+      <div class="sec">
+        <div class="num">01</div><h2>A county the map almost forgot</h2>
+        <p>Zheng'an sits among steep mountains in the north of Guizhou, in Zunyi prefecture, pressed up against the Chongqing border. The soil is thin, the valleys deep, and — remarkable for a place this consequential — there is still <b>no railway station</b>; the nearest is a three-and-a-half-hour bus ride away in Zunyi. For most of its modern history it was simply poor. Of roughly 660,000 residents, at the peak about a third lived and worked somewhere else for the whole year.</p>
+      </div>
+
+      <div class="sec">
+        <div class="num">02</div><h2>The accident of skill</h2>
+        <p>The exodus began in 1987, when Zheng'an became one of the first places in Guizhou to organise large-scale labour export to the booming factories of Guangdong. Many of those migrants drifted into one trade in particular: making guitars. The work was easy to learn and forgiving of inexperience, so Zheng'an hands spread through Guangzhou's instrument workshops — by the early 2010s, more than fifty to sixty thousand of them, at every step of the line, from bending the sides to spraying lacquer to the final setup. Some rose to foreman and manager.</p>
+        <p>One of them, <b>Zheng Chuanjiu</b>, arrived at a Guangzhou guitar factory in 1997, worked his way up, and in 2007 founded his own company, Shenqu, which grew into a contract maker for international brands. The county had, almost by accident, trained an entire workforce in a craft — just in the wrong province.</p>
+        <div class="pull">Zheng'an's great export was never a product. It was people who happened to learn how to build guitars.</div>
+      </div>
+
+      <div class="sec">
+        <div class="num">03</div><h2>Coming home</h2>
+        <p>The turn came with policy. After 2012, Beijing pushed Guizhou to industrialise and to "undertake the transfer" of factories from the wealthier east. Zheng'an's officials did the obvious arithmetic: their county already had tens of thousands of trained guitar workers. So they travelled to Guangdong to recruit them back, offering land, a purpose-built guitar-culture industrial park, and a support package for returnees.</p>
+        <p>In 2013, Zheng Chuanjiu became the first to move home, hauling his factory north in <b>33 trucks with 60 workers</b>. Others followed. The county turned its diaspora into a brand, registering its workforce as "Zheng'an guitar craftsmen", and the cluster began to assemble itself in reverse — not from a raw material or a port, but from skills that had been sent away and then called back.</p>
+      </div>
+
+      <div class="sec">
+        <div class="num">04</div><h2>The cluster today</h2>
+        <p>A decade on, the park holds more than <b>130 guitar companies and suppliers</b> — wood, strings, cases, hardware, finishing — enough that a guitar can be built end to end inside one mountain county. Zheng'an now calls itself the world's largest guitar-producing county, turning out several million instruments a year (by some counts around one in seven guitars made anywhere) and shipping to more than thirty countries. There is, inevitably, a guitar-culture square with a ten-metre guitar sculpture, a festival, and music schools. A place once known for sending its children away now invites the world to visit.</p>
+      </div>
+
+      <div class="sec">
+        <div class="num">05</div><h2>The catch, and why it matters</h2>
+        <p>The story is genuinely impressive, and worth seeing clearly. A lot of the output is still <b>OEM</b> — building other people's brands on thin margins — and the county is now trying to climb into its own labels, and into education and tourism, to capture more of the value. The tonewood is largely imported. And the logistics stay stubborn: a place that makes millions of guitars a year still trucks every one of them three and a half hours to the nearest railhead.</p>
+        <p>What makes Zheng'an worth a deep dive is that it inverts the usual cluster story. Most Chinese industrial towns grew where a port, a material, or a market already sat. Zheng'an had none of those. Its model was to <b>export its people, let them learn a trade, then build the conditions to bring the skill home</b> — return migration as industrial policy. Guizhou has since tried to repeat the trick with other crafts, and it is the same logic, at human scale, that the rest of this atlas maps as the inland shift.</p>
+      </div>
+    </div>
+
+    <aside>
+      <div class="facts">
+        <h4>The facts</h4>
+        <div class="frow"><div class="k">Place</div><div class="v">Zheng'an County, Zunyi, Guizhou (Chongqing border)</div></div>
+        <div class="frow"><div class="k">Population</div><div class="v">~660,000</div></div>
+        <div class="frow"><div class="k">Product</div><div class="v">Acoustic &amp; electric guitars, ukuleles</div></div>
+        <div class="frow"><div class="k">The cluster</div><div class="v"><b>130+</b> firms in the Zheng'an guitar-culture industrial park</div></div>
+        <div class="frow"><div class="k">Scale</div><div class="v"><b>~1 in 7</b> guitars worldwide · several million a year · ~20% of China's output · 30+ export markets</div></div>
+        <div class="frow"><div class="k">How it began</div><div class="v">Labour export to Guangdong from 1987; return migration from 2013</div></div>
+        <div class="frow"><div class="k">The quirk</div><div class="v">Still no railway station — a 3.5-hour bus to the nearest railhead</div></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="fine" style="max-width:80ch">
+      Sources (2021-2024): Xinhua, People's Daily, Global Times and China Daily reporting on Zheng'an's guitar industry. Production figures vary by year and source — "one in seven guitars worldwide", several million instruments a year, and roughly a fifth of China's output are the most commonly cited. Treated here as orders of magnitude, not audited totals. This is the first in the atlas's Town deep-dive series.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="ftlinks">
+      <a class="dl" href="/">← Full atlas</a>
+      <a class="dl" href="/one-product-towns/">One-product towns →</a>
+      <a class="dl" href="/manufacturing-in-motion/">Manufacturing in motion →</a>
+      <a class="dl" href="/high-speed-rail/">High-speed rail →</a>
+    </div>
+    <div class="fine">Town deep-dive · Zheng'an · 2026 · location approximate · basemap © OpenStreetMap, © CARTO.</div>
+  </div>
+</footer>
+
+<script>
+if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}
+</script>
+<script>
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([26.2,110.0],6);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:9,subdomains:'abcd'}).addTo(map);
+
+const ZHENGAN=[28.55,107.44], GUANGZHOU=[23.13,113.26], ZUNYI=[27.73,106.93], CHONGQING=[29.56,106.55];
+// the "skills came home" arrow: Guangzhou (where they learned) -> Zheng'an (where they returned)
+L.polyline([GUANGZHOU,[26.0,110.5],ZHENGAN],{color:'#C0402A',weight:3,opacity:.8,dashArray:'7,6'}).addTo(map)
+  .bindTooltip('Guitar skills learned in Guangzhou, then brought home to Zheng\u2019an',{sticky:true,className:'pinlbl'});
+
+function ref(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);
+}
+ref(GUANGZHOU,"Guangzhou \u2014 where the trade was learned");
+ref(ZUNYI,"Zunyi \u2014 nearest railhead (3.5h by bus)");
+ref(CHONGQING,"Chongqing");
+// Zheng'an
+L.marker(ZHENGAN,{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map)
+  .bindTooltip("Zheng'an \u2014 the guitar county",{direction:'top',offset:[0,-7],className:'pinlbl'});
+L.marker(ZHENGAN,{icon:L.divIcon({html:'<div class="pinlbl big">Zheng\u2019an 正安</div>',iconSize:[1,1],iconAnchor:[-9,6],className:''})}).addTo(map);
+</script>
+</body>
+</html>
