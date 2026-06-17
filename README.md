@@ -14,7 +14,7 @@ Static site on GitHub Pages. No build step. Leaflet from cdnjs (unpkg fallback);
 /guangzhou/ .................. Guangzhou wholesale-market map
 /huaqiangbei/ ................ Huaqiangbei building map (Shenzhen)
 /yiwu/ ....................... Yiwu district & floor map
-China-Industry-Atlas-2026.pdf  downloadable guide
+China-Industry-Atlas-2026.pdf  -> now sold via Lemon Squeezy (not in repo)
 *_data.json .................. canonical data per page
 CNAME, .nojekyll, robots.txt, sitemap.xml
 

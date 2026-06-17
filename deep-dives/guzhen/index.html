@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guzhen — the farming town that lights half the world | China Industry Atlas</title>
+<meta name="description" content="A deep dive on Guzhen, a mulberry-and-fishpond village in Zhongshan that reverse-engineered two Hong Kong wall lamps in 1982 and grew into the town that makes about 70% of China's lighting and half the world's.">
+<link rel="canonical" href="https://chinaindustryatlas.com/deep-dives/guzhen/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/deep-dives/guzhen/">
+<meta property="og:title" content="Guzhen — the lighting capital">
+<meta property="og:description" content="How a farming town with no materials of its own came to make most of China's lighting and half the world's.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Town deep-dives</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<div class="wrap hero">
+  <div class="eyebrow">Town deep-dive · Guangdong</div>
+  <h1>Guzhen<span class="cn">古镇 · the lighting capital</span></h1>
+  <p class="lede">A farming town of mulberry groves and fish ponds, with no glass, no wire and no metalworking of its own, makes about <b>70% of China's lighting and half the world's</b> — grown from two wall lamps a handful of villagers carried back from Hong Kong in 1982.</p>
+  <div class="readouts">
+    <div class="readout"><div class="n">~70%</div><div class="l">of China's lighting output</div></div>
+    <div class="readout"><div class="n">~50%</div><div class="l">of the world's lighting products</div></div>
+    <div class="readout"><div class="n">45,000+</div><div class="l">lighting &amp; supporting firms in ~50 km²</div></div>
+  </div>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">A town at the junction of three industrial neighbours</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend">
+    <span><i class="dot" style="background:var(--chop);border-radius:0;transform:rotate(45deg)"></i>Guzhen (the lighting capital)</span>
+    <span><i class="dot" style="background:var(--chop)"></i>Component-supplying neighbour</span>
+    <span><i class="dot" style="background:var(--ink-2)"></i>Reference city</span>
+  </div></div></div>
+<section><div class="wrap dd-grid"><div>
+  <div class="sec"><div class="num">01</div><h2>A town that makes light</h2>
+    <p>Tucked into the north-west corner of Zhongshan, in the western Pearl River Delta, Guzhen is a town of barely fifty square kilometres that turns out roughly <b>seventy percent of China's lighting and about half the world's</b>. Forty-five thousand lighting and supporting firms are packed into it; annual output runs past a hundred billion yuan, and the lamps ship to more than a hundred and thirty countries. The improbable part is what Guzhen does not have. It grew no glass, drew no wire, cast no metal, moulded no plastic. It was a mulberry-and-fishpond farming town — and it became the lighting capital of the world anyway.</p></div>
+  <div class="sec"><div class="num">02</div><h2>Two lamps from Hong Kong</h2>
+    <p>The beginning is unusually precise. In the early 1980s a Haizhou village man, Yuan Daguang, came back from Hong Kong with a couple of decorative “foreign lamps” — one account puts it at eighty Hong Kong dollars for two wall lamps. The things were simple: a lamp head in the middle, a few glass side-pieces, nothing a determined farmer could not copy. With Yuan Yuman and the farmer-brothers Hou Ruiyuan, Yuan Guangming and Qu Weisong, he took them apart and worked out how to rebuild them. In October 1982, after two-plus months of trial and error, five households produced Guzhen's first batch of home-made wall lamps — close to a thousand of them, at a gross margin of more than fifty percent a lamp.</p>
+    <div class="pull">It grew no glass, drew no wire, cast no metal. A mulberry-and-fishpond farming town became the lighting capital of the world anyway.</div></div>
+  <div class="sec"><div class="num">03</div><h2>The town that borrowed a supply chain</h2>
+    <p>Why here, in a place with no light industry at all? Because of where it sat. Guzhen lies at the meeting point of three areas — Zhongshan, Jiangmen and Shunde — that were already strong in exactly the parts a lamp needs. The founders found plastic lamp-bases in nearby Xiaolan, screws at a small workshop in Foshan's Zhangcha, and the tea-coloured glass they wanted at a glass-craft factory in Zhongshan after hunting through Guangzhou and Jiangmen. Guzhen's own contribution was assembly, design and selling: it stitched its neighbours' light-industrial output into a finished, saleable lamp. That crossroads, more than any single founder, is the whole explanation.</p></div>
+  <div class="sec"><div class="num">04</div><h2>From the ten-li street to the giant malls</h2>
+    <p>From there it compounded fast. By 1986 there were already several hundred lighting firms; in 1995 the local government formally named lighting the town's pillar industry, and by 1997 Guzhen lamps held nearly half the national market. The trade hardened along one road into the celebrated “ten-li lighting street”, then — from 1998 — shifted from copying to designing, refreshing its styles every few months. The first international lighting fair came in 1999; in November 2002 the town was crowned “China's Lighting Capital”. After 2006 the roadside shops were rebuilt into giant professional malls anchored by Times Square, joined later by Star Alliance, Huayi Plaza and the vast Lihe Plaza. The twice-yearly Guzhen International Lighting Fair now pulls in well over two thousand foreign buyers from more than a hundred countries.</p></div>
+  <div class="sec"><div class="num">05</div><h2>The assembler at the crossroads</h2>
+    <p>Set beside the other deep dives, Guzhen is its own species. Dafen was transplanted whole by a single dealer; Datang grew its socks from farmers knitting in secret on their own land; Huaqiangbei is a market, not a maker. Guzhen is the <b>assembler at a crossroads</b> — a town with no inputs of its own that turned a lucky position between three industrial neighbours into most of a national industry. Its strength and its limit are the same sentence: it owns the assembly, the design and the trading floor, but the components were always somebody else's. The current pivot — LED and smart lighting, real brands, exports aimed at the Middle East, South-East Asia, Africa and South America, livestream selling — is the long move from copying a lamp to owning the design of one.</p></div>
+</div>
+<aside><div class="facts"><h4>The facts</h4>
+  <div class="frow"><div class="k">Place</div><div class="v">Guzhen town, north-west Zhongshan, Guangdong — at the junction of Zhongshan, Jiangmen &amp; Shunde</div></div>
+  <div class="frow"><div class="k">Title</div><div class="v">“China's Lighting Capital” 中国灯饰之都 (awarded Nov 2002); China's largest lighting production base &amp; wholesale market</div></div>
+  <div class="frow"><div class="k">Product</div><div class="v">Lighting &amp; fixtures — chandeliers, ceiling / wall / street / landscape lights, LED sources — plus components</div></div>
+  <div class="frow"><div class="k">Scale</div><div class="v"><b>~70%</b> of China's lighting, <b>~50%</b> of the world's; output value <b>¥100bn+</b>/yr; town of ~50 km²</div></div>
+  <div class="frow"><div class="k">Firms</div><div class="v">45,000+ lighting &amp; supporting enterprises (Q1 2024: ~45,700 with “lighting” in their business scope)</div></div>
+  <div class="frow"><div class="k">How it began</div><div class="v">Villagers reverse-engineered two Hong Kong wall lamps; first batch of ~1,000 lamps, Oct 1982</div></div>
+  <div class="frow"><div class="k">Reach</div><div class="v">Products to 130+ countries; Guzhen Int'l Lighting Fair twice a year, 2,200+ foreign buyers from 130+ countries</div></div>
+  <div class="frow"><div class="k">Now</div><div class="v">Copy → own design; LED &amp; smart lighting; brands, emerging-market exports, livestream sales</div></div>
+</div></aside></div></section>
+<section><div class="wrap"><div class="fine" style="max-width:80ch">
+  Sources (2022-2025): China Daily, Xinhua, People's Daily, Zhongshan Daily &amp; Zhongshan Municipal Archives, Guangdong provincial records, The Paper, industry trade sources. Figures vary by source and year — about 70% of China's and ~50% of the world's lighting, ¥100bn+ in output and 45,000+ firms are the commonly cited current figures, treated here as orders of magnitude. Ninth in the atlas's Town deep-dive series.
+</div></div></section>
+<footer><div class="wrap">
+  <div class="ftlinks">
+    <a class="dl" href="/">← Full atlas</a>
+    <a class="dl" href="/deep-dives/foshan/">Foshan →</a>
+    <a class="dl" href="/one-product-towns/">One-product towns →</a>
+    <a class="dl" href="/industry/lighting/">Lighting industry →</a>
+  </div>
+  <div class="fine">Town deep-dive · Guzhen · 2026 · cluster locations approximate · basemap © OpenStreetMap, © CARTO.</div>
+</div></footer>
+<script>if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}</script>
+<script>
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([22.72,113.5],9);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:12,subdomains:'abcd'}).addTo(map);
+function cluster(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div style="width:10px;height:10px;border-radius:50%;background:#C0402A;border:2px solid #E8EAE3;box-shadow:0 0 0 1px #C0402A"></div>',iconSize:[10,10],iconAnchor:[5,5],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);
+}
+function ref(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);
+}
+// origin: the two lamps came back from Hong Kong
+L.polyline([[22.32,114.17],[22.62,113.18]],{color:'#C0402A',weight:1.5,opacity:.7,dashArray:'5,5'}).addTo(map);
+cluster([22.67,113.24],"Xiaolan 小榇 — plastic bases");
+cluster([22.84,113.25],"Shunde 顺德 — plastics, hardware");
+cluster([23.02,113.07],"Foshan 佛山 — screws, wire");
+ref([22.58,113.08],"Jiangmen 江门");
+ref([22.52,113.39],"Zhongshan 中山");
+ref([23.13,113.26],"Guangzhou");
+ref([22.32,114.17],"Hong Kong — the two lamps");
+L.marker([22.62,113.18],{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map).bindTooltip("Guzhen — the lighting capital",{direction:'top',offset:[0,-7],className:'pinlbl'});
+L.marker([22.62,113.18],{icon:L.divIcon({html:'<div class="pinlbl big">Guzhen 古镇</div>',iconSize:[1,1],iconAnchor:[-9,6],className:''})}).addTo(map);
+</script>
+</body></html>

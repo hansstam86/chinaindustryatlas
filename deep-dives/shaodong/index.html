@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shaodong — the county that makes most of the world's lighters | China Industry Atlas</title>
+<meta name="description" content="A deep dive on Shaodong, a county-level city under Shaoyang in Hunan that makes about 70% of the world's lighters — a town of itinerant traders that caught a wandering global industry, and has held the lighter at one yuan for twenty years.">
+<link rel="canonical" href="https://chinaindustryatlas.com/deep-dives/shaodong/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/deep-dives/shaodong/">
+<meta property="og:title" content="Shaodong — the lighter capital">
+<meta property="og:description" content="How a Hunan town of traders came to make most of the world's lighters — and froze the price at one yuan for two decades.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Town deep-dives</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<div class="wrap hero">
+  <div class="eyebrow">Town deep-dive · Hunan</div>
+  <h1>Shaodong<span class="cn">邵东 · the lighter capital</span></h1>
+  <p class="lede">The world buys roughly 20 billion lighters a year, and about <b>seven in ten</b> of them — some 15 billion — come from one county-level city in central Hunan. Shaodong did not invent the lighter. It is a town of traders that <b>caught</b> the industry, drove the price of an ordinary flame to about one yuan, and has held it there for twenty years.</p>
+  <div class="readouts">
+    <div class="readout"><div class="n">~70%</div><div class="l">of the world's disposable lighters</div></div>
+    <div class="readout"><div class="n">~15 bn</div><div class="l">lighters a year — to 120 countries</div></div>
+    <div class="readout"><div class="n">~¥1</div><div class="l">the basic lighter — unchanged for ~20 years</div></div>
+  </div>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">One county in central Hunan</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend">
+    <span><i class="dot" style="background:var(--chop);border-radius:0;transform:rotate(45deg)"></i>Shaodong (the lighter capital)</span>
+    <span><i class="dot" style="background:var(--chop)"></i>Nearby town</span>
+    <span><i class="dot" style="background:var(--ink-2)"></i>Reference city</span>
+  </div></div></div>
+<section><div class="wrap dd-grid"><div>
+  <div class="sec"><div class="num">01</div><h2>Most of the world's flame</h2>
+    <p>Shaodong is a county-level city under Shaoyang, in the hill country of central Hunan — a long way from any coast. Yet of the roughly twenty billion lighters the world buys each year, about <b>seventy percent are made here</b>: on the order of fifteen billion, shipped to some 120 countries, and accounting for about half of all of China's lighter exports. Strung end to end, one expert reckoned, a single year's output would wrap around the Earth more than thirty times. The most quietly remarkable figure is the one that has not moved: the basic disposable lighter still sells for about a yuan, roughly fourteen US cents, and has for two decades.</p></div>
+  <div class="sec"><div class="num">02</div><h2>Traders first, makers second</h2>
+    <p>Shaodong was a place of merchants before it was a place of factories. After 1978 its people fanned out across China as itinerant traders, carrying small goods to sell town by town — a diaspora reputation Hunan still attaches to the name. The lighters came later, and from outside. In 1992 a local woman, Fu Zaihua, and her husband heard that lighter-making was good business, went down to a factory in Guangdong to learn the trade, and brought it home. Their workshop, Shunfa, was among the first. What had been a county that went out to sell other people's wares became a county that came home to make its own.</p>
+    <div class="pull">A county that had gone out to sell other people's goods came home to make its own.</div></div>
+  <div class="sec"><div class="num">03</div><h2>Catching a wandering industry</h2>
+    <p>Cheap lighters are a wandering industry. The business has always drifted toward whoever can make it cheapest — out of the high-cost economies, down through Japan, Korea and Taiwan, into Guangdong, and finally inland to Shaodong, which had labour and land to spare and a government willing to help. Shaodong caught it and then refused to let it drift on. The early take-off ran on cheap hands and thin competition; the survival since has run on the opposite. In 2002 the firms formed the Shaodong Lighter Association to standardise prices, share resources and pool a database of designs, turning a scramble of workshops into something closer to a single machine.</p></div>
+  <div class="sec"><div class="num">04</div><h2>Two hundred parts, one yuan</h2>
+    <p>How do you sell a working flame for a yuan and survive? With completeness. A lighter has more than two hundred components, and everything except the plastic pellets and the gas is made within the county — sourced from some 87 local parts firms scattered across the towns, so steady and so close that costs fall to almost nothing. Around 80,000 people work in lighters here, about one in thirteen of the population. The largest maker, Hunan Dongyi, turns out somewhere between eight and thirteen million lighters a day across more than two hundred types, from three-tenths of a yuan to fifty. Every export batch is checked at Shaoyang Customs — a drop test from a metre and a half, in three positions — a routine since 2001.</p></div>
+  <div class="sec"><div class="num">05</div><h2>Holding the price, climbing the ladder</h2>
+    <p>Holding a twenty-year price against rising wages takes constant change underneath. Lines that once needed a thousand workers to make a million lighters now need a handful; the survivors brand, design culture-infused models, and lean harder on the domestic market and Belt and Road buyers as the old export world grows unpredictable. Set beside the other deep dives, Shaodong is the mirror image of Zheng'an: where Zheng'an exported its people and brought a skill home, Shaodong exported its traders and brought an <b>industry</b> home. It is the purest case in the atlas of total command over the cheapest possible object — and that is its strength and its ceiling at once.</p></div>
+</div>
+<aside><div class="facts"><h4>The facts</h4>
+  <div class="frow"><div class="k">Place</div><div class="v">Shaodong, a county-level city under Shaoyang, central Hunan</div></div>
+  <div class="frow"><div class="k">Title</div><div class="v">"China's lighter capital" (from the mid-2000s); ~half of China's lighter exports</div></div>
+  <div class="frow"><div class="k">Product</div><div class="v">Disposable &amp; refillable lighters — and the 200+ parts that go inside them</div></div>
+  <div class="frow"><div class="k">Scale</div><div class="v"><b>~15 billion</b> lighters/yr ≈ <b>~70%</b> of the world's; to 120 countries; basic lighter ~¥1 (~$0.14), unchanged ~20 yrs</div></div>
+  <div class="frow"><div class="k">Firms &amp; jobs</div><div class="v">~80,000 in lighters (~7.6% of the population); 200+ parts from ~87 local component firms; Dongyi largest (8–13m/day)</div></div>
+  <div class="frow"><div class="k">How it began</div><div class="v">Post-1978 Shaodong traders; lighter-making carried home from Guangdong (Fu Zaihua / Shunfa, 1992); a wandering, low-cost industry</div></div>
+  <div class="frow"><div class="k">Milestones</div><div class="v">Mandatory customs checks 2001; Shaodong Lighter Association 2002 (pricing, design database); "lighter capital" by mid-2000s</div></div>
+  <div class="frow"><div class="k">Now</div><div class="v">Automation, own brands, culture-infused designs; pivot to domestic &amp; Belt and Road markets</div></div>
+</div></aside></div></section>
+<section><div class="wrap"><div class="fine" style="max-width:80ch">
+  Sources (2022-2025): Xinhua, China Daily, People's Daily, Invest in China, Hunan provincial government, Shaoyang Customs. Figures vary by source and year — the world buys ~20 billion lighters a year and Shaodong makes ~70% (~15 billion) of them, ~half of China's lighter exports, with ~80,000 people in the trade, are the commonly cited current figures, treated here as orders of magnitude. (A stray "100 billion/yr" figure also circulates; it conflicts with the ~20 billion global total and is not used here.) Eleventh in the atlas's deep-dive series.
+</div></div></section>
+<footer><div class="wrap">
+  <div class="ftlinks">
+    <a class="dl" href="/">← Full atlas</a>
+    <a class="dl" href="/deep-dives/zhengan/">Zheng'an →</a>
+    <a class="dl" href="/deep-dives/datang/">Datang →</a>
+    <a class="dl" href="/one-product-towns/">One-product towns →</a>
+  </div>
+  <div class="fine">Town deep-dive · Shaodong · 2026 · cluster locations approximate · basemap © OpenStreetMap, © CARTO.</div>
+</div></footer>
+<script>if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}</script>
+<script>
+const SHAODONG=[27.26,111.74];
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([27.55,111.95],8);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:11,subdomains:'abcd'}).addTo(map);
+// origin arrow: the industry carried home from Guangdong, entering from the south-east
+L.polyline([[26.55,113.10],SHAODONG],{color:'#C0402A',weight:3,opacity:.8,dashArray:'7,6'}).addTo(map)
+  .bindTooltip('Lighter-making carried home from Guangdong, early 1990s',{sticky:true,className:'pinlbl'});
+L.marker([26.55,113.10],{icon:L.divIcon({html:'<div class="pinlbl">↙ from Guangdong</div>',iconSize:[1,1],iconAnchor:[-4,4],className:''})}).addTo(map);
+function cluster(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div style="width:10px;height:10px;border-radius:50%;background:#C0402A;border:2px solid #E8EAE3;box-shadow:0 0 0 1px #C0402A"></div>',iconSize:[10,10],iconAnchor:[5,5],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);
+}
+function ref(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);
+}
+cluster([27.45,112.20],"Shuangfeng — export sorting");
+ref([27.24,111.47],"Shaoyang — prefecture seat");
+ref([28.20,112.94],"Changsha — provincial capital");
+ref([26.89,112.57],"Hengyang");
+L.marker(SHAODONG,{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map)
+  .bindTooltip("Shaodong — the lighter capital of China",{direction:'top',offset:[0,-7],className:'pinlbl'});
+L.marker(SHAODONG,{icon:L.divIcon({html:'<div class="pinlbl big">Shaodong 邵东</div>',iconSize:[1,1],iconAnchor:[-9,6],className:''})}).addTo(map);
+</script>
+</body></html>
