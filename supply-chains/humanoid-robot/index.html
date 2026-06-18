@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The humanoid-robot supply chain — body vs brain | China Industry Atlas</title>
+<meta name="description" content="A supply-chain deep dive on the humanoid robot: a body of actuators and rare-earth magnets sourced overwhelmingly from China, a brain of AI chips from the US and Taiwan, and two superpowers racing to assemble the whole machine.">
+<link rel="canonical" href="https://chinaindustryatlas.com/supply-chains/humanoid-robot/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/supply-chains/humanoid-robot/">
+<meta property="og:title" content="The humanoid-robot supply chain — body vs brain">
+<meta property="og:description" content="A robot's body is East Asian, its brain American — and both rival poles bottleneck on one country's rare-earth magnets.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+</head>
+<body>
+<div data-atlas-buybar style="background:var(--chop,#C0402A);color:#fff;font-family:var(--mono,'Space Mono',monospace);font-size:12px;line-height:1.2;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:7px 16px;text-align:center"><span>China Industry Atlas — the 40-page field guide (PDF)</span><a class="lemonsqueezy-button" href="https://hansolo.lemonsqueezy.com/checkout/buy/5435562a-0e88-43f3-8736-f85c14c3a69d" style="background:#fff;color:var(--chop,#C0402A);text-decoration:none;font-weight:700;padding:3px 12px;border-radius:2px;white-space:nowrap">Get it · €19.99 →</a></div>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Supply chains</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<div class="wrap hero">
+  <div class="eyebrow">Supply-chain deep-dive · humanoid robots</div>
+  <h1>The humanoid robot<span class="cn">供应链 · body vs brain</span></h1>
+  <p class="lede">A humanoid robot splits into a <b>body</b> — dozens of actuated joints, sensors, a battery, a metal skeleton — and a <b>brain</b> of AI chips. The two halves point in opposite directions: the body is overwhelmingly <b>East Asian, especially Chinese</b>; the brain is American and Taiwanese. And two superpowers are racing to assemble the whole machine — which is why this map, unlike the others, has <b>two poles</b>.</p>
+  <div class="readouts">
+    <div class="readout"><div class="n">~50%</div><div class="l">of a humanoid's cost is its actuators (the joints)</div></div>
+    <div class="readout"><div class="n">~90%</div><div class="l">of the rare-earth magnets in its motors — from China</div></div>
+    <div class="readout"><div class="n">3×</div><div class="l">what a US-only Optimus would cost without Chinese parts</div></div>
+  </div>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">The contest: the same parts, feeding two rival poles</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend">
+    <span><i class="dot" style="background:var(--chop);border-radius:0;transform:rotate(45deg)"></i>Assembly pole (US · China)</span>
+    <span><i class="dot" style="background:transparent;border:2px solid var(--chop)"></i>Rare-earth chokepoint</span>
+    <span><i class="dot" style="background:var(--chop)"></i>Component source</span>
+    <span style="opacity:.7">dashed · into the robot</span>
+  </div></div></div>
+<section><div class="wrap dd-grid"><div>
+  <div class="sec"><div class="num">01</div><h2>A robot is a body and a brain</h2>
+    <p>Strip a humanoid robot to its supply chain and it falls into two halves. The <b>body</b> is mechanical — roughly twenty-eight actuated joints, plus sensors, a battery and a metal skeleton. The <b>brain</b> is an AI computer. The two halves are sourced from opposite ends of the Earth: the body is built overwhelmingly in East Asia, and above all in China; the brain is designed in the United States and fabricated in Taiwan. That split is not a coincidence — it is the US–China technology contest in physical form.</p></div>
+  <div class="sec"><div class="num">02</div><h2>The body: actuators, and the magnet chokepoint</h2>
+    <p>The hard, expensive part is movement. Each of a humanoid's joints is an <b>actuator</b> — a frameless electric motor paired with a precision reducer (a harmonic or planetary gear) and an encoder — and actuators alone are roughly 30 to 50 percent of the whole bill of materials. Those motors depend on powerful rare-earth (NdFeB) magnets, and China processes about <b>ninety percent</b> of them; it also leads on motors, precision bearings, LiDAR and batteries, reusing the supply base it built for electric cars. The very high end of reducers and bearings is Japanese — Harmonic Drive, Nabtesco, NSK.</p>
+    <div class="pull">The motor's magnets are the chokepoint — and China makes nine in ten.</div></div>
+  <div class="sec"><div class="num">03</div><h2>The brain: AI compute</h2>
+    <p>The other half is thought. The brain is an AI computer — Nvidia's Jetson is the de-facto standard — designed in the United States and, like every advanced chip, fabricated by TSMC in <a href="/supply-chains/smartphone/">Taiwan</a>. Compute is only ten to twenty percent of the cost, but it is the part the West leads and that China cannot yet fully replace. So the two halves of a humanoid map almost exactly onto the two halves of the US–China contest: America has the better brain, China the cheaper, deeper body.</p></div>
+  <div class="sec"><div class="num">04</div><h2>Two poles racing to assemble it</h2>
+    <p>More than sixty humanoid companies now exist, and over half are Chinese. The <b>US pole</b> — Tesla's Optimus, Figure, Boston Dynamics, Apptronik — leads on AI and ambition. The <b>China pole</b> — Unitree, UBTech, AgiBot, plus carmakers like Xiaomi, XPeng and BYD — leads on cost and on the body supply chain: Unitree's G1 starts near $13,500, and Beijing has a national plan to own the entire stack from core components to finished robot. The same components feed both poles, which is why the map forks into two diamonds rather than one.</p></div>
+  <div class="sec"><div class="num">05</div><h2>The shared chokepoint — and why the shape matters</h2>
+    <p>Here is the twist that makes the robot different from anything else in the atlas: both poles bottleneck on the same input. Building Tesla's Optimus without Chinese suppliers would cost roughly three times as much — and in 2025 China placed rare-earth magnets under export licensing, a direct squeeze on every robot motor on Earth. The West is scrambling to catch up — MP Materials, allied supply chains — but it is years behind on the body. Set against the rest of the atlas, the humanoid is the fourth shape: the <a href="/supply-chains/smartphone/">phone</a> disperses, the <a href="/supply-chains/ev-battery/">battery</a> funnels, the <a href="/supply-chains/t-shirt/">shirt</a> relays — and the robot is <i>contested</i>, the same parts feeding two rival poles that both depend on one country's magnets.</p></div>
+</div>
+<aside><div class="facts"><h4>The facts</h4>
+  <div class="frow"><div class="k">Machine</div><div class="v">A humanoid robot = a body (~28 actuated joints, sensors, battery, frame) + a brain (AI compute)</div></div>
+  <div class="frow"><div class="k">Actuators</div><div class="v">~30–50% of the bill of materials; each = frameless motor + precision reducer (harmonic/planetary) + encoder; one harmonic-drive actuator ~$2,000–5,000</div></div>
+  <div class="frow"><div class="k">Rare-earth magnets</div><div class="v">Motors need NdFeB magnets (~1–2 kg/robot); China processes ~90% — and put them under export licensing in 2025 (the chokepoint)</div></div>
+  <div class="frow"><div class="k">China's body stack</div><div class="v">Also leads motors (~35%), precision bearings (~40%), LiDAR, power electronics (~30%), batteries (~77%) — reusing its EV base</div></div>
+  <div class="frow"><div class="k">Japan / Europe</div><div class="v">The high end of reducers &amp; bearings — Harmonic Drive, Nabtesco, NSK / SKF, Schaeffler</div></div>
+  <div class="frow"><div class="k">Brain</div><div class="v">AI compute (Nvidia Jetson), US-designed &amp; Taiwan-fabbed (TSMC ~90% of advanced chips); ~10–20% of cost</div></div>
+  <div class="frow"><div class="k">The two poles</div><div class="v">US (Tesla Optimus, Figure, Boston Dynamics, Apptronik) vs China (Unitree, UBTech, AgiBot; + Xiaomi, XPeng, BYD); &gt;60 firms, &gt;50% Chinese; Unitree G1 from ~$13,500</div></div>
+  <div class="frow"><div class="k">The dependency</div><div class="v">An Optimus built without Chinese parts would cost ~3× more (~$46k → ~$131k)</div></div>
+</div></aside></div></section>
+<section><div class="wrap"><div class="fine" style="max-width:80ch">
+  Sources (2025-2026): McKinsey, Gerra, IDTechEx, Yole Group, CRU Group, Adamas Intelligence, Ocean Wall, plus trade sources. A representative spine, not a full bill of materials; figures (actuators ~30–50% of BOM, ~90% China rare-earth magnet processing, ~3× cost without Chinese parts, &gt;50% of humanoid firms Chinese) are the commonly cited ones, treated here as orders of magnitude. Fourth in the atlas's supply-chain series.
+</div></div></section>
+<footer><div class="wrap">
+  <div class="ftlinks">
+    <a class="dl" href="/">← Full atlas</a>
+    <a class="dl" href="/supply-chains/smartphone/">The smartphone (the chip) →</a>
+    <a class="dl" href="/supply-chains/ev-battery/">The EV battery (the cells) →</a>
+    <a class="dl" href="/supply-chains/t-shirt/">The T-shirt (the relay) →</a>
+  </div>
+  <div class="fine">Supply-chain deep-dive · the humanoid robot · 2026 · locations approximate &amp; schematic · basemap © OpenStreetMap, © CARTO.</div>
+</div></footer>
+<script>if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}</script>
+<script>
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false,worldCopyJump:true}).setView([28,186],2);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:11,subdomains:'abcd'}).addTo(map);
+function flowin(a,b){L.polyline([a,b],{color:'#C0402A',weight:2,opacity:.62,dashArray:'6,6'}).addTo(map);}
+function node(c,label,ax,ay){
+  L.marker(c,{icon:L.divIcon({html:'<div style="width:9px;height:9px;border-radius:50%;background:#C0402A;border:2px solid #E8EAE3;box-shadow:0 0 0 1px #C0402A"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+label+'</div>',iconSize:[1,1],iconAnchor:[ax,ay],className:''})}).addTo(map);
+}
+function choke(c,label,ax,ay){
+  L.marker(c,{icon:L.divIcon({html:'<div style="width:15px;height:15px;border-radius:50%;background:transparent;border:3px solid #C0402A;box-shadow:0 0 0 2px #E8EAE3"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl big">'+label+'</div>',iconSize:[1,1],iconAnchor:[ax,ay],className:''})}).addTo(map);
+}
+function pole(c,label,ax,ay,tip){
+  L.marker(c,{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map).bindTooltip(tip,{direction:'top',offset:[0,-7],className:'pinlbl'});
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl big">'+label+'</div>',iconSize:[1,1],iconAnchor:[ax,ay],className:''})}).addTo(map);
+}
+const MAGNET=[42,107], JAPAN=[37,143], TAIWAN=[22,122], CN=[29,117], US=[34,262];
+// the same parts feed both poles
+flowin(MAGNET,CN); flowin(MAGNET,US);
+flowin(JAPAN,CN);  flowin(JAPAN,US);
+flowin(TAIWAN,CN); flowin(TAIWAN,US);
+node(JAPAN,"Reducers · Japan",-6,-2);
+node(TAIWAN,"Chips · Taiwan (TSMC)",-6,16);
+choke(MAGNET,"Magnets · China",58,-26);
+pole(CN,"Robots · China",18,30,"Assembly pole — China (Unitree, UBTech, AgiBot)");
+pole(US,"Robots · USA",-9,18,"Assembly pole — USA (Tesla, Figure, Boston Dynamics)");
+</script>
+<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
+</body></html>
