@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The T-shirt supply chain — from field to shop | China Industry Atlas</title>
+<meta name="description" content="A supply-chain deep dive tracing a cotton T-shirt as a relay: cotton grown in one country, spun and woven in China, sewn in Bangladesh, and sold back in the West — a $5 shirt that travels the world.">
+<link rel="canonical" href="https://chinaindustryatlas.com/supply-chains/t-shirt/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/supply-chains/t-shirt/">
+<meta property="og:title" content="The T-shirt supply chain — from field to shop">
+<meta property="og:description" content="A cotton tee as a relay across four countries — grown, spun, sewn and sold in four different places, chasing the cheapest hands at every step.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+</head>
+<body>
+<div data-atlas-buybar style="background:var(--chop,#C0402A);color:#fff;font-family:var(--mono,'Space Mono',monospace);font-size:12px;line-height:1.2;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:7px 16px;text-align:center"><span>China Industry Atlas — the 40-page field guide (PDF)</span><a class="lemonsqueezy-button" href="https://hansolo.lemonsqueezy.com/checkout/buy/5435562a-0e88-43f3-8736-f85c14c3a69d" style="background:#fff;color:var(--chop,#C0402A);text-decoration:none;font-weight:700;padding:3px 12px;border-radius:2px;white-space:nowrap">Get it · €19.99 →</a></div>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Supply chains</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<div class="wrap hero">
+  <div class="eyebrow">Supply-chain deep-dive · apparel</div>
+  <h1>The T-shirt<span class="cn">供应链 · from field to shop</span></h1>
+  <p class="lede">If the phone disperses across chokepoints and the battery funnels through one country, the cotton tee does a third thing entirely: it <b>relays</b>. Each step is handed to whichever country does it cheapest, so a plain shirt can cross <b>four borders</b> before you wear it — grown in one place, spun and woven in another, sewn in a third, sold in a fourth.</p>
+  <div class="readouts">
+    <div class="readout"><div class="n">4</div><div class="l">borders a basic tee can cross before you wear it</div></div>
+    <div class="readout"><div class="n">#1</div><div class="l">China — the world's biggest clothing &amp; fabric maker</div></div>
+    <div class="readout"><div class="n">#2</div><div class="l">Bangladesh — where the cheapest sewing goes</div></div>
+  </div>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">The relay: a $5 shirt that travels the world</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend">
+    <span><i class="dot" style="background:var(--chop)"></i>A step in the chain</span>
+    <span><i class="dot" style="background:var(--chop)"></i>the relay (grow → cloth → sew)</span>
+    <span style="opacity:.7"><i class="dot" style="background:var(--brass)"></i>shipped to market</span>
+  </div></div></div>
+<section><div class="wrap dd-grid"><div>
+  <div class="sec"><div class="num">01</div><h2>The most-travelled thing in your wardrobe</h2>
+    <p>A plain cotton T-shirt is the opposite of a phone or a battery. Those converge on chokepoints; the tee runs a relay, with each stage handed to whoever does it cheapest — so a single shirt can cross four borders before it reaches you. The classic illustration, traced in Pietra Rivoli's <i>The Travels of a T-Shirt in the Global Economy</i>: cotton grown in Texas, spun and woven in China, sewn in Bangladesh, and sold back in an American or European shop. A five-dollar shirt that has been around the world.</p></div>
+  <div class="sec"><div class="num">02</div><h2>Cotton: the field</h2>
+    <p>It begins as fibre. Cotton is grown across the United States — the world's largest exporter — along with India (about a quarter of the global crop), China (mostly in Xinjiang), Brazil and West Africa. The boll is ginned, baled and shipped to wherever it will be spun. One wrinkle that has reshaped the map: much of China's cotton comes from Xinjiang, and US and EU forced-labour import bans have scrambled who is willing to buy it. Around 2,700 litres of water go into a single tee before it is even a thread.</p></div>
+  <div class="sec"><div class="num">03</div><h2>China: the cloth</h2>
+    <p>China spins the yarn, knits and weaves the fabric, and dyes and finishes it at a scale and speed no one else matches — towns like Shaoxing's Keqiao run the largest fabric markets on Earth. China is the world's #1 clothing exporter, around a third of global trade, and it owns the upstream. But its wages have risen, and the most labour-heavy step has moved next door.</p>
+    <div class="pull">China increasingly makes the cloth; its lower-wage neighbours sew it.</div></div>
+  <div class="sec"><div class="num">04</div><h2>Bangladesh: the stitch</h2>
+    <p>Cut-Make-Trim — the sewing — is the most labour-intensive, lowest-margin step, so it migrates to the cheapest hands. Bangladesh is the world's #2 clothing exporter, with around four million garment workers (roughly four in five of them women) and a minimum wage near $113 a month; Vietnam, Cambodia, Türkiye and, increasingly, parts of Africa take the rest. Bangladesh grows almost no cotton and imports nearly all its fabric, mostly from China and India: it is, almost purely, the place the world's clothes are sewn. The human cost is real — the 2013 Rana Plaza collapse killed more than 1,100 workers and forced a rewrite of factory-safety rules.</p></div>
+  <div class="sec"><div class="num">05</div><h2>Back to the shop — and why the shape matters</h2>
+    <p>The finished garments sail to the brands and shoppers of Europe and the United States — Zara, H&amp;M, Uniqlo, Shein and the rest — often the very countries where the cotton was grown. Why the shape matters: unlike the battery's single chokepoint, apparel has no hub. It is a distributed relay that chases low wages, which is why the sewing keeps hopping — China to Bangladesh to Vietnam, and perhaps next to Africa — and why a tariff or a labour ban lands very differently here than on a chip. Set against <a href="/supply-chains/smartphone/">the phone</a> and <a href="/supply-chains/ev-battery/">the battery</a>, the tee is the atlas's third shape: one disperses, one funnels, and this one relays.</p></div>
+</div>
+<aside><div class="facts"><h4>The facts</h4>
+  <div class="frow"><div class="k">Chain</div><div class="v">A cotton T-shirt — cotton (field) → yarn, fabric &amp; dye (mill) → cut-make-trim (sewing) → brand &amp; shop</div></div>
+  <div class="frow"><div class="k">Cotton</div><div class="v">USA (top exporter), India (~¼ of world output), China (mostly Xinjiang), Brazil, West Africa; ~2,700 L of water per tee</div></div>
+  <div class="frow"><div class="k">Fabric</div><div class="v">China dominates spinning/weaving/dyeing (Keqiao/Shaoxing = world's largest fabric market); China = #1 clothing exporter (~30%)</div></div>
+  <div class="frow"><div class="k">Sewing (CMT)</div><div class="v">The cheapest-labour step → Bangladesh (#2 exporter, ~4M workers, ~80% women, min wage ~$113/mo), Vietnam, Cambodia, Türkiye, Ethiopia</div></div>
+  <div class="frow"><div class="k">Bangladesh</div><div class="v">Imports nearly all its fabric (mostly China/India); garments ~80% of national exports</div></div>
+  <div class="frow"><div class="k">Brands &amp; markets</div><div class="v">EU (largest importer) &amp; US — Zara (Inditex), H&amp;M, Uniqlo, Shein</div></div>
+  <div class="frow"><div class="k">The shape</div><div class="v">A relay / cost ladder — no single hub; the sewing keeps hopping to lower wages. Human cost: Rana Plaza (2013, 1,100+ dead)</div></div>
+</div></aside></div></section>
+<section><div class="wrap"><div class="fine" style="max-width:80ch">
+  Sources (2024-2026): WTO / Sheng Lu (FASH455), WorldPopulationReview, Cosmo Sourcing, trade-data aggregators, plus Pietra Rivoli, <i>The Travels of a T-Shirt in the Global Economy</i>. A representative spine, not a full bill of materials; figures (China ~30% of clothing exports, Bangladesh #2 with ~4M workers / ~$113 min wage, India ~¼ of cotton, ~2,700 L water per tee) are the commonly cited ones, treated here as orders of magnitude. Third in the atlas's supply-chain series.
+</div></div></section>
+<footer><div class="wrap">
+  <div class="ftlinks">
+    <a class="dl" href="/">← Full atlas</a>
+    <a class="dl" href="/supply-chains/smartphone/">The smartphone (supply chain) →</a>
+    <a class="dl" href="/supply-chains/ev-battery/">The EV battery (supply chain) →</a>
+    <a class="dl" href="/industry/apparel/">Apparel &amp; fashion (industry) →</a>
+  </div>
+  <div class="fine">Supply-chain deep-dive · the T-shirt · 2026 · locations approximate &amp; schematic · basemap © OpenStreetMap, © CARTO.</div>
+</div></footer>
+<script>if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}</script>
+<script>
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false,worldCopyJump:true}).setView([26,24],2);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:11,subdomains:'abcd'}).addTo(map);
+function flowin(a,b){L.polyline([a,b],{color:'#C0402A',weight:2,opacity:.7,dashArray:'6,6'}).addTo(map);}
+function flowout(a,b){L.polyline([a,b],{color:'#9C7A3C',weight:2,opacity:.7,dashArray:'2,7'}).addTo(map);}
+function node(c,label,ax,ay){
+  L.marker(c,{icon:L.divIcon({html:'<div style="width:9px;height:9px;border-radius:50%;background:#C0402A;border:2px solid #E8EAE3;box-shadow:0 0 0 1px #C0402A"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+label+'</div>',iconSize:[1,1],iconAnchor:[ax,ay],className:''})}).addTo(map);
+}
+function faint(c,label,ax,ay){
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl" style="opacity:.6">'+label+'</div>',iconSize:[1,1],iconAnchor:[ax,ay],className:''})}).addTo(map);
+}
+function market(c,label,ax,ay){
+  L.marker(c,{icon:L.divIcon({html:'<div style="width:7px;height:7px;border-radius:50%;background:#9C7A3C;border:2px solid #E8EAE3"></div>',iconSize:[7,7],iconAnchor:[3,3],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl" style="opacity:.8">'+label+'</div>',iconSize:[1,1],iconAnchor:[ax,ay],className:''})}).addTo(map);
+}
+const COTTON=[33.5,-101.9], FABRIC=[30.0,120.6], SEW=[23.78,90.4];
+const MEU=[50.0,9.0], MUS=[42.0,-88.0];
+// the relay (grow -> cloth -> sew)
+flowin(COTTON,FABRIC); flowin(FABRIC,SEW);
+// shipped to market
+flowout(SEW,MEU); flowout(SEW,MUS);
+node(COTTON,"Cotton · USA (Texas)",-6,16);
+node(FABRIC,"Fabric · China (Shaoxing)",-6,-14);
+node(SEW,"Sewn · Bangladesh",-6,16);
+faint(SEW,"also Vietnam · Cambodia · Türkiye",-6,30);
+market(MEU,"→ sold: Europe",-6,-12);
+market(MUS,"→ sold: USA",-6,-12);
+</script>
+<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
+</body></html>
