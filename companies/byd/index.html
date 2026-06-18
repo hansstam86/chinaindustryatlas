@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BYD — the conquest being built | China Industry Atlas</title>
+<meta name="description" content="A company deep dive on BYD, the Shenzhen battery maker turned world's biggest EV company — now planting car plants across three continents at once, and building its own fleet of ships to get there.">
+<link rel="canonical" href="https://chinaindustryatlas.com/companies/byd/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/companies/byd/">
+<meta property="og:title" content="BYD — the conquest being built">
+<meta property="og:description" content="The Shenzhen battery maker turned world's biggest EV company — planting plants on three continents and building its own ships, in real time.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+</head>
+<body>
+<div data-atlas-buybar style="background:var(--chop,#C0402A);color:#fff;font-family:var(--mono,'Space Mono',monospace);font-size:12px;line-height:1.2;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:7px 16px;text-align:center"><span>China Industry Atlas — the 40-page field guide (PDF)</span><a class="lemonsqueezy-button" href="https://hansolo.lemonsqueezy.com/checkout/buy/5435562a-0e88-43f3-8736-f85c14c3a69d" style="background:#fff;color:var(--chop,#C0402A);text-decoration:none;font-weight:700;padding:3px 12px;border-radius:2px;white-space:nowrap">Get it · €19.99 →</a></div>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Company deep-dives</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<div class="wrap hero">
+  <div class="eyebrow">Company deep-dive · Shenzhen → the world</div>
+  <h1>BYD<span class="cn">比亚迪 · the conquest being built</span></h1>
+  <p class="lede">A Shenzhen battery maker founded in 1995 is now the <b>world's biggest electric-vehicle company</b>, with revenue past Tesla's. Where Midea's conquest map is mostly drawn and Foxconn's floor keeps moving, <b>BYD's map is being drawn right now</b> — car plants going up across three continents at once, and a fleet of its own ships built to reach them.</p>
+  <div class="readouts">
+    <div class="readout"><div class="n">1995</div><div class="l">founded in Shenzhen — as a battery maker</div></div>
+    <div class="readout"><div class="n">#1</div><div class="l">the world's biggest EV maker</div></div>
+    <div class="readout"><div class="n">$107bn</div><div class="l">2024 revenue — it passed Tesla's</div></div>
+  </div>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">A conquest in progress: car plants going up, by year</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend">
+    <span><i class="dot" style="background:var(--chop);border-radius:0;transform:rotate(45deg)"></i>BYD · Shenzhen (HQ)</span>
+    <span><i class="dot" style="background:var(--chop)"></i>Overseas plant, with year</span>
+    <span style="opacity:.7">dashed line · the push outward</span>
+  </div></div></div>
+<section><div class="wrap dd-grid"><div>
+  <div class="sec"><div class="num">01</div><h2>The battery maker that became the world's biggest EV company</h2>
+    <p>BYD — the initials stand for "Build Your Dreams" — was founded in Shenzhen in 1995 by Wang Chuanfu to make rechargeable batteries, and became Nokia's first Chinese lithium-ion supplier. In 2003 it bought a failing carmaker and started building cars, and was widely mocked for the shoddy early ones; Warren Buffett's Berkshire bought about a tenth of the company in 2008 anyway. In 2022 it dropped petrol cars altogether. By 2024 it was the world's largest electric-vehicle maker — 4.27 million cars and <b>¥777 billion (about $107 billion) in revenue, ahead of Tesla's</b>.</p></div>
+  <div class="sec"><div class="num">02</div><h2>It makes almost everything itself — even the ships</h2>
+    <p>BYD's edge is radical vertical integration. It builds its own batteries — the cheap, safe Blade LFP cell — its own chips, its own motors and software, and, when ocean-going car-carriers turned out to be scarce, its own ships. Owning the whole stack is how it drives cost brutally low. The same company is also a contract electronics manufacturer (BYD Electronic builds parts for Apple and others) and makes monorails, electric buses and forklifts. Few carmakers control so much of what goes into a car — and around it.</p>
+    <div class="pull">A carmaker that builds its own batteries, its own chips — and its own ships.</div></div>
+  <div class="sec"><div class="num">03</div><h2>The conquest being built right now</h2>
+    <p>Here is what sets BYD apart in this atlas: its map is not history, it is happening. Shut out of the United States by tariffs, BYD is planting passenger-car plants across three continents at once — Thailand (Rayong, opened 2024, its first overseas), Hungary (Szeged, its first in Europe), Turkey (Manisa, a $1bn plant due by 2026), Brazil (Camaçari, on a former Ford site), Indonesia and Uzbekistan — chasing a stated goal of selling half its cars abroad by 2030. The dashed lines on the map are being laid down as you read this.</p></div>
+  <div class="sec"><div class="num">04</div><h2>Its own ships, and the tariff wall</h2>
+    <p>Two details capture the strategy. First, the ships: rather than wait for scarce car-carriers, BYD is building a fleet of eight roll-on/roll-off vessels carrying seven to nine thousand cars each — the BYD Explorer No.1 sailed to the Netherlands in early 2024, the Changzhou to the UK and Rotterdam that November. Second, the wall: the European Union's 2024 tariffs on Chinese EVs are precisely why the Hungary and Turkey plants matter — building inside the markets it can no longer simply export into.</p></div>
+  <div class="sec"><div class="num">05</div><h2>Why it's the live one</h2>
+    <p>BYD is the clearest real-time test of whether China's EV industry can go global — cheap, fast and vertically integrated — against tariffs and political resistance: EU duties, a closed US market, a labour scandal at the Brazil site, a brutal price war at home. How its overseas plants fare will help decide the next decade of the car industry. Set against the atlas, BYD is the conquest still under construction — Midea already won its map, Foxconn's floor keeps migrating, and BYD's tendrils are being laid down in real time.</p></div>
+</div>
+<aside><div class="facts"><h4>The facts</h4>
+  <div class="frow"><div class="k">Company</div><div class="v">BYD (比亚迪, "Build Your Dreams") — Shenzhen; founder &amp; chairman Wang Chuanfu (1995); listed Hong Kong (2002) &amp; Shenzhen (2011)</div></div>
+  <div class="frow"><div class="k">What it is</div><div class="v">World's largest maker of electric vehicles (BEV + PHEV); a top battery maker; 2024 revenue ¥777bn (~$107bn) on 4.27M cars — past Tesla's</div></div>
+  <div class="frow"><div class="k">Origin</div><div class="v">Founded 1995 as a rechargeable-battery maker (Nokia's first Chinese Li-ion supplier); entered cars 2003; Buffett's Berkshire took ~10% in 2008; dropped petrol cars in 2022</div></div>
+  <div class="frow"><div class="k">Vertical integration</div><div class="v">Own batteries (Blade LFP), chips, motors, software; contract electronics (BYD Electronic); monorail, buses, forklifts — and its own car-carrier ships</div></div>
+  <div class="frow"><div class="k">Overseas plants</div><div class="v">Thailand (Rayong, 2024, first), Hungary (Szeged, first in EU), Turkey (Manisa, $1bn, by 2026), Brazil (Camaçari), Indonesia, Uzbekistan; NEVs sold in 88+ countries</div></div>
+  <div class="frow"><div class="k">Ships</div><div class="v">Building a fleet of 8 RoRo car-carriers (BYD Explorer No.1 → Netherlands, Jan 2024; Changzhou → UK / Rotterdam, Nov 2024)</div></div>
+  <div class="frow"><div class="k">Headwinds &amp; goal</div><div class="v">EU 2024 tariffs on Chinese EVs (why local plants matter), US market effectively closed, a Brazil labour dispute, a China price war; targets ~50% of sales overseas by 2030</div></div>
+</div></aside></div></section>
+<section><div class="wrap"><div class="fine" style="max-width:80ch">
+  Sources (2024-2026): CNN, Reuters/Nikkei (via Business Standard), CarNewsChina, EV.com, company milestones, plus trade sources. Figures vary by source and year — founding (1995), $107bn 2024 revenue / 4.27M cars (past Tesla), the overseas-plant list and the ship fleet, are the commonly cited figures, treated here as orders of magnitude; plant dates marked "→" are under construction or ramping. Third in the atlas's company deep-dive series.
+</div></div></section>
+<footer><div class="wrap">
+  <div class="ftlinks">
+    <a class="dl" href="/">← Full atlas</a>
+    <a class="dl" href="/companies/midea/">Midea (conquest map) →</a>
+    <a class="dl" href="/companies/foxconn/">Foxconn (migration map) →</a>
+    <a class="dl" href="/manufacturing-in-motion/">Manufacturing in motion →</a>
+  </div>
+  <div class="fine">Company deep-dive · BYD · 2026 · locations approximate · basemap © OpenStreetMap, © CARTO.</div>
+</div></footer>
+<script>if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}</script>
+<script>
+const SHENZHEN=[22.69,114.05];
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([16,42],3);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:11,subdomains:'abcd'}).addTo(map);
+function arrow(target,label,ax,ay){
+  L.polyline([SHENZHEN,target],{color:'#C0402A',weight:2,opacity:.7,dashArray:'6,6'}).addTo(map);
+  L.marker(target,{icon:L.divIcon({html:'<div style="width:9px;height:9px;border-radius:50%;background:#C0402A;border:2px solid #E8EAE3;box-shadow:0 0 0 1px #C0402A"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);
+  L.marker(target,{icon:L.divIcon({html:'<div class="pinlbl">'+label+'</div>',iconSize:[1,1],iconAnchor:[ax,ay],className:''})}).addTo(map);
+}
+arrow([12.69,101.15],"Thailand · 2024",-6,16);
+arrow([46.25,20.14],"Hungary · 2025→",-6,-12);
+arrow([38.61,27.43],"Turkey · 2026→",-6,14);
+arrow([-12.70,-38.32],"Brazil · 2025→",-6,4);
+arrow([-6.57,107.76],"Indonesia · 2025→",-6,16);
+arrow([40.12,67.84],"Uzbekistan · 2024",-6,-12);
+L.marker(SHENZHEN,{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map)
+  .bindTooltip("BYD — founded here, Shenzhen, 1995",{direction:'top',offset:[0,-7],className:'pinlbl'});
+L.marker(SHENZHEN,{icon:L.divIcon({html:'<div class="pinlbl big">BYD · Shenzhen 深圳</div>',iconSize:[1,1],iconAnchor:[-9,14],className:''})}).addTo(map);
+</script>
+<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
+</body></html>
