@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Foxconn — the moving factory | China Industry Atlas</title>
+<meta name="description" content="A company deep dive on Foxconn, the world's largest electronics manufacturer — told as a migration map: Shenzhen to Zhengzhou to India, Vietnam and Mexico, as the assembly line keeps moving.">
+<link rel="canonical" href="https://chinaindustryatlas.com/companies/foxconn/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/companies/foxconn/">
+<meta property="og:title" content="Foxconn — the moving factory">
+<meta property="og:description" content="The world's largest electronics maker, told as a migration map — from Shenzhen inland to Zhengzhou, then offshore to India, Vietnam and Mexico.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+</head>
+<body>
+<div data-atlas-buybar style="background:var(--chop,#C0402A);color:#fff;font-family:var(--mono,'Space Mono',monospace);font-size:12px;line-height:1.2;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:7px 16px;text-align:center"><span>China Industry Atlas — the 40-page field guide (PDF)</span><a class="lemonsqueezy-button" href="https://hansolo.lemonsqueezy.com/checkout/buy/5435562a-0e88-43f3-8736-f85c14c3a69d" style="background:#fff;color:var(--chop,#C0402A);text-decoration:none;font-weight:700;padding:3px 12px;border-radius:2px;white-space:nowrap">Get it · €19.99 →</a></div>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Company deep-dives</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<div class="wrap hero">
+  <div class="eyebrow">Company deep-dive · Taiwan → the world</div>
+  <h1>Foxconn<span class="cn">鴻海 · the moving factory</span></h1>
+  <p class="lede"><b>Foxconn</b> is the largest factory company on Earth — it assembles about <b>half the world's iPhones</b>, and its name is on almost nothing it makes. If Midea's story is a conquest map, Foxconn's is a <b>migration</b> map: the world's assembly line creeping inland from Shenzhen, then offshore to India, Vietnam and Mexico, decade by decade.</p>
+  <div class="readouts">
+    <div class="readout"><div class="n">1974</div><div class="l">founded in Taiwan by Terry Gou</div></div>
+    <div class="readout"><div class="n">~half</div><div class="l">of the world's iPhones, off its lines</div></div>
+    <div class="readout"><div class="n">20+</div><div class="l">countries it now builds in</div></div>
+  </div>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">A migration map: where the assembly line keeps moving</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend">
+    <span><i class="dot" style="background:var(--chop);border-radius:0;transform:rotate(45deg)"></i>Foxconn HQ · Taiwan</span>
+    <span><i class="dot" style="background:var(--chop)"></i>Major site, with year</span>
+    <span style="opacity:.7">dashed line · the move outward</span>
+  </div></div></div>
+<section><div class="wrap dd-grid"><div>
+  <div class="sec"><div class="num">01</div><h2>The biggest factory company on Earth</h2>
+    <p>Foxconn — formally Hon Hai Precision Industry, of Taiwan — was founded in 1974 by Terry Gou, and has been named the world's largest electronics-manufacturing-services company for fourteen years running. Its revenue is on the order of two hundred billion dollars. It assembles roughly half the world's iPhones, builds hardware for Google, Microsoft, Amazon, Nintendo and Sony, and now makes a large share of Nvidia's AI servers — yet its own name appears on almost none of it. Unlike everywhere else in this atlas, Foxconn is not a place; it is a company whose story is best told as a map of where it keeps moving.</p></div>
+  <div class="sec"><div class="num">02</div><h2>Into Shenzhen, 1988</h2>
+    <p>The mainland beachhead was Longhua, in Shenzhen, opened in 1988 and grown into a "Foxconn City" of hundreds of thousands — dormitories, canteens, clinics, the lot. It was here that Foxconn learned to run whole cities of workers, and here, in 2010, that a wave of worker suicides forced its labour conditions onto front pages around the world. Shenzhen became the template that every later site would copy.</p></div>
+  <div class="sec"><div class="num">03</div><h2>The inland march</h2>
+    <p>As coastal wages climbed around 2010, Foxconn pushed assembly inland — to <a href="/deep-dives/zhengzhou/">Zhengzhou</a> (iPhone City, some 350,000 workers at peak), Chengdu (iPads), then Chongqing, Wuhan and Taiyuan — chasing cheaper land, provincial subsidies, and migrant labour closer to its workers' home provinces. On the map the centre of gravity of iPhone assembly visibly creeps west, away from the expensive coast.</p></div>
+  <div class="sec"><div class="num">04</div><h2>Then offshore</h2>
+    <p>Then it began to leave China altogether. From 2018, India — Chennai in Tamil Nadu, then Karnataka and a planned "fourth city" near Hyderabad, with Apple aiming for roughly a quarter of iPhones made there; Vietnam for AirPods, MacBooks and iPads; Mexico for devices bound for the United States; Brazil at Manaus. The drivers were rising China costs, US–China trade tensions, and Apple's push to de-risk — sharpened hard by the 2022 Zhengzhou lockdown and the exodus of workers on foot.</p>
+    <div class="pull">The world's assembly line is on the move — and Foxconn is the clearest place to watch it.</div></div>
+  <div class="sec"><div class="num">05</div><h2>Beyond the iPhone</h2>
+    <p>Now the floor is moving in a second sense. Foxconn is betting its future on AI servers — it builds much of Nvidia's latest hardware, its server revenue leapt about 150% in 2024, and the chairman says it could overtake the iPhone within a couple of years; the new factories going up in Mexico are largely for that. It is also chasing electric vehicles, aiming to build cars on contract the way it builds phones. Not every bet lands: a $10bn display plant promised to Wisconsin shrank to almost nothing, and a $19.5bn chip venture in India collapsed in 2023. Founder Terry Gou stepped down in 2019 — later running for Taiwan's presidency — and Young Liu now chairs. Set against the atlas, Foxconn is the moving floor itself: the single clearest illustration of how, and why, the world's assembly line keeps migrating.</p></div>
+</div>
+<aside><div class="facts"><h4>The facts</h4>
+  <div class="frow"><div class="k">Company</div><div class="v">Foxconn / Hon Hai Precision Industry (鴻海) — Taiwan; founder Terry Gou (1974); chairman Young Liu (since 2019)</div></div>
+  <div class="frow"><div class="k">What it is</div><div class="v">World's largest electronics contract manufacturer (14 yrs running); Apple's top supplier; Fortune Global 500 (~#20–28); revenue ~NT$6tn / ~$200bn</div></div>
+  <div class="frow"><div class="k">Makes</div><div class="v">~half the world's iPhones + hardware for Google, Microsoft, Amazon, Nintendo, Sony; now a big share of Nvidia's AI servers</div></div>
+  <div class="frow"><div class="k">China sites</div><div class="v">Shenzhen Longhua (1988, first megasite), Zhengzhou (iPhone City, ~350k peak), Chengdu, Chongqing, Wuhan, Taiyuan</div></div>
+  <div class="frow"><div class="k">Offshore</div><div class="v">India (2018→, Tamil Nadu / Karnataka / Hyderabad), Vietnam (AirPods/MacBooks), Mexico (nearshoring + AI servers), Brazil (Manaus); 20+ countries</div></div>
+  <div class="frow"><div class="k">Why it moves</div><div class="v">Rising coastal wages, inland subsidies, US–China tensions, Apple de-risking (esp. after the 2022 Zhengzhou exodus)</div></div>
+  <div class="frow"><div class="k">New bets</div><div class="v">AI servers (Nvidia Blackwell — may overtake iPhone revenue); EVs (MIH / Foxtron); misfires — Wisconsin LCD (2017), Vedanta India chips (2023)</div></div>
+</div></aside></div></section>
+<section><div class="wrap"><div class="fine" style="max-width:80ch">
+  Sources (2018-2026): Wikipedia (Foxconn / Foxconn Industrial Internet), CNBC, Reuters, Taiwan Business TOPICS, company milestones, plus trade sources. Figures vary by source and year — founding (1974), ~half the world's iPhones, ~$200bn revenue, the site timeline and the AI-server pivot, are the commonly cited figures, treated here as orders of magnitude. Second in the atlas's company deep-dive series.
+</div></div></section>
+<footer><div class="wrap">
+  <div class="ftlinks">
+    <a class="dl" href="/">← Full atlas</a>
+    <a class="dl" href="/deep-dives/zhengzhou/">Zhengzhou (iPhone City) →</a>
+    <a class="dl" href="/companies/midea/">Midea (the conquest map) →</a>
+    <a class="dl" href="/manufacturing-in-motion/">Manufacturing in motion →</a>
+  </div>
+  <div class="fine">Company deep-dive · Foxconn · 2026 · locations approximate · basemap © OpenStreetMap, © CARTO.</div>
+</div></footer>
+<script>if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}</script>
+<script>
+const TUCHENG=[25.02,121.44], SHENZHEN=[22.68,114.03];
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([23.5,101],4);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:11,subdomains:'abcd'}).addTo(map);
+function leg(a,b){L.polyline([a,b],{color:'#C0402A',weight:2,opacity:.7,dashArray:'6,6'}).addTo(map);}
+function site(c,label,ax,ay){
+  L.marker(c,{icon:L.divIcon({html:'<div style="width:9px;height:9px;border-radius:50%;background:#C0402A;border:2px solid #E8EAE3;box-shadow:0 0 0 1px #C0402A"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+label+'</div>',iconSize:[1,1],iconAnchor:[ax,ay],className:''})}).addTo(map);
+}
+// migration legs: Taiwan -> Shenzhen, then Shenzhen spreads inland & offshore
+leg(TUCHENG,SHENZHEN);
+leg(SHENZHEN,[34.75,113.62]);
+leg(SHENZHEN,[30.57,104.07]);
+leg(SHENZHEN,[12.97,79.96]);
+leg(SHENZHEN,[21.18,106.07]);
+site(SHENZHEN,"Shenzhen · 1988",-6,14);
+site([34.75,113.62],"Zhengzhou · 2010",-6,-12);
+site([30.57,104.07],"Chengdu · 2010",-6,-12);
+site([12.97,79.96],"India · 2018→",-6,4);
+site([21.18,106.07],"Vietnam · 2019→",-6,16);
+L.marker(TUCHENG,{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map)
+  .bindTooltip("Foxconn HQ — Tucheng, Taiwan, founded 1974",{direction:'top',offset:[0,-7],className:'pinlbl'});
+L.marker(TUCHENG,{icon:L.divIcon({html:'<div class="pinlbl big">Foxconn · TW 1974</div>',iconSize:[1,1],iconAnchor:[118,6],className:''})}).addTo(map);
+</script>
+<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
+</body></html>
