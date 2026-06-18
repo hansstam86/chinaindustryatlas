@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jingdezhen — the town that gave china its name | China Industry Atlas</title>
+<meta name="description" content="A deep dive on Jingdezhen, China's thousand-year porcelain capital — the town that made nearly all the world's porcelain for four centuries, gave the mineral 'kaolin' its name, and shares its name with a country.">
+<link rel="canonical" href="https://chinaindustryatlas.com/deep-dives/jingdezhen/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/deep-dives/jingdezhen/">
+<meta property="og:title" content="Jingdezhen — the porcelain capital">
+<meta property="og:description" content="How a remote Jiangxi town became the thousand-year capital of porcelain — and, in English, gave its product the name of a country.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+</head>
+<body>
+<div data-atlas-buybar style="background:var(--chop,#C0402A);color:#fff;font-family:var(--mono,'Space Mono',monospace);font-size:12px;line-height:1.2;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:7px 16px;text-align:center"><span>China Industry Atlas — the 40-page field guide (PDF)</span><a class="lemonsqueezy-button" href="https://hansolo.lemonsqueezy.com/checkout/buy/5435562a-0e88-43f3-8736-f85c14c3a69d" style="background:#fff;color:var(--chop,#C0402A);text-decoration:none;font-weight:700;padding:3px 12px;border-radius:2px;white-space:nowrap">Get it · €19.99 →</a></div>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Town deep-dives</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<div class="wrap hero">
+  <div class="eyebrow">Town deep-dive · Jiangxi</div>
+  <h1>Jingdezhen<span class="cn">景德镇 · the porcelain capital</span></h1>
+  <p class="lede">Every town in this atlas is a kind of capital. <b>Jingdezhen</b> is the oldest of them by far. For about four centuries it made <b>nearly all the world's porcelain</b>; it gave the mineral <b>kaolin</b> its name; and the material it perfected carries, in English, the name of a whole country — <b>china</b>.</p>
+  <div class="readouts">
+    <div class="readout"><div class="n">1004</div><div class="l">named after a porcelain reign-mark</div></div>
+    <div class="readout"><div class="n">~all</div><div class="l">of the world's porcelain, c.1350–1750</div></div>
+    <div class="readout"><div class="n">$27.7M</div><div class="l">a single Yuan jar, at auction (2005)</div></div>
+  </div>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">A kiln town in the hills of north-east Jiangxi</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend">
+    <span><i class="dot" style="background:var(--chop);border-radius:0;transform:rotate(45deg)"></i>Jingdezhen</span>
+    <span><i class="dot" style="background:var(--chop)"></i>The clay &amp; the old kilns</span>
+    <span><i class="dot" style="background:var(--ink-2)"></i>Reference point</span>
+  </div></div></div>
+<section><div class="wrap dd-grid"><div>
+  <div class="sec"><div class="num">01</div><h2>The capital of china</h2>
+    <p>Jingdezhen sits in the hills of north-east Jiangxi, and it has been firing pots for the better part of two thousand years. For roughly a thousand of those it was the imperial porcelain capital, and for one long stretch — from about 1350 to 1750 — it made very nearly <b>all the porcelain on Earth</b>. That makes it the ancestor of every other town in this atlas: the original global monopoly, running for centuries before the others were born. And the material it raised to perfection took, in English and many other languages, the name of the country itself — china.</p></div>
+  <div class="sec"><div class="num">02</div><h2>Named after a reign-mark</h2>
+    <p>The town was once called Changnan, then Fuliang. Its present name dates to 1004, when Emperor Zhenzong of the Song so admired the local ware that he ordered porcelain made for his court and stamped "made in the Jingde years" — his reign title. The town then renamed itself after that mark: Jingdezhen, "Jingde town." It is, in effect, a place named after the stamp on its own product. (A local legend goes further: that European traders, told the wares came from "Changnan," turned the word into "China" — a charming story, if not the settled etymology.)</p>
+    <div class="pull">A town named after the imperial mark stamped on the bottom of its own pots.</div></div>
+  <div class="sec"><div class="num">03</div><h2>Kaolin: the hill that named a mineral</h2>
+    <p>True porcelain needs two local ingredients — a "pottery stone" (petuntse) for translucency and a white clay for strength, the flesh and the bone — fired together above 1,300°C until they turn glassy and ring like a bell. The finest white clay came from <b>Gaoling</b>, a mountain about forty kilometres north-east of the town. The word the whole world now uses for porcelain clay — <b>kaolin</b> — is simply the name of that village. Add endless pine forest for the kilns and the Chang river to float the fragile wares out, and a remote hill town had everything porcelain needs.</p></div>
+  <div class="sec"><div class="num">04</div><h2>Ten kilns fired to get one cup</h2>
+    <p>From 1369 the Imperial Kiln Factory stood at Zhushan, Pearl Hill, in the town centre, making porcelain for the emperor alone, regardless of cost, with an extreme division of labour that made it one of the world's first true factories. A single palace order in 1433 called for <b>443,500 pieces</b>. Quality control was merciless: imperfect imperial wares were smashed on the spot so they could never reach the market — the buried mounds of shards are now a museum. By the Qing, more than three thousand kilns smoked over the town; all nine thousand were destroyed in the 1855 Taiping war, and rebuilt.</p></div>
+  <div class="sec"><div class="num">05</div><h2>Still burning</h2>
+    <p>What it made travelled everywhere: the blue-and-white that spread across Eurasia from the 1330s, the famille-rose enamels of the Qing, a Yuan jar that sold for <b>$27.7 million</b> in 2005. The craft has nearly always survived its catastrophes, and today the cheap rents and deep heritage pull a wave of young artist-drifters — the "Jingpiao" — who have turned the old state factories into studios. Set beside the other deep dives, Jingdezhen is their common ancestor: the original, imperial, thousand-year monopoly — the town that gave its product the name of a country.</p></div>
+</div>
+<aside><div class="facts"><h4>The facts</h4>
+  <div class="frow"><div class="k">Place</div><div class="v">Jingdezhen, prefecture-level city, north-east Jiangxi (Poyang Lake plain); ~1.6M people</div></div>
+  <div class="frow"><div class="k">Title</div><div class="v">China's "Porcelain Capital" (瓷都); imperial-porcelain centre for ~1,000 years</div></div>
+  <div class="frow"><div class="k">Product</div><div class="v">Porcelain — Qingbai, blue-and-white (青花), famille-rose enamels; today everything from art pieces to industrial ware</div></div>
+  <div class="frow"><div class="k">Heritage</div><div class="v">Pottery ~1,700–2,000 yrs; named Jingdezhen in 1004 after Emperor Zhenzong's reign-mark; Imperial Kiln Factory at Zhushan from 1369</div></div>
+  <div class="frow"><div class="k">The materials</div><div class="v">Local kaolin (from Gaoling — the village that named the mineral) + petuntse "china stone"; pine fuel; the Chang river</div></div>
+  <div class="frow"><div class="k">Monopoly</div><div class="v">c.1350–1750 made nearly all the world's porcelain; a single 1433 court order = 443,500 pieces; defective imperial pieces smashed on-site</div></div>
+  <div class="frow"><div class="k">Value &amp; now</div><div class="v">A Yuan blue-and-white jar sold for $27.7M (2005); today a magnet for young "Jingpiao" artists</div></div>
+</div></aside></div></section>
+<section><div class="wrap"><div class="fine" style="max-width:80ch">
+  Sources (2017-2026): Wikipedia (Jingdezhen / Jingdezhen porcelain), The World of Chinese, Caixin, Facts and Details, plus craft and museum sources. Figures and dates vary by source — pottery for ~1,700–2,000 years, the 1004 naming, "nearly all the world's porcelain" c.1350–1750, and the $27.7M auction (2005) are the commonly cited figures, treated here as orders of magnitude. The "Changnan → China" etymology is a popular legend, not settled fact. Eighteenth in the atlas's deep-dive series.
+</div></div></section>
+<footer><div class="wrap">
+  <div class="ftlinks">
+    <a class="dl" href="/">← Full atlas</a>
+    <a class="dl" href="/deep-dives/yixing/">Yixing (purple-clay teapots) →</a>
+    <a class="dl" href="/deep-dives/dafen/">Dafen (oil-painting village) →</a>
+    <a class="dl" href="/one-product-towns/">One-product towns →</a>
+  </div>
+  <div class="fine">Town deep-dive · Jingdezhen · 2026 · cluster locations approximate · basemap © OpenStreetMap, © CARTO.</div>
+</div></footer>
+<script>if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}</script>
+<script>
+const JINGDEZHEN=[29.27,117.18];
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([29.32,117.30],9);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:11,subdomains:'abcd'}).addTo(map);
+
+function clusterAt(c,name,ax,ay){
+  L.marker(c,{icon:L.divIcon({html:'<div style="width:10px;height:10px;border-radius:50%;background:#C0402A;border:2px solid #E8EAE3;box-shadow:0 0 0 1px #C0402A"></div>',iconSize:[10,10],iconAnchor:[5,5],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[ax,ay],className:''})}).addTo(map);
+}
+function ref(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);
+}
+
+clusterAt([29.45,117.45],"Gaoling 高岭 — the hill that named 'kaolin'",-6,-12);
+clusterAt([29.25,117.22],"Hutian — the old folk kilns",-6,14);
+ref([29.25,117.86],"Wuyuan");
+L.marker([29.05,116.72],{icon:L.divIcon({html:'<div class="pinlbl" style="opacity:.7">Poyang Lake 鄱阳湖</div>',iconSize:[1,1],iconAnchor:[-2,4],className:''})}).addTo(map);
+L.marker(JINGDEZHEN,{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map)
+  .bindTooltip("Jingdezhen — China's porcelain capital",{direction:'top',offset:[0,-7],className:'pinlbl'});
+L.marker(JINGDEZHEN,{icon:L.divIcon({html:'<div class="pinlbl big">Jingdezhen 景德镇</div>',iconSize:[1,1],iconAnchor:[-9,6],className:''})}).addTo(map);
+</script>
+<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
+</body></html>

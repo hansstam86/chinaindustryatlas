@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shunde — the town that makes the world's kitchen | China Industry Atlas</title>
+<meta name="description" content="A deep dive on Shunde, the Foshan district that makes about half the world's microwaves and rice cookers — home of Midea and Galanz, born from a bottle-cap workshop and a duck-feather trader.">
+<link rel="canonical" href="https://chinaindustryatlas.com/deep-dives/shunde/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/deep-dives/shunde/">
+<meta property="og:title" content="Shunde — the appliance capital">
+<meta property="og:description" content="How a Foshan district came to make half the world's microwaves and rice cookers — its giants born from bottle caps and duck feathers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+</head>
+<body>
+<div data-atlas-buybar style="background:var(--chop,#C0402A);color:#fff;font-family:var(--mono,'Space Mono',monospace);font-size:12px;line-height:1.2;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:7px 16px;text-align:center"><span>China Industry Atlas — the 40-page field guide (PDF)</span><a class="lemonsqueezy-button" href="https://hansolo.lemonsqueezy.com/checkout/buy/5435562a-0e88-43f3-8736-f85c14c3a69d" style="background:#fff;color:var(--chop,#C0402A);text-decoration:none;font-weight:700;padding:3px 12px;border-radius:2px;white-space:nowrap">Get it · €19.99 →</a></div>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Town deep-dives</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<div class="wrap hero">
+  <div class="eyebrow">Town deep-dive · Guangdong</div>
+  <h1>Shunde<span class="cn">顺德 · the appliance capital</span></h1>
+  <p class="lede">There is a good chance the microwave in your kitchen was made in <b>Shunde</b> — whatever the badge says. This district of Foshan makes roughly <b>half the world's microwaves and rice cookers</b>, much of it shipped under names like Toshiba, Whirlpool and Black+Decker. Its two giants began as a bottle-cap workshop and a duck-feather trader.</p>
+  <div class="readouts">
+    <div class="readout"><div class="n">~half</div><div class="l">of the world's microwaves</div></div>
+    <div class="readout"><div class="n">~half</div><div class="l">of the world's rice cookers</div></div>
+    <div class="readout"><div class="n">3,000+</div><div class="l">appliance firms in one district</div></div>
+  </div>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">An appliance district in the Pearl River Delta</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend">
+    <span><i class="dot" style="background:var(--chop);border-radius:0;transform:rotate(45deg)"></i>Shunde</span>
+    <span><i class="dot" style="background:var(--chop)"></i>Midea's home town</span>
+    <span><i class="dot" style="background:var(--ink-2)"></i>Reference city</span>
+  </div></div></div>
+<section><div class="wrap dd-grid"><div>
+  <div class="sec"><div class="num">01</div><h2>The town that makes the world's kitchen</h2>
+    <p>Shunde, a district of Foshan in the Pearl River Delta, calls itself the hub of Chinese home appliances, and the claim is hard to argue with. Its firms make on the order of <b>half the world's microwave ovens and half its rice cookers</b>, the most electric fans of anywhere, and around a quarter of the world's split air-conditioners. A great deal of it leaves under other companies' names — so the microwave on your counter may well be from Shunde whatever the label promises.</p></div>
+  <div class="sec"><div class="num">02</div><h2>From bottle caps and duck feathers</h2>
+    <p>Both of Shunde's giants began as something faintly absurd. In 1968, He Xiangjian and twenty-three residents of Beijiao town pooled about five thousand yuan to make plastic bottle caps; that workshop became <b>Midea</b>, today the world's largest home-appliance maker, a Fortune Global 500 company with revenue around forty-eight billion dollars. And in 1978 a company trading <b>duck feathers</b> reinvented itself, in 1992, around the microwave oven — that was <b>Galanz</b>, which by 2019 made roughly half the world's microwaves.</p>
+    <div class="pull">Bottle caps became the world's largest appliance maker; duck feathers became half its microwaves.</div></div>
+  <div class="sec"><div class="num">03</div><h2>Half the world's microwaves</h2>
+    <p>The numbers are startling for one district. Midea alone makes around <b>50% of the world's microwaves</b> (some 30 million a year) and about half its rice cookers, is the world's number-one maker of electric fans, and builds one in four of the world's split air-conditioners; Galanz makes roughly half the world's microwaves on its own. Much of the cheap countertop microwave market abroad — including ovens badged Toshiba, Whirlpool and Black+Decker — comes out of these two. The appliance is Shunde's; the brand is rented.</p></div>
+  <div class="sec"><div class="num">04</div><h2>Everything within fifty kilometres</h2>
+    <p>Behind the giants sit more than three thousand appliance and supplier firms, packed so densely that perhaps eighty percent of any component can be sourced within a fifty-kilometre radius — so an entire washing machine or rice cooker can be built without leaving the district. Foshan's appliances reach more than two hundred countries. Shunde is one half of a national duopoly: "Shunde in the south, Qingdao in the north" — Haier's city — are the two poles of Chinese white goods. (Beijiao, Midea's home town, is also the ancestral home of Bruce Lee.)</p></div>
+  <div class="sec"><div class="num">05</div><h2>From cheap to clever</h2>
+    <p>Lately the giants have climbed the ladder. Midea bought Toshiba's appliance business and Germany's KUKA robotics, set up a chip subsidiary, and now earns more than forty percent of its revenue abroad; Galanz bought Whirlpool's China arm and once sent a microwave oven into space. The risk they name in their own annual reports is a shrinking home market as China's birth rate falls. Set beside the other deep dives, Shunde is the atlas's white-goods capital — the unglamorous, all-but-invisible maker behind half the world's kitchens.</p></div>
+</div>
+<aside><div class="facts"><h4>The facts</h4>
+  <div class="frow"><div class="k">Place</div><div class="v">Shunde, a district of Foshan, Guangdong (Pearl River Delta); central cluster at Beijiao town</div></div>
+  <div class="frow"><div class="k">Title</div><div class="v">"Hub of Chinese home appliances"; world's largest supply base for microwaves &amp; rice cookers</div></div>
+  <div class="frow"><div class="k">Scale</div><div class="v">~50% of the world's microwaves &amp; rice cookers; #1 in electric fans; ~1/4 of the world's split air-conditioners; Foshan appliances to 210 countries</div></div>
+  <div class="frow"><div class="k">The giants</div><div class="v">Midea (founded 1968 making bottle caps → world's largest appliance maker, Fortune 500, ~$48bn) &amp; Galanz (founded 1978 as a duck-feather trader → ~half the world's microwaves)</div></div>
+  <div class="frow"><div class="k">OEM-invisible</div><div class="v">Many microwaves sold abroad as Toshiba, Whirlpool or Black+Decker are made by Midea or Galanz</div></div>
+  <div class="frow"><div class="k">Cluster</div><div class="v">3,000+ appliance &amp; supplier firms; ~80% of components sourceable within 50km</div></div>
+  <div class="frow"><div class="k">Now</div><div class="v">Midea bought Toshiba appliances + KUKA robotics + a chip arm (40%+ revenue abroad); Galanz bought Whirlpool China, sent a microwave to space (2021)</div></div>
+</div></aside></div></section>
+<section><div class="wrap"><div class="fine" style="max-width:80ch">
+  Sources (2023-2026): Wikipedia (Midea, Galanz), The Wire China, GSF appliance-belt survey, company profiles, plus trade sources. Figures vary by source and year — ~half the world's microwaves and rice cookers, 3,000+ firms, the Midea and Galanz origins, are the commonly cited figures, treated here as orders of magnitude. Twenty-second in the atlas's deep-dive series.
+</div></div></section>
+<footer><div class="wrap">
+  <div class="ftlinks">
+    <a class="dl" href="/">← Full atlas</a>
+    <a class="dl" href="/deep-dives/zhengzhou/">Zhengzhou (iPhone City) →</a>
+    <a class="dl" href="/deep-dives/huizhou/">Huizhou (electronics) →</a>
+    <a class="dl" href="/companies/midea/">Midea (its giant) →</a><a class="dl" href="/deep-dives/yongkang/">Yongkang (hardware) →</a>
+  </div>
+  <div class="fine">Town deep-dive · Shunde · 2026 · cluster locations approximate · basemap © OpenStreetMap, © CARTO.</div>
+</div></footer>
+<script>if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}</script>
+<script>
+const SHUNDE=[22.84,113.25];
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([22.85,113.28],10);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:11,subdomains:'abcd'}).addTo(map);
+
+function clusterAt(c,name,ax,ay){
+  L.marker(c,{icon:L.divIcon({html:'<div style="width:10px;height:10px;border-radius:50%;background:#C0402A;border:2px solid #E8EAE3;box-shadow:0 0 0 1px #C0402A"></div>',iconSize:[10,10],iconAnchor:[5,5],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[ax,ay],className:''})}).addTo(map);
+}
+function ref(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);
+}
+
+clusterAt([22.91,113.20],"Beijiao 北滘 — Midea's home town",-6,-12);
+ref([23.13,113.26],"Guangzhou");
+ref([23.02,113.12],"Foshan");
+ref([22.52,113.39],"Zhongshan");
+L.marker(SHUNDE,{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map)
+  .bindTooltip("Shunde — the appliance capital",{direction:'top',offset:[0,-7],className:'pinlbl'});
+L.marker(SHUNDE,{icon:L.divIcon({html:'<div class="pinlbl big">Shunde 顺德</div>',iconSize:[1,1],iconAnchor:[-9,6],className:''})}).addTo(map);
+</script>
+<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
+</body></html>

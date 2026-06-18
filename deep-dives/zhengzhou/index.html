@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zhengzhou — iPhone City | China Industry Atlas</title>
+<meta name="description" content="A deep dive on Zhengzhou, the Henan megacampus where Foxconn assembles up to half the world's iPhones — a single factory the size of a city, and the 2022 worker exodus that shook Apple's supply chain.">
+<link rel="canonical" href="https://chinaindustryatlas.com/deep-dives/zhengzhou/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/deep-dives/zhengzhou/">
+<meta property="og:title" content="Zhengzhou — iPhone City">
+<meta property="og:description" content="How a single Foxconn megacampus in Henan came to assemble up to half the world's iPhones — and what happened when its workers fled.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+</head>
+<body>
+<div data-atlas-buybar style="background:var(--chop,#C0402A);color:#fff;font-family:var(--mono,'Space Mono',monospace);font-size:12px;line-height:1.2;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:7px 16px;text-align:center"><span>China Industry Atlas — the 40-page field guide (PDF)</span><a class="lemonsqueezy-button" href="https://hansolo.lemonsqueezy.com/checkout/buy/5435562a-0e88-43f3-8736-f85c14c3a69d" style="background:#fff;color:var(--chop,#C0402A);text-decoration:none;font-weight:700;padding:3px 12px;border-radius:2px;white-space:nowrap">Get it · €19.99 →</a></div>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Town deep-dives</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<div class="wrap hero">
+  <div class="eyebrow">Town deep-dive · Henan</div>
+  <h1>Zhengzhou<span class="cn">郑州 · iPhone City</span></h1>
+  <p class="lede">Every other town in this atlas is a cluster of many makers. <b>Zhengzhou</b> is one factory. The Foxconn megacampus here — a sealed city of dormitories, canteens and clinics — assembles up to <b>half the world's iPhones</b>, with a workforce that swells past <b>350,000</b> at the autumn peak.</p>
+  <div class="readouts">
+    <div class="readout"><div class="n">~half</div><div class="l">of the world's iPhones, assembled here</div></div>
+    <div class="readout"><div class="n">~350k</div><div class="l">workers at the Q4 peak</div></div>
+    <div class="readout"><div class="n">2022</div><div class="l">the great exodus on foot</div></div>
+  </div>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">A company city on the Henan plain</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend">
+    <span><i class="dot" style="background:var(--chop);border-radius:0;transform:rotate(45deg)"></i>Zhengzhou</span>
+    <span><i class="dot" style="background:var(--chop)"></i>The Foxconn campus</span>
+    <span><i class="dot" style="background:var(--ink-2)"></i>Reference city</span>
+  </div></div></div>
+<section><div class="wrap dd-grid"><div>
+  <div class="sec"><div class="num">01</div><h2>iPhone City</h2>
+    <p>On the edge of Zhengzhou, capital of Henan, sits a Foxconn campus that works less like a factory than like a walled city — dormitories, canteens, clinics and shops spread over several square kilometres. At the autumn peak it houses something approaching <b>350,000 workers</b> and can turn out up to half a million iPhones a day, assembling by most counts <b>around half of all the iPhones on Earth</b>. One company's output here is roughly 80% of Zhengzhou's exports and 60% of the entire province's trade. This is not a cluster of small workshops; it is a single corporation the size of a town.</p></div>
+  <div class="sec"><div class="num">02</div><h2>How a Taiwanese giant landed in Henan</h2>
+    <p>Foxconn — Hon Hai, of Taiwan — is the world's largest electronics contract manufacturer and Apple's chief supplier, and it built its first Chinese empire in Shenzhen from 1988. In 2010, as Shenzhen's costs climbed and the city turned toward design and innovation, Foxconn moved assembly inland. Henan — China's third-most-populous province, and then a relatively poor one — offered tax breaks, cheap land, and, crucially, the muscle to recruit hundreds of thousands of workers. The local governments saw a goose that laid golden eggs, and they were right.</p>
+    <div class="pull">A single factory became four-fifths of a provincial capital's exports.</div></div>
+  <div class="sec"><div class="num">03</div><h2>A city of 350,000 making one thing</h2>
+    <p>More than nine in ten of the workers are Henan natives, and the average age is around forty — not the "factory girls and boys" of the coastal boom but, as one observer put it, the uncles and aunties. Up to half the peak workforce are temporary "dispatch" hires; more than thirty thousand robots work the lines alongside them. Circuit boards arrive pre-built; the work here is the final, fiddly assembly — aligning camera modules, bonding screens, seating batteries, sealing seams under microscopes — and then relentless testing, with anything past a tiny defect threshold scrapped. Through the autumn the campus runs day and night for each new iPhone launch.</p></div>
+  <div class="sec"><div class="num">04</div><h2>The great exodus</h2>
+    <p>In October 2022, in the middle of peak iPhone-14 season, a Covid outbreak hit. The campus went into "closed-loop" lockdown — workers sealed inside, the infected reportedly housed alongside the healthy, food running short. Late that month, thousands of workers simply left: climbing the fences and walking home, some for days, to counties across Henan, in an exodus people likened to the great famine migration of 1942. Tens of thousands were gone. In November the anger boiled into clashes with riot police over unpaid bonuses and unsafe conditions. Global iPhone output took a real hit — analysts put the shortfall in the millions of units. It was a lesson in what it means to pool half a product's supply in one place.</p></div>
+  <div class="sec"><div class="num">05</div><h2>The vulnerable monopoly</h2>
+    <p>The recovery was telling. Local governments mounted an almost military recruitment drive — villages reportedly told to send at least one worker each — to refill the lines within weeks. And Apple, rattled, accelerated its hedging: India now assembles a growing share of iPhones, with a target of roughly a quarter of global volume, while Vietnam takes AirPods and laptops. Set beside the other deep dives, Zhengzhou is the atlas's modern company town — not centuries of craft but one megacampus that became the beating heart of the smartphone age, and a standing lesson in how fragile that much concentration can be.</p></div>
+</div>
+<aside><div class="facts"><h4>The facts</h4>
+  <div class="frow"><div class="k">Place</div><div class="v">Zhengzhou, capital of Henan; the Foxconn Zhengzhou Science Park, in the Airport Economy Zone</div></div>
+  <div class="frow"><div class="k">Title</div><div class="v">"iPhone City" — the world's single largest iPhone assembly site</div></div>
+  <div class="frow"><div class="k">Operator</div><div class="v">Foxconn (Hon Hai, Taiwan) — world's largest electronics contract manufacturer, Apple's top supplier</div></div>
+  <div class="frow"><div class="k">Scale</div><div class="v">Assembles ~half the world's iPhones (up to ~500,000/day at peak); ~200,000 workers, ~350,000 at Q4 peak</div></div>
+  <div class="frow"><div class="k">Weight</div><div class="v">~80% of Zhengzhou's exports, ~60% of Henan's trade, ~1/4 of Henan's GDP</div></div>
+  <div class="frow"><div class="k">How it began</div><div class="v">2010 — Foxconn moved assembly inland from Shenzhen; Henan offered tax, land and mass labour recruitment</div></div>
+  <div class="frow"><div class="k">2022 exodus</div><div class="v">Covid "closed-loop" lockdown → thousands fled on foot (tens of thousands gone); Nov clashes with police; iPhone-14 output cut by millions of units</div></div>
+  <div class="frow"><div class="k">Now</div><div class="v">Village-level recruitment to refill lines; Apple diversifying to India (~25% target) &amp; Vietnam</div></div>
+</div></aside></div></section>
+<section><div class="wrap"><div class="fine" style="max-width:80ch">
+  Sources (2022-2026): Washington Post, Newsweek, Reuters, Wikipedia (Foxconn), UTS/The Diplomat, Labor Notes, plus trade sources. Figures vary by source and year — "around half the world's iPhones," ~200,000–350,000 workers, ~80% of Zhengzhou's exports, the 2022 exodus, are the commonly cited figures, treated here as orders of magnitude. Twentieth in the atlas's deep-dive series.
+</div></div></section>
+<footer><div class="wrap">
+  <div class="ftlinks">
+    <a class="dl" href="/">← Full atlas</a>
+    <a class="dl" href="/deep-dives/huizhou/">Huizhou (electronics) →</a>
+    <a class="dl" href="/deep-dives/shunde/">Shunde (appliances) →</a>
+    <a class="dl" href="/one-product-towns/">One-product towns →</a>
+  </div>
+  <div class="fine">Town deep-dive · Zhengzhou · 2026 · cluster locations approximate · basemap © OpenStreetMap, © CARTO.</div>
+</div></footer>
+<script>if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}</script>
+<script>
+const ZHENGZHOU=[34.75,113.62];
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([34.62,113.75],9);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:11,subdomains:'abcd'}).addTo(map);
+// Foxconn moved inland from Shenzhen in 2010 (Shenzhen lies far to the south)
+L.polyline([ZHENGZHOU,[34.10,113.55]],{color:'#C0402A',weight:3,opacity:.75,dashArray:'7,6'}).addTo(map)
+  .bindTooltip('Foxconn moved its assembly inland from Shenzhen, 2010',{sticky:true,className:'pinlbl'});
+L.marker([34.11,113.55],{icon:L.divIcon({html:'<div class="pinlbl">↓ from Shenzhen, 2010</div>',iconSize:[1,1],iconAnchor:[-4,4],className:''})}).addTo(map);
+
+function clusterAt(c,name,ax,ay){
+  L.marker(c,{icon:L.divIcon({html:'<div style="width:10px;height:10px;border-radius:50%;background:#C0402A;border:2px solid #E8EAE3;box-shadow:0 0 0 1px #C0402A"></div>',iconSize:[10,10],iconAnchor:[5,5],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[ax,ay],className:''})}).addTo(map);
+}
+function ref(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);
+}
+
+clusterAt([34.52,113.84],"Foxconn 'iPhone City' campus",-6,14);
+ref([34.80,114.31],"Kaifeng");
+L.marker([34.52,113.74],{icon:L.divIcon({html:'<div class="pinlbl" style="opacity:.7">Xinzheng Airport</div>',iconSize:[1,1],iconAnchor:[36,4],className:''})}).addTo(map);
+L.marker(ZHENGZHOU,{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map)
+  .bindTooltip("Zhengzhou — iPhone City",{direction:'top',offset:[0,-7],className:'pinlbl'});
+L.marker(ZHENGZHOU,{icon:L.divIcon({html:'<div class="pinlbl big">Zhengzhou 郑州</div>',iconSize:[1,1],iconAnchor:[-9,6],className:''})}).addTo(map);
+</script>
+<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
+</body></html>

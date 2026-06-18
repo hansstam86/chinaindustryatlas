@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Huizhou — the biggest electronics hub you can't name | China Industry Atlas</title>
+<meta name="description" content="A deep dive on Huizhou, the quiet Pearl River Delta electronics base behind TCL (the world's #2 TV maker) and the lithium batteries inside the world's phones and laptops.">
+<link rel="canonical" href="https://chinaindustryatlas.com/deep-dives/huizhou/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/deep-dives/huizhou/">
+<meta property="og:title" content="Huizhou — the quiet electronics giant">
+<meta property="og:description" content="How a Pearl River Delta city most outsiders can't name became a top electronics base — making the screens, batteries and boards behind everyone else's brands.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+</head>
+<body>
+<div data-atlas-buybar style="background:var(--chop,#C0402A);color:#fff;font-family:var(--mono,'Space Mono',monospace);font-size:12px;line-height:1.2;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:7px 16px;text-align:center"><span>China Industry Atlas — the 40-page field guide (PDF)</span><a class="lemonsqueezy-button" href="https://hansolo.lemonsqueezy.com/checkout/buy/5435562a-0e88-43f3-8736-f85c14c3a69d" style="background:#fff;color:var(--chop,#C0402A);text-decoration:none;font-weight:700;padding:3px 12px;border-radius:2px;white-space:nowrap">Get it · €19.99 →</a></div>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Town deep-dives</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<div class="wrap hero">
+  <div class="eyebrow">Town deep-dive · Guangdong</div>
+  <h1>Huizhou<span class="cn">惠州 · the quiet electronics giant</span></h1>
+  <p class="lede"><b>Huizhou</b> is the biggest electronics base most people outside the trade have never heard of. Tucked just beyond Shenzhen and Dongguan in the Pearl River Delta, it is the home of <b>TCL</b> — the world's second-largest TV maker — and a dense cluster of the battery and panel makers that fill everyone else's gadgets.</p>
+  <div class="readouts">
+    <div class="readout"><div class="n">#2</div><div class="l">world TV maker (TCL), born here</div></div>
+    <div class="readout"><div class="n">batteries</div><div class="l">in the world's phones &amp; laptops (Desay, EVE)</div></div>
+    <div class="readout"><div class="n">screens</div><div class="l">display panels by the million (TCL CSOT)</div></div>
+  </div>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">An electronics base in the eastern Pearl River Delta</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend">
+    <span><i class="dot" style="background:var(--chop);border-radius:0;transform:rotate(45deg)"></i>Huizhou</span>
+    <span><i class="dot" style="background:var(--chop)"></i>The electronics zone</span>
+    <span><i class="dot" style="background:var(--ink-2)"></i>Reference city</span>
+  </div></div></div>
+<section><div class="wrap dd-grid"><div>
+  <div class="sec"><div class="num">01</div><h2>The biggest hub you can't name</h2>
+    <p>Huizhou sits in the Pearl River Delta just north-east of Shenzhen and Dongguan, and it is one of China's major electronics-manufacturing bases — and easily the most anonymous. Where Shenzhen designs the gadgets and Dongguan's towns assemble the phones, Huizhou quietly makes the parts that go inside them and one genuinely global brand. It is the rare place in this atlas that is famous for nothing in particular precisely because it makes so much.</p></div>
+  <div class="sec"><div class="num">02</div><h2>TCL: a world brand from a tape factory</h2>
+    <p>TCL began in Huizhou in 1981 as a maker of cassette tapes, moved into telephones, and grew into the world's <b>second-largest television manufacturer</b> by market share — with its own display fab, China Star (CSOT), turning out screen panels by the million. Along the way it has owned the Palm and BlackBerry phone brands. It is a true global electronics champion headquartered in a city most Westerners could not find on a map.</p></div>
+  <div class="sec"><div class="num">03</div><h2>The batteries behind the brands</h2>
+    <p>Huizhou is also a major lithium-battery base. Desay — a multi-billion-yuan group — packs the lithium cells that sit inside smartphones and laptops for the world's top consumer-electronics names, and EVE Energy, also based here, has grown into a major global cell maker spanning consumer, electric-vehicle and storage batteries. The battery in your phone may well have been assembled in Huizhou, even though nothing on the device will ever say so.</p>
+    <div class="pull">The brand on the box is someone else's; the battery inside is often Huizhou's.</div></div>
+  <div class="sec"><div class="num">04</div><h2>A whole ecosystem, unglamorous</h2>
+    <p>Around the headline names sits a deep supply chain: printed-circuit-board makers, automotive-electronics firms, audio specialists, robot-vacuum assembly, an electric-vehicle plant — hundreds of companies doing the capital-intensive middle of the industry. (The same city also hosts one of China's big petrochemical complexes and a nuclear station, so "electronics town" undersells it.) It is the kind of place whose output you handle daily without ever learning its name.</p></div>
+  <div class="sec"><div class="num">05</div><h2>In the shadow, by design</h2>
+    <p>Huizhou's anonymity is almost the point. It specialises in the parts of electronics that don't carry a logo — the panels, the cells, the boards, the automotive modules — the unglamorous, capital-heavy middle that the famous brands depend on and consumers never see. Set beside the other deep dives, Huizhou is the atlas's quiet giant: a top-tier electronics base whose products are in your pocket under names that aren't its own.</p></div>
+</div>
+<aside><div class="facts"><h4>The facts</h4>
+  <div class="frow"><div class="k">Place</div><div class="v">Huizhou, prefecture-level city, Guangdong — Pearl River Delta, north-east of Shenzhen &amp; Dongguan</div></div>
+  <div class="frow"><div class="k">Title</div><div class="v">One of the PRD's major electronics &amp; battery bases — the "quiet" one</div></div>
+  <div class="frow"><div class="k">Anchor brand</div><div class="v">TCL — founded Huizhou 1981; world's #2 TV maker; display fab (CSOT); has owned the Palm &amp; BlackBerry phone brands</div></div>
+  <div class="frow"><div class="k">Batteries</div><div class="v">Desay (lithium-cell packs for phones/laptops) and EVE Energy (consumer + EV/storage cells)</div></div>
+  <div class="frow"><div class="k">Ecosystem</div><div class="v">PCBs, automotive electronics (Desay SV), audio, robot-vacuum assembly, a BYD plant — plus a CNOOC petrochemical complex &amp; a nuclear station</div></div>
+  <div class="frow"><div class="k">The role</div><div class="v">The capital-intensive middle of electronics — panels, cells, boards — largely under other companies' brands</div></div>
+  <div class="frow"><div class="k">Note</div><div class="v">Huizhou's story is an ecosystem, not a single headline share; figures treated as orders of magnitude</div></div>
+</div></aside></div></section>
+<section><div class="wrap"><div class="fine" style="max-width:80ch">
+  Sources (2023-2026): Wikipedia (TCL Technology), The Wire China, company profiles (Desay, EVE Energy), Dun &amp; Bradstreet, plus trade sources. Huizhou is a multi-firm electronics ecosystem rather than a single-share cluster; the figures here (TCL as world #2 TV maker, the battery and panel makers) are the commonly cited points, treated as orders of magnitude. Twenty-first in the atlas's deep-dive series.
+</div></div></section>
+<footer><div class="wrap">
+  <div class="ftlinks">
+    <a class="dl" href="/">← Full atlas</a>
+    <a class="dl" href="/deep-dives/zhengzhou/">Zhengzhou (iPhone City) →</a>
+    <a class="dl" href="/deep-dives/shunde/">Shunde (appliances) →</a>
+    <a class="dl" href="/one-product-towns/">One-product towns →</a>
+  </div>
+  <div class="fine">Town deep-dive · Huizhou · 2026 · cluster locations approximate · basemap © OpenStreetMap, © CARTO.</div>
+</div></footer>
+<script>if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}</script>
+<script>
+const HUIZHOU=[23.11,114.42];
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([23.00,113.85],9);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:11,subdomains:'abcd'}).addTo(map);
+
+function clusterAt(c,name,ax,ay){
+  L.marker(c,{icon:L.divIcon({html:'<div style="width:10px;height:10px;border-radius:50%;background:#C0402A;border:2px solid #E8EAE3;box-shadow:0 0 0 1px #C0402A"></div>',iconSize:[10,10],iconAnchor:[5,5],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[ax,ay],className:''})}).addTo(map);
+}
+function ref(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);
+}
+
+clusterAt([23.08,114.40],"Zhongkai zone — TCL & the battery makers",-6,14);
+ref([23.13,113.26],"Guangzhou");
+ref([23.02,113.75],"Dongguan");
+ref([22.54,114.06],"Shenzhen");
+L.marker(HUIZHOU,{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map)
+  .bindTooltip("Huizhou — the quiet electronics giant",{direction:'top',offset:[0,-7],className:'pinlbl'});
+L.marker(HUIZHOU,{icon:L.divIcon({html:'<div class="pinlbl big">Huizhou 惠州</div>',iconSize:[1,1],iconAnchor:[-9,6],className:''})}).addTo(map);
+</script>
+<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
+</body></html>
