@@ -251,6 +251,13 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:3
 #maps .maps-group:first-of-type{margin-top:2px}
 #maps .mg-h{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:15px}
 #maps .maps-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:13px}
+#maps .maps-family{margin-top:50px}
+#maps .maps-family:first-of-type{margin-top:12px}
+#maps .mf-h{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:10px}
+#maps .mf-h .mf-t{font-family:var(--disp);font-weight:700;font-size:21px;color:var(--ink);line-height:1}
+#maps .mf-h .mf-note{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--ink-3)}
+#maps .maps-family .maps-group{margin-top:22px}
+#maps .maps-family .maps-group:first-of-type{margin-top:18px}
 .mapcard-link{display:block;text-decoration:none;border:1px solid var(--line);background:var(--paper-2);padding:15px 17px;position:relative;transition:border-color .15s ease,transform .15s ease,box-shadow .15s ease}
 .mapcard-link:hover{border-color:var(--chop);transform:translateY(-2px);box-shadow:0 6px 18px rgba(22,36,42,.07)}
 .mapcard-link .mc-t{font-family:var(--disp);font-weight:700;font-size:17px;color:var(--ink);line-height:1.15}
@@ -306,9 +313,11 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:3
 <section id="maps">
   <div class="wrap">
     <div class="sec-head"><span class="num">01</span><h2>The maps</h2>
-      <p>Companion maps that go beyond the national overview — ordered from the widest lens to the closest. Geography first (mega-regions, provinces, cities), then a map for every industry, the trading hubs and ports, thematic lenses, and finally the long-form deep dives: towns, companies, and whole supply chains. Each opens in its own page.</p></div>
+      <p>Companion maps that go beyond the national overview, in four families — by area, by industry &amp; trade, by theme, and the long-form deep dives. Each opens in its own page.</p></div>
 
-    <div class="maps-group">
+        <div class="maps-family">
+      <div class="mf-h"><span class="mf-t">Geography</span><span class="mf-note">by area — region to province to city</span></div>
+      <div class="maps-group">
       <div class="mg-h">Mega-regions</div>
       <div class="maps-grid">
         <a class="mapcard-link" href="/prd/"><span class="mc-ar">↗</span><div class="mc-t">Pearl River Delta<span class="mc-cn">珠三角</span></div><div class="mc-d">30 clusters · 9 cities</div></a>
@@ -316,8 +325,7 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:3
         <a class="mapcard-link" href="/bohai/"><span class="mc-ar">↗</span><div class="mc-t">Bohai Rim<span class="mc-cn">环渤海</span></div><div class="mc-d">27 clusters · 20 cities</div></a>
       </div>
     </div>
-
-    <div class="maps-group">
+      <div class="maps-group">
       <div class="mg-h">Province deep-dives</div>
       <div class="maps-grid">
         <a class="mapcard-link" href="/guangdong/"><span class="mc-ar">↗</span><div class="mc-t">Guangdong<span class="mc-cn">广东</span></div><div class="mc-d">32 clusters · 21 prefectures</div></a>
@@ -327,16 +335,18 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:3
         <a class="mapcard-link" href="/fujian/"><span class="mc-ar">↗</span><div class="mc-t">Fujian<span class="mc-cn">福建</span></div><div class="mc-d">21 clusters · 9 prefectures</div></a>
       </div>
     </div>
-
-    <div class="maps-group">
+      <div class="maps-group">
       <div class="mg-h">Cities</div>
       <div class="maps-grid">
         <a class="mapcard-link" href="/shenzhen-evolution/"><span class="mc-ar">↗</span><div class="mc-t">Shenzhen, 1980→today<span class="mc-cn">深圳 · 经济特区</span></div><div class="mc-d">how it grew &amp; what it made, decade by decade</div></a>
         <a class="mapcard-link" href="/shanghai-evolution/"><span class="mc-ar">↗</span><div class="mc-t">Shanghai, treaty port→today<span class="mc-cn">上海 · 浦东</span></div><div class="mc-d">from the Bund to Pudong: a century of reinvention</div></a>
       </div>
     </div>
+    </div>
 
-    <div class="maps-group">
+    <div class="maps-family">
+      <div class="mf-h"><span class="mf-t">Industry &amp; trade</span><span class="mf-note">where it's made, traded &amp; shipped</span></div>
+      <div class="maps-group">
       <div class="mg-h">By industry — where it&#39;s made</div>
       <div class="maps-grid">
         <a class="mapcard-link" href="/industry/electronics/"><span class="mc-ar">↗</span><div class="mc-t">Consumer electronics<span class="mc-cn">消费电子</span></div><div class="mc-d">8 clusters · 4 segments</div></a>
@@ -361,8 +371,7 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:3
         <a class="mapcard-link" href="/industry/ceramics/"><span class="mc-ar">↗</span><div class="mc-t">Ceramics & sanitaryware<span class="mc-cn">陶瓷卫浴</span></div><div class="mc-d">6 clusters · 4 segments</div></a>
       </div>
     </div>
-
-    <div class="maps-group">
+      <div class="maps-group">
       <div class="mg-h">Markets &amp; buildings</div>
       <div class="maps-grid">
         <a class="mapcard-link" href="/guangzhou/"><span class="mc-ar">↗</span><div class="mc-t">Guangzhou markets<span class="mc-cn">广州</span></div><div class="mc-d">20 wholesale markets</div></a>
@@ -370,8 +379,7 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:3
         <a class="mapcard-link" href="/yiwu/"><span class="mc-ar">↗</span><div class="mc-t">Yiwu<span class="mc-cn">义乌</span></div><div class="mc-d">6 market districts</div></a>
       </div>
     </div>
-
-    <div class="maps-group">
+      <div class="maps-group">
       <div class="mg-h">Ports</div>
       <div class="maps-grid">
         <a class="mapcard-link" href="/ports/shanghai/"><span class="mc-ar">↗</span><div class="mc-t">Shanghai<span class="mc-cn">上海港</span></div><div class="mc-d">the container king · world #1, 51.5M TEU</div></a>
@@ -380,9 +388,11 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:3
         <a class="mapcard-link" href="/ports/qingdao/"><span class="mc-ar">↗</span><div class="mc-t">Qingdao<span class="mc-cn">青岛港</span></div><div class="mc-d">the northern automated port · ore in, brands out</div></a>
       </div>
     </div>
+    </div>
 
-    <div class="maps-group">
-      <div class="mg-h">Themes</div>
+    <div class="maps-family">
+      <div class="mf-h"><span class="mf-t">Themes</span><span class="mf-note">thematic ways to read the map</span></div>
+      <div class="maps-group">
       <div class="maps-grid">
         <a class="mapcard-link" href="/one-product-towns/"><span class="mc-ar">↗</span><div class="mc-t">One-product towns<span class="mc-cn">一镇一品</span></div><div class="mc-d">26 towns · what each makes for the world</div></a>
         <a class="mapcard-link" href="/getting-it-out/"><span class="mc-ar">↗</span><div class="mc-t">Getting it out<span class="mc-cn">出口与物流</span></div><div class="mc-d">7 gateway ports · corridors · transit times</div></a>
@@ -395,8 +405,11 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:3
         <a class="mapcard-link" href="/high-speed-rail/"><span class="mc-ar">↗</span><div class="mc-t">High-speed rail<span class="mc-cn">八纵八横 · 高铁</span></div><div class="mc-d">the people layer · and the inland shift</div></a>
       </div>
     </div>
+    </div>
 
-    <div class="maps-group">
+    <div class="maps-family">
+      <div class="mf-h"><span class="mf-t">Deep dives</span><span class="mf-note">long-form — one subject at a time</span></div>
+      <div class="maps-group">
       <div class="mg-h">Town deep-dives</div>
       <div class="maps-grid">
         <a class="mapcard-link" href="/deep-dives/zhengan/"><span class="mc-ar">↗</span><div class="mc-t">Zheng’an<span class="mc-cn">正安 · 吉他之乡</span></div><div class="mc-d">the guitar county · ~1 in 7 made worldwide</div></a>
@@ -411,19 +424,18 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#6C7A7E;margin-top:3
         <a class="mapcard-link" href="/deep-dives/guzhen/"><span class="mc-ar">↗</span><div class="mc-t">Guzhen<span class="mc-cn">古镇 · 中国灯饰之都</span></div><div class="mc-d">the lighting capital · ~70% of China’s, half the world’s</div></a><a class="mapcard-link" href="/deep-dives/shaodong/"><span class="mc-ar">↗</span><div class="mc-t">Shaodong<span class="mc-cn">邵东 · 打火机之都</span></div><div class="mc-d">the lighter capital · ~70% of the world’s lighters, ~¥1 each</div></a><a class="mapcard-link" href="/deep-dives/qiaotou/"><span class="mc-ar">↗</span><div class="mc-t">Qiaotou<span class="mc-cn">桥头 · 纽扣之都</span></div><div class="mc-d">the button capital · ~60% of the world’s buttons, ~80% of its zippers</div></a><a class="mapcard-link" href="/deep-dives/shengzhou/"><span class="mc-ar">↗</span><div class="mc-t">Shengzhou<span class="mc-cn">嵊州 · 领带之乡</span></div><div class="mc-d">the necktie capital · ~60% of the world’s ties, once Italy’s silk supplier</div></a><a class="mapcard-link" href="/deep-dives/danyang/"><span class="mc-ar">↗</span><div class="mc-t">Danyang<span class="mc-cn">丹阳 · 眼镜之都</span></div><div class="mc-d">the lens capital · ~half the world’s spectacle lenses</div></a><a class="mapcard-link" href="/deep-dives/liuyang/"><span class="mc-ar">↗</span><div class="mc-t">Liuyang<span class="mc-cn">浏阳 · 花炮之乡</span></div><div class="mc-d">the fireworks capital · ~1 in 3 of the world’s fireworks, invented here</div></a><a class="mapcard-link" href="/deep-dives/yongkang/"><span class="mc-ar">↗</span><div class="mc-t">Yongkang<span class="mc-cn">永康 · 五金之都</span></div><div class="mc-d">the hardware capital · most of China’s cups, doors, scooters &amp; tools</div></a><a class="mapcard-link" href="/deep-dives/yixing/"><span class="mc-ar">↗</span><div class="mc-t">Yixing<span class="mc-cn">宜兴 · 紫砂之都</span></div><div class="mc-d">the purple-clay town · the world’s most coveted teapots, from one rare clay</div></a><a class="mapcard-link" href="/deep-dives/jingdezhen/"><span class="mc-ar">↗</span><div class="mc-t">Jingdezhen<span class="mc-cn">景德镇 · 瓷都</span></div><div class="mc-d">the porcelain capital · a thousand years of imperial porcelain — and the name “china”</div></a><a class="mapcard-link" href="/deep-dives/zhangqiu/"><span class="mc-ar">↗</span><div class="mc-t">Zhangqiu<span class="mc-cn">章丘 · 铁锅</span></div><div class="mc-d">the iron-wok town · 36,000 hammer blows, made famous overnight by TV</div></a><a class="mapcard-link" href="/deep-dives/zhengzhou/"><span class="mc-ar">↗</span><div class="mc-t">Zhengzhou<span class="mc-cn">郑州 · iPhone City</span></div><div class="mc-d">iPhone City · one Foxconn megacampus assembles half the world’s iPhones</div></a><a class="mapcard-link" href="/deep-dives/huizhou/"><span class="mc-ar">↗</span><div class="mc-t">Huizhou<span class="mc-cn">惠州 · 电子</span></div><div class="mc-d">the quiet electronics giant · TCL, and the batteries inside your phone</div></a><a class="mapcard-link" href="/deep-dives/shunde/"><span class="mc-ar">↗</span><div class="mc-t">Shunde<span class="mc-cn">顺德 · 家电</span></div><div class="mc-d">the appliance capital · half the world’s microwaves &amp; rice cookers</div></a>
       </div>
     </div>
-
-    <div class="maps-group">
+      <div class="maps-group">
       <div class="mg-h">Company deep-dives</div>
       <div class="maps-grid">
         <a class="mapcard-link" href="/companies/midea/"><span class="mc-ar">↗</span><div class="mc-t">Midea<span class="mc-cn">美的 · 家电巨头</span></div><div class="mc-d">from bottle caps to the world · the conquest map of the #1 appliance maker</div></a><a class="mapcard-link" href="/companies/foxconn/"><span class="mc-ar">↗</span><div class="mc-t">Foxconn<span class="mc-cn">鴻海 · 代工之王</span></div><div class="mc-d">the moving factory · the migration map of the world’s assembly line</div></a><a class="mapcard-link" href="/companies/byd/"><span class="mc-ar">↗</span><div class="mc-t">BYD<span class="mc-cn">比亚迪 · 电动车之王</span></div><div class="mc-d">the conquest being built · the world’s biggest EV maker, planting plants on 3 continents</div></a>
       </div>
     </div>
-
-    <div class="maps-group">
+      <div class="maps-group">
       <div class="mg-h">Supply chains</div>
       <div class="maps-grid">
         <a class="mapcard-link" href="/supply-chains/smartphone/"><span class="mc-ar">↗</span><div class="mc-t">The smartphone<span class="mc-cn">供应链 · 智能手机</span></div><div class="mc-d">from mine to hand · raw earth → chokepoints → assembly, on one map</div></a><a class="mapcard-link" href="/supply-chains/ev-battery/"><span class="mc-ar">↗</span><div class="mc-t">The EV battery<span class="mc-cn">供应链 · 电动车电池</span></div><div class="mc-d">from mine to motor · why the world’s batteries funnel through China</div></a><a class="mapcard-link" href="/supply-chains/t-shirt/"><span class="mc-ar">↗</span><div class="mc-t">The T-shirt<span class="mc-cn">供应链 · T恤</span></div><div class="mc-d">from field to shop · how a $5 tee relays across four countries</div></a>
       </div>
+    </div>
     </div>
   </div>
 </section>
