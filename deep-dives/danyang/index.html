@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Danyang — the town that grinds half the world's lenses | China Industry Atlas</title>
+<meta name="description" content="A deep dive on Danyang, a Jiangsu town that grinds about half the world's spectacle lenses — an optics cluster seeded in the 1960s by sent-down city youth, now the lens much of the planet sees through.">
+<link rel="canonical" href="https://chinaindustryatlas.com/deep-dives/danyang/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/deep-dives/danyang/">
+<meta property="og:title" content="Danyang — the lens capital">
+<meta property="og:description" content="How a Jiangsu town came to grind half the world's glasses — an optics cluster the Cultural Revolution planted by accident.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+</head>
+<body>
+<div data-atlas-buybar style="background:var(--chop,#C0402A);color:#fff;font-family:var(--mono,'Space Mono',monospace);font-size:12px;line-height:1.2;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:7px 16px;text-align:center"><span>China Industry Atlas — the 40-page field guide (PDF)</span><a class="lemonsqueezy-button" href="https://hansolo.lemonsqueezy.com/checkout/buy/5435562a-0e88-43f3-8736-f85c14c3a69d" style="background:#fff;color:var(--chop,#C0402A);text-decoration:none;font-weight:700;padding:3px 12px;border-radius:2px;white-space:nowrap">Get it · €19.99 →</a></div>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Town deep-dives</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<div class="wrap hero">
+  <div class="eyebrow">Town deep-dive · Jiangsu</div>
+  <h1>Danyang<span class="cn">丹阳 · the lens capital</span></h1>
+  <p class="lede">There is a saying in <b>Danyang</b>: one of every two people on Earth who wears prescription glasses is looking through a lens made here. A county-level city of under a million in the Yangtze delta grinds roughly <b>half the world's spectacle lenses</b> — and the industry was planted, by accident, by city teenagers sent down to the countryside in the 1960s.</p>
+  <div class="readouts">
+    <div class="readout"><div class="n">~50%</div><div class="l">of the world's spectacle lenses</div></div>
+    <div class="readout"><div class="n">~400M</div><div class="l">pairs of lenses a year · ~75% of China's</div></div>
+    <div class="readout"><div class="n">1960s</div><div class="l">seeded by sent-down city youth</div></div>
+  </div>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">A lens town in the Yangtze delta</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend">
+    <span><i class="dot" style="background:var(--chop);border-radius:0;transform:rotate(45deg)"></i>Danyang (the lens capital)</span>
+    <span><i class="dot" style="background:var(--chop)"></i>Where it began</span>
+    <span><i class="dot" style="background:var(--ink-2)"></i>Reference city</span>
+  </div></div></div>
+<section><div class="wrap dd-grid"><div>
+  <div class="sec"><div class="num">01</div><h2>Half the world's lenses</h2>
+    <p>Danyang is a county-level city of fewer than a million people, sitting on the Yangtze in Jiangsu, twenty-five minutes by fast train from Nanjing. It grinds something like <b>400 million pairs of spectacle lenses a year</b> — by the usual reckoning about <b>half of all the lenses made on the planet</b>, and roughly three-quarters of China's. More than 1,600 firms and 50,000-odd workers make it the world's largest lens-production base and Asia's biggest eyewear marketplace. The local boast is hard to disprove: of any two people on Earth wearing prescription glasses, the odds are even that one of them is seeing the world through a Danyang lens.</p></div>
+  <div class="sec"><div class="num">02</div><h2>Planted by the sent-down youth</h2>
+    <p>The origin is a piece of political history. In the 1960s, during the era when China sent its urban young people "down to the countryside," a group of educated youth who had worked in the optical factories of Shanghai and Suzhou were rusticated to the Danyang countryside, around Situ town. They brought a skill with them — grinding lenses — and set up small, makeshift workshops with a dozen workers, judging quality by eye. The campaign meant to scatter city teenagers into farm labour instead quietly planted a global optics industry in the fields of Jiangsu. The skill arrived with the sent-down youth, and it never left.</p>
+    <div class="pull">A programme meant to send city teenagers to dig fields instead planted the lens the world would see through.</div></div>
+  <div class="sec"><div class="num">03</div><h2>From the station pavement to the world</h2>
+    <p>The cluster nearly died under the planned economy — by 1977 the workshops were collapsing — and was saved by reform. After 1978, freed to trade, Danyang's opticians started by selling glasses on the pavement in front of the railway station, then built a market: the Glasses City opened in 1986, and by the 1990s Danyang was the largest eyewear wholesale market in China. The pull was simple. Merchants found that Danyang lenses matched the big brands in quality at less than half the price, so buyers turned up with cash and ordered on the spot, wherever they found stock.</p></div>
+  <div class="sec"><div class="num">04</div><h2>The lens that couldn't fetch a price</h2>
+    <p>For decades the catch was the same one that traps every cheap-and-complete cluster: Danyang made superb lenses that nobody would pay much for. The brand belonged to Zeiss and the foreign names; the high-index resin raw materials and the coating machines that finish a lens were controlled from abroad. So Danyang ground the glass and took the thin end of the money. Breaking out meant breaking those monopolies — and it did: a local maker, Mingyue, cracked high-index resin materials with a Nanjing university in 2007 and dropped the cost to a third of imports, and in 2014 a Danyang firm built China's first home-grown lens-coating machine. The town stopped only grinding lenses and started owning how they are made.</p></div>
+  <div class="sec"><div class="num">05</div><h2>Forty seconds, and a week to Europe</h2>
+    <p>Today a robotic arm holds a clear resin blank while cutting heads dance around it under a spray of water, and a custom lens emerges, ground to prescription, in about forty seconds. An order placed in a European optician's shop is transmitted to Danyang, made, and shipped inside a week; the town fills something like fifteen million custom international orders a year. It has even turned the trade into sightseeing — "eyewear tourism," a national scenic rating, the country's largest glasses museum. Set beside the other deep dives, Danyang is the cluster the Cultural Revolution planted by accident, that grew into the lens through which a good part of the world now looks.</p></div>
+</div>
+<aside><div class="facts"><h4>The facts</h4>
+  <div class="frow"><div class="k">Place</div><div class="v">Danyang, a county-level city under Zhenjiang, Jiangsu (Yangtze delta; &lt;1M people; ~25 min by HSR from Nanjing)</div></div>
+  <div class="frow"><div class="k">Title</div><div class="v">"China's capital of glasses"; world's largest lens-production base, Asia's biggest eyewear distribution centre</div></div>
+  <div class="frow"><div class="k">Product</div><div class="v">Prescription &amp; optical lenses (resin and glass), frames, sunglasses</div></div>
+  <div class="frow"><div class="k">Scale</div><div class="v"><b>~400M</b> pairs of lenses/yr — <b>~50%</b> of the world, ~75% of China; 100M+ frames; 1,600+ firms; 50,000+ workers</div></div>
+  <div class="frow"><div class="k">How it began</div><div class="v">1960s — sent-down educated youth (知青) from Shanghai &amp; Suzhou optical factories set up workshops around Situ town</div></div>
+  <div class="frow"><div class="k">Turning points</div><div class="v">Revived after 1978; Glasses City market 1986; home-grown resin materials (Mingyue, 2007); first domestic coating machine (2014)</div></div>
+  <div class="frow"><div class="k">Now</div><div class="v">Automated grinding (~40s/lens), ~15M custom international orders/yr, ~1-week turnaround to Europe, cross-border e-commerce, "eyewear tourism"</div></div>
+</div></aside></div></section>
+<section><div class="wrap"><div class="fine" style="max-width:80ch">
+  Sources (2018-2025): People's Daily, Xinhua, Global Times, The Nanjinger, China Today, Wikipedia, plus trade sources. Figures vary by source and year — ~400 million pairs of lenses a year, ~50% of the world and ~75% of China's output, 1,600+ firms, are the commonly cited current figures, treated here as orders of magnitude. Fourteenth in the atlas's deep-dive series.
+</div></div></section>
+<footer><div class="wrap">
+  <div class="ftlinks">
+    <a class="dl" href="/">← Full atlas</a>
+    <a class="dl" href="/deep-dives/qiaotou/">Qiaotou (buttons) →</a>
+    <a class="dl" href="/deep-dives/shengzhou/">Shengzhou (neckties) →</a>
+    <a class="dl" href="/one-product-towns/">One-product towns →</a>
+  </div>
+  <div class="fine">Town deep-dive · Danyang · 2026 · cluster locations approximate · basemap © OpenStreetMap, © CARTO.</div>
+</div></footer>
+<script>if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}</script>
+<script>
+const DANYANG=[31.99,119.58], SUZHOU=[31.30,120.59], SHANGHAI=[31.23,121.47];
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([31.70,120.15],8);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:11,subdomains:'abcd'}).addTo(map);
+// the skill arrived with sent-down youth from Shanghai & Suzhou
+[SUZHOU,SHANGHAI].forEach(function(o){
+  L.polyline([o,DANYANG],{color:'#C0402A',weight:3,opacity:.75,dashArray:'7,6'}).addTo(map)
+    .bindTooltip('Optical skill carried in by sent-down youth from Shanghai & Suzhou, 1960s',{sticky:true,className:'pinlbl'});
+});
+function cluster(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div style="width:10px;height:10px;border-radius:50%;background:#C0402A;border:2px solid #E8EAE3;box-shadow:0 0 0 1px #C0402A"></div>',iconSize:[10,10],iconAnchor:[5,5],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);
+}
+function ref(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);
+}
+cluster([32.07,119.46],"Situ — where it began");
+ref([32.06,118.80],"Nanjing");
+ref(SUZHOU,"Suzhou");
+ref(SHANGHAI,"Shanghai");
+L.marker(DANYANG,{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map)
+  .bindTooltip("Danyang — the lens capital of China",{direction:'top',offset:[0,-7],className:'pinlbl'});
+L.marker(DANYANG,{icon:L.divIcon({html:'<div class="pinlbl big">Danyang 丹阳</div>',iconSize:[1,1],iconAnchor:[-9,6],className:''})}).addTo(map);
+</script>
+<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
+</body></html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shengzhou — the town that ties the world's boardrooms | China Industry Atlas</title>
+<meta name="description" content="A deep dive on Shengzhou, a Zhejiang city that makes roughly 60% of the world's neckties and 90% of every tie sold in China — a town that spent centuries sending its silk to Italy, then started making the ties itself.">
+<link rel="canonical" href="https://chinaindustryatlas.com/deep-dives/shengzhou/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/deep-dives/shengzhou/">
+<meta property="og:title" content="Shengzhou — the necktie capital">
+<meta property="og:description" content="How a Chinese silk town came to make most of the world's neckties — and took the trade from Italy that it once only supplied.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+</head>
+<body>
+<div data-atlas-buybar style="background:var(--chop,#C0402A);color:#fff;font-family:var(--mono,'Space Mono',monospace);font-size:12px;line-height:1.2;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:7px 16px;text-align:center"><span>China Industry Atlas — the 40-page field guide (PDF)</span><a class="lemonsqueezy-button" href="https://hansolo.lemonsqueezy.com/checkout/buy/5435562a-0e88-43f3-8736-f85c14c3a69d" style="background:#fff;color:var(--chop,#C0402A);text-decoration:none;font-weight:700;padding:3px 12px;border-radius:2px;white-space:nowrap">Get it · €19.99 →</a></div>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Town deep-dives</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<div class="wrap hero">
+  <div class="eyebrow">Town deep-dive · Zhejiang</div>
+  <h1>Shengzhou<span class="cn">嵊州 · the necktie capital</span></h1>
+  <p class="lede">Walk into almost any boardroom and the tie around the neck probably came from <b>Shengzhou</b> — a Zhejiang city that makes roughly <b>60% of the world's neckties</b> and about <b>90% of every tie sold in China</b>. For centuries it shipped its silk to Italy to be made into ties. Then it started making the ties itself.</p>
+  <div class="readouts">
+    <div class="readout"><div class="n">~60%</div><div class="l">of the world's neckties</div></div>
+    <div class="readout"><div class="n">~90%</div><div class="l">of every tie sold in China</div></div>
+    <div class="readout"><div class="n">~300M</div><div class="l">ties a year, ~1,100 OEM firms</div></div>
+  </div>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">The silk country of eastern Zhejiang</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend">
+    <span><i class="dot" style="background:var(--chop);border-radius:0;transform:rotate(45deg)"></i>Shengzhou (the necktie capital)</span>
+    <span><i class="dot" style="background:var(--chop)"></i>Sibling cluster</span>
+    <span><i class="dot" style="background:var(--ink-2)"></i>Reference city</span>
+  </div></div></div>
+<section><div class="wrap dd-grid"><div>
+  <div class="sec"><div class="num">01</div><h2>The world's boardrooms</h2>
+    <p>Shengzhou, a city of some 650,000 people in the silk country of eastern Zhejiang, makes most of the neckties on Earth — by various counts somewhere between half and two-thirds of them, and around <b>90% of every tie sold inside China</b>. Roughly a thousand or so manufacturers turn out on the order of <b>300 million ties a year</b>, for customers running the full span from budget chains like Primark to luxury houses like Armani and the owners of Calvin Klein and Tommy Hilfiger. It is one of the quietest near-monopolies in global manufacturing: almost nobody who knots a tie knows the name of the town that made it.</p></div>
+  <div class="sec"><div class="num">02</div><h2>From Italy's supplier to Italy's rival</h2>
+    <p>Shengzhou has woven silk for centuries, and for most of that time its role was to supply other people's looms — sending raw silk to places like Como, in Italy, to be turned into the world's finest ties and scarves. The modern story is the reversal of that arrangement. Around the mid-1980s a cluster of tie makers took root in Shengzhou, pooled their strengths, and began making the finished ties themselves — capturing the profit that had always gone abroad. The town that fed Italy's silk trade set about replacing it.</p>
+    <div class="pull">For centuries it sent its silk to Italy to be made into ties. Now it makes the ties Italy used to make.</div></div>
+  <div class="sec"><div class="num">03</div><h2>How a farm town cornered the tie</h2>
+    <p>The advantage was the usual one, sharpened. Skilled, experienced sewers worked for a fraction of Italian or American wages; local government added cheap land and easy loans; and the town did one thing, completely. Former farmers became necktie multimillionaires. Two quiet ironies sit at the centre of it: most people in the necktie capital do not wear ties — they are too busy making them — and about half of the world's ties are bought as gifts, by women, for the men who will wear them. The town's whole fortune rests on a garment its makers skip and its wearers rarely buy for themselves.</p></div>
+  <div class="sec"><div class="num">04</div><h2>Winning a shrinking game</h2>
+    <p>There is a catch built into the victory. The necktie's golden years ran from about 1990 to 2000; since then the slow casualisation of how the world dresses has steadily eaten demand. Shengzhou cornered a market just as that market began to contract. The strain shows: a credit crunch around 2015 shut well over a hundred local tie firms, and the survivors live with thin margins squeezed between rising costs and falling sales. It is the rare cluster that has to defend total dominance over a product the world is slowly giving up.</p></div>
+  <div class="sec"><div class="num">05</div><h2>Design, not just copy</h2>
+    <p>The way up has been to stop merely copying. Where Shengzhou's firms once simply reproduced the designs customers brought them, the leaders now originate their own — one built what it calls the largest database of tie patterns in the world — and the town is moving into buying foreign brands and spreading its silk skills into scarves and bedding. Set beside the other deep dives, Shengzhou is the town that took a craft from Italy on price, then had to take it on design too: a near-total monopoly, defending a beautiful and slowly fading object, by learning to make it better rather than only cheaper.</p></div>
+</div>
+<aside><div class="facts"><h4>The facts</h4>
+  <div class="frow"><div class="k">Place</div><div class="v">Shengzhou, Shaoxing prefecture, Zhejiang (~650,000 people)</div></div>
+  <div class="frow"><div class="k">Title</div><div class="v">"Necktie capital of the world" (领带之乡)</div></div>
+  <div class="frow"><div class="k">Product</div><div class="v">Neckties (plus scarves, silk, increasingly bedding)</div></div>
+  <div class="frow"><div class="k">Scale</div><div class="v"><b>~60%</b> of the world's neckties, <b>~90%</b> of China's; ~300M ties/yr; ~1,100 OEM firms</div></div>
+  <div class="frow"><div class="k">Heritage</div><div class="v">Centuries of silk; once shipped raw silk to Como, Italy, to be made into ties — now makes the ties itself</div></div>
+  <div class="frow"><div class="k">How it began</div><div class="v">Modern cluster ~mid-1980s: a dozen-odd tie makers took root in Shengzhou and pooled strengths</div></div>
+  <div class="frow"><div class="k">Edge</div><div class="v">Cheap skilled labour, free land &amp; cheap loans, total specialisation</div></div>
+  <div class="frow"><div class="k">Now</div><div class="v">Own designs (a vast tie-pattern database), brand acquisition, silk/bedding diversification — against ties' global decline</div></div>
+</div></aside></div></section>
+<section><div class="wrap"><div class="fine" style="max-width:80ch">
+  Sources (2005-2024): ABC News, China Daily, NPR, plus trade sources. Figures vary by source and year — counts of Shengzhou's share of the world's neckties range from about a half to ~80%; ~60% of the world and ~90% of China's domestic market, ~300 million ties a year, are the figures used here, treated as orders of magnitude. Thirteenth in the atlas's deep-dive series.
+</div></div></section>
+<footer><div class="wrap">
+  <div class="ftlinks">
+    <a class="dl" href="/">← Full atlas</a>
+    <a class="dl" href="/deep-dives/qiaotou/">Qiaotou (buttons) →</a>
+    <a class="dl" href="/deep-dives/datang/">Datang (socks) →</a>
+    <a class="dl" href="/one-product-towns/">One-product towns →</a>
+  </div>
+  <div class="fine">Town deep-dive · Shengzhou · 2026 · cluster locations approximate · basemap © OpenStreetMap, © CARTO.</div>
+</div></footer>
+<script>if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}</script>
+<script>
+const SHENGZHOU=[29.60,120.82];
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([29.2,120.6],8);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:11,subdomains:'abcd'}).addTo(map);
+// the Italy reversal: silk once went to Como; now the ties are made here
+L.polyline([SHENGZHOU,[30.32,119.55]],{color:'#C0402A',weight:3,opacity:.8,dashArray:'7,6'}).addTo(map)
+  .bindTooltip('Silk once shipped to Como, Italy — now Shengzhou makes the ties too',{sticky:true,className:'pinlbl'});
+L.marker([30.32,119.55],{icon:L.divIcon({html:'<div class="pinlbl">↖ Como, Italy</div>',iconSize:[1,1],iconAnchor:[-4,4],className:''})}).addTo(map);
+function cluster(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div style="width:10px;height:10px;border-radius:50%;background:#C0402A;border:2px solid #E8EAE3;box-shadow:0 0 0 1px #C0402A"></div>',iconSize:[10,10],iconAnchor:[5,5],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);
+}
+function ref(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);
+}
+cluster([28.20,120.62],"Qiaotou — buttons & zippers");
+ref([30.00,120.58],"Shaoxing");
+ref([30.27,120.16],"Hangzhou");
+ref([29.87,121.55],"Ningbo");
+L.marker(SHENGZHOU,{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map)
+  .bindTooltip("Shengzhou — the necktie capital of the world",{direction:'top',offset:[0,-7],className:'pinlbl'});
+L.marker(SHENGZHOU,{icon:L.divIcon({html:'<div class="pinlbl big">Shengzhou 嵊州</div>',iconSize:[1,1],iconAnchor:[-9,6],className:''})}).addTo(map);
+</script>
+<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
+</body></html>
