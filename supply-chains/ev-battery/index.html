@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The EV battery supply chain — from mine to motor | China Industry Atlas</title>
+<meta name="description" content="A supply-chain deep dive tracing an EV battery from lithium, cobalt and nickel mined on four continents, through China's refining and cell-making funnel, to the carmakers and gigafactories of the world.">
+<link rel="canonical" href="https://chinaindustryatlas.com/supply-chains/ev-battery/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/supply-chains/ev-battery/">
+<meta property="og:title" content="The EV battery supply chain — from mine to motor">
+<meta property="og:description" content="Why the world's EV batteries — minerals from four continents — funnel through one country's refineries and cell plants before powering cars everywhere.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+</head>
+<body>
+<div data-atlas-buybar style="background:var(--chop,#C0402A);color:#fff;font-family:var(--mono,'Space Mono',monospace);font-size:12px;line-height:1.2;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:7px 16px;text-align:center"><span>China Industry Atlas — the 40-page field guide (PDF)</span><a class="lemonsqueezy-button" href="https://hansolo.lemonsqueezy.com/checkout/buy/5435562a-0e88-43f3-8736-f85c14c3a69d" style="background:#fff;color:var(--chop,#C0402A);text-decoration:none;font-weight:700;padding:3px 12px;border-radius:2px;white-space:nowrap">Get it · €19.99 →</a></div>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Supply chains</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<div class="wrap hero">
+  <div class="eyebrow">Supply-chain deep-dive · electric vehicles</div>
+  <h1>The EV battery<span class="cn">供应链 · from mine to motor</span></h1>
+  <p class="lede">If the smartphone's chain spreads its chokepoints across four countries, the electric car's battery does the opposite: its minerals are dug on <b>four continents</b>, but they funnel through <b>one country</b> to be refined and turned into cells. Chinese firms make about <b>two-thirds of the world's EV batteries</b> — and roughly one in three new electric cars, anywhere, runs on a cell from a single company.</p>
+  <div class="readouts">
+    <div class="readout"><div class="n">#1</div><div class="l">CATL — biggest battery maker, 8 yrs running</div></div>
+    <div class="readout"><div class="n">~⅔</div><div class="l">of the world's EV batteries, made in China</div></div>
+    <div class="readout"><div class="n">1 in 3</div><div class="l">new EVs run on a CATL cell</div></div>
+  </div>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">The funnel: minerals from four continents → China → the world</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend">
+    <span><i class="dot" style="background:var(--chop);border-radius:0;transform:rotate(45deg)"></i>Refining + cells (China)</span>
+    <span><i class="dot" style="background:var(--chop)"></i>Mineral source</span>
+    <span><i class="dot" style="background:var(--chop)"></i>flows in</span>
+    <span style="opacity:.7"><i class="dot" style="background:var(--brass)"></i>gigafactory abroad</span>
+  </div></div></div>
+<section><div class="wrap dd-grid"><div>
+  <div class="sec"><div class="num">01</div><h2>The battery is a China story</h2>
+    <p>An electric car is, in cost and weight, mostly its battery — and the battery's supply chain behaves nothing like the phone's. Where the phone leans on a handful of irreplaceable national specialists, the battery funnels through a single country. The metals are mined on four continents, but they are refined and turned into cells overwhelmingly in China: Chinese firms make on the order of <b>two-thirds of the world's EV batteries</b>, and roughly one in three new electric cars anywhere runs on a cell from one company — CATL.</p></div>
+  <div class="sec"><div class="num">02</div><h2>Dug on four continents</h2>
+    <p>It starts as a basket of metals from the remotest corners of the planet. <b>Lithium</b> — Australia's hard rock and the brine lakes of Chile's Atacama. <b>Cobalt</b> — about three-quarters of it from the Democratic Republic of the Congo. <b>Nickel</b> — increasingly from Indonesia, now the dominant source. <b>Graphite</b> for the anode — mostly China, with Mozambique and Madagascar. Plus manganese, copper and more. No single country has all of it; the map of where a battery begins is genuinely global.</p></div>
+  <div class="sec"><div class="num">03</div><h2>The refining funnel</h2>
+    <p>Here is the real chokepoint — and it is not the mine. Wherever the ore comes out of the ground, it mostly travels to <b>China</b> to be refined into battery-grade chemicals: around seventy percent of the world's refined lithium, most of its cobalt, and the lion's share of its graphite. This is the quiet monopoly the headlines miss. A country can dig its own lithium and still be unable to use it, because the step that turns rock into a usable cathode happens, overwhelmingly, in one place.</p>
+    <div class="pull">You can mine lithium almost anywhere. You mostly have to refine it in China.</div></div>
+  <div class="sec"><div class="num">04</div><h2>Ningde: the town that became the battery capital</h2>
+    <p>The refined chemicals become cells, and here the concentration is starker still. <b>CATL</b> — named after Ningde, a once-poor city in Fujian it has turned into an industrial powerhouse — makes around <b>38% of the world's EV batteries</b>, more than double its nearest rival, and supplies Tesla, BMW, Volkswagen, Ford and nearly every Chinese brand; <a href="/companies/byd/">BYD</a> is a close second. The cells go into packs and into cars, most of them assembled in China — still, by a wide margin, the world's EV factory.</p></div>
+  <div class="sec"><div class="num">05</div><h2>Out to the world — against the wall</h2>
+    <p>From there the batteries flow outward, and the politics begin. To get inside the European Union's 38% tariff on Chinese EVs, CATL is planting gigafactories across Europe — Germany (running and already profitable since 2022), Hungary (a multi-billion-euro megaplant), Spain (with Stellantis). The United States is going the other way — tariffs, a Pentagon blacklist, forced-labour scrutiny — and yet analysts judge it "years behind," with Ford already licensing CATL's technology. Set against the atlas, the EV battery is the mirror image of <a href="/supply-chains/smartphone/">the phone</a>: not many national chokepoints but one — China's midstream — that the whole world's electric transition has to run through.</p></div>
+</div>
+<aside><div class="facts"><h4>The facts</h4>
+  <div class="frow"><div class="k">Chain</div><div class="v">EV lithium-ion battery — minerals (4 continents) → refining (China) → cells (China) → pack &amp; car → the world</div></div>
+  <div class="frow"><div class="k">Raw materials</div><div class="v">Lithium (Australia + Chile), cobalt (~76% DR Congo), nickel (Indonesia), graphite (mostly China + Africa), manganese</div></div>
+  <div class="frow"><div class="k">Refining chokepoint</div><div class="v">Most ore refined in China — ~70% of lithium, most cobalt, ~80–90% of graphite</div></div>
+  <div class="frow"><div class="k">Cells</div><div class="v">Chinese makers ~⅔ of the world's; CATL #1 (~38%, 8 yrs; named after Ningde, Fujian), BYD #2 (~17%); then Korea (LG, SK On, Samsung SDI) &amp; Japan (Panasonic)</div></div>
+  <div class="frow"><div class="k">CATL reach</div><div class="v">~1 in 3 new EVs worldwide; customers Tesla, BMW, VW, Stellantis, Ford (licensing) &amp; all major Chinese brands</div></div>
+  <div class="frow"><div class="k">Gigafactories abroad</div><div class="v">Germany (Erfurt, 2022), Hungary (Debrecen), Spain (Zaragoza, w/ Stellantis), Indonesia (nickel-to-battery) — Europe push driven by the EU's 38% EV tariff</div></div>
+  <div class="frow"><div class="k">USA</div><div class="v">Tariffs + Pentagon blacklist + forced-labour scrutiny — yet "years behind"; Ford licenses CATL tech</div></div>
+</div></aside></div></section>
+<section><div class="wrap"><div class="fine" style="max-width:80ch">
+  Sources (2024-2026): SNE Research (via CnEVPost / electrive), Wikipedia (CATL), IEA Critical Minerals Outlook 2025, USGS / Our World in Data, plus trade sources. A representative spine, not a full bill of materials; figures (CATL ~38%, Chinese makers ~⅔ of cells, ~76% DRC cobalt, ~70% China-refined lithium, EU 38% tariff) are the commonly cited ones, treated here as orders of magnitude. Second in the atlas's supply-chain series.
+</div></div></section>
+<footer><div class="wrap">
+  <div class="ftlinks">
+    <a class="dl" href="/">← Full atlas</a>
+    <a class="dl" href="/companies/byd/">BYD (the EV maker) →</a>
+    <a class="dl" href="/supply-chains/smartphone/">The smartphone (supply chain) →</a>
+    <a class="dl" href="/deep-dives/huizhou/">Huizhou (batteries) →</a>
+  </div>
+  <div class="fine">Supply-chain deep-dive · the EV battery · 2026 · locations approximate &amp; schematic · basemap © OpenStreetMap, © CARTO.</div>
+</div></footer>
+<script>if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}</script>
+<script>
+const NINGDE=[26.66,119.55];
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false,worldCopyJump:true}).setView([14,26],2);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:11,subdomains:'abcd'}).addTo(map);
+function flowin(a,b){L.polyline([a,b],{color:'#C0402A',weight:2,opacity:.65,dashArray:'6,6'}).addTo(map);}
+function flowout(a,b){L.polyline([a,b],{color:'#9C7A3C',weight:2,opacity:.7,dashArray:'2,7'}).addTo(map);}
+function node(c,label,ax,ay){
+  L.marker(c,{icon:L.divIcon({html:'<div style="width:9px;height:9px;border-radius:50%;background:#C0402A;border:2px solid #E8EAE3;box-shadow:0 0 0 1px #C0402A"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+label+'</div>',iconSize:[1,1],iconAnchor:[ax,ay],className:''})}).addTo(map);
+}
+function giga(c,label,ax,ay){
+  L.marker(c,{icon:L.divIcon({html:'<div style="width:7px;height:7px;border-radius:50%;background:#9C7A3C;border:2px solid #E8EAE3"></div>',iconSize:[7,7],iconAnchor:[3,3],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl" style="opacity:.8">'+label+'</div>',iconSize:[1,1],iconAnchor:[ax,ay],className:''})}).addTo(map);
+}
+const LIAU=[-33.86,116.06],LICL=[-23.5,-68.3],CODRC=[-10.72,25.47],NIID=[-2.5,121.4];
+const DE=[50.98,11.03],HU=[47.53,21.64],ES=[41.65,-0.88];
+flowin(LIAU,NINGDE); flowin(LICL,NINGDE); flowin(CODRC,NINGDE); flowin(NIID,NINGDE);
+flowout(NINGDE,DE); flowout(NINGDE,HU); flowout(NINGDE,ES);
+node(LIAU,"Lithium · Australia",-6,16);
+node(LICL,"Lithium · Chile",-6,4);
+node(CODRC,"Cobalt · DR Congo",-6,4);
+node(NIID,"Nickel · Indonesia",-6,16);
+giga(DE,"Germany · 2022",40,-14);
+giga(HU,"Hungary · 2025→",-6,8);
+giga(ES,"Spain · 2026→",-6,16);
+L.marker(NINGDE,{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map)
+  .bindTooltip("Refining + cells — China (CATL, Ningde)",{direction:'top',offset:[0,-7],className:'pinlbl'});
+L.marker(NINGDE,{icon:L.divIcon({html:'<div class="pinlbl big">Cells · Ningde (CATL)</div>',iconSize:[1,1],iconAnchor:[-9,-10],className:''})}).addTo(map);
+</script>
+<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
+</body></html>
