@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The smartphone supply chain — from mine to hand | China Industry Atlas</title>
+<meta name="description" content="A supply-chain deep dive tracing a smartphone from raw materials mined on three continents, through the chip, memory, camera and glass chokepoints, to final assembly in China and back out to the world — on one map.">
+<link rel="canonical" href="https://chinaindustryatlas.com/supply-chains/smartphone/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/supply-chains/smartphone/">
+<meta property="og:title" content="The smartphone supply chain — from mine to hand">
+<meta property="og:description" content="One phone, traced from raw earth to finished device — the materials, the chokepoints, and the convergence on China — on a single map.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+</head>
+<body>
+<div data-atlas-buybar style="background:var(--chop,#C0402A);color:#fff;font-family:var(--mono,'Space Mono',monospace);font-size:12px;line-height:1.2;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:7px 16px;text-align:center"><span>China Industry Atlas — the 40-page field guide (PDF)</span><a class="lemonsqueezy-button" href="https://hansolo.lemonsqueezy.com/checkout/buy/5435562a-0e88-43f3-8736-f85c14c3a69d" style="background:#fff;color:var(--chop,#C0402A);text-decoration:none;font-weight:700;padding:3px 12px;border-radius:2px;white-space:nowrap">Get it · €19.99 →</a></div>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Supply chains</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<div class="wrap hero">
+  <div class="eyebrow">Supply-chain deep-dive · consumer electronics</div>
+  <h1>The smartphone<span class="cn">供应链 · from mine to hand</span></h1>
+  <p class="lede">A phone looks like one object from one brand. It is really an assembly of materials and parts from <b>six continents</b> that funnel through a handful of <b>chokepoints</b> — and converge, overwhelmingly, on China — before fanning back out to you. Here is one representative phone, traced from the ground to your hand on a single map.</p>
+  <div class="readouts">
+    <div class="readout"><div class="n">6</div><div class="l">continents in one device</div></div>
+    <div class="readout"><div class="n">~90%</div><div class="l">of iPhones assembled in China</div></div>
+    <div class="readout"><div class="n">1 island</div><div class="l">makes the chip — Taiwan</div></div>
+  </div>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">The convergence: raw earth → chokepoints → assembly → the world</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend">
+    <span><i class="dot" style="background:var(--chop);border-radius:0;transform:rotate(45deg)"></i>Final assembly (Zhengzhou)</span>
+    <span><i class="dot" style="background:var(--chop)"></i>Source / component</span>
+    <span><i class="dot" style="background:var(--chop)"></i>flows in</span>
+    <span style="opacity:.7"><i class="dot" style="background:var(--brass)"></i>ships out</span>
+  </div></div></div>
+<section><div class="wrap dd-grid"><div>
+  <div class="sec"><div class="num">01</div><h2>A phone is a planet</h2>
+    <p>Pick up a smartphone. It feels like a single thing, made by a single company. In fact it is the meeting-point of materials dug out of the ground on one continent, refined on another, turned into precision parts in three or four countries that each hold a near-monopoly on their step, and finally screwed together somewhere else — overwhelmingly in China, where roughly nine in ten iPhones are assembled. This page follows one representative phone along that whole line, from the mine to your hand.</p></div>
+  <div class="sec"><div class="num">02</div><h2>Out of the ground</h2>
+    <p>It begins as rock. The battery needs <b>lithium</b> — most of it mined in Australia — and <b>cobalt</b>, about three-quarters of which comes from the Democratic Republic of the Congo. The speakers and the little vibration motor need <b>rare-earth</b> magnets, mostly mined and refined in China. Add tin and tantalum (much of it from Central Africa), gold, copper, and the silicon that starts as ordinary sand. And here is the hidden chokepoint: even the minerals dug up elsewhere are mostly <i>refined</i> in China — around seventy percent of the world's refined lithium, and most of its cobalt — so the chain already bends toward China before a single part exists.</p></div>
+  <div class="sec"><div class="num">03</div><h2>The chokepoints that make the parts</h2>
+    <p>The valuable parts each come from a place that is almost impossible to replace. The <b>processor</b> is designed in California but fabricated by TSMC in <b>Taiwan</b> — and its most advanced chips, by law and by capability, can be made nowhere else on Earth. The <b>memory and the OLED screen</b> come from <b>South Korea</b> (Samsung, SK Hynix, LG). The <b>camera sensor</b> comes from <b>Japan</b> (Sony). The <b>cover glass</b> comes from Corning, in the <b>United States</b>. Four countries, four irreplaceable specialisms — knock any one out and the phone stops.</p>
+    <div class="pull">The most valuable part — the chip — comes from one island, and by law can be made nowhere else.</div></div>
+  <div class="sec"><div class="num">04</div><h2>Where it all comes together</h2>
+    <p>The battery cells and packs are built in China — much of it around <a href="/deep-dives/huizhou/">Huizhou</a> and the Pearl River Delta. And then everything converges: the Taiwanese chip, the Korean screen, the Japanese camera, the American glass, the Chinese battery and a thousand smaller delta-made parts all arrive at <b>final assembly</b> — the majority at Foxconn's <a href="/deep-dives/zhengzhou/">Zhengzhou</a> "iPhone City," where the device is screwed together, tested unit by unit, and boxed. Three or four continents of work meet on one assembly line.</p></div>
+  <div class="sec"><div class="num">05</div><h2>Back out to the world — and why it matters</h2>
+    <p>The finished phones leave the way they were never made — as a single branded object — and are flown out (famously air-freighted straight from Zhengzhou's airport) to the United States, Europe and beyond, often landing not far from where some of their minerals were first dug. Look at the map and the point is plain: every stage is a chokepoint someone could squeeze — Taiwan's chips, China's refining and assembly, Korea's memory — which is exactly why "de-risking," tariffs and reshoring fill the headlines. This is the line that runs beneath every electronics pin in the atlas: <a href="/deep-dives/huaqiangbei/">Huaqiangbei</a>, Huizhou, Zhengzhou and <a href="/companies/foxconn/">Foxconn</a> are all stations on it.</p></div>
+</div>
+<aside><div class="facts"><h4>The facts</h4>
+  <div class="frow"><div class="k">Device</div><div class="v">A representative smartphone — one branded object, parts from six continents</div></div>
+  <div class="frow"><div class="k">Raw materials</div><div class="v">Lithium (mostly Australia), cobalt (~76% DR Congo), rare earths (mostly China — magnets); + tin, tantalum, gold, copper, silicon</div></div>
+  <div class="frow"><div class="k">Refining chokepoint</div><div class="v">~70% of refined lithium &amp; most cobalt refined in China — the chain bends to China before a part is made</div></div>
+  <div class="frow"><div class="k">Key components</div><div class="v">Chip — TSMC, Taiwan (advanced nodes Taiwan-only); memory &amp; OLED — South Korea (Samsung/SK Hynix/LG); camera — Japan (Sony); cover glass — Corning, USA</div></div>
+  <div class="frow"><div class="k">Battery</div><div class="v">Cells &amp; packs in China (Huizhou — Desay/EVE; plus Sunwoda, ATL)</div></div>
+  <div class="frow"><div class="k">Final assembly</div><div class="v">Majority at Foxconn's Zhengzhou ("iPhone City"); also Shenzhen, India, Vietnam; ~90% of iPhones assembled in China</div></div>
+  <div class="frow"><div class="k">To the world</div><div class="v">Air-freighted out (Zhengzhou airport) to the US, EU &amp; beyond — the geography behind "de-risking," tariffs &amp; reshoring</div></div>
+</div></aside></div></section>
+<section><div class="wrap"><div class="fine" style="max-width:80ch">
+  Sources (2024-2026): IEA Global Critical Minerals Outlook 2025, USGS / Our World in Data, AppleInsider, Android Authority, company supplier lists, plus trade sources. This is a representative spine, not a full bill of materials — a phone has thousands of parts; figures (e.g. ~76% DRC cobalt, ~70% China-refined lithium, ~90% China assembly, TSMC's advanced-chip role) are the commonly cited ones, treated here as orders of magnitude. First in the atlas's supply-chain series.
+</div></div></section>
+<footer><div class="wrap">
+  <div class="ftlinks">
+    <a class="dl" href="/">← Full atlas</a>
+    <a class="dl" href="/deep-dives/zhengzhou/">Zhengzhou (iPhone City) →</a>
+    <a class="dl" href="/deep-dives/huizhou/">Huizhou (batteries &amp; screens) →</a>
+    <a class="dl" href="/companies/foxconn/">Foxconn (the assembler) →</a>
+  </div>
+  <div class="fine">Supply-chain deep-dive · the smartphone · 2026 · locations approximate &amp; schematic · basemap © OpenStreetMap, © CARTO.</div>
+</div></footer>
+<script>if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}</script>
+<script>
+const ZHENGZHOU=[34.75,113.62], HUIZHOU=[23.11,114.42];
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false,worldCopyJump:true}).setView([18,30],2);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:11,subdomains:'abcd'}).addTo(map);
+function flowin(a,b){L.polyline([a,b],{color:'#C0402A',weight:2,opacity:.65,dashArray:'6,6'}).addTo(map);}
+function flowout(a,b){L.polyline([a,b],{color:'#9C7A3C',weight:2,opacity:.7,dashArray:'2,7'}).addTo(map);}
+function node(c,label,ax,ay){
+  L.marker(c,{icon:L.divIcon({html:'<div style="width:9px;height:9px;border-radius:50%;background:#C0402A;border:2px solid #E8EAE3;box-shadow:0 0 0 1px #C0402A"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+label+'</div>',iconSize:[1,1],iconAnchor:[ax,ay],className:''})}).addTo(map);
+}
+function market(c,label,ax,ay){
+  L.marker(c,{icon:L.divIcon({html:'<div style="width:7px;height:7px;border-radius:50%;background:#9C7A3C;border:2px solid #E8EAE3"></div>',iconSize:[7,7],iconAnchor:[3,3],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl" style="opacity:.75">'+label+'</div>',iconSize:[1,1],iconAnchor:[ax,ay],className:''})}).addTo(map);
+}
+const AU=[-33.86,116.06],DRC=[-10.72,25.47],REE=[41.78,109.97],TW=[24.78,120.99],KR=[37.27,127.45],JP=[32.80,130.70],GLASS=[37.76,-84.85];
+const MUS=[39.5,-98.5],MEU=[50.0,9.0];
+// flows in (cinnabar): raw -> battery/assembly, components -> assembly
+flowin(AU,HUIZHOU); flowin(DRC,HUIZHOU);
+flowin(REE,ZHENGZHOU); flowin(TW,ZHENGZHOU); flowin(KR,ZHENGZHOU); flowin(JP,ZHENGZHOU); flowin(GLASS,ZHENGZHOU); flowin(HUIZHOU,ZHENGZHOU);
+// flows out (brass): assembly -> markets
+flowout(ZHENGZHOU,MUS); flowout(ZHENGZHOU,MEU);
+node(AU,"Lithium · Australia",-6,16);
+node(DRC,"Cobalt · DR Congo",-6,4);
+node(REE,"Rare earths · China",110,-14);
+node(TW,"Chip · Taiwan",-6,16);
+node(KR,"Memory · Korea",-6,-10);
+node(JP,"Camera · Japan",-6,22);
+node(GLASS,"Glass · USA (Corning)",-6,-12);
+node(HUIZHOU,"Battery · Huizhou",104,14);
+market(MUS,"→ sold: US",-6,-12);
+market(MEU,"→ Europe",-6,-12);
+L.marker(ZHENGZHOU,{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map)
+  .bindTooltip("Final assembly — Zhengzhou (Foxconn)",{direction:'top',offset:[0,-7],className:'pinlbl'});
+L.marker(ZHENGZHOU,{icon:L.divIcon({html:'<div class="pinlbl big">Assembly · Zhengzhou</div>',iconSize:[1,1],iconAnchor:[150,4],className:''})}).addTo(map);
+</script>
+<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
+</body></html>
