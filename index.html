@@ -360,6 +360,21 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#586569;margin-top:3
   <div class="wrap">
     <div class="sec-head"><span class="num">01</span><h2>The maps</h2>
       <p>Companion maps that go beyond the national overview, in four families — by area, by industry &amp; trade, by theme, and the long-form deep dives. Each opens in its own page.</p></div>
+<style>
+  .map-search{margin:20px 0 6px;position:relative;max-width:560px}
+  .map-search input{width:100%;font-family:var(--mono);font-size:14px;padding:13px 64px 13px 16px;border:1px solid var(--line);background:var(--paper-2);color:var(--ink);box-sizing:border-box}
+  .map-search input:focus{outline:none;border-color:var(--chop)}
+  .map-search .mq-clear{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:11px;color:var(--ink-3);cursor:pointer;display:none;letter-spacing:.08em}
+  .map-search .mq-clear:hover{color:var(--chop)}
+  #mapq-none{font-family:var(--mono);font-size:13px;color:var(--ink-3);margin:14px 0 0}
+  .mapcard-link.card-hide{display:none}
+  .maps-family.is-hidden,.maps-group.is-hidden{display:none}
+</style>
+      <div class="map-search">
+        <input id="mapq" type="search" autocomplete="off" spellcheck="false" aria-label="Search all maps" placeholder="Search all maps — e.g. violins, Shenzhen, fasteners, 假发…">
+        <span class="mq-clear" id="mapq-clear">clear ✕</span>
+      </div>
+      <p id="mapq-none" hidden>No maps match &ldquo;<span></span>&rdquo;. Try a product, a place, or a material.</p>
 
         <div class="maps-family">
       <div class="mf-h"><span class="mf-t">Geography</span><span class="mf-note">by area — region to province to city</span></div>
@@ -439,35 +454,67 @@ footer .fine{font-family:var(--mono);font-size:10.5px;color:#586569;margin-top:3
     <div class="maps-family">
       <div class="mf-h"><span class="mf-t">Themes</span><span class="mf-note">thematic ways to read the map</span></div>
       <div class="maps-group">
+      <div class="mg-h">Town families</div>
       <div class="maps-grid">
-        <a class="mapcard-link" href="/one-product-towns/"><span class="mc-ar">↗</span><div class="mc-t">One-product towns<span class="mc-cn">一镇一品</span></div><div class="mc-d">26 towns · what each makes for the world</div></a>
-        <a class="mapcard-link" href="/getting-it-out/"><span class="mc-ar">↗</span><div class="mc-t">Getting it out<span class="mc-cn">出口与物流</span></div><div class="mc-d">7 gateway ports · corridors · transit times</div></a>
-        <a class="mapcard-link" href="/manufacturing-in-motion/"><span class="mc-ar">↗</span><div class="mc-t">Manufacturing in motion<span class="mc-cn">产业转移</span></div><div class="mc-d">is the factory floor leaving China?</div></a>
-        <a class="mapcard-link" href="/raw-materials/"><span class="mc-ar">↗</span><div class="mc-t">Where it starts<span class="mc-cn">上游原料</span></div><div class="mc-d">21 upstream sources · raw materials</div></a>
-        <a class="mapcard-link" href="/cathedrals/"><span class="mc-ar">↗</span><div class="mc-t">Cathedrals of manufacturing<span class="mc-cn">制造业殿堂</span></div><div class="mc-d">19 megasites · the category leaders</div></a>
-        <a class="mapcard-link" href="/frontier/"><span class="mc-ar">↗</span><div class="mc-t">Frontier industries<span class="mc-cn">未来产业</span></div><div class="mc-d">21 emerging bets · the atlas-obscura layer</div></a>
-        <a class="mapcard-link" href="/power-frontier/"><span class="mc-ar">↗</span><div class="mc-t">The power frontier<span class="mc-cn">西部能源</span></div><div class="mc-d">17 western sites · cheap power, empty land</div></a>
-        <a class="mapcard-link" href="/corridors/"><span class="mc-ar">↗</span><div class="mc-t">The great corridors<span class="mc-cn">西电东送 · 南水北调</span></div><div class="mc-d">power west→east, water south→north</div></a>
-        <a class="mapcard-link" href="/high-speed-rail/"><span class="mc-ar">↗</span><div class="mc-t">High-speed rail<span class="mc-cn">八纵八横 · 高铁</span></div><div class="mc-d">the people layer · and the inland shift</div></a>
+        <a class="mapcard-link" href="/one-product-towns/"><span class="mc-ar">↗</span><div class="mc-t">One-product towns<span class="mc-cn">一镇一品</span></div><div class="mc-d">26 towns · what each makes for the world</div></a><a class="mapcard-link" href="/factory-towns/"><span class="mc-ar">↗</span><div class="mc-t">Two kinds of factory town<span class="mc-cn">工厂城 · 两种</span></div><div class="mc-d">cluster vs anchor · the distinction that decides a sourcing trip</div></a><a class="mapcard-link" href="/instrument-towns/"><span class="mc-ar">↗</span><div class="mc-t">Instrument towns<span class="mc-cn">乐器之乡</span></div><div class="mc-d">4 towns · one per instrument · who makes the world’s music</div></a><a class="mapcard-link" href="/beauty-towns/"><span class="mc-ar">↗</span><div class="mc-t">Beauty towns<span class="mc-cn">美业之乡</span></div><div class="mc-d">4 towns · wigs, hair, makeup brushes &amp; lashes</div></a><a class="mapcard-link" href="/art-towns/"><span class="mc-ar">↗</span><div class="mc-t">Art towns<span class="mc-cn">艺术之乡</span></div><div class="mc-d">4 towns · paintings, porcelain &amp; the scholar’s tools</div></a>
+      </div>
+    </div>
+      <div class="maps-group">
+      <div class="mg-h">Systems &amp; trade</div>
+      <div class="maps-grid">
+        <a class="mapcard-link" href="/getting-it-out/"><span class="mc-ar">↗</span><div class="mc-t">Getting it out<span class="mc-cn">出口与物流</span></div><div class="mc-d">7 gateway ports · corridors · transit times</div></a><a class="mapcard-link" href="/manufacturing-in-motion/"><span class="mc-ar">↗</span><div class="mc-t">Manufacturing in motion<span class="mc-cn">产业转移</span></div><div class="mc-d">is the factory floor leaving China?</div></a><a class="mapcard-link" href="/raw-materials/"><span class="mc-ar">↗</span><div class="mc-t">Where it starts<span class="mc-cn">上游原料</span></div><div class="mc-d">21 upstream sources · raw materials</div></a><a class="mapcard-link" href="/cathedrals/"><span class="mc-ar">↗</span><div class="mc-t">Cathedrals of manufacturing<span class="mc-cn">制造业殿堂</span></div><div class="mc-d">19 megasites · the category leaders</div></a><a class="mapcard-link" href="/frontier/"><span class="mc-ar">↗</span><div class="mc-t">Frontier industries<span class="mc-cn">未来产业</span></div><div class="mc-d">21 emerging bets · the atlas-obscura layer</div></a><a class="mapcard-link" href="/power-frontier/"><span class="mc-ar">↗</span><div class="mc-t">The power frontier<span class="mc-cn">西部能源</span></div><div class="mc-d">17 western sites · cheap power, empty land</div></a><a class="mapcard-link" href="/corridors/"><span class="mc-ar">↗</span><div class="mc-t">The great corridors<span class="mc-cn">西电东送 · 南水北调</span></div><div class="mc-d">power west→east, water south→north</div></a><a class="mapcard-link" href="/high-speed-rail/"><span class="mc-ar">↗</span><div class="mc-t">High-speed rail<span class="mc-cn">八纵八横 · 高铁</span></div><div class="mc-d">the people layer · and the inland shift</div></a>
       </div>
     </div>
     </div>
 
     <div class="maps-family">
       <div class="mf-h"><span class="mf-t">Deep dives</span><span class="mf-note">long-form — one subject at a time</span></div>
-      <div class="maps-group">
-      <div class="mg-h">Town deep-dives</div>
+            <div class="maps-group">
+      <div class="mg-h">Beauty & hair</div>
       <div class="maps-grid">
-        <a class="mapcard-link" href="/deep-dives/zhengan/"><span class="mc-ar">↗</span><div class="mc-t">Zheng’an<span class="mc-cn">正安 · 吉他之乡</span></div><div class="mc-d">the guitar county · ~1 in 7 made worldwide</div></a>
-        <a class="mapcard-link" href="/deep-dives/songxia/"><span class="mc-ar">↗</span><div class="mc-t">Songxia<span class="mc-cn">崧厦 · 中国伞城</span></div><div class="mc-d">the umbrella town · ~1/3 of the world’s</div></a>
-        <a class="mapcard-link" href="/deep-dives/foshan/"><span class="mc-ar">↗</span><div class="mc-t">Foshan<span class="mc-cn">佛山 · 制造名城</span></div><div class="mc-d">the city of 41 one-industry towns</div></a>
-        <a class="mapcard-link" href="/deep-dives/dafen/"><span class="mc-ar">↗</span><div class="mc-t">Dafen<span class="mc-cn">大芬 · 油画村</span></div><div class="mc-d">the painting village · ~⅔ of the world’s oils</div></a>
-        <a class="mapcard-link" href="/deep-dives/huaqiangbei/"><span class="mc-ar">↗</span><div class="mc-t">Huaqiangbei<span class="mc-cn">华强北 · 电子第一街</span></div><div class="mc-d">the market that makes everything · the Chaozhou floor</div></a>
-        <a class="mapcard-link" href="/deep-dives/kunshan/"><span class="mc-ar">↗</span><div class="mc-t">Kunshan<span class="mc-cn">昆山 · 小台北</span></div><div class="mc-d">the borrowed boat · ⅓ of the world’s laptops</div></a>
-        <a class="mapcard-link" href="/deep-dives/datang/"><span class="mc-ar">↗</span><div class="mc-t">Datang<span class="mc-cn">大唐 · 世界袜都</span></div><div class="mc-d">the sock capital · ~1/3 of the world’s pairs</div></a>
-        <a class="mapcard-link" href="/deep-dives/yiwu/"><span class="mc-ar">↗</span><div class="mc-t">Yiwu<span class="mc-cn">义乌 · 小商品之都</span></div><div class="mc-d">the world’s market · ~60% of its Christmas</div></a>
-        <a class="mapcard-link" href="/deep-dives/hainan/"><span class="mc-ar">↗</span><div class="mc-t">Hainan<span class="mc-cn">海南 · 自由贸易港</span></div><div class="mc-d">a forward look · China’s whole-island free trade port</div></a>
-        <a class="mapcard-link" href="/deep-dives/guzhen/"><span class="mc-ar">↗</span><div class="mc-t">Guzhen<span class="mc-cn">古镇 · 中国灯饰之都</span></div><div class="mc-d">the lighting capital · ~70% of China’s, half the world’s</div></a><a class="mapcard-link" href="/deep-dives/shaodong/"><span class="mc-ar">↗</span><div class="mc-t">Shaodong<span class="mc-cn">邵东 · 打火机之都</span></div><div class="mc-d">the lighter capital · ~70% of the world’s lighters, ~¥1 each</div></a><a class="mapcard-link" href="/deep-dives/qiaotou/"><span class="mc-ar">↗</span><div class="mc-t">Qiaotou<span class="mc-cn">桥头 · 纽扣之都</span></div><div class="mc-d">the button capital · ~60% of the world’s buttons, ~80% of its zippers</div></a><a class="mapcard-link" href="/deep-dives/shengzhou/"><span class="mc-ar">↗</span><div class="mc-t">Shengzhou<span class="mc-cn">嵊州 · 领带之乡</span></div><div class="mc-d">the necktie capital · ~60% of the world’s ties, once Italy’s silk supplier</div></a><a class="mapcard-link" href="/deep-dives/danyang/"><span class="mc-ar">↗</span><div class="mc-t">Danyang<span class="mc-cn">丹阳 · 眼镜之都</span></div><div class="mc-d">the lens capital · ~half the world’s spectacle lenses</div></a><a class="mapcard-link" href="/deep-dives/liuyang/"><span class="mc-ar">↗</span><div class="mc-t">Liuyang<span class="mc-cn">浏阳 · 花炮之乡</span></div><div class="mc-d">the fireworks capital · ~1 in 3 of the world’s fireworks, invented here</div></a><a class="mapcard-link" href="/deep-dives/yongkang/"><span class="mc-ar">↗</span><div class="mc-t">Yongkang<span class="mc-cn">永康 · 五金之都</span></div><div class="mc-d">the hardware capital · most of China’s cups, doors, scooters &amp; tools</div></a><a class="mapcard-link" href="/deep-dives/yixing/"><span class="mc-ar">↗</span><div class="mc-t">Yixing<span class="mc-cn">宜兴 · 紫砂之都</span></div><div class="mc-d">the purple-clay town · the world’s most coveted teapots, from one rare clay</div></a><a class="mapcard-link" href="/deep-dives/jingdezhen/"><span class="mc-ar">↗</span><div class="mc-t">Jingdezhen<span class="mc-cn">景德镇 · 瓷都</span></div><div class="mc-d">the porcelain capital · a thousand years of imperial porcelain — and the name “china”</div></a><a class="mapcard-link" href="/deep-dives/zhangqiu/"><span class="mc-ar">↗</span><div class="mc-t">Zhangqiu<span class="mc-cn">章丘 · 铁锅</span></div><div class="mc-d">the iron-wok town · 36,000 hammer blows, made famous overnight by TV</div></a><a class="mapcard-link" href="/deep-dives/zhengzhou/"><span class="mc-ar">↗</span><div class="mc-t">Zhengzhou<span class="mc-cn">郑州 · iPhone City</span></div><div class="mc-d">iPhone City · one Foxconn megacampus assembles half the world’s iPhones</div></a><a class="mapcard-link" href="/deep-dives/huizhou/"><span class="mc-ar">↗</span><div class="mc-t">Huizhou<span class="mc-cn">惠州 · 电子</span></div><div class="mc-d">the quiet electronics giant · TCL, and the batteries inside your phone</div></a><a class="mapcard-link" href="/deep-dives/shunde/"><span class="mc-ar">↗</span><div class="mc-t">Shunde<span class="mc-cn">顺德 · 家电</span></div><div class="mc-d">the appliance capital · half the world’s microwaves &amp; rice cookers</div></a>
+        <a class="mapcard-link" href="/deep-dives/juancheng/"><span class="mc-ar">↗</span><div class="mc-t">Juancheng<span class="mc-cn">鄄城 · 人发之乡</span></div><div class="mc-d">the human-hair town · China’s hair-collecting heartland</div></a><a class="mapcard-link" href="/deep-dives/xuchang/"><span class="mc-ar">↗</span><div class="mc-t">Xuchang<span class="mc-cn">许昌 · 假发之都</span></div><div class="mc-d">the wig capital · ~60% of the world’s wigs</div></a><a class="mapcard-link" href="/deep-dives/luyi/"><span class="mc-ar">↗</span><div class="mc-t">Luyi<span class="mc-cn">鹿邑 · 化妆刷之城</span></div><div class="mc-d">the makeup-brush capital · ~95% of the world’s brush fibre</div></a><a class="mapcard-link" href="/deep-dives/pingdu/"><span class="mc-ar">↗</span><div class="mc-t">Pingdu<span class="mc-cn">平度 · 假睫毛之都</span></div><div class="mc-d">the false-eyelash capital · ~70% of the world’s lashes</div></a>
+      </div>
+    </div>
+      <div class="maps-group">
+      <div class="mg-h">Musical instruments</div>
+      <div class="maps-grid">
+        <a class="mapcard-link" href="/deep-dives/zhengan/"><span class="mc-ar">↗</span><div class="mc-t">Zheng’an<span class="mc-cn">正安 · 吉他之乡</span></div><div class="mc-d">the guitar county · ~1 in 7 made worldwide</div></a><a class="mapcard-link" href="/deep-dives/huangqiao/"><span class="mc-ar">↗</span><div class="mc-t">Huangqiao<span class="mc-cn">黄桥 · 提琴之都</span></div><div class="mc-d">the Cremona of the East · ~70% of China’s violins</div></a><a class="mapcard-link" href="/deep-dives/wuqiang/"><span class="mc-ar">↗</span><div class="mc-t">Wuqiang<span class="mc-cn">武强 · 西洋乐器之乡</span></div><div class="mc-d">the brass &amp; wind county · saxophones for 80+ countries</div></a><a class="mapcard-link" href="/deep-dives/lankao/"><span class="mc-ar">↗</span><div class="mc-t">Lankao<span class="mc-cn">兰考 · 民族乐器之乡</span></div><div class="mc-d">Jiao Yulu’s paulownia · ~90% of China’s instrument soundboards</div></a>
+      </div>
+    </div>
+      <div class="maps-group">
+      <div class="mg-h">Art, craft & ceramics</div>
+      <div class="maps-grid">
+        <a class="mapcard-link" href="/deep-dives/dafen/"><span class="mc-ar">↗</span><div class="mc-t">Dafen<span class="mc-cn">大芬 · 油画村</span></div><div class="mc-d">the painting village · ~⅔ of the world’s oils</div></a><a class="mapcard-link" href="/deep-dives/juye/"><span class="mc-ar">↗</span><div class="mc-t">Juye<span class="mc-cn">巨野 · 工笔画之乡</span></div><div class="mc-d">the painting county · ~80% of China’s peony paintings</div></a><a class="mapcard-link" href="/deep-dives/four-treasures/"><span class="mc-ar">↗</span><div class="mc-t">Four Treasures of the Study<span class="mc-cn">文房四宝 · 笔墨纸砚</span></div><div class="mc-d">the scholar’s desk · brush, ink, paper, inkstone — and where they’re made</div></a><a class="mapcard-link" href="/deep-dives/jingdezhen/"><span class="mc-ar">↗</span><div class="mc-t">Jingdezhen<span class="mc-cn">景德镇 · 瓷都</span></div><div class="mc-d">the porcelain capital · a thousand years of imperial porcelain — and the name “china”</div></a><a class="mapcard-link" href="/deep-dives/yixing/"><span class="mc-ar">↗</span><div class="mc-t">Yixing<span class="mc-cn">宜兴 · 紫砂之都</span></div><div class="mc-d">the purple-clay town · the world’s most coveted teapots, from one rare clay</div></a>
+      </div>
+    </div>
+      <div class="maps-group">
+      <div class="mg-h">Apparel, textiles & footwear</div>
+      <div class="maps-grid">
+        <a class="mapcard-link" href="/deep-dives/caoxian/"><span class="mc-ar">↗</span><div class="mc-t">Caoxian<span class="mc-cn">曹县 · 汉服与棺木</span></div><div class="mc-d">costumes &amp; coffins · ~40% of China’s hanfu, ~90% of Japan’s coffins</div></a><a class="mapcard-link" href="/deep-dives/putian/"><span class="mc-ar">↗</span><div class="mc-t">Putian<span class="mc-cn">莆田 · 鞋城</span></div><div class="mc-d">the sneaker city · Nike’s OEM, the world’s replica capital, now its own brand</div></a><a class="mapcard-link" href="/deep-dives/chaozhou/"><span class="mc-ar">↗</span><div class="mc-t">Chaozhou<span class="mc-cn">潮州 · 瓷器与婚纱</span></div><div class="mc-d">the two-crown city · porcelain &amp; wedding gowns</div></a><a class="mapcard-link" href="/deep-dives/shantou/"><span class="mc-ar">↗</span><div class="mc-t">Shantou<span class="mc-cn">汕头 · 玩具与内衣</span></div><div class="mc-d">the SEZ of toys &amp; underwear · Chenghai + Gurao</div></a><a class="mapcard-link" href="/deep-dives/guanyun/"><span class="mc-ar">↗</span><div class="mc-t">Guanyun<span class="mc-cn">灌云 · 情趣内衣之都</span></div><div class="mc-d">the unlikely lingerie capital · ~half the world’s erotic lingerie</div></a><a class="mapcard-link" href="/deep-dives/shengzhou/"><span class="mc-ar">↗</span><div class="mc-t">Shengzhou<span class="mc-cn">嵊州 · 领带之乡</span></div><div class="mc-d">the necktie capital · ~60% of the world’s ties, once Italy’s silk supplier</div></a><a class="mapcard-link" href="/deep-dives/qiaotou/"><span class="mc-ar">↗</span><div class="mc-t">Qiaotou<span class="mc-cn">桥头 · 纽扣之都</span></div><div class="mc-d">the button capital · ~60% of the world’s buttons, ~80% of its zippers</div></a><a class="mapcard-link" href="/deep-dives/datang/"><span class="mc-ar">↗</span><div class="mc-t">Datang<span class="mc-cn">大唐 · 世界袜都</span></div><div class="mc-d">the sock capital · ~1/3 of the world’s pairs</div></a><a class="mapcard-link" href="/deep-dives/songxia/"><span class="mc-ar">↗</span><div class="mc-t">Songxia<span class="mc-cn">崧厦 · 中国伞城</span></div><div class="mc-d">the umbrella town · ~1/3 of the world’s</div></a>
+      </div>
+    </div>
+      <div class="maps-group">
+      <div class="mg-h">Metal, hardware & materials</div>
+      <div class="maps-grid">
+        <a class="mapcard-link" href="/deep-dives/weihai/"><span class="mc-ar">↗</span><div class="mc-t">Weihai<span class="mc-cn">威海 · 钓具之都</span></div><div class="mc-d">the fishing-rod city · ~60% of the world’s rods · carbon fibre</div></a><a class="mapcard-link" href="/deep-dives/yangjiang/"><span class="mc-ar">↗</span><div class="mc-t">Yangjiang<span class="mc-cn">阳江 · 刀剪之都</span></div><div class="mc-d">the knife &amp; scissors capital · ~75% of China’s blades, 85% of its exports</div></a><a class="mapcard-link" href="/deep-dives/anping/"><span class="mc-ar">↗</span><div class="mc-t">Anping<span class="mc-cn">安平 · 丝网之乡</span></div><div class="mc-d">the wire-mesh capital · chicken wire to aerospace filters</div></a><a class="mapcard-link" href="/deep-dives/yongnian/"><span class="mc-ar">↗</span><div class="mc-t">Yongnian<span class="mc-cn">永年 · 紧固件之都</span></div><div class="mc-d">the fastener capital · ~half of China’s bolts</div></a><a class="mapcard-link" href="/deep-dives/haiyan/"><span class="mc-ar">↗</span><div class="mc-t">Haiyan<span class="mc-cn">海盐 · 紧固件之乡</span></div><div class="mc-d">high-strength fasteners · bullet-train bolts</div></a><a class="mapcard-link" href="/deep-dives/jieyang/"><span class="mc-ar">↗</span><div class="mc-t">Jieyang<span class="mc-cn">揭阳 · 五金不锈钢</span></div><div class="mc-d">the stainless-steel hardware capital</div></a><a class="mapcard-link" href="/deep-dives/yongkang/"><span class="mc-ar">↗</span><div class="mc-t">Yongkang<span class="mc-cn">永康 · 五金之都</span></div><div class="mc-d">the hardware capital · most of China’s cups, doors, scooters &amp; tools</div></a><a class="mapcard-link" href="/deep-dives/yangzhong/"><span class="mc-ar">↗</span><div class="mc-t">Yangzhong<span class="mc-cn">扬中 · 工程电气岛</span></div><div class="mc-d">the electrical island · busbars, switchgear, substations</div></a><a class="mapcard-link" href="/deep-dives/henglin/"><span class="mc-ar">↗</span><div class="mc-t">Henglin<span class="mc-cn">横林 · 地板之都</span></div><div class="mc-d">the flooring town · ~45% of China’s laminate flooring</div></a>
+      </div>
+    </div>
+      <div class="maps-group">
+      <div class="mg-h">Electronics & optics</div>
+      <div class="maps-grid">
+        <a class="mapcard-link" href="/deep-dives/guiyu/"><span class="mc-ar">↗</span><div class="mc-t">Guiyu<span class="mc-cn">贵屿 · 电子垃圾之都</span></div><div class="mc-d">the town that unmade the world · once Earth’s largest e-waste site</div></a><a class="mapcard-link" href="/deep-dives/huaqiangbei/"><span class="mc-ar">↗</span><div class="mc-t">Huaqiangbei<span class="mc-cn">华强北 · 电子第一街</span></div><div class="mc-d">the market that makes everything · the Chaozhou floor</div></a><a class="mapcard-link" href="/deep-dives/kunshan/"><span class="mc-ar">↗</span><div class="mc-t">Kunshan<span class="mc-cn">昆山 · 小台北</span></div><div class="mc-d">the borrowed boat · ⅓ of the world’s laptops</div></a><a class="mapcard-link" href="/deep-dives/zhengzhou/"><span class="mc-ar">↗</span><div class="mc-t">Zhengzhou<span class="mc-cn">郑州 · iPhone City</span></div><div class="mc-d">iPhone City · one Foxconn megacampus assembles half the world’s iPhones</div></a><a class="mapcard-link" href="/deep-dives/huizhou/"><span class="mc-ar">↗</span><div class="mc-t">Huizhou<span class="mc-cn">惠州 · 电子</span></div><div class="mc-d">the quiet electronics giant · TCL, and the batteries inside your phone</div></a><a class="mapcard-link" href="/deep-dives/yuyao/"><span class="mc-ar">↗</span><div class="mc-t">Yuyao<span class="mc-cn">余姚 · 镜头之城</span></div><div class="mc-d">the other lens city · camera lenses from one giant (Sunny)</div></a><a class="mapcard-link" href="/deep-dives/danyang/"><span class="mc-ar">↗</span><div class="mc-t">Danyang<span class="mc-cn">丹阳 · 眼镜之都</span></div><div class="mc-d">the lens capital · ~half the world’s spectacle lenses</div></a>
+      </div>
+    </div>
+      <div class="maps-group">
+      <div class="mg-h">Household & everyday goods</div>
+      <div class="maps-grid">
+        <a class="mapcard-link" href="/deep-dives/anji/"><span class="mc-ar">↗</span><div class="mc-t">Anji<span class="mc-cn">安吉 · 椅业之乡</span></div><div class="mc-d">the chair capital · 1 in 3 of China’s chairs, half its exports</div></a><a class="mapcard-link" href="/deep-dives/hangji/"><span class="mc-ar">↗</span><div class="mc-t">Hangji<span class="mc-cn">杭集 · 牙刷之都</span></div><div class="mc-d">the toothbrush town · 1 in 3 of the world’s, ~80% of China’s</div></a><a class="mapcard-link" href="/deep-dives/guzhen/"><span class="mc-ar">↗</span><div class="mc-t">Guzhen<span class="mc-cn">古镇 · 中国灯饰之都</span></div><div class="mc-d">the lighting capital · ~70% of China’s, half the world’s</div></a><a class="mapcard-link" href="/deep-dives/shaodong/"><span class="mc-ar">↗</span><div class="mc-t">Shaodong<span class="mc-cn">邵东 · 打火机之都</span></div><div class="mc-d">the lighter capital · ~70% of the world’s lighters, ~¥1 each</div></a><a class="mapcard-link" href="/deep-dives/shunde/"><span class="mc-ar">↗</span><div class="mc-t">Shunde<span class="mc-cn">顺德 · 家电</span></div><div class="mc-d">the appliance capital · half the world’s microwaves &amp; rice cookers</div></a><a class="mapcard-link" href="/deep-dives/zhangqiu/"><span class="mc-ar">↗</span><div class="mc-t">Zhangqiu<span class="mc-cn">章丘 · 铁锅</span></div><div class="mc-d">the iron-wok town · 36,000 hammer blows, made famous overnight by TV</div></a><a class="mapcard-link" href="/deep-dives/liuyang/"><span class="mc-ar">↗</span><div class="mc-t">Liuyang<span class="mc-cn">浏阳 · 花炮之乡</span></div><div class="mc-d">the fireworks capital · ~1 in 3 of the world’s fireworks, invented here</div></a><a class="mapcard-link" href="/deep-dives/shanxiahu/"><span class="mc-ar">↗</span><div class="mc-t">Shanxiahu<span class="mc-cn">山下湖 · 珍珠之乡</span></div><div class="mc-d">the pearl town · ~70% of the world’s freshwater pearls</div></a><a class="mapcard-link" href="/deep-dives/zhuji/"><span class="mc-ar">↗</span><div class="mc-t">Zhuji<span class="mc-cn">诸暨 · 一县两业</span></div><div class="mc-d">the county of monopolies · pearls + a third of the world’s socks</div></a>
+      </div>
+    </div>
+      <div class="maps-group">
+      <div class="mg-h">Cities, markets & zones</div>
+      <div class="maps-grid">
+        <a class="mapcard-link" href="/deep-dives/foshan/"><span class="mc-ar">↗</span><div class="mc-t">Foshan<span class="mc-cn">佛山 · 制造名城</span></div><div class="mc-d">the city of 41 one-industry towns</div></a><a class="mapcard-link" href="/deep-dives/yiwu/"><span class="mc-ar">↗</span><div class="mc-t">Yiwu<span class="mc-cn">义乌 · 小商品之都</span></div><div class="mc-d">the world’s market · ~60% of its Christmas</div></a><a class="mapcard-link" href="/deep-dives/hainan/"><span class="mc-ar">↗</span><div class="mc-t">Hainan<span class="mc-cn">海南 · 自由贸易港</span></div><div class="mc-d">a forward look · China’s whole-island free trade port</div></a>
       </div>
     </div>
       <div class="maps-group">
@@ -794,5 +841,28 @@ $('#menuBtn').addEventListener('click',()=>$('#nav').classList.toggle('show'));
 document.querySelectorAll('nav.main a').forEach(a=>a.addEventListener('click',()=>$('#nav').classList.remove('show')));
 </script>
 <script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
+<script>
+(function(){
+  var q=document.getElementById('mapq'),clr=document.getElementById('mapq-clear'),none=document.getElementById('mapq-none');
+  if(!q)return;
+  var cards=[].slice.call(document.querySelectorAll('.mapcard-link'));
+  var groups=[].slice.call(document.querySelectorAll('.maps-group'));
+  var fams=[].slice.call(document.querySelectorAll('.maps-family'));
+  function run(){
+    var v=(q.value||'').toLowerCase().trim();
+    clr.style.display=v?'block':'none';
+    var shown=0;
+    cards.forEach(function(c){
+      var hit=!v||c.textContent.toLowerCase().indexOf(v)>-1||(c.getAttribute('href')||'').toLowerCase().indexOf(v)>-1;
+      c.classList.toggle('card-hide',!hit); if(hit)shown++;
+    });
+    groups.forEach(function(g){g.classList.toggle('is-hidden',!g.querySelector('.mapcard-link:not(.card-hide)'));});
+    fams.forEach(function(f){f.classList.toggle('is-hidden',!f.querySelector('.mapcard-link:not(.card-hide)'));});
+    if(v&&shown===0){none.hidden=false;none.querySelector('span').textContent=q.value;}else{none.hidden=true;}
+  }
+  q.addEventListener('input',run);
+  clr.addEventListener('click',function(){q.value='';q.focus();run();});
+})();
+</script>
 </body>
 </html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Xuchang — the city that makes six of every ten wigs on Earth | China Industry Atlas</title>
+<meta name="description" content="How Xuchang in Henan became the wig capital of the world, making about 60% of all wigs across 4,000+ firms, and the finished-product half of the hair axis with Juancheng.">
+<link rel="canonical" href="https://chinaindustryatlas.com/deep-dives/xuchang/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/deep-dives/xuchang/">
+<meta property="og:title" content="Xuchang — the wig capital">
+<meta property="og:description" content="One city in Henan makes about 60% of the world's wigs, the finished-product end of the hair axis.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Xuchang — the city that makes six of every ten wigs on Earth","name":"Xuchang — the city that makes six of every ten wigs on Earth","description":"How Xuchang in Henan became the wig capital of the world, making about 60% of all wigs across 4,000+ firms, and the finished-product half of the hair axis with Juancheng.","url":"https://chinaindustryatlas.com/deep-dives/xuchang/","author":{"@type":"Person","name":"Hans Stam"},"publisher":{"@type":"Organization","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"isPartOf":{"@type":"WebSite","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"inLanguage":"en"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"China Industry Atlas","item":"https://chinaindustryatlas.com/"},{"@type":"ListItem","position":2,"name":"Deep dives","item":"https://chinaindustryatlas.com/#maps"},{"@type":"ListItem","position":3,"name":"Xuchang — the city that makes six of every ten wigs on Earth","item":"https://chinaindustryatlas.com/deep-dives/xuchang/"}]}]}</script>
+</head>
+<body>
+<div data-atlas-buybar style="background:var(--chop,#C0402A);color:#fff;font-family:var(--mono,'Space Mono',monospace);font-size:12px;line-height:1.2;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:7px 16px;text-align:center"><span>China Industry Atlas — the 40-page field guide (PDF)</span><a class="lemonsqueezy-button" href="https://hansolo.lemonsqueezy.com/checkout/buy/5435562a-0e88-43f3-8736-f85c14c3a69d" style="background:#fff;color:var(--chop,#C0402A);text-decoration:none;font-weight:700;padding:3px 12px;border-radius:2px;white-space:nowrap">Get it · €19.99 →</a></div>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Town deep-dive</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<div class="wrap hero">
+  <div class="eyebrow">Town deep-dive · Henan</div>
+  <h1>Xuchang<span class="cn">许昌 · 假发之都</span></h1>
+  <p class="lede">A city in central Henan makes about <b>six of every ten wigs sold anywhere on Earth</b>. On the cross-border platforms a Xuchang hair product now sells <b>roughly every two seconds</b>. It is the finished-wig capital of the world, and the other half of the hair axis that begins in Juancheng.</p>
+  <div class="readouts"><div class="readout"><div class="n">~60%</div><div class="l">of the world's wigs made here</div></div><div class="readout"><div class="n">4,000+</div><div class="l">hair-product firms</div></div><div class="readout"><div class="n">~every 2s</div><div class="l">a Xuchang wig sells online</div></div></div>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">Where it is · the wig capital and the hair axis</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend"><span><i class="dot" style="background:var(--chop)"></i>Xuchang (finished wigs)</span><span><i class="dot" style="background:var(--ink-2)"></i>Reference city</span></div>
+</div></div>
+<section><div class="wrap dd-grid"><div>
+<div class="sec"><div class="num">01</div><h2>Six of every ten wigs</h2><p>Xuchang, a city of some 4.3 million in central Henan, is the wig capital of the world. By the common figure, <b>six out of every ten wigs sold globally</b> are made here, by a cluster of more than <b>4,000 firms</b> employing around 300,000 people and turning out close to 3,000 varieties of hair product. In 2023 its hair exports reached about 16.85 billion yuan ($2.4 billion), and by 2025 hair made up roughly 82% of the city's entire foreign trade. On the cross-border platforms, a Xuchang hair product sells about every two seconds.</p></div>
+<div class="sec"><div class="num">02</div><h2>A sewing needle and a German merchant</h2><p>The trade is more than a century old. Locals were already making hairpieces for theatre troupes in the Ming dynasty, but the modern industry began in the early 1900s, when <b>Bai Xihe</b>, from Quandian village, partnered with a German merchant to collect, roughly process and export human hair to Europe, sometimes paid in the coveted steel sewing needles of the day. Europe did the finishing for decades; eventually the whole craft came home to Xuchang.</p></div>
+<div class="sec"><div class="num">03</div><h2>The hair comes from India</h2><p>Like Juancheng, Xuchang runs on imported raw material. Bundles of human hair, known as <i>xiaofa</i>, travel from <b>India</b> and <b>Myanmar</b> along what is now marketed as a modern Maritime Silk Road; a 2020 bonded-logistics center cut the journey from India to Xuchang to as little as three to five days. The city has become the world's largest collection and distribution base for human hair, the upstream that feeds its own workshops and others.</p></div>
+<div class="sec"><div class="num">04</div><h2>The African turn</h2><p>Xuchang's biggest move was geographic. For a Caucasian or Asian buyer a wig is an accessory; for much of the African diaspora it is a daily necessity, replaced often. <b>Rebecca</b>, the first listed company in China's hair industry and long the world's largest wig producer, pivoted from being a quiet component supplier to the United States toward building the African market directly. Today Xuchang's hair products reach more than 120 countries, with a market share above 70% in Africa and over 40% in Europe and America; new logistics cut delivery to Africa from forty days to under a week.</p></div>
+<div class="sec"><div class="num">05</div><h2>From supplier to brand</h2><p>A hand-woven wig can take more than a day and over ten thousand stitches, and that craft is hard to copy. Xuchang has used it to climb from invisible OEM toward brands of its own: "simulation scalp" wigs now pass for real hair, and local firms hold hundreds of patents and overseas trademarks. The city built the world's first logistics-and-livestreaming park dedicated entirely to hair, selling direct to global audiences over AliExpress, Amazon and TikTok Shop.</p></div>
+<div class="sec"><div class="num">06</div><h2>Two hair capitals</h2><p>The hair axis has two ends. <b>Juancheng</b>, in Shandong, is where raw human hair is collected, graded and processed; <b>Xuchang</b>, in Henan, is where it becomes the finished, branded wig and ships to the world. One county owns the material; one city owns the market. Between them they turn a strand cut from a stranger's head, often in an Indian temple, into the crowning glory worn on another continent.</p></div>
+<div class="pull">A strand of Indian temple hair becomes, in Xuchang, one of six wigs worn anywhere on Earth.</div>
+</div></div></section>
+<footer><div class="wrap"><div class="ftlinks"><a class="dl" href="/">← Full atlas</a><a class="dl" href="/deep-dives/juancheng/">Juancheng: the raw-hair town →</a><a class="dl" href="/deep-dives/luyi/">Luyi: the makeup-brush city →</a><a class="dl" href="/deep-dives/caoxian/">Caoxian: costumes &amp; coffins →</a><a class="dl" href="/factory-towns/">Two kinds of factory town →</a></div><div class="fine">Town deep-dive · Xuchang · 2026 · shares are widely reported figures · basemap © OpenStreetMap, © CARTO.</div></div></footer>
+<script>
+if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}
+</script>
+<script>
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([34.55,114.6],7);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:11,subdomains:'abcd'}).addTo(map);
+function ref(c,name){L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);}
+ref([34.75,113.63],"Zhengzhou — provincial capital");
+ref([35.56,115.51],"Juancheng — raw-hair heartland");
+ref([33.86,115.49],"Luyi — makeup-brush county");
+L.marker([34.03,113.85],{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map).bindTooltip("Xuchang — the wig capital",{direction:'top',offset:[0,-7],className:'pinlbl'});
+L.marker([34.03,113.85],{icon:L.divIcon({html:'<div class="pinlbl big">Xuchang</div>',iconSize:[1,1],iconAnchor:[-9,6],className:''})}).addTo(map);
+</script>
+<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
+</body></html>

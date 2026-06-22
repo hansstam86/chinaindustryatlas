@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guanyun — the unlikely county that makes half the world's erotic lingerie | China Industry Atlas</title>
+<meta name="description" content="Is there a Chinese sex-toy town? The toys spread across Guangdong and Zhejiang, but lingerie has one capital: Guanyun, Jiangsu, making ~half the world's erotic lingerie.">
+<link rel="canonical" href="https://chinaindustryatlas.com/deep-dives/guanyun/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/deep-dives/guanyun/">
+<meta property="og:title" content="Guanyun — the lingerie capital">
+<meta property="og:description" content="A poor Jiangsu farming county makes about half the world's erotic lingerie, sewn by village women.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Guanyun — the unlikely county that makes half the world's erotic lingerie","name":"Guanyun — the unlikely county that makes half the world's erotic lingerie","description":"Is there a Chinese sex-toy town? The toys spread across Guangdong and Zhejiang, but lingerie has one capital: Guanyun, Jiangsu, making ~half the world's erotic lingerie.","url":"https://chinaindustryatlas.com/deep-dives/guanyun/","author":{"@type":"Person","name":"Hans Stam"},"publisher":{"@type":"Organization","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"isPartOf":{"@type":"WebSite","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"inLanguage":"en"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"China Industry Atlas","item":"https://chinaindustryatlas.com/"},{"@type":"ListItem","position":2,"name":"Deep dives","item":"https://chinaindustryatlas.com/#maps"},{"@type":"ListItem","position":3,"name":"Guanyun — the unlikely county that makes half the world's erotic lingerie","item":"https://chinaindustryatlas.com/deep-dives/guanyun/"}]}]}</script>
+</head>
+<body>
+<div data-atlas-buybar style="background:var(--chop,#C0402A);color:#fff;font-family:var(--mono,'Space Mono',monospace);font-size:12px;line-height:1.2;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:7px 16px;text-align:center"><span>China Industry Atlas — the 40-page field guide (PDF)</span><a class="lemonsqueezy-button" href="https://hansolo.lemonsqueezy.com/checkout/buy/5435562a-0e88-43f3-8736-f85c14c3a69d" style="background:#fff;color:var(--chop,#C0402A);text-decoration:none;font-weight:700;padding:3px 12px;border-radius:2px;white-space:nowrap">Get it · €19.99 →</a></div>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Town deep-dive</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<div class="wrap hero">
+  <div class="eyebrow">Town deep-dive · Jiangsu</div>
+  <h1>Guanyun<span class="cn">灌云 · 情趣内衣之都</span></h1>
+  <p class="lede">Is there a sex-toy town? Not quite: the toys themselves are spread across three provinces. But the lingerie has a single, unlikely capital. <b>Guanyun</b>, a poor farming county in northern Jiangsu, makes by local accounts about <b>half the world's erotic lingerie</b> and three in five of the pieces sold online in China, sewn largely by village women in houses you would never look at twice.</p>
+  <div class="readouts"><div class="readout"><div class="n">~half</div><div class="l">of the world's erotic lingerie</div></div><div class="readout"><div class="n">~60–70%</div><div class="l">of China's online lingerie sales</div></div><div class="readout"><div class="n">1 in 50</div><div class="l">locals work in the trade</div></div></div>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">Where it is · the lingerie capital, and the spread-out toy clusters</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend"><span><i class="dot" style="background:var(--chop)"></i>Guanyun — the lingerie capital</span><span><i class="dot" style="background:var(--ink-2)"></i>Other adult-products clusters</span></div>
+</div></div>
+<section><div class="wrap dd-grid"><div>
+<div class="sec"><div class="num">01</div><h2>Is there a sex-toy town?</h2><p>The short answer is no, not one. China makes something like <b>70% of the world's sex toys</b>, by some estimates more, but the production has no single capital: it splits across <b>Guangdong</b>, where Shenzhen and Dongguan make the higher-end silicone and electronic devices, and <b>Zhejiang</b>, where Yiwu's giant wholesale market and towns like Wenzhou and Taizhou turn out cheap volume. The one product in the whole adult-goods world that <i>does</i> have a clean, single-county monopoly is lingerie, and it is made in the last place you would guess.</p></div>
+<div class="sec"><div class="num">02</div><h2>The unlikely capital</h2><p>Guanyun, in the flat farm country of northern Jiangsu, has just under a million people and was long one of the poorest counties in the province. Today it is sometimes called the Eastern Victoria's Secret. By local accounts it makes around <b>half the world's erotic lingerie</b>; more soberly, reputable reporting puts it at about <b>three in five</b> of the pieces sold online in China, made by 500-plus manufacturers (over a thousand by the county's own newer count) and more than 20,000 workers, with combined sales now running into the billions of yuan. Most of it is sewn in Dongwangji, a town that looks like any other on the road, all farmland and dust, betrayed only by the factory hiring boards.</p></div>
+<div class="sec"><div class="num">03</div><h2>One teenager and a Taobao shop</h2><p>The whole thing traces to one person. In 2006 a local teenager, <b>Lei Congrui</b>, helped his mother open a Taobao shop after her children's-clothing store failed, selling odds and ends, cosmetics, slippers, cheap lingerie. Lingerie sold best, and when he suspected his Guangdong suppliers were shipping him junk, he started making his own. He opened his factory, “Midnight Charm,” in 2009 at seventeen, while still a law student; he had told classmates he wanted a million yuan before twenty-five and hit it in his first year of university. His success ripped through the county, relatives first, then neighbours, then strangers, until lingerie was the local economy.</p></div>
+<div class="sec"><div class="num">04</div><h2>The grandmothers' trade</h2><p>The strangest thing about Guanyun is who makes the lingerie. In a conservative rural county, the workforce is largely farm women who sew between harvests, paid a yuan or two a piece, a few thousand a month, good money here and enough to draw migrants home. The taboo was real: early factories recruited under the cover of being ordinary “garment factories,” workers quit when they saw the product, and many still tell relatives they just “make clothes.” The bosses, meanwhile, read the world's desires like a weather map: bright colours for Africa, flashy cuts for America, restraint for Europe, cute for Asia. Same lace, sorted by hemisphere.</p></div>
+<div class="sec"><div class="num">05</div><h2>De-eroticising the brand</h2><p>Guanyun is now doing what every town in this atlas eventually tries: climbing from anonymous volume toward a brand, and cleaning up its image on the way. The county once had no idea how to promote a “specialty” industry it could barely name; since 2021 it has had an official development plan, a purpose-built “Victoria's Secret Town” industrial park, and a careful new label, “light themed apparel,” that never says the word. Some firms are pushing the product toward ordinary fashion and loungewear, blurring the line with regular underwear, while others chase overseas warehouses to survive new US tariffs. The ambition, stated plainly by the people here, is a homegrown Victoria's Secret, grown out of a Jiangsu cornfield.</p></div>
+<div class="pull">Half the world's erotic lingerie is sewn by farm women in a poor Jiangsu county, between harvests, in houses you'd never look at twice.</div>
+</div></div></section>
+<footer><div class="wrap"><div class="ftlinks"><a class="dl" href="/">← Full atlas</a><a class="dl" href="/deep-dives/caoxian/">Caoxian: costumes &amp; coffins →</a><a class="dl" href="/deep-dives/shantou/">Shantou: toys &amp; underwear →</a><a class="dl" href="/one-product-towns/">One-product towns →</a></div><div class="fine">Town deep-dive · Guanyun · 2026 · shares are widely reported; the highest are county-sourced estimates · basemap © OpenStreetMap, © CARTO.</div></div></footer>
+<script>
+if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}
+</script>
+<script>
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([28.0,117.5],5);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:12,subdomains:'abcd'}).addTo(map);
+function ref(c,name){L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);}
+ref([23.02,113.75],"Dongguan & Shenzhen — silicone & tech toys");
+ref([29.31,120.07],"Yiwu — cheap toys & sourcing");
+ref([31.23,121.47],"Shanghai");
+L.marker([34.28,119.24],{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map).bindTooltip("Guanyun — the lingerie capital",{direction:'top',offset:[0,-7],className:'pinlbl'});
+L.marker([34.28,119.24],{icon:L.divIcon({html:'<div class="pinlbl big">Guanyun</div>',iconSize:[1,1],iconAnchor:[-9,6],className:''})}).addTo(map);
+</script>
+<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
+</body></html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Huangqiao — the Cremona of the East, making a third of the world's violins | China Industry Atlas</title>
+<meta name="description" content="How Huangqiao in Taixing, Jiangsu became the world's largest violin-production base, making ~70% of China's violins and roughly a third of the world's.">
+<link rel="canonical" href="https://chinaindustryatlas.com/deep-dives/huangqiao/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/deep-dives/huangqiao/">
+<meta property="og:title" content="Huangqiao — the violin town">
+<meta property="og:description" content="Once famous for sesame cakes, Huangqiao now makes a third of the world's violins.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Huangqiao — the Cremona of the East, making a third of the world's violins","name":"Huangqiao — the Cremona of the East, making a third of the world's violins","description":"How Huangqiao in Taixing, Jiangsu became the world's largest violin-production base, making ~70% of China's violins and roughly a third of the world's.","url":"https://chinaindustryatlas.com/deep-dives/huangqiao/","author":{"@type":"Person","name":"Hans Stam"},"publisher":{"@type":"Organization","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"isPartOf":{"@type":"WebSite","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"inLanguage":"en"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"China Industry Atlas","item":"https://chinaindustryatlas.com/"},{"@type":"ListItem","position":2,"name":"Deep dives","item":"https://chinaindustryatlas.com/#maps"},{"@type":"ListItem","position":3,"name":"Huangqiao — the Cremona of the East, making a third of the world's violins","item":"https://chinaindustryatlas.com/deep-dives/huangqiao/"}]}]}</script>
+</head>
+<body>
+<div data-atlas-buybar style="background:var(--chop,#C0402A);color:#fff;font-family:var(--mono,'Space Mono',monospace);font-size:12px;line-height:1.2;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:7px 16px;text-align:center"><span>China Industry Atlas — the 40-page field guide (PDF)</span><a class="lemonsqueezy-button" href="https://hansolo.lemonsqueezy.com/checkout/buy/5435562a-0e88-43f3-8736-f85c14c3a69d" style="background:#fff;color:var(--chop,#C0402A);text-decoration:none;font-weight:700;padding:3px 12px;border-radius:2px;white-space:nowrap">Get it · €19.99 →</a></div>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Town deep-dive</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<div class="wrap hero">
+  <div class="eyebrow">Town deep-dive · Jiangsu</div>
+  <h1>Huangqiao<span class="cn">黄桥 · 提琴之都</span></h1>
+  <p class="lede">A township in Taixing, Jiangsu, once known for sesame cakes and a 1940 battle, now makes the violins the world learns on. Huangqiao turns out about <b>a million violins a year</b>, roughly <b>70% of China's output and a third of the world's</b>, and has earned the nickname the Cremona of the East.</p>
+  <div class="readouts"><div class="readout"><div class="n">~70%</div><div class="l">of China's violins</div></div><div class="readout"><div class="n">~1/3</div><div class="l">of the world's violins</div></div><div class="readout"><div class="n">~200</div><div class="l">steps to make one</div></div></div>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">Where it is · the violin town, and its Henan rival</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend"><span><i class="dot" style="background:var(--chop)"></i>Huangqiao (violins)</span><span><i class="dot" style="background:var(--ink-2)"></i>Rival town / reference</span></div>
+</div></div>
+<section><div class="wrap dd-grid"><div>
+<div class="sec"><div class="num">01</div><h2>The Cremona of the East</h2><p>Huangqiao is a township of about 200,000 people in Taixing, on the Yangtze in central Jiangsu. For most of its history it was known for two things: the Huangqiao sesame cake, and the 1940 Battle of Huangqiao. Now it is the largest violin-production base on Earth. By local officials' figures it makes about <b>70% of China's violins and roughly a third of the world's</b>, on the order of a million instruments a year, alongside several hundred thousand guitars and ukuleles and a few thousand pianos. More than 30,000 of its residents, around one in six, work in the trade, across 220-plus instrument firms.</p></div>
+<div class="sec"><div class="num">02</div><h2>From scrolls to symphonies</h2><p>The craft was carried home, like Zheng'an's guitars. In the 1960s a handful of craftsmen from the state-run Shanghai Violin Factory came back to Huangqiao and began carving violin heads and bows as a sideline, a head for fifty cents, a bow for a yuan. In 1971 one of their apprentices, Li Shu, made the town's first whole violin. A 1984 joint venture with the Shanghai factory taught the trade at scale; by 1995 Huangqiao had gone independent and become China's largest violin maker, and a second venture, Finelegend, paired it with the American firm AXL for the export market. Li Shu now chairs Fengling, the town's biggest manufacturer.</p></div>
+<div class="sec"><div class="num">03</div><h2>Two hundred steps</h2><p>A violin runs through around 200 steps, and the wood is the hard part: tonewood was traditionally air-dried for fifty years or more to keep it from cracking. Li's company developed a microbiological process using wine enzymes to strip the wood's sugars and resins, cutting the drying time by over twenty years. Most of Huangqiao's output is still budget student instruments made on assembly lines, but its luthiers are climbing: handmade Fengling violins can pass 100,000 yuan, and the town is working to shed its cheap-fiddle reputation for a place at the middle and high end.</p></div>
+<div class="sec"><div class="num">04</div><h2>A town that plays</h2><p>The industry has soaked into the place. A violin-shaped lake sits in the town square, violinist statues line the streets, and more than 85% of local schoolchildren learn an instrument; some babies are handed violins as toys. Since 2017 Huangqiao has been China's permanent venue for International Music Day on 21 June. A shared facility the makers call “Green Island,” opened in 2023, handles the toxic lacquer-spraying that small workshops cannot clean up alone, letting them meet emissions rules without each buying their own equipment.</p></div>
+<div class="sec"><div class="num">05</div><h2>The rivals</h2><p>Huangqiao is not the only violin town. Queshan, in Henan, turns out perhaps 300,000 violins a year, under half Huangqiao's volume, and Donggaocun near Beijing makes them too, both often staffed by people who learned the craft in big-city workshops and brought it home. But Huangqiao dominates, having topped national violin sales for around twenty-five years running. It anchors a small family of Chinese instrument towns: guitars from <b>Zheng'an</b>, brass and winds from <b>Wuqiang</b>, and Chinese zithers from <b>Lankao</b>.</p></div>
+<div class="pull">A town once famous for sesame cakes now makes a third of the world's violins, about a million a year.</div>
+</div></div></section>
+<footer><div class="wrap"><div class="ftlinks"><a class="dl" href="/">← Full atlas</a><a class="dl" href="/deep-dives/zhengan/">Zheng&rsquo;an: the guitar county →</a><a class="dl" href="/deep-dives/wuqiang/">Wuqiang: brass &amp; winds →</a><a class="dl" href="/deep-dives/lankao/">Lankao: the guzheng county →</a></div><div class="fine">Town deep-dive · Huangqiao · 2026 · the ~70% China share is consistent; world-share estimates run from 30% to half · basemap © OpenStreetMap, © CARTO.</div></div></footer>
+<script>
+if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}
+</script>
+<script>
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([32.2,117.7],6);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:12,subdomains:'abcd'}).addTo(map);
+function ref(c,name){L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);}
+ref([31.23,121.47],"Shanghai — where the craft came from");
+ref([32.8,114.03],"Queshan — the Henan rival");
+ref([32.06,118.8],"Nanjing");
+L.marker([32.18,120.13],{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map).bindTooltip("Huangqiao — the violin town",{direction:'top',offset:[0,-7],className:'pinlbl'});
+L.marker([32.18,120.13],{icon:L.divIcon({html:'<div class="pinlbl big">Huangqiao</div>',iconSize:[1,1],iconAnchor:[-9,6],className:''})}).addTo(map);
+</script>
+<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
+</body></html>

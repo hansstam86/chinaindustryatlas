@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guiyu — the town that was the world's largest e-waste site | China Industry Atlas</title>
+<meta name="description" content="How Guiyu in Guangdong became the world's largest electronic-waste site, and how it was forced into a regulated recycling park after 2015 — cleaner, but poorer.">
+<link rel="canonical" href="https://chinaindustryatlas.com/deep-dives/guiyu/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/deep-dives/guiyu/">
+<meta property="og:title" content="Guiyu — the town that unmade the world">
+<meta property="og:description" content="The world's largest e-waste graveyard, now a regulated recycling park: cleaner, but poorer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Guiyu — the town that was the world's largest e-waste site","name":"Guiyu — the town that was the world's largest e-waste site","description":"How Guiyu in Guangdong became the world's largest electronic-waste site, and how it was forced into a regulated recycling park after 2015 — cleaner, but poorer.","url":"https://chinaindustryatlas.com/deep-dives/guiyu/","author":{"@type":"Person","name":"Hans Stam"},"publisher":{"@type":"Organization","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"isPartOf":{"@type":"WebSite","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"inLanguage":"en"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"China Industry Atlas","item":"https://chinaindustryatlas.com/"},{"@type":"ListItem","position":2,"name":"Deep dives","item":"https://chinaindustryatlas.com/#maps"},{"@type":"ListItem","position":3,"name":"Guiyu — the town that was the world's largest e-waste site","item":"https://chinaindustryatlas.com/deep-dives/guiyu/"}]}]}</script>
+</head>
+<body>
+<div data-atlas-buybar style="background:var(--chop,#C0402A);color:#fff;font-family:var(--mono,'Space Mono',monospace);font-size:12px;line-height:1.2;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:7px 16px;text-align:center"><span>China Industry Atlas — the 40-page field guide (PDF)</span><a class="lemonsqueezy-button" href="https://hansolo.lemonsqueezy.com/checkout/buy/5435562a-0e88-43f3-8736-f85c14c3a69d" style="background:#fff;color:var(--chop,#C0402A);text-decoration:none;font-weight:700;padding:3px 12px;border-radius:2px;white-space:nowrap">Get it · €19.99 →</a></div>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Town deep-dive</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<div class="wrap hero">
+  <div class="eyebrow">Town deep-dive · Guangdong</div>
+  <h1>Guiyu<span class="cn">贵屿 · the town that unmade the world</span></h1>
+  <p class="lede">For two decades a cluster of villages in eastern Guangdong was the <b>largest electronic-waste site on Earth</b> — where the rich world's discarded phones, PCs and televisions came to be pulled apart by hand for gold and copper. Since 2015 it has been forced into a regulated recycling park: <b>cleaner now, but poorer, and still scarred</b>.</p>
+  <div class="readouts"><div class="readout"><div class="n">60,000</div><div class="l">e-waste workers at the 2005 peak</div></div><div class="readout"><div class="n">~5,000</div><div class="l">family workshops</div></div><div class="readout"><div class="n">2015</div><div class="l">forced into the recycling park</div></div></div>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">Where it is · and where the waste came from</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend"><span><i class="dot" style="background:var(--chop)"></i>Guiyu (e-waste)</span><span><i style="border-top-color:var(--chop);border-top-style:dashed"></i>Imported e-waste</span><span><i class="dot" style="background:var(--ink-2)"></i>Reference city</span></div>
+</div></div>
+<section><div class="wrap dd-grid"><div>
+<div class="sec"><div class="num">01</div><h2>The electronic graveyard of the world</h2><p>Around 1995, four ordinary rice villages near Shantou, in eastern Guangdong, became the global destination for broken electronics. At its 2005 peak the area absorbed more than a hundred truckloads a day across roughly 52 square kilometres, and some <b>60,000 people</b> made their living tearing devices apart. The world's press called it the electronic graveyard.</p></div>
+<div class="sec"><div class="num">02</div><h2>Unmaking, by hand</h2><p>There was no machinery to speak of. In about five thousand small, family-run workshops, people burned the insulation off cables in open pits to get at the copper, soaked circuit boards in acid baths to leach out gold, and swept toner from cartridges to resell, mostly without gloves, masks or any protection. The "product" of Guiyu was the reverse of every other town in this atlas: not a thing made, but a thing taken apart.</p></div>
+<div class="sec"><div class="num">03</div><h2>The poison</h2><p>The cost landed on the place itself. The air smelled of acid; the river ran so heavy with copper it approached ore grade; residents stopped drinking the local water in 1996 and have relied on trucked-in bottled water ever since. Soil tests found heavy metals at extreme multiples of safe limits, and studies of local children recorded elevated lead. Much of the damage is still written into the soil, and into the bodies of those who did the work.</p></div>
+<div class="sec"><div class="num">04</div><h2>Where it came from</h2><p>Most of what arrived in Guiyu came from the wealthy countries of the Global North. Rules meant to stop the export of hazardous waste to developing countries were routinely sidestepped, with shipments relabelled as charitable donations or second-hand goods. Guiyu was the hidden downstream of exactly the supply chains this atlas maps elsewhere: the far end of the smartphone's life, the place the device goes when the upgrade arrives. Its only peer was Agbogbloshie, in Ghana.</p></div>
+<div class="sec"><div class="num">05</div><h2>Cleaner, but poorer</h2><p>In 2013 Guangdong approved a clean-up; a <b>1.5-billion-yuan</b> Circular Economy Industrial Park opened fully in 2015, and informal dismantling outside it was banned. Between 2012 and 2015 some 2,469 workshops were closed and over 3,000 makeshift chimneys taken down, with a small subsidy paid for each. Today the work is consolidated, tracked on an online system, and fed to certified smelters that recover copper and gold under controlled conditions; the makeshift chimneys are gone, and a white crane has been seen over the once-dead river.</p><p>But the gain was not free. Many former recyclers earn less than before and now pay rent and fees to the park; the people who bore the pollution were largely shut out of the decisions about its cleanup. Guiyu is cleaner. It is also a cautionary tale about who pays for that.</p></div>
+<div class="sec"><div class="num">06</div><h2>The town that unmakes</h2><p>Every other place on this map is defined by what it makes. Guiyu is the dark mirror: a town defined, for a generation, by what it un-made. It belongs on the atlas precisely because the geography of making is incomplete without the geography of un-making, and because the gold pulled from those boards came, in the end, from the same global supply chains that begin in all the other towns here.</p></div>
+<div class="pull">Every other town on this map makes something. Guiyu took the world's electronics apart.</div>
+</div></div></section>
+<footer><div class="wrap"><div class="ftlinks"><a class="dl" href="/">← Full atlas</a><a class="dl" href="/supply-chains/">The four shapes →</a><a class="dl" href="/getting-it-out/">Getting it out →</a><a class="dl" href="/one-product-towns/">One-product towns →</a></div><div class="fine">Town deep-dive · Guiyu · 2026 · location approximate; figures are widely reported · basemap © OpenStreetMap, © CARTO.</div></div></footer>
+<script>
+if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}
+</script>
+<script>
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([23.4,116.2],8);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:11,subdomains:'abcd'}).addTo(map);
+function ref(c,name){L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);}
+ref([23.35,116.68],"Shantou");
+ref([23.66,116.62],"Chaozhou");
+ref([22.54,114.06],"Shenzhen");
+L.polyline([[24.6,118.6],[23.42,116.35]],{color:'#C0402A',weight:2.5,opacity:.7,dashArray:'7,6'}).addTo(map).bindTooltip('Discarded electronics imported from the Global North',{sticky:true,className:'pinlbl'});
+L.polyline([[25.2,116.0],[23.42,116.35]],{color:'#C0402A',weight:2.5,opacity:.7,dashArray:'7,6'}).addTo(map).bindTooltip('Discarded electronics imported from the Global North',{sticky:true,className:'pinlbl'});
+L.marker([23.42,116.35],{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map).bindTooltip("Guiyu — the e-waste town",{direction:'top',offset:[0,-7],className:'pinlbl'});
+L.marker([23.42,116.35],{icon:L.divIcon({html:'<div class="pinlbl big">Guiyu</div>',iconSize:[1,1],iconAnchor:[-9,6],className:''})}).addTo(map);
+</script>
+<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
+</body></html>

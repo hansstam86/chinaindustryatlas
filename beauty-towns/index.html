@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The beauty-supply towns — where the world's wigs, brushes and lashes are made | China Industry Atlas</title>
+<meta name="description" content="China makes most of what goes on the world's faces and heads. The beauty supply chain runs through four counties: Juancheng (raw hair), Xuchang (wigs), Luyi (makeup brushes) and Pingdu (false eyelashes).">
+<link rel="canonical" href="https://chinaindustryatlas.com/beauty-towns/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/beauty-towns/">
+<meta property="og:title" content="The beauty-supply towns">
+<meta property="og:description" content="Four Chinese counties make most of the world's wigs, hair, makeup brushes and false eyelashes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"The beauty-supply towns — where the world's wigs, brushes and lashes are made","name":"The beauty-supply towns — where the world's wigs, brushes and lashes are made","description":"China makes most of what goes on the world's faces and heads. The beauty supply chain runs through four counties: Juancheng (raw hair), Xuchang (wigs), Luyi (makeup brushes) and Pingdu (false eyelashes).","url":"https://chinaindustryatlas.com/beauty-towns/","author":{"@type":"Person","name":"Hans Stam"},"publisher":{"@type":"Organization","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"isPartOf":{"@type":"WebSite","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"inLanguage":"en"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"China Industry Atlas","item":"https://chinaindustryatlas.com/"},{"@type":"ListItem","position":2,"name":"Beauty Towns","item":"https://chinaindustryatlas.com/#maps"},{"@type":"ListItem","position":3,"name":"The beauty-supply towns — where the world's wigs, brushes and lashes are made","item":"https://chinaindustryatlas.com/beauty-towns/"}]}]}</script>
+</head>
+<body>
+<div data-atlas-buybar style="background:var(--chop,#C0402A);color:#fff;font-family:var(--mono,'Space Mono',monospace);font-size:12px;line-height:1.2;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:7px 16px;text-align:center"><span>China Industry Atlas — the 40-page field guide (PDF)</span><a class="lemonsqueezy-button" href="https://hansolo.lemonsqueezy.com/checkout/buy/5435562a-0e88-43f3-8736-f85c14c3a69d" style="background:#fff;color:var(--chop,#C0402A);text-decoration:none;font-weight:700;padding:3px 12px;border-radius:2px;white-space:nowrap">Get it · €19.99 →</a></div>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Themes</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<style>
+  .shapes{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:8px}
+  @media(max-width:640px){.shapes{grid-template-columns:1fr}}
+  .shape{border:1px solid var(--line);background:var(--paper-2);padding:22px 22px 20px;text-decoration:none;display:block;transition:border-color .15s ease,transform .15s ease,box-shadow .15s ease}
+  .shape:hover{border-color:var(--chop);transform:translateY(-2px);box-shadow:0 8px 22px rgba(22,36,42,.08)}
+  .shape .glyph{background:var(--paper);border:1px solid var(--line);padding:8px 6px;margin-bottom:16px}
+  .shape .sh-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+  .shape .sh-name{font-family:var(--disp);font-weight:700;font-size:23px;color:var(--ink);line-height:1.05}
+  .shape .sh-cn{font-family:var(--disp);font-weight:400;font-size:13px;color:var(--ink-3)}
+  .shape .sh-obj{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.13em;color:var(--chop);margin-top:7px}
+  .shape .sh-d{font-size:14px;color:var(--ink-2);margin-top:11px;line-height:1.5}
+  .shape .sh-go{font-family:var(--mono);font-size:11px;color:var(--ink-3);margin-top:13px}
+  .shape:hover .sh-go{color:var(--chop)}
+  .essay{max-width:74ch;margin-top:8px}
+  .essay h2{font-size:clamp(22px,2.6vw,30px);margin-bottom:14px}
+  .essay p{color:var(--ink-2);font-size:15.5px;line-height:1.62;margin:0 0 15px}
+  .essay b{color:var(--ink)}
+</style>
+<div class="wrap hero">
+  <div class="eyebrow">Themes · the global beauty supply</div>
+  <h1>The beauty towns<span class="cn">美业之乡</span></h1>
+  <p class="lede">China makes most of what the world puts on its face and head, and it comes from a handful of specific counties. Wigs, human hair, makeup brushes, false eyelashes: each has its own town, and two of them are the two ends of a single chain.</p>
+</div>
+<section><div class="wrap"><div class="shapes">
+<a class="shape" href="/deep-dives/juancheng/"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="72" y="10" width="76" height="7" rx="3" fill="#C0402A"/><g fill="none" stroke="#C0402A" stroke-width="2.4" stroke-linecap="round"><path d="M80 18 C72 38 68 58 86 76"/><path d="M98 18 C92 40 90 58 106 76"/><path d="M116 18 C112 38 112 58 126 76"/><path d="M134 18 C132 38 134 58 144 76"/></g></svg></div><div class="sh-top"><span class="sh-name">Juancheng</span><span class="sh-cn">鄄城 · 人发之乡</span></div><div class="sh-obj">The raw hair</div><div class="sh-d">A Shandong county that collects, sorts and processes raw human hair, the start of the wig supply chain. Combings and cut ponytails come in; clean, sorted bundles of human hair go out to the factories that make the wigs.</div><div class="sh-go">Read the deep-dive →</div></a><a class="shape" href="/deep-dives/xuchang/"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M76 58 a34 30 0 0 1 68 0 Z" fill="#C0402A" opacity=".12" stroke="#C0402A" stroke-width="2" stroke-linejoin="round"/><g fill="none" stroke="#C0402A" stroke-width="1.4" opacity=".55"><path d="M90 58 q2 -20 8 -30"/><path d="M105 60 q0 -22 2 -32"/><path d="M119 60 q0 -22 -2 -32"/><path d="M134 58 q-2 -20 -8 -30"/></g><line x1="110" y1="58" x2="110" y2="76" stroke="#C0402A" stroke-width="2"/><line x1="98" y1="78" x2="122" y2="78" stroke="#C0402A" stroke-width="3" stroke-linecap="round"/></svg></div><div class="sh-top"><span class="sh-name">Xuchang</span><span class="sh-cn">许昌 · 假发之都</span></div><div class="sh-obj">The finished wig</div><div class="sh-d">A province away, Xuchang turns hair into product: about six of every ten wigs and hairpieces on Earth, and well over 70% of Africa's. The finished end of the same chain that starts in Juancheng.</div><div class="sh-go">Read the deep-dive →</div></a><a class="shape" href="/deep-dives/luyi/"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><line x1="58" y1="76" x2="120" y2="34" stroke="#C0402A" stroke-width="5" stroke-linecap="round"/><rect x="116" y="26" width="14" height="11" rx="1.5" transform="rotate(-34 123 31)" fill="#C0402A"/><path d="M129 28 q20 -8 28 5 q-15 13 -30 6 Z" fill="#C0402A" opacity=".16" stroke="#C0402A" stroke-width="2" stroke-linejoin="round"/></svg></div><div class="sh-top"><span class="sh-name">Luyi</span><span class="sh-cn">鹿邑 · 化妆刷之城</span></div><div class="sh-obj">The makeup brush</div><div class="sh-d">Laozi's birthplace makes the fibre for most of the world's makeup brushes, animal-hair and synthetic, plus a huge share of China's finished brush exports. Tens of millions of brush sets a year.</div><div class="sh-go">Read the deep-dive →</div></a><a class="shape" href="/deep-dives/pingdu/"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M50 60 q60 -26 120 0" fill="none" stroke="#C0402A" stroke-width="2.4"/><g stroke="#C0402A" stroke-width="2" stroke-linecap="round"><line x1="62" y1="55" x2="58" y2="38"/><line x1="78" y1="49" x2="74" y2="30"/><line x1="94" y1="45" x2="92" y2="25"/><line x1="112" y1="44" x2="114" y2="24"/><line x1="130" y1="47" x2="135" y2="29"/><line x1="148" y1="53" x2="155" y2="37"/></g></svg></div><div class="sh-top"><span class="sh-name">Pingdu</span><span class="sh-cn">平度 · 假睫毛之都</span></div><div class="sh-obj">The false eyelash</div><div class="sh-d">Near Qingdao, Pingdu threads about 70% of the world's false eyelashes, mostly by hand, mink hair set into a mould lash by lash. Around 120 million pairs a year.</div><div class="sh-go">Read the deep-dive →</div></a>
+</div></div></section>
+<section><div class="wrap"><div class="essay"><h2>The pattern</h2><p>There is a global beauty supply chain hidden in a handful of Chinese counties. The glamour is applied in Paris and New York, but the thing itself, the hair, the brush, the lash, was made in Henan or Shandong, in a county most people could not place on a map. These four make most of what goes on the world's faces and heads.</p><p>A hair chain runs through the first two. <b>Juancheng</b> gathers and sorts raw human hair; <b>Xuchang</b>, a province away, turns it into finished wigs and weaves and ships them worldwide, raw material and finished product, one supply chain split across two towns. <b>Luyi</b> makes the bristle for most of the world's makeup brushes, and <b>Pingdu</b> threads the bulk of its false eyelashes, almost entirely by hand.</p><div class="pull">The glamour is applied in Paris; the thing itself is made in a county you've never heard of.</div><p>And the pattern is the one the whole atlas keeps finding: poor inland counties that climbed out of farming on a single product, e-commerce and export pulling them up, and the same slow move from anonymous OEM work toward their own brands. The bosses here read the world's tastes the way the lingerie county and the wig city do, region by region, and the human details are unforgettable, temple hair, sheep-tail brush fibre, mink lashes set by eye. Vanity, it turns out, has a supply chain like everything else.</p></div></div></section>
+<footer><div class="wrap"><div class="ftlinks"><a class="dl" href="/">← Full atlas</a><a class="dl" href="/deep-dives/xuchang/">Xuchang: the wig capital →</a><a class="dl" href="/deep-dives/pingdu/">Pingdu: the eyelash capital →</a><a class="dl" href="/one-product-towns/">One-product towns →</a></div>
+  <div class="fine">Themes · China Industry Atlas · 2026 · shares are widely reported figures, several industry- or government-sourced</div></div></footer>
+<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
+</body></html>

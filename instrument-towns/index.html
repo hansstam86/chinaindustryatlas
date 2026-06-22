@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The instrument towns | China Industry Atlas</title>
+<meta name="description" content="China makes most of the world's musical instruments, and each instrument has its own town: Zheng'an (guitars), Huangqiao (violins), Wuqiang (brass and winds) and Lankao (Chinese zithers).">
+<link rel="canonical" href="https://chinaindustryatlas.com/instrument-towns/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/instrument-towns/">
+<meta property="og:title" content="The instrument towns">
+<meta property="og:description" content="Four poor farming towns, no musical tradition between them, now make most of the instruments the world plays.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"The instrument towns","name":"The instrument towns","description":"China makes most of the world's musical instruments, and each instrument has its own town: Zheng'an (guitars), Huangqiao (violins), Wuqiang (brass and winds) and Lankao (Chinese zithers).","url":"https://chinaindustryatlas.com/instrument-towns/","author":{"@type":"Person","name":"Hans Stam"},"publisher":{"@type":"Organization","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"isPartOf":{"@type":"WebSite","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"inLanguage":"en"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"China Industry Atlas","item":"https://chinaindustryatlas.com/"},{"@type":"ListItem","position":2,"name":"Instrument Towns","item":"https://chinaindustryatlas.com/#maps"},{"@type":"ListItem","position":3,"name":"The instrument towns","item":"https://chinaindustryatlas.com/instrument-towns/"}]}]}</script>
+</head>
+<body>
+<div data-atlas-buybar style="background:var(--chop,#C0402A);color:#fff;font-family:var(--mono,'Space Mono',monospace);font-size:12px;line-height:1.2;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:7px 16px;text-align:center"><span>China Industry Atlas — the 40-page field guide (PDF)</span><a class="lemonsqueezy-button" href="https://hansolo.lemonsqueezy.com/checkout/buy/5435562a-0e88-43f3-8736-f85c14c3a69d" style="background:#fff;color:var(--chop,#C0402A);text-decoration:none;font-weight:700;padding:3px 12px;border-radius:2px;white-space:nowrap">Get it · €19.99 →</a></div>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Themes</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<style>
+  .shapes{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:8px}
+  @media(max-width:640px){.shapes{grid-template-columns:1fr}}
+  .shape{border:1px solid var(--line);background:var(--paper-2);padding:22px 22px 20px;text-decoration:none;display:block;transition:border-color .15s ease,transform .15s ease,box-shadow .15s ease}
+  .shape:hover{border-color:var(--chop);transform:translateY(-2px);box-shadow:0 8px 22px rgba(22,36,42,.08)}
+  .shape .glyph{background:var(--paper);border:1px solid var(--line);padding:8px 6px;margin-bottom:16px}
+  .shape .sh-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+  .shape .sh-name{font-family:var(--disp);font-weight:700;font-size:23px;color:var(--ink);line-height:1.05}
+  .shape .sh-cn{font-family:var(--disp);font-weight:400;font-size:13px;color:var(--ink-3)}
+  .shape .sh-obj{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.13em;color:var(--chop);margin-top:7px}
+  .shape .sh-d{font-size:14px;color:var(--ink-2);margin-top:11px;line-height:1.5}
+  .shape .sh-go{font-family:var(--mono);font-size:11px;color:var(--ink-3);margin-top:13px}
+  .shape:hover .sh-go{color:var(--chop)}
+  .essay{max-width:74ch;margin-top:8px}
+  .essay h2{font-size:clamp(22px,2.6vw,30px);margin-bottom:14px}
+  .essay p{color:var(--ink-2);font-size:15.5px;line-height:1.62;margin:0 0 15px}
+  .essay b{color:var(--ink)}
+</style>
+<div class="wrap hero">
+  <div class="eyebrow">Themes · one town per instrument</div>
+  <h1>The instrument towns<span class="cn">乐器之乡</span></h1>
+  <p class="lede">China makes most of the world's musical instruments, and they don't come from everywhere. Each instrument has its own town: a poor farming place that learned one craft and now supplies the planet with it. These four cover most of the range, from the guitar to the guzheng.</p>
+</div>
+<section><div class="wrap">
+  <div class="shapes">
+<a class="shape" href="/deep-dives/zhengan/"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<circle cx="80" cy="50" r="24" fill="#C0402A" opacity=".10"/><circle cx="108" cy="46" r="16" fill="#C0402A" opacity=".10"/>
+<circle cx="80" cy="50" r="24" fill="none" stroke="#C0402A" stroke-width="2"/><circle cx="108" cy="46" r="16" fill="none" stroke="#C0402A" stroke-width="2"/>
+<line x1="122" y1="44" x2="182" y2="30" stroke="#C0402A" stroke-width="5" stroke-linecap="round"/>
+<rect x="178" y="22" width="14" height="12" rx="2" transform="rotate(-11 185 28)" fill="#C0402A"/>
+<circle cx="94" cy="48" r="6.5" fill="none" stroke="#C0402A" stroke-width="2"/></svg></div><div class="sh-top"><span class="sh-name">Zheng'an</span><span class="sh-cn">正安 · 吉他</span></div><div class="sh-obj">Makes the guitar</div><div class="sh-d">A remote, once-impoverished county in Guizhou that became the world's largest guitar producer, by sending its people out to the factory towns of the coast, then bringing the skill home. About one in seven of the world's guitars.</div><div class="sh-go">Read the deep-dive →</div></a><a class="shape" href="/deep-dives/huangqiao/"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<line x1="40" y1="64" x2="156" y2="34" stroke="#C0402A" stroke-width="1.6" opacity=".5"/>
+<circle cx="82" cy="50" r="20" fill="#C0402A" opacity=".10"/><circle cx="104" cy="46" r="14" fill="#C0402A" opacity=".10"/>
+<circle cx="82" cy="50" r="20" fill="none" stroke="#C0402A" stroke-width="2"/><circle cx="104" cy="46" r="14" fill="none" stroke="#C0402A" stroke-width="2"/>
+<line x1="116" y1="44" x2="168" y2="32" stroke="#C0402A" stroke-width="4" stroke-linecap="round"/>
+<circle cx="172" cy="30" r="6" fill="none" stroke="#C0402A" stroke-width="2"/>
+<path d="M78 42 q-4 8 0 16" fill="none" stroke="#C0402A" stroke-width="1.6"/><path d="M88 40 q-4 8 0 16" fill="none" stroke="#C0402A" stroke-width="1.6"/></svg></div><div class="sh-top"><span class="sh-name">Huangqiao</span><span class="sh-cn">黄桥 · 提琴</span></div><div class="sh-obj">Makes the violin</div><div class="sh-d">A Taixing township once famous only for sesame cakes and a 1940 battle, now the &ldquo;Cremona of the East&rdquo;: roughly 70% of China's violins and about a third of the world's, on the order of a million a year.</div><div class="sh-go">Read the deep-dive →</div></a><a class="shape" href="/deep-dives/wuqiang/"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<path d="M132 16 q9 -6 15 1" fill="none" stroke="#C0402A" stroke-width="3" stroke-linecap="round"/>
+<path d="M134 20 L134 46 C134 67 113 76 92 71 C77 67 68 57 72 47" fill="none" stroke="#C0402A" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M72 47 q-12 -2 -18 8 q10 8 22 4" fill="#C0402A" opacity=".14"/>
+<path d="M72 47 q-12 -2 -18 8 q10 8 22 4" fill="none" stroke="#C0402A" stroke-width="2.2" stroke-linecap="round"/>
+<g fill="#C0402A"><circle cx="132" cy="30" r="2.4"/><circle cx="132" cy="40" r="2.4"/><circle cx="127" cy="52" r="2.4"/><circle cx="116" cy="63" r="2.4"/><circle cx="100" cy="68" r="2.4"/></g></svg></div><div class="sh-top"><span class="sh-name">Wuqiang</span><span class="sh-cn">武强 · 西洋管乐</span></div><div class="sh-obj">Makes the brass &amp; winds</div><div class="sh-d">A dry farming county in Hebei that turned out to be ideal for wood instruments. It makes saxophones, trumpets, clarinets, tubas and more, 400-plus types, sold to over 80 countries.</div><div class="sh-go">Read the deep-dive →</div></a><a class="shape" href="/deep-dives/lankao/"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<path d="M26 30 L196 22 L196 54 L26 62 Z" fill="#C0402A" opacity=".10" stroke="#C0402A" stroke-width="2" stroke-linejoin="round"/>
+<g stroke="#C0402A" stroke-width="1" opacity=".5"><line x1="32" y1="34" x2="190" y2="27"/><line x1="32" y1="40" x2="190" y2="33"/><line x1="32" y1="46" x2="190" y2="39"/><line x1="32" y1="52" x2="190" y2="45"/></g>
+<g fill="#C0402A"><circle cx="72" cy="52" r="2.3"/><circle cx="86" cy="45" r="2.3"/><circle cx="100" cy="51" r="2.3"/><circle cx="114" cy="44" r="2.3"/><circle cx="128" cy="50" r="2.3"/><circle cx="142" cy="43" r="2.3"/></g></svg></div><div class="sh-top"><span class="sh-name">Lankao</span><span class="sh-cn">兰考 · 民族乐器</span></div><div class="sh-obj">Makes the Chinese zither</div><div class="sh-d">Paulownia planted in the 1960s to stop sandstorms became China's finest tonewood. Lankao now makes the soundboards for around 90% of the country's guzheng, guqin and pipa.</div><div class="sh-go">Read the deep-dive →</div></a>
+  </div>
+</div></section>
+<section><div class="wrap"><div class="essay">
+  <h2>The pattern</h2>
+  <p>Put the four side by side and the same story runs through all of them. Each was a poor farming place with no musical tradition whatsoever. In each, one or a few people learned the craft <b>somewhere else</b>, a returnee from a state violin factory in Shanghai, a villager back from a workshop in another province, a young man who travelled the country to study the guqin, and carried it home. The skill then spread house by house until the whole town made the thing. It is the same export-the-skill-then-bring-it-home arc as Zheng'an's guitars, run four times over.</p>
+  <p>And each is now making the same climb. They began as anonymous makers of cheap student instruments and are working their way up toward handcraft, brands and the middle-to-high end, the budget fiddle becoming a hundred-thousand-yuan handmade one. Each has built a &ldquo;music town&rdquo; for tourists out of its own workshops, and saturated the local schools with instruments, so that the children of assembly-line workers grow up playing what their parents glue together.</p>
+  <div class="pull">Four poor farming towns, no musical tradition between them, now make most of the instruments the world plays.</div>
+  <p>The thread even runs into the wood. The same paulownia that gives <b>Lankao</b> its guzheng soundboards, light, resonant, slow to warp, is the timber that <b>Caoxian</b> a province away carves into most of Japan's coffins: one tree, two trades, two towns. The atlas is full of these material throughlines, which is the real reason to map the towns one at a time, then step back and look at them together.</p>
+</div></div></section>
+<footer><div class="wrap">
+  <div class="ftlinks">
+    <a class="dl" href="/">← Full atlas</a>
+    <a class="dl" href="/deep-dives/zhengan/">Zheng&rsquo;an: the guitar county →</a>
+    <a class="dl" href="/deep-dives/lankao/">Lankao: the zither story →</a>
+    <a class="dl" href="/one-product-towns/">One-product towns →</a>
+  </div>
+  <div class="fine">Themes · one town per instrument · China Industry Atlas · 2026</div>
+</div></footer>
+<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
+</body></html>
