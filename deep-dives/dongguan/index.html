@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dongguan — the city that makes the world's Android phone | China Industry Atlas</title>
+<meta name="description" content="A deep dive on Dongguan, the Pearl River Delta city that quietly makes a huge share of the world's Android phones — home of the secretive BBK empire behind OPPO, vivo, OnePlus and realme, and Huawei's relocated device headquarters, where 90% of a phone's parts sit within an hour's drive.">
+<link rel="canonical" href="https://chinaindustryatlas.com/deep-dives/dongguan/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/deep-dives/dongguan/">
+<meta property="og:title" content="Dongguan — the city that makes the world's Android phone">
+<meta property="og:description" content="Home of the secretive BBK empire — OPPO, vivo, OnePlus, realme — and Huawei's device HQ, where 90% of a phone's parts are within an hour's drive.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Dongguan — the city that makes the world's Android phone","name":"Dongguan — the city that makes the world's Android phone","description":"A deep dive on Dongguan, the Pearl River Delta city that quietly makes a huge share of the world's Android phones — home of the secretive BBK empire behind OPPO, vivo, OnePlus and realme, and Huawei's relocated device headquarters, where 90% of a phone's parts sit within an hour's drive.","url":"https://chinaindustryatlas.com/deep-dives/dongguan/","author":{"@type":"Person","name":"Hans Stam"},"publisher":{"@type":"Organization","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"isPartOf":{"@type":"WebSite","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"inLanguage":"en"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"China Industry Atlas","item":"https://chinaindustryatlas.com/"},{"@type":"ListItem","position":2,"name":"Deep dives","item":"https://chinaindustryatlas.com/#maps"},{"@type":"ListItem","position":3,"name":"Dongguan — the city that makes the world's Android phone","item":"https://chinaindustryatlas.com/deep-dives/dongguan/"}]}]}</script>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Town deep-dives</span></div>
+    <a class="back" href="/">← back to atlas</a>
+  </div>
+</header>
+
+<div class="wrap hero">
+  <div class="eyebrow">City deep-dive · Guangdong</div>
+  <h1>Dongguan<span class="cn">东莞 · the Android phone city</span></h1>
+  <p class="lede">Zhengzhou is <b>one factory</b> making iPhones. Dongguan is the opposite: a whole nervous system that makes the <b>Android phone</b>. It is the quiet home of the most successful phone company you have never heard of, and the place Huawei moved to build the future — where <b>nine in ten of a phone's parts</b> are already within an hour's drive.</p>
+  <div class="readouts">
+    <div class="readout"><div class="n">1 in 3</div><div class="l">of the world's smartphones is made in Guangdong, with Dongguan as its manufacturing core</div></div>
+    <div class="readout"><div class="n">~90%+</div><div class="l">of a smartphone's components sourceable within a one-hour drive of Dongguan</div></div>
+    <div class="readout"><div class="n">262M</div><div class="l">phones sold in 2020 by Dongguan's BBK brands — more than Samsung or Huawei</div></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="mapcard">
+    <div class="maphead"><span class="t">Where the Android phone is made</span><span class="sc">drag to pan</span></div>
+    <div id="map"></div>
+    <div class="legend">
+      <span><i class="dot" style="background:var(--chop)"></i>Dongguan &amp; its phone anchors</span>
+      <span><i class="dot" style="background:var(--ink-2)"></i>Neighbouring megacity</span>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap dd-grid">
+    <div>
+      <div class="sec">
+        <div class="num">01</div><h2>The anti-Zhengzhou</h2>
+        <p>This atlas already has an iPhone city: Zhengzhou, where a single sealed Foxconn campus assembles up to half the world's iPhones. Dongguan is the mirror image. It is not one factory but a <b>whole self-contained ecosystem</b>, and it makes the other phone — the Android one. Guangdong as a whole turns out roughly <b>one in three of the world's smartphones</b>, and Dongguan, wedged in the Pearl River Delta between Shenzhen and Guangzhou, is its manufacturing core: front-end design happens in the two megacities on either side, full-scale manufacturing happens here.</p>
+        <p>The city earned the old nickname "the world's factory" the hard way, starting in the 1980s with toys, garments and shoes. Electronics is now its largest pillar by far, and within electronics, the smartphone is king. The remarkable part is who makes them.</p>
+      </div>
+
+      <div class="sec">
+        <div class="num">02</div><h2>The empire you've never heard of</h2>
+        <p>In 1995 a reclusive entrepreneur named <b>Duan Yongping</b> founded an electronics firm in Dongguan called <b>BBK</b>. It started with e-dictionaries, corded phones and DVD players. Then it did something unusual: it split itself into brands that pretend to be rivals. <b>OPPO</b> (2004) and <b>vivo</b> (2009) came first, both headquartered in Chang'an town; later came <b>OnePlus</b>, <b>realme</b> and <b>iQOO</b>. Each has its own logo, marketing and price tier, and each downplays the shared parent — the industry calls them the "blue-green factories." Together they cover every segment from budget to flagship without appearing to be one company.</p>
+        <p>The scale is the punchline. In 2020 these Dongguan brands sold around <b>262 million phones, roughly 19% of the world</b>, more than Samsung and more than Huawei. Duan, nicknamed the "godfather of China's smartphone industry" and "China's Warren Buffett" (he is also a major Pinduoduo backer), kept it all deliberately quiet; the BBK parent was even deregistered in 2023 to keep the brands at arm's length from regulatory scrutiny.</p>
+        <div class="pull">Five phone brands that pretend to be rivals, one quiet parent in a single Dongguan town.</div>
+      </div>
+
+      <div class="sec">
+        <div class="num">03</div><h2>Huawei builds a piece of Europe</h2>
+        <p>The other anchor arrived from next door. Around 2014 <b>Huawei</b> began moving its consumer-device headquarters out of crowded Shenzhen and into Dongguan, onto the south shore of Songshan Lake. There it spent about <b>1.5 billion dollars</b> building the <b>Ox Horn campus</b> (Xiliubeipo Village): twelve quarters of research buildings modelled on European towns — a slice of Paris with a Versailles, a Heidelberg, an Oxford, a Bruges — linked by a private tram, housing some <b>25,000 R&amp;D staff</b>, with trains running back to company dormitories in Shenzhen.</p>
+        <p>It made Dongguan a research city, not just an assembly one. When the Mate 60, with its home-grown Kirin chip, broke the US chip embargo in 2023, it carried the stamp "Dongguan Manufacturing." Songshan Lake also hosts XbotPark, the hardware incubator founded by Li Zexiang — the professor who mentored DJI's founder — which has spun out scores of hard-tech startups. Design, chips and assembly now sit in the same city.</p>
+      </div>
+
+      <div class="sec">
+        <div class="num">04</div><h2>Ninety per cent within an hour</h2>
+        <p>The reason none of this can simply be moved is the supply chain. By the industry's own reckoning, <b>more than 90% of a smartphone's components</b> — screens, batteries, camera modules, casings, connectors, charging chips — can be sourced within a <b>one-hour drive</b> of Dongguan. The names are invisible to consumers but power half the world's phones: Luxshare for connectors and modules, Sunwoda and Desay for batteries, and thousands of smaller shops. Guangdong holds roughly <b>28% of all China's electronic-component firms</b>.</p>
+        <p>That density is the moat. A brand can sketch a phone in Shenzhen in the morning, have parts quoted in Dongguan by lunch, and run a pilot line by the evening, with overflow assembly spilling into neighbouring Huizhou and Zhongshan. It is the same Pearl River Delta division of labour the rest of this atlas keeps finding, applied to the single most complex consumer object most people own.</p>
+      </div>
+
+      <div class="sec">
+        <div class="num">05</div><h2>When phones sneeze</h2>
+        <p>In 2021 Dongguan crossed into the <b>trillion-yuan GDP club</b>, the fourth city in Guangdong to do so, with manufacturing about <b>54%</b> of its economy and exports worth more than <b>90% of GDP</b>. But a city built on one product is exposed to it. As the local saying goes, when smartphones thrive Dongguan thrives, and when they falter the city <b>catches a cold</b>: in 2022 its growth slipped to the bottom of the province amid a global phone slump and tightening US technology sanctions.</p>
+        <p>That is the quiet drama of Dongguan. It makes a startling share of the world's phones with almost none of the brand glamour, through a company that hides its own name and a supply chain too dense to relocate — and its fortunes rise and fall with every product cycle and every new line drawn in the chip war.</p>
+      </div>
+    </div>
+
+    <aside>
+      <div class="facts">
+        <h4>The facts</h4>
+        <div class="frow"><div class="k">Place</div><div class="v">Dongguan, Guangdong · Pearl River Delta, between Shenzhen &amp; Guangzhou</div></div>
+        <div class="frow"><div class="k">Product</div><div class="v">Smartphones (Android) and the component supply chain behind them</div></div>
+        <div class="frow"><div class="k">The empire</div><div class="v"><b>BBK Electronics</b> (Chang'an town) — parent of OPPO, vivo, OnePlus, realme, iQOO; founder Duan Yongping</div></div>
+        <div class="frow"><div class="k">The other anchor</div><div class="v"><b>Huawei</b>'s device HQ &amp; Ox Horn (Xiliubeipo) R&amp;D campus, Songshan Lake (~25,000 staff, ~$1.5bn)</div></div>
+        <div class="frow"><div class="k">Why here</div><div class="v">90%+ of a phone's parts within a one-hour drive; PRD division of labour — design in Shenzhen/Guangzhou, build in Dongguan</div></div>
+        <div class="frow"><div class="k">Components</div><div class="v">Luxshare, Sunwoda, Desay + thousands of unnamed shops; Guangdong = ~28% of China's electronic-component firms</div></div>
+        <div class="frow"><div class="k">Economy</div><div class="v">Trillion-yuan GDP (2021); manufacturing ~54%; exports &gt;90% of GDP; electronics the top pillar</div></div>
+        <div class="frow"><div class="k">The catch</div><div class="v">"When phones sneeze, Dongguan catches cold" — growth fell to the bottom of Guangdong in 2022</div></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="fine" style="max-width:80ch">
+      Sources: BBK brand structure and 2020 volume (~262M units, ~19% world share) per KrASIA, South China Morning Post and Wikipedia; "1 in 3 of the world's smartphones" is a Guangdong-wide figure (Guangdong provincial press), with Dongguan as the manufacturing core; the "90%+ of parts within a one-hour drive" figure is an oft-cited industry estimate (90–95% across sources); Huawei Ox Horn details (~$1.5bn, ~25,000 staff, opened 2018–19) per Wikipedia and Mobile World Live; Dongguan economy (2021 trillion-yuan GDP, ~54% manufacturing, exports &gt;90% of GDP) per China Daily and China-Briefing. Brand ownership is deliberately opaque and figures are orders of magnitude, not audited totals. Part of the atlas's City deep-dive series.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="ftlinks">
+      <a class="dl" href="/">← Full atlas</a>
+      <a class="dl" href="/deep-dives/zhengzhou/">Zhengzhou: iPhone City →</a>
+      <a class="dl" href="/deep-dives/huizhou/">Huizhou: the quiet electronics giant →</a>
+      <a class="dl" href="/deep-dives/huaqiangbei/">Huaqiangbei: the market →</a>
+    </div>
+    <div class="fine">City deep-dive · Dongguan · 2026 · locations approximate · basemap © OpenStreetMap, © CARTO.</div>
+  </div>
+</footer>
+
+<script>
+if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}
+</script>
+<script>
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([22.86,113.80],9);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:11,subdomains:'abcd'}).addTo(map);
+
+const DG=[23.02,113.75], CHANGAN=[22.81,113.74], SONGSHAN=[22.91,113.89],
+      GZ=[23.13,113.26], SZ=[22.54,114.06], HK=[22.32,114.17];
+
+function ref(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);
+}
+function spot(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[13,13],iconAnchor:[6,6],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-8,4],className:''})}).addTo(map);
+}
+ref(GZ,"Guangzhou"); ref(SZ,"Shenzhen"); ref(HK,"Hong Kong");
+spot(CHANGAN,"Chang\u2019an \u2014 OPPO \u00b7 vivo (BBK)");
+spot(SONGSHAN,"Songshan Lake \u2014 Huawei Ox Horn");
+// Dongguan focal
+L.marker(DG,{icon:L.divIcon({html:'<div class="towndot" style="width:17px;height:17px"></div>',iconSize:[17,17],iconAnchor:[8,8],className:''})}).addTo(map);
+L.marker(DG,{icon:L.divIcon({html:'<div class="pinlbl big">Dongguan 东莞</div>',iconSize:[1,1],iconAnchor:[-10,6],className:''})}).addTo(map);
+</script>
+</body>
+</html>

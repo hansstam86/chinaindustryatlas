@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chip cities — the map of China's semiconductor industry | China Industry Atlas</title>
+<meta name="description" content="A map of where China makes chips — Shanghai, Wuhan, Hefei, Wuxi, Xiamen and Beijing — layer by layer, from foundry and memory to packaging, compound semiconductors and equipment, and why the chip war turned a commercial map into a strategic one.">
+<link rel="canonical" href="https://chinaindustryatlas.com/chip-cities/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/chip-cities/">
+<meta property="og:title" content="Chip cities — China's semiconductor map">
+<meta property="og:description" content="Where China makes chips, layer by layer — foundry, memory, packaging, compound semiconductors and equipment — and why the chip war redrew the map.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Chip cities — the map of China's semiconductor industry","name":"Chip cities — the map of China's semiconductor industry","description":"A map of where China makes chips — Shanghai, Wuhan, Hefei, Wuxi, Xiamen and Beijing — layer by layer, from foundry and memory to packaging, compound semiconductors and equipment, and why the chip war turned a commercial map into a strategic one.","url":"https://chinaindustryatlas.com/chip-cities/","author":{"@type":"Person","name":"Hans Stam"},"publisher":{"@type":"Organization","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"isPartOf":{"@type":"WebSite","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"inLanguage":"en"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"China Industry Atlas","item":"https://chinaindustryatlas.com/"},{"@type":"ListItem","position":2,"name":"Chip Cities","item":"https://chinaindustryatlas.com/#maps"},{"@type":"ListItem","position":3,"name":"Chip cities — the map of China's semiconductor industry","item":"https://chinaindustryatlas.com/chip-cities/"}]}]}</script>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Themes</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<style>
+  .shapes{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:8px}
+  @media(max-width:640px){.shapes{grid-template-columns:1fr}}
+  .shape{border:1px solid var(--line);background:var(--paper-2);padding:22px 22px 20px;display:block}
+  .shape .glyph{background:var(--paper);border:1px solid var(--line);padding:8px 6px;margin-bottom:16px}
+  .shape .sh-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+  .shape .sh-name{font-family:var(--disp);font-weight:700;font-size:23px;color:var(--ink);line-height:1.05}
+  .shape .sh-cn{font-family:var(--disp);font-weight:400;font-size:13px;color:var(--ink-3)}
+  .shape .sh-obj{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.10em;color:var(--chop);margin-top:7px}
+  .shape .sh-d{font-size:14px;color:var(--ink-2);margin-top:11px;line-height:1.5}
+  .essay{max-width:74ch;margin-top:8px}
+  .essay h2{font-size:clamp(22px,2.6vw,30px);margin-bottom:14px}
+  .essay p{color:var(--ink-2);font-size:15.5px;line-height:1.62;margin:0 0 15px}
+  .essay b{color:var(--ink)}
+</style>
+<div class="wrap hero">
+  <div class="eyebrow">Themes · the chip map</div>
+  <h1>Chip cities<span class="cn">芯片之城 · China's chip map</span></h1>
+  <p class="lede">A chip is not made in one town. It is made in a <b>relay of cities</b>, each owning a single layer of the industry: the foundry that prints the wafer, the fabs that make the memory, the plant that packages and tests the die, the makers of next-generation power devices, and the toolmakers behind them all. Here are six — what each one makes, why it is there, and why this particular map has become the most fought-over in global technology.</p>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">The map · six layers, six cities</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend"><span><i class="dot" style="background:var(--chop)"></i>Chip city</span><span><i class="dot" style="background:var(--ink-2)"></i>Reference city</span></div>
+</div></div>
+<section><div class="wrap"><div class="shapes">
+<div class="shape"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="110" cy="44" r="28" fill="#C0402A" opacity=".10" stroke="#C0402A" stroke-width="2"/><g stroke="#C0402A" stroke-width="1" opacity=".5"><line x1="96" y1="20" x2="96" y2="66"/><line x1="110" y1="17" x2="110" y2="69"/><line x1="124" y1="20" x2="124" y2="66"/><line x1="86" y1="34" x2="134" y2="34"/><line x1="84" y1="44" x2="136" y2="44"/><line x1="86" y1="54" x2="134" y2="54"/></g><path d="M95 68 l9 3" stroke="#C0402A" stroke-width="2" fill="none"/></svg></div><div class="sh-top"><span class="sh-name">Shanghai</span><span class="sh-cn">上海</span></div><div class="sh-obj">Foundry & design</div><div class="sh-d">China's foundry core. <b>SMIC</b>, the country's biggest chipmaker and the world's third-largest foundry, reached “7nm” here without the EUV machines it is banned from buying — and built the processor behind Huawei's comeback phone. <b>Hua Hong</b>, the number-two foundry, is now reaching 7nm too. <b>Why here:</b> China's oldest chip base, the deepest pool of designers, and Shanghai plus state capital — though the one tool the city still cannot make, an advanced lithography machine, is the gap the whole industry turns on.</div></div><div class="shape"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g><rect x="78" y="24" width="64" height="5" rx="1" fill="#C0402A" opacity=".15" stroke="#C0402A" stroke-width="1.4"/><rect x="78" y="32" width="64" height="5" rx="1" fill="#C0402A" opacity=".15" stroke="#C0402A" stroke-width="1.4"/><rect x="78" y="40" width="64" height="5" rx="1" fill="#C0402A" opacity=".15" stroke="#C0402A" stroke-width="1.4"/><rect x="78" y="48" width="64" height="5" rx="1" fill="#C0402A" opacity=".15" stroke="#C0402A" stroke-width="1.4"/><rect x="78" y="56" width="64" height="5" rx="1" fill="#C0402A" opacity=".15" stroke="#C0402A" stroke-width="1.4"/><rect x="78" y="64" width="64" height="5" rx="1" fill="#C0402A" opacity=".15" stroke="#C0402A" stroke-width="1.4"/><line x1="110" y1="22" x2="110" y2="70" stroke="#C0402A" stroke-width="1.5" opacity=".7"/></g></svg></div><div class="sh-top"><span class="sh-name">Wuhan</span><span class="sh-cn">武汉</span></div><div class="sh-obj">NAND memory</div><div class="sh-d">The flash-memory champion. <b>YMTC</b> is the only Chinese maker of 3D NAND at scale, using a home-grown “Xtacking” design to reach densities close to the global leaders, and now pushing toward DRAM as well. Blacklisted by the US in 2022, it kept going. <b>Why here:</b> Wuhan's “Optics Valley” photonics base and heavy Tsinghua and state backing made it the natural home for China's memory bet.</div></div><div class="shape"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="56" y="34" width="108" height="22" rx="2" fill="#C0402A" opacity=".10" stroke="#C0402A" stroke-width="2"/><g fill="#C0402A" opacity=".5"><rect x="64" y="38" width="15" height="11"/><rect x="85" y="38" width="15" height="11"/><rect x="106" y="38" width="15" height="11"/><rect x="127" y="38" width="15" height="11"/></g><g stroke="#C0402A" stroke-width="1.4"><line x1="64" y1="56" x2="64" y2="62"/><line x1="73" y1="56" x2="73" y2="62"/><line x1="82" y1="56" x2="82" y2="62"/><line x1="91" y1="56" x2="91" y2="62"/><line x1="100" y1="56" x2="100" y2="62"/><line x1="109" y1="56" x2="109" y2="62"/><line x1="118" y1="56" x2="118" y2="62"/><line x1="127" y1="56" x2="127" y2="62"/><line x1="136" y1="56" x2="136" y2="62"/><line x1="145" y1="56" x2="145" y2="62"/><line x1="154" y1="56" x2="154" y2="62"/></g></svg></div><div class="sh-top"><span class="sh-name">Hefei</span><span class="sh-cn">合肥</span></div><div class="sh-obj">DRAM memory</div><div class="sh-d">The DRAM champion. <b>CXMT</b> went from nothing to making the working memory inside phones and PCs in a few years, reaching DDR5-class parts and scaling output at a speed that rattled the global memory giants. <b>Why here:</b> the famous “Hefei model” — a city government that bets its own balance sheet on chip and display makers, the same playbook that brought BOE and a wall of fabs to town.</div></div><div class="shape"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="86" y="26" width="48" height="36" rx="3" fill="#C0402A" opacity=".12" stroke="#C0402A" stroke-width="2"/><circle cx="93" cy="33" r="2.2" fill="#C0402A"/><g stroke="#C0402A" stroke-width="1.6"><line x1="78" y1="33" x2="86" y2="33"/><line x1="78" y1="41" x2="86" y2="41"/><line x1="78" y1="49" x2="86" y2="49"/><line x1="78" y1="57" x2="86" y2="57"/><line x1="134" y1="33" x2="142" y2="33"/><line x1="134" y1="41" x2="142" y2="41"/><line x1="134" y1="49" x2="142" y2="49"/><line x1="134" y1="57" x2="142" y2="57"/><line x1="97" y1="18" x2="97" y2="26"/><line x1="110" y1="18" x2="110" y2="26"/><line x1="123" y1="18" x2="123" y2="26"/><line x1="97" y1="62" x2="97" y2="70"/><line x1="110" y1="62" x2="110" y2="70"/><line x1="123" y1="62" x2="123" y2="70"/></g></svg></div><div class="sh-top"><span class="sh-name">Wuxi</span><span class="sh-cn">无锡</span></div><div class="sh-obj">Packaging & test</div><div class="sh-d">Where wafers become chips. <b>JCET</b>, based in Jiangyin, is China's largest packaging-and-test firm and the world's third, behind only Taiwan's ASE and America's Amkor; nearby sits one of the world's big <b>SK Hynix</b> memory fabs. <b>Why here:</b> Jiangsu's deep electronics base and a multi-billion-yuan advanced-packaging campus — the back end of the industry, where the finished die is wrapped, wired and tested.</div></div><div class="shape"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><polygon points="110,17 138,33 138,63 110,79 82,63 82,33" fill="#C0402A" opacity=".10" stroke="#C0402A" stroke-width="2"/><polygon points="110,31 126,41 126,57 110,67 94,57 94,41" fill="none" stroke="#C0402A" stroke-width="1.4" opacity=".55"/><path d="M113 38 l-9 12 h7 l-4 10 12 -14 h-7 z" fill="#C0402A" opacity=".8"/></svg></div><div class="sh-top"><span class="sh-name">Xiamen</span><span class="sh-cn">厦门</span></div><div class="sh-obj">Compound & power</div><div class="sh-d">The next-generation frontier. Around <b>San'an</b>, China's biggest compound-semiconductor maker, Xiamen builds the silicon-carbide and gallium-nitride devices that run electric cars and fast chargers — a tier that leans far less on the EUV machines China cannot buy, so it is where the country can most realistically <b>leapfrog</b>. China is on course to consume around 40% of the world's silicon carbide by 2030. <b>Why here:</b> decades of LED and optoelectronics know-how, and cross-strait industrial links.</div></div><div class="shape"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g stroke="#C0402A" stroke-width="2"><circle cx="110" cy="40" r="15" fill="none"/><line x1="125.0" y1="40.0" x2="130.0" y2="40.0"/><line x1="120.6" y1="50.6" x2="124.1" y2="54.1"/><line x1="110.0" y1="55.0" x2="110.0" y2="60.0"/><line x1="99.4" y1="50.6" x2="95.9" y2="54.1"/><line x1="95.0" y1="40.0" x2="90.0" y2="40.0"/><line x1="99.4" y1="29.4" x2="95.9" y2="25.9"/><line x1="110.0" y1="25.0" x2="110.0" y2="20.0"/><line x1="120.6" y1="29.4" x2="124.1" y2="25.9"/></g><circle cx="110" cy="40" r="6" fill="#C0402A" opacity=".18" stroke="#C0402A" stroke-width="1.4"/><line x1="74" y1="68" x2="146" y2="68" stroke="#C0402A" stroke-width="2"/><circle cx="110" cy="68" r="4" fill="#C0402A" opacity=".5"/></svg></div><div class="sh-top"><span class="sh-name">Beijing</span><span class="sh-cn">北京</span></div><div class="sh-obj">Equipment & design</div><div class="sh-d">The toolmakers and the planners. <b>NAURA</b>, headquartered here, is China's largest maker of chip-production equipment — the etchers and deposition tools a fab cannot run without — and has climbed into the global top tier. Around it sit the universities, design houses and the ministries that steer the national chip fund. <b>Why here:</b> talent and the state — Beijing is racing to build domestic substitutes for the very tools the export controls cut off.</div></div>
+</div></div></section>
+<section><div class="wrap"><div class="essay"><h2>Why chips cluster where they do</h2><p>Unlike almost everything else in this atlas, a chip is not made in one place. It is made in <b>layers</b>, and each layer has its own city. A design becomes a wafer in a foundry; that wafer becomes memory in a different kind of fab; the finished die is packaged and tested somewhere else again, on tools built somewhere else still. So China’s chip map is not a single cluster but a relay: foundry and design in Shanghai, NAND in Wuhan, DRAM in Hefei, packaging in Wuxi, compound power devices in Xiamen, and the equipment in Beijing.</p><p>What concentrates them is not terroir, or even the supplier-next-door density that builds an appliance town. It is <b>state capital and talent</b>. Since 2014 the national “Big Fund” has poured well over a hundred billion dollars into the industry across three rounds, and cities like Hefei built their fortunes on aggressive local-government chip bets. China is the world’s largest chip market — more than half of global consumption — yet has long had to import most of its advanced silicon, for years spending more on imported chips than on oil.</p><div class="pull">A chip is not made in a town. It is made in a relay of cities, each owning one layer.</div><p>That gap is now the most contested line in world technology. From 2022 the United States and its allies cut China off from the most advanced tools — above all the EUV lithography machines that only the Dutch firm ASML makes, the single chokepoint of the entire industry. China’s answer has been to build a domestic full stack at speed: SMIC reached “7nm” without EUV and made Huawei’s comeback chip, Hua Hong became a second advanced foundry, YMTC and CXMT pushed into memory, and NAURA and its peers raced to replace the banned machines. The controls were meant to slow China down; by many accounts they instead triggered an investment surge that would not otherwise have happened. The old self-sufficiency target of 70% was missed — the real figure is nearer 30% — but the map keeps filling in.</p></div></div></section>
+<footer><div class="wrap"><div class="ftlinks">
+  <a class="dl" href="/">← Full atlas</a>
+  <a class="dl" href="/deep-dives/shenzhen/">Shenzhen: the hardware capital →</a>
+  <a class="dl" href="/deep-dives/dongguan/">Dongguan: the Android phone city →</a>
+  <a class="dl" href="/industry/electronics/">Electronics overview →</a>
+</div>
+  <div class="fine">Themes · the chip map · China Industry Atlas · 2026 · process-node labels (“7nm”, “5nm-equivalent”) are external teardown characterisations and are debated; market shares, capacities and self-sufficiency figures are fast-moving estimates, treated as orders of magnitude; export-control status changes frequently — verify current rules before relying on any of it.</div></div></footer>
+<script>
+if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}
+</script>
+<script>
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([32.5,115.5],4);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:10,subdomains:'abcd'}).addTo(map);
+function ref(c,name){L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);}
+function town(c,name,ax,ay){L.marker(c,{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map);L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl big">'+name+'</div>',iconSize:[1,1],iconAnchor:[ax,ay],className:''})}).addTo(map);}
+ref([22.54,114.06],"Shenzhen");
+ref([30.57,104.07],"Chengdu");
+ref([34.34,108.94],"Xi'an");
+town([39.9,116.41],"Beijing",-9,6);
+town([31.23,121.47],"Shanghai",-9,20);
+town([31.49,120.31],"Wuxi",-9,-12);
+town([31.82,117.23],"Hefei",-44,6);
+town([30.59,114.31],"Wuhan",-9,6);
+town([24.48,118.09],"Xiamen",-9,6);
+</script>
+</body></html>

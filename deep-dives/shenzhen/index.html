@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shenzhen — the hardware capital of the world | China Industry Atlas</title>
+<meta name="description" content="A deep dive on Shenzhen, the hardware capital of the world — a fishing village turned 3.68-trillion-yuan megacity where idea becomes prototype overnight and prototype becomes product in days, the city that turned shanzhai into innovation and gave the world DJI.">
+<link rel="canonical" href="https://chinaindustryatlas.com/deep-dives/shenzhen/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/deep-dives/shenzhen/">
+<meta property="og:title" content="Shenzhen — the hardware capital of the world">
+<meta property="og:description" content="The city where idea becomes prototype overnight — a fishing village turned hardware capital that turned shanzhai into innovation and gave the world DJI.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Shenzhen — the hardware capital of the world","name":"Shenzhen — the hardware capital of the world","description":"A deep dive on Shenzhen, the hardware capital of the world — a fishing village turned 3.68-trillion-yuan megacity where idea becomes prototype overnight and prototype becomes product in days, the city that turned shanzhai into innovation and gave the world DJI.","url":"https://chinaindustryatlas.com/deep-dives/shenzhen/","author":{"@type":"Person","name":"Hans Stam"},"publisher":{"@type":"Organization","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"isPartOf":{"@type":"WebSite","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"inLanguage":"en"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"China Industry Atlas","item":"https://chinaindustryatlas.com/"},{"@type":"ListItem","position":2,"name":"Deep dives","item":"https://chinaindustryatlas.com/#maps"},{"@type":"ListItem","position":3,"name":"Shenzhen — the hardware capital of the world","item":"https://chinaindustryatlas.com/deep-dives/shenzhen/"}]}]}</script>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Town deep-dives</span></div>
+    <a class="back" href="/">← back to atlas</a>
+  </div>
+</header>
+
+<div class="wrap hero">
+  <div class="eyebrow">City deep-dive · Guangdong</div>
+  <h1>Shenzhen<span class="cn">深圳 · the hardware capital</span></h1>
+  <p class="lede">Most places in this atlas own a product. Shenzhen owns something rarer: <b>speed</b>. It is the one city on earth where an idea can become a prototype overnight and a product within days, because the entire stack — components, board houses, mould shops, assembly and the engineers who connect them — sits within a single hour's reach. A fishing village in 1980, it is now the place you go to <b>make anything, fast</b>.</p>
+  <div class="readouts">
+    <div class="readout"><div class="n">10,000×</div><div class="l">growth in GDP since 1980 — ¥270 million then, ¥3.68 trillion (~$510bn) in 2024</div></div>
+    <div class="readout"><div class="n">1 wk = 1 mo</div><div class="l">a week building in Shenzhen, engineers say, is worth a month almost anywhere else</div></div>
+    <div class="readout"><div class="n">~70%+</div><div class="l">of the world's consumer drones come from DJI — built here, from a dorm-room idea</div></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="mapcard">
+    <div class="maphead"><span class="t">The city that makes anything</span><span class="sc">drag to pan</span></div>
+    <div id="map"></div>
+    <div class="legend">
+      <span><i class="dot" style="background:var(--chop)"></i>Shenzhen &amp; its hardware districts</span>
+      <span><i class="dot" style="background:var(--ink-2)"></i>Neighbouring city</span>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap dd-grid">
+    <div>
+      <div class="sec">
+        <div class="num">01</div><h2>How fast can you make a thing?</h2>
+        <p>Ask an engineer who has worked in both places and the answer is a rule of thumb: <b>a week in Shenzhen is worth a month in the West</b>. A part that an English firm would quote in a month is printed here in a couple of days; circuit boards and 3D prints come back essentially overnight. The reason is density. Nowhere else can you buy a component in the morning, have a board fabricated by the afternoon, and run a pilot line by the end of the week — all within a one-hour radius.</p>
+        <p>That is the thing to understand about Shenzhen. It is not famous for a single product. It is famous for the <b>capability to make any product, faster than anywhere else</b> — the complete chain from sensor to mould to finished box, plus hundreds of thousands of engineers who know how to use it.</p>
+      </div>
+
+      <div class="sec">
+        <div class="num">02</div><h2>From fishing village to 3.68 trillion yuan</h2>
+        <p>In 1980 Shenzhen was a cluster of fishing and farming villages of perhaps <b>30,000 people</b> in the shadow of Hong Kong. That August it was made China's <b>first Special Economic Zone</b> — a walled-off experiment in markets and foreign capital. What followed has no real parallel: its economy grew from <b>¥270 million in 1980 to ¥3.68 trillion in 2024</b>, more than ten-thousand-fold, overtaking Hong Kong's GDP in 2018. The fishing village became a megacity of around <b>17.5 million</b> with the highest per-capita output in China.</p>
+        <p>It built itself into a machine for making things. The city now holds roughly <b>25,000 national high-tech enterprises</b> — about twelve per square kilometre — and spends some <b>6.5% of its GDP on R&amp;D</b>, a higher share than most rich countries. The whole place is engineered around the act of production.</p>
+      </div>
+
+      <div class="sec">
+        <div class="num">03</div><h2>Shanzhai to the source</h2>
+        <p>For years the city's reputation was <b>shanzhai</b> — knock-offs, counterfeit phones, copies churned out of back-room factories. But something unexpected grew out of that culture. Because designs were copied and shared rather than locked behind contracts and NDAs, an <b>open, collaborative ecosystem</b> emerged: reference designs passed around freely, suppliers iterating on each other's work, everything quotable and buildable without a stack of paperwork first. The absence of friction is exactly what makes it fast.</p>
+        <p>The copycat city became the place that <b>defines</b> categories rather than imitating them. The same openness that let people clone a phone now lets a startup prototype a genuinely new one in a weekend — and it is why the hardware-accelerator and maker wave of the 2010s, from open-hardware firms like Seeed Studio to a parade of Western startups, all came to Shenzhen to be near the speed.</p>
+        <div class="pull">The copycat city became the place that defines the category, not the one that copies it.</div>
+      </div>
+
+      <div class="sec">
+        <div class="num">04</div><h2>The dorm-room drone</h2>
+        <p>The emblem of all this is <b>DJI</b>. Its founder, Frank Wang, built his first flight controllers in a Hong Kong university dorm; his professor, Li Zexiang — the same mentor behind the Dongguan hardware incubator elsewhere in this atlas — spotted his talent and backed him. In 2006 Wang moved the venture to Shenzhen, to be next to the supply chain. With the <b>Phantom</b> in 2013 he did not copy a market, he <b>created one</b>: the first ready-to-fly consumer drone. Today DJI makes <b>more than 70% of the world's drones</b> from a tower in Nanshan.</p>
+        <p>DJI is the Shenzhen story in one company — a dorm-room idea turned category-defining product, possible only because the city's components, engineers and speed were all within reach. And it is not alone: <b>Huawei, Tencent, BYD and ZTE</b> were all born or built here, the city's home-grown answer to a reputation it long ago outgrew.</p>
+      </div>
+
+      <div class="sec">
+        <div class="num">05</div><h2>The capital under pressure</h2>
+        <p>The same scale and openness now run into a closing world. By the end of <b>2025</b>, new US rules had effectively shut new DJI models out of the American market, and the company sued the US government in 2026; <b>Huawei</b> spent years under chip sanctions before answering with a home-grown processor. Meanwhile rising costs push the cheapest, most labour-intensive work inland and to Vietnam, the way Shenzhen once pulled it from Hong Kong.</p>
+        <p>So the hardware capital is making a bet: to climb from <b>making it cheap to making it first</b> — drones, AI, robotics, advanced manufacturing — and to stay the fastest place on earth to turn an idea into a thing. Whether speed and openness survive a more guarded, more divided world is the question the whole city is now built around. Note that Huaqiangbei, the famous market, is only the <a href="/deep-dives/huaqiangbei/" style="color:var(--chop)">storefront</a> of this system; the real production lives out in Bao'an, Longhua and the wider Delta.</p>
+      </div>
+    </div>
+
+    <aside>
+      <div class="facts">
+        <h4>The facts</h4>
+        <div class="frow"><div class="k">Place</div><div class="v">Shenzhen, Guangdong · China's first Special Economic Zone (1980), bordering Hong Kong</div></div>
+        <div class="frow"><div class="k">What it is</div><div class="v">Not one product, but the world's densest end-to-end hardware ecosystem — components, board houses, moulds, assembly, engineers</div></div>
+        <div class="frow"><div class="k">Superpower</div><div class="v"><b>Speed</b> — idea to prototype overnight, prototype to production in days; ~a week = a month elsewhere</div></div>
+        <div class="frow"><div class="k">Born here</div><div class="v">Huawei, Tencent, BYD, DJI, ZTE; the maker/accelerator wave of the 2010s</div></div>
+        <div class="frow"><div class="k">Emblem</div><div class="v"><b>DJI</b> — dorm-room flight controllers (2006) to &gt;70% of the world's drones; HQ in Nanshan</div></div>
+        <div class="frow"><div class="k">Scale</div><div class="v">GDP ¥270m (1980) → <b>¥3.68tn</b> (2024); ~17.5M people; ~25,000 national high-tech firms; R&amp;D ~6.5% of GDP</div></div>
+        <div class="frow"><div class="k">The catch</div><div class="v">US drone rules block new DJI models (2025–26); Huawei under chip sanctions; low-end work moving inland &amp; to Vietnam</div></div>
+        <div class="frow"><div class="k">vs the market</div><div class="v">Huaqiangbei is the storefront; the real production lives in Bao'an, Longhua &amp; the wider Delta</div></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="fine" style="max-width:80ch">
+      Sources: Shenzhen SEZ history and economy (1980 designation, ¥270m→¥3.68tn GDP, ~17.5M people, ~25,000 high-tech firms, R&amp;D ~6.5% of GDP) per Grokipedia, CGTN, SCMP and gov.cn; the prototyping-speed "a week = a month" framing per HAX, Sinovation's Kai-Fu Lee and engineer accounts (Diamandis, Idea to Value); DJI facts (founded 2006 in Shenzhen by Frank Wang, mentor Li Zexiang, Phantom 2013, &gt;70% global consumer-drone share, Nanshan "Sky City" HQ) and US restrictions (FCC Covered List Dec 2025; DJI's 2026 lawsuit) per Wikipedia, CKGSB and DroneLife. "Shanzhai-to-innovation" is the widely-documented open-hardware reading of the city. Figures are orders of magnitude, not audited totals. Part of the atlas's City deep-dive series.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="ftlinks">
+      <a class="dl" href="/">← Full atlas</a>
+      <a class="dl" href="/deep-dives/huaqiangbei/">Huaqiangbei: the market →</a>
+      <a class="dl" href="/deep-dives/dongguan/">Dongguan: the Android phone city →</a>
+      <a class="dl" href="/deep-dives/dafen/">Dafen: the oil-painting village →</a>
+    </div>
+    <div class="fine">City deep-dive · Shenzhen · 2026 · locations approximate · basemap © OpenStreetMap, © CARTO.</div>
+  </div>
+</footer>
+
+<script>
+if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}
+</script>
+<script>
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([22.75,113.96],9);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:12,subdomains:'abcd'}).addTo(map);
+
+const SZ=[22.54,114.06], NANSHAN=[22.53,113.93], HQB=[22.547,114.085], BAOAN=[22.62,113.83],
+      HK=[22.32,114.17], DG=[23.02,113.75], GZ=[23.13,113.26];
+
+function ref(c,name,ax,ay){
+  L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[ax,ay],className:''})}).addTo(map);
+}
+function spot(c,name,ax,ay){
+  L.marker(c,{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[13,13],iconAnchor:[6,6],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[ax,ay],className:''})}).addTo(map);
+}
+ref(HK,"Hong Kong",-6,4); ref(DG,"Dongguan",-6,4); ref(GZ,"Guangzhou",-6,4);
+spot(NANSHAN,"Nanshan \u2014 DJI \u00b7 Tencent",46,-2);
+spot(HQB,"Huaqiangbei \u2014 the market",-8,-4);
+spot(BAOAN,"Bao\u2019an \u00b7 Longhua \u2014 assembly belt",-8,16);
+// Shenzhen focal
+L.marker(SZ,{icon:L.divIcon({html:'<div class="towndot" style="width:17px;height:17px"></div>',iconSize:[17,17],iconAnchor:[8,8],className:''})}).addTo(map);
+L.marker(SZ,{icon:L.divIcon({html:'<div class="pinlbl big">Shenzhen 深圳</div>',iconSize:[1,1],iconAnchor:[-10,12],className:''})}).addTo(map);
+</script>
+</body>
+</html>
