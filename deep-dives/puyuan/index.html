@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Puyuan — the 800-year-old silk town that became the world's sweater market | China Industry Atlas</title>
+<meta name="description" content="How Puyuan in Tongxiang became the largest sweater distribution centre on Earth — ~70% of China's wool-sweater trade and 700 million sweaters a year — out of an old Ming/Qing silk town.">
+<link rel="canonical" href="https://chinaindustryatlas.com/deep-dives/puyuan/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/deep-dives/puyuan/">
+<meta property="og:title" content="Puyuan — the sweater market">
+<meta property="og:description" content="An old silk town that grows no wool is now where most of the world's sweaters trade.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Puyuan — the 800-year-old silk town that became the world's sweater market","name":"Puyuan — the 800-year-old silk town that became the world's sweater market","description":"How Puyuan in Tongxiang became the largest sweater distribution centre on Earth — ~70% of China's wool-sweater trade and 700 million sweaters a year — out of an old Ming/Qing silk town.","url":"https://chinaindustryatlas.com/deep-dives/puyuan/","author":{"@type":"Person","name":"Hans Stam"},"publisher":{"@type":"Organization","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"isPartOf":{"@type":"WebSite","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"inLanguage":"en"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"China Industry Atlas","item":"https://chinaindustryatlas.com/"},{"@type":"ListItem","position":2,"name":"Deep dives","item":"https://chinaindustryatlas.com/#maps"},{"@type":"ListItem","position":3,"name":"Puyuan — the 800-year-old silk town that became the world's sweater market","item":"https://chinaindustryatlas.com/deep-dives/puyuan/"}]}]}</script>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Town deep-dive</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<div class="wrap hero">
+  <div class="eyebrow">Town deep-dive · Zhejiang</div>
+  <h1>Puyuan<span class="cn">濮院 · 羊毛衫名镇</span></h1>
+  <p class="lede">Puyuan was a silk town for eight hundred years. Today it is the largest sweater market on Earth: by local accounts <b>seven of every ten sweaters in the world</b> pass through it, around <b>700 million a year</b>, with a market turnover near <b>¥130 billion</b>. Like its rival Dalang, it raises no sheep and spins no wool of its own.</p>
+  <div class="readouts"><div class="readout"><div class="n">7 in 10</div><div class="l">sweaters said to trade here</div></div><div class="readout"><div class="n">~70%</div><div class="l">of China's sweater market</div></div><div class="readout"><div class="n">¥130B</div><div class="l">market turnover</div></div></div>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">Where it is · one corner of the northern-Zhejiang silk-country triangle</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend"><span><i class="dot" style="background:var(--chop)"></i>Puyuan (sweaters)</span><span><i class="dot" style="background:#C0402A;opacity:.7"></i>Haining · Zhili</span><span><i class="dot" style="background:var(--ink-2)"></i>Hangzhou</span></div>
+</div></div>
+<section><div class="wrap dd-grid"><div>
+<div class="sec"><div class="num">01</div><h2>The world's sweater market</h2><p>Puyuan, a town in Tongxiang near Jiaxing, is the largest sweater distribution centre in the world. By the figures local officials and state media cite, as many as <b>seven of every ten sweaters on Earth</b> pass through its market, it holds something like <b>70% of China's wool-sweater trade</b>, and around <b>700 million sweaters</b> are sold through it a year, with a 2023 market turnover of about 130 billion yuan. Some 5,000 sweater firms sit inside a 60-square-kilometre town, employing roughly 200,000 people. The local boast is blunt: for every three people in China, two own a sweater that came through Puyuan.</p></div>
+<div class="sec"><div class="num">02</div><h2>Eight hundred years of Pu silk</h2><p>Puyuan earned the right to the claim slowly. It was a celebrated silk town under the Ming and Qing, known for “Pu silk,” and one of the storied “five famous towns” of the Jiangnan water country; the silk weave is now listed intangible heritage. The modern sweater trade began in 1988 with a government-organised market, grown from a handful of hand-cranked flat-knitting machines in the 1970s. The same irony that hangs over Dalang hangs here: Tongxiang grows no wool, yet became the country's great wool-sweater town.</p></div>
+<div class="sec"><div class="num">03</div><h2>The high-end half of China's knitwear</h2><p>Puyuan and Dalang split the country's sweaters between them, and the split is telling. Where Dongguan's Dalang built its billion sweaters on cheap export processing, Puyuan is the branded, domestic and cashmere end, high-grade yarns, design houses, its own labels. It hosted the International Wool Textile Organisation's world congress in 2022 and staged a New York Fashion Week event in 2024, and it is pushing a “pan-fashion” strategy, Puyuan Fashion Week and the “Puyuan Fashion” brand, to climb from being a market into being a name.</p></div>
+<div class="sec"><div class="num">04</div><h2>The triangle</h2><p>Puyuan is one corner of a second garment triangle, this one in the old Hang-Jia-Hu silk plain of northern Zhejiang: within about forty kilometres lie Haining, China's leather and fur capital, and Zhili, the town that clothes China's children. Where the Pearl River Delta's denim-and-knit triangle was built by migrants in a single generation, this one is the ancient silk heartland reinvented. Cross-links below.</p></div>
+<div class="pull">An 800-year-old silk town that grows no wool is now the place most of the world's sweaters pass through.</div>
+</div></div></section>
+<footer><div class="wrap"><div class="ftlinks"><a class="dl" href="/">← Full atlas</a><a class="dl" href="/deep-dives/haining/">Haining: the leather city →</a><a class="dl" href="/deep-dives/zhili/">Zhili: the children's-wear town →</a><a class="dl" href="/deep-dives/dalang/">Dalang: the other sweater town →</a></div><div class="fine">Town deep-dive · Puyuan · 2026 · “7 of 10” and “70%” are local and state-media distribution figures, not audited output shares · basemap © OpenStreetMap, © CARTO.</div></div></footer>
+<script>
+if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}
+</script>
+<script>
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([30.58,120.4],9);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:12,subdomains:'abcd'}).addTo(map);
+L.polyline([[30.59,120.56],[30.51,120.68],[30.84,120.3],[30.59,120.56]],{color:'#C0402A',weight:1.3,opacity:.5,dashArray:'4 5'}).addTo(map);
+function ref(c,name){L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);}
+ref([30.27,120.16],"Hangzhou");
+function sib(c,name){L.marker(c,{icon:L.divIcon({html:'<div style="width:12px;height:12px;border-radius:50%;background:#C0402A;border:2px solid var(--paper);box-shadow:0 0 0 1px #C0402A"></div>',iconSize:[12,12],iconAnchor:[6,6],className:''})}).addTo(map).bindTooltip(name,{direction:'top',offset:[0,-6],className:'pinlbl'});}
+sib([30.51,120.68],"Haining — leather");
+sib([30.84,120.3],"Zhili — kids' wear");
+L.marker([30.59,120.56],{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[16,16],iconAnchor:[8,8],className:''})}).addTo(map).bindTooltip("Puyuan — sweaters",{direction:'top',offset:[0,-8],className:'pinlbl'});
+L.marker([30.59,120.56],{icon:L.divIcon({html:'<div class="pinlbl big">Puyuan</div>',iconSize:[1,1],iconAnchor:[-10,6],className:''})}).addTo(map);
+</script>
+</body></html>

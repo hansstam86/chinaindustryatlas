@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Xintang — the town east of Guangzhou that makes one in three of the world's jeans | China Industry Atlas</title>
+<meta name="description" content="How Xintang became the denim capital of the world, making ~60% of China's jeans and one in three sold globally — and the pollution that came with it.">
+<link rel="canonical" href="https://chinaindustryatlas.com/deep-dives/xintang/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/deep-dives/xintang/">
+<meta property="og:title" content="Xintang — the denim capital">
+<meta property="og:description" content="One Guangzhou town makes one in three of the world's jeans, and its rivers ran indigo for it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Xintang — the town east of Guangzhou that makes one in three of the world's jeans","name":"Xintang — the town east of Guangzhou that makes one in three of the world's jeans","description":"How Xintang became the denim capital of the world, making ~60% of China's jeans and one in three sold globally — and the pollution that came with it.","url":"https://chinaindustryatlas.com/deep-dives/xintang/","author":{"@type":"Person","name":"Hans Stam"},"publisher":{"@type":"Organization","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"isPartOf":{"@type":"WebSite","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"inLanguage":"en"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"China Industry Atlas","item":"https://chinaindustryatlas.com/"},{"@type":"ListItem","position":2,"name":"Deep dives","item":"https://chinaindustryatlas.com/#maps"},{"@type":"ListItem","position":3,"name":"Xintang — the town east of Guangzhou that makes one in three of the world's jeans","item":"https://chinaindustryatlas.com/deep-dives/xintang/"}]}]}</script>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Town deep-dive</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<div class="wrap hero">
+  <div class="eyebrow">Town deep-dive · Guangdong</div>
+  <h1>Xintang<span class="cn">新塘 · 牛仔之都</span></h1>
+  <p class="lede">Picture your favourite pair of jeans. If you bought them outside China there is roughly a <b>one-in-three chance</b> they were made in Xintang, an industrial town east of Guangzhou that turns out about <b>300 million pairs a year</b> and around two-thirds of China's denim. It is the denim capital of the world, and it has paid for the title in blue water.</p>
+  <div class="readouts"><div class="readout"><div class="n">1 in 3</div><div class="l">of the world's jeans</div></div><div class="readout"><div class="n">~60%</div><div class="l">of China's denim</div></div><div class="readout"><div class="n">300M</div><div class="l">pairs a year</div></div></div>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">Where it is · one corner of the Pearl River Delta garment triangle</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend"><span><i class="dot" style="background:var(--chop)"></i>Xintang (denim)</span><span><i class="dot" style="background:#C0402A;opacity:.7"></i>Dalang · Humen</span><span><i class="dot" style="background:var(--ink-2)"></i>Guangzhou</span></div>
+</div></div>
+<section><div class="wrap dd-grid"><div>
+<div class="sec"><div class="num">01</div><h2>The denim capital of the world</h2><p>Xintang, in Guangzhou's Zengcheng district, is the denim capital of the world. About <b>one in three pairs of jeans sold anywhere</b> is made here, roughly <b>60% of all China's denim</b>, and something like <b>one in two</b> of the jeans bought inside China. The town turns out on the order of 300 million pairs a year across some 3,000 to 4,000 jeans businesses, with around 1,200 denim-specialised factories, 200,000-plus workers and over a thousand brands packed into about 40 square kilometres. Levi's, Wrangler, Uniqlo, Gap, H&amp;M and Zara have all sourced here; some of the work migrated from El Paso, Texas, in the 1970s and 80s.</p></div>
+<div class="sec"><div class="num">02</div><h2>The whole jean, end to end</h2><p>What Xintang really owns is the complete chain. Built up since the 1980s, it spins, dyes, weaves, finishes, prints, cuts, washes, sews and packs, all within the same dense few kilometres, which is why a buyer can get samples in three washes and a finished run in under a month. The wash is the secret: the faded, distressed, stonewashed looks that decide whether a jean reads cheap or premium come from chemical-intensive washing, a single pair sometimes run through the machines up to twenty times. Apart from the cotton and the cut, a pair of jeans mostly is its wash.</p></div>
+<div class="sec"><div class="num">03</div><h2>The ink river</h2><p>That wash is also the wound. Denim dyeing and washing made Xintang one of the most notorious pollution stories in Chinese manufacturing: a tributary of the East River, drinking water for millions in Guangzhou, ran indigo, and a local saying held that the town was “so polluted you can't give the houses away.” In 2010 Greenpeace measured river-mud cadmium at 128 times the national limit and water at a pH near 12; by one estimate a single pair of jeans can take some 960 gallons of water. Labour and pollution tensions boiled over into riots in 2011. The government has since pushed the washing and dyeing into walled “environmental industrial parks,” the same hard turn this atlas traces at Guiyu's e-waste yards; Greenpeace named Xintang in the same 2010 report as Gurao, the bra town also in this atlas.</p></div>
+<div class="sec"><div class="num">04</div><h2>The triangle</h2><p>Xintang is one corner of a tight Pearl River Delta garment triangle: a half-hour east lie Dalang, which makes one in five of the world's sweaters, and Humen, the fashion-market town where the First Opium War began. Between the three of them, most of a wardrobe is made inside a single half-hour's drive. The climb for Xintang itself is the now-familiar one, from anonymous cheap denim toward its own brands, a planned “world jeans distribution centre,” cleaner water and more automation.</p></div>
+<div class="pull">One in three pairs of jeans on Earth is washed and finished in one town east of Guangzhou, and the river paid for it.</div>
+</div></div></section>
+<footer><div class="wrap"><div class="ftlinks"><a class="dl" href="/">← Full atlas</a><a class="dl" href="/deep-dives/dalang/">Dalang: the sweater town →</a><a class="dl" href="/deep-dives/humen/">Humen: the fashion town →</a><a class="dl" href="/deep-dives/guiyu/">Guiyu: the e-waste town →</a></div><div class="fine">Town deep-dive · Xintang · 2026 · production share is cited from 30% to 66% across sources; pollution figures are Greenpeace 2010 · basemap © OpenStreetMap, © CARTO.</div></div></footer>
+<script>
+if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}
+</script>
+<script>
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([22.99,113.55],10);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:12,subdomains:'abcd'}).addTo(map);
+L.polyline([[23.13,113.59],[22.95,113.85],[22.82,113.67],[23.13,113.59]],{color:'#C0402A',weight:1.3,opacity:.5,dashArray:'4 5'}).addTo(map);
+function ref(c,name){L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);}
+ref([23.13,113.26],"Guangzhou");
+function sib(c,name){L.marker(c,{icon:L.divIcon({html:'<div style="width:12px;height:12px;border-radius:50%;background:#C0402A;border:2px solid var(--paper);box-shadow:0 0 0 1px #C0402A"></div>',iconSize:[12,12],iconAnchor:[6,6],className:''})}).addTo(map).bindTooltip(name,{direction:'top',offset:[0,-6],className:'pinlbl'});}
+sib([22.95,113.85],"Dalang — sweaters");
+sib([22.82,113.67],"Humen — fashion");
+L.marker([23.13,113.59],{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[16,16],iconAnchor:[8,8],className:''})}).addTo(map).bindTooltip("Xintang — denim",{direction:'top',offset:[0,-8],className:'pinlbl'});
+L.marker([23.13,113.59],{icon:L.divIcon({html:'<div class="pinlbl big">Xintang</div>',iconSize:[1,1],iconAnchor:[-10,6],className:''})}).addTo(map);
+</script>
+</body></html>

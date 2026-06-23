@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Appliance towns — the map of China's white-goods geography | China Industry Atlas</title>
+<meta name="description" content="A map of where China makes the world's appliances — Shunde, Qingdao, Hefei, Zhongshan, Cixi and Jiangmen — from microwaves and fridges to small appliances and the commercial cold chain, and why each cluster formed where it did.">
+<link rel="canonical" href="https://chinaindustryatlas.com/appliance-towns/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/appliance-towns/">
+<meta property="og:title" content="Appliance towns — China's white-goods map">
+<meta property="og:description" content="Where China makes the world's fridges, microwaves and small appliances — and why each cluster formed where it did.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Appliance towns — the map of China's white-goods geography","name":"Appliance towns — the map of China's white-goods geography","description":"A map of where China makes the world's appliances — Shunde, Qingdao, Hefei, Zhongshan, Cixi and Jiangmen — from microwaves and fridges to small appliances and the commercial cold chain, and why each cluster formed where it did.","url":"https://chinaindustryatlas.com/appliance-towns/","author":{"@type":"Person","name":"Hans Stam"},"publisher":{"@type":"Organization","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"isPartOf":{"@type":"WebSite","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"inLanguage":"en"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"China Industry Atlas","item":"https://chinaindustryatlas.com/"},{"@type":"ListItem","position":2,"name":"Appliance Towns","item":"https://chinaindustryatlas.com/#maps"},{"@type":"ListItem","position":3,"name":"Appliance towns — the map of China's white-goods geography","item":"https://chinaindustryatlas.com/appliance-towns/"}]}]}</script>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Themes</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<style>
+  .shapes{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:8px}
+  @media(max-width:640px){.shapes{grid-template-columns:1fr}}
+  .shape{border:1px solid var(--line);background:var(--paper-2);padding:22px 22px 20px;display:block}
+  .shape .glyph{background:var(--paper);border:1px solid var(--line);padding:8px 6px;margin-bottom:16px}
+  .shape .sh-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+  .shape .sh-name{font-family:var(--disp);font-weight:700;font-size:23px;color:var(--ink);line-height:1.05}
+  .shape .sh-cn{font-family:var(--disp);font-weight:400;font-size:13px;color:var(--ink-3)}
+  .shape .sh-obj{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.11em;color:var(--chop);margin-top:7px}
+  .shape .sh-d{font-size:14px;color:var(--ink-2);margin-top:11px;line-height:1.5}
+  .shape .sh-go{display:inline-block;font-family:var(--mono);font-size:11px;color:var(--chop);margin-top:13px;text-decoration:none;border-bottom:1px solid var(--chop)}
+  .essay{max-width:74ch;margin-top:8px}
+  .essay h2{font-size:clamp(22px,2.6vw,30px);margin-bottom:14px}
+  .essay p{color:var(--ink-2);font-size:15.5px;line-height:1.62;margin:0 0 15px}
+  .essay b{color:var(--ink)}
+</style>
+<div class="wrap hero">
+  <div class="eyebrow">Themes · the white-goods map</div>
+  <h1>Appliance towns<span class="cn">家电之乡 · the white-goods map</span></h1>
+  <p class="lede">China makes roughly two-thirds of the world's white goods, and it makes them in a handful of places. Here are six — the southern white-goods capital, the northern brand city, the giant inland base, the Pearl River Delta's specialist towns, the small-appliance capital, and the commercial-cold cluster — what each one makes, and why the industry settled where it did. Unlike tea or liquor, the binding agent here is not terroir but the supplier next door.</p>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">The map · six appliance clusters</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend"><span><i class="dot" style="background:var(--chop)"></i>Appliance cluster</span><span><i class="dot" style="background:var(--ink-2)"></i>Reference city</span></div>
+</div></div>
+<section><div class="wrap"><div class="shapes">
+<div class="shape"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="58" y="28" width="104" height="38" rx="3" fill="#C0402A" opacity=".12" stroke="#C0402A" stroke-width="2"/><rect x="66" y="35" width="58" height="24" rx="2" fill="none" stroke="#C0402A" stroke-width="1.6"/><g stroke="#C0402A" stroke-width="1.4"><line x1="138" y1="38" x2="152" y2="38"/><line x1="138" y1="44" x2="152" y2="44"/><circle cx="145" cy="55" r="3.4" fill="none"/></g></svg></div><div class="sh-top"><span class="sh-name">Shunde</span><span class="sh-cn">顺德 · 广东</span></div><div class="sh-obj">White goods & kitchen · Foshan, Guangdong</div><div class="sh-d">The home of Midea and Galanz, and about half the world's microwaves and rice cookers. <b>Why here:</b> Pearl River Delta township enterprises that started in the 1980s built such a dense supplier web that a finished appliance can be sourced almost entirely within fifty kilometres. “Shunde in the south” is one half of China's appliance map.</div><a class="sh-go" href="/deep-dives/shunde/">Read the Shunde deep-dive →</a></div><div class="shape"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="80" y="14" width="60" height="62" rx="4" fill="#C0402A" opacity=".12" stroke="#C0402A" stroke-width="2"/><line x1="80" y1="40" x2="140" y2="40" stroke="#C0402A" stroke-width="2"/><line x1="132" y1="24" x2="132" y2="34" stroke="#C0402A" stroke-width="2.6" stroke-linecap="round"/><line x1="132" y1="46" x2="132" y2="68" stroke="#C0402A" stroke-width="2.6" stroke-linecap="round"/></svg></div><div class="sh-top"><span class="sh-name">Qingdao</span><span class="sh-cn">青岛 · 山东</span></div><div class="sh-obj">Brands & white goods · Shandong</div><div class="sh-d">The northern pole — “Shunde south, Qingdao north.” Home of Haier, the world's largest maker of fridges and washing machines, plus Hisense and Aucma, the city's “golden flowers.” <b>Why here:</b> a port city where 1980s state factories reinvented themselves as global brands; Qingdao now holds the national home-appliance innovation centre.</div></div><div class="shape"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="78" y="14" width="64" height="62" rx="5" fill="#C0402A" opacity=".12" stroke="#C0402A" stroke-width="2"/><circle cx="106" cy="50" r="17" fill="none" stroke="#C0402A" stroke-width="2"/><circle cx="106" cy="50" r="9" fill="none" stroke="#C0402A" stroke-width="1.3" opacity=".6"/><line x1="86" y1="26" x2="116" y2="26" stroke="#C0402A" stroke-width="1.5"/><circle cx="128" cy="26" r="2.4" fill="#C0402A"/></svg></div><div class="sh-top"><span class="sh-name">Hefei</span><span class="sh-cn">合肥 · 安徽</span></div><div class="sh-obj">The four big appliances · Anhui</div><div class="sh-d">The largest production base of all, and the one almost nobody abroad has heard of. Midea, Haier, Gree, Whirlpool and Changhong all built mega-plants here, and the city has turned out more major appliances than anywhere on earth for over a decade. <b>Why here:</b> cheap inland land, central logistics and an aggressive local government pulled the coastal supply chain inland — the atlas's inland shift, in white goods.</div></div><div class="shape"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="62" y="32" width="96" height="26" rx="7" fill="#C0402A" opacity=".12" stroke="#C0402A" stroke-width="2"/><g stroke="#C0402A" stroke-width="1.3" opacity=".65"><line x1="70" y1="48" x2="150" y2="48"/><line x1="70" y1="52" x2="150" y2="52"/></g><circle cx="146" cy="40" r="1.8" fill="#C0402A"/><path d="M92 64 q18 9 36 0" fill="none" stroke="#C0402A" stroke-width="1.6" opacity=".55"/></svg></div><div class="sh-top"><span class="sh-name">Zhongshan</span><span class="sh-cn">中山 · 广东</span></div><div class="sh-obj">Fridges, AC & rice cookers · Guangdong</div><div class="sh-d">The Pearl River Delta's specialist appliance towns. Nantou is a national base for refrigerators and air conditioners; next door, Dongfeng turns out rice cookers, kettles and induction hobs by the million. <b>Why here:</b> the same one-industry-town model as its neighbours, each street narrowed down to a single product.</div></div><div class="shape"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M70 38 h50 a13 13 0 0 1 0 24 h-50 a12 12 0 0 1 0 -24 z" fill="#C0402A" opacity=".12" stroke="#C0402A" stroke-width="2"/><path d="M70 41 l-12 2 v12 l12 2 z" fill="#C0402A" opacity=".12" stroke="#C0402A" stroke-width="2" stroke-linejoin="round"/><path d="M100 62 l5 18 h13 l4 -18 z" fill="#C0402A" opacity=".12" stroke="#C0402A" stroke-width="2" stroke-linejoin="round"/><circle cx="108" cy="50" r="3.2" fill="none" stroke="#C0402A" stroke-width="1.5"/></svg></div><div class="sh-top"><span class="sh-name">Cixi</span><span class="sh-cn">慈溪 · 浙江</span></div><div class="sh-obj">Small appliances · Ningbo, Zhejiang</div><div class="sh-d">China's small-appliance capital, said to make around 60% of the world's small appliances — and roughly one hair dryer in five, plus the world's most irons and heaters. <b>Why here:</b> some 2,000 assemblers and around 10,000 parts suppliers packed into a one-hour circle near Ningbo's port, so a kettle or air fryer can be sourced, tooled and shipped without leaving town.</div></div><div class="shape"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="82" y="12" width="56" height="66" rx="3" fill="#C0402A" opacity=".10" stroke="#C0402A" stroke-width="2"/><rect x="82" y="12" width="56" height="10" fill="#C0402A" opacity=".18"/><rect x="88" y="26" width="44" height="46" rx="2" fill="none" stroke="#C0402A" stroke-width="1.4"/><g stroke="#C0402A" stroke-width="1.2" opacity=".5"><line x1="88" y1="40" x2="132" y2="40"/><line x1="88" y1="52" x2="132" y2="52"/><line x1="88" y1="64" x2="132" y2="64"/></g><line x1="128" y1="34" x2="128" y2="48" stroke="#C0402A" stroke-width="2.4" stroke-linecap="round"/><g stroke="#C0402A" stroke-width="1.2" opacity=".8" transform="translate(110,17)"><line x1="-4" y1="0" x2="4" y2="0"/><line x1="0" y1="-4" x2="0" y2="4"/><line x1="-3" y1="-3" x2="3" y2="3"/><line x1="-3" y1="3" x2="3" y2="-3"/></g></svg></div><div class="sh-top"><span class="sh-name">Jiangmen</span><span class="sh-cn">江门 · 广东</span></div><div class="sh-obj">Commercial refrigeration & cold chain · Guangdong</div><div class="sh-d">The cold behind the shops, not the home kitchen. Around Heshan and Xinhui, Jiangmen builds commercial freezers and supermarket display chillers, supplies compressor parts to Midea and Gree, and anchors a national cold-chain logistics base. <b>Why here:</b> cheaper land just west of Shunde let the bulky, commercial end of refrigeration spill out of the white-goods cluster, backed by the region's deep overseas-Chinese export links.</div></div>
+</div></div></section>
+<section><div class="wrap"><div class="essay"><h2>Why appliances cluster where they do</h2><p>These towns have nothing to do with terroir. An appliance is an assembly of a thousand bought-in parts — a compressor, a motor, sheet metal, plastics, foam, a control board — so what a fridge town needs is not the right soil but the right neighbours: every supplier within a truck-hour, a port to export through, and someone who built the first factory. China now makes roughly two-thirds of the world’s white goods and more than four-fifths of its air conditioners, almost all of it from clusters like these six.</p><p>The map shows three different ways a cluster forms. The Pearl River Delta towns — Shunde, Zhongshan, Jiangmen — grew bottom-up from 1980s collective enterprises, each street narrowing to a single product. Qingdao went the other way: state factories in a port city reinvented themselves as global brands. And Hefei is the newest pattern, an inland giant that used cheap land and a determined government to pull the entire supply chain off the coast — the same shift this atlas keeps tracing inland.</p><div class="pull">A famous tea needs a hillside. A fridge needs a thousand suppliers within a truck-hour.</div><p>One last split is worth noticing: the white box in your kitchen and the glass-door chiller in the shop have drifted to different towns. Shunde, Qingdao and Hefei make the home appliance; Jiangmen took the commercial cold and the cold chain that keeps the food behind it from spoiling. For the two anchors of this map in full, see the deep dives on <a href="/deep-dives/shunde/" style="color:var(--chop)">Shunde</a>, the appliance capital, and <a href="/deep-dives/foshan/" style="color:var(--chop)">Foshan</a>, its city of one-industry towns.</p></div></div></section>
+<footer><div class="wrap"><div class="ftlinks">
+  <a class="dl" href="/">← Full atlas</a>
+  <a class="dl" href="/deep-dives/shunde/">Shunde: the appliance capital →</a>
+  <a class="dl" href="/deep-dives/foshan/">Foshan: city of one-industry towns →</a>
+  <a class="dl" href="/drink-towns/">Drink towns →</a>
+</div>
+  <div class="fine">Themes · the white-goods map · China Industry Atlas · 2026 · cluster shares (“half the world's microwaves”, “~60% of small appliances”, “largest production base”) are widely-cited industry and state-media figures, treated as orders of magnitude, not audited totals.</div></div></footer>
+<script>
+if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}
+</script>
+<script>
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([29.6,116.6],5);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:10,subdomains:'abcd'}).addTo(map);
+function ref(c,name){L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);}
+function town(c,name,ax,ay){L.marker(c,{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map);L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl big">'+name+'</div>',iconSize:[1,1],iconAnchor:[ax,ay],className:''})}).addTo(map);}
+ref([31.23,121.47],"Shanghai");
+ref([30.59,114.3],"Wuhan");
+ref([26.07,119.3],"Fuzhou");
+town([22.93,113.18],"Shunde",-9,-12);
+town([22.77,112.96],"Jiangmen",-9,6);
+town([22.61,113.34],"Zhongshan",-9,24);
+town([36.07,120.38],"Qingdao",-9,6);
+town([31.82,117.23],"Hefei",-9,6);
+town([30.17,121.27],"Cixi",-9,-2);
+</script>
+</body></html>

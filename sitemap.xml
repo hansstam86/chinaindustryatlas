@@ -35,6 +35,13 @@
   <url><loc>https://chinaindustryatlas.com/one-product-towns/</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://chinaindustryatlas.com/factory-towns/</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://chinaindustryatlas.com/instrument-towns/</loc><changefreq>monthly</changefreq></url>
+<<<<<<< HEAD
+=======
+  <url><loc>https://chinaindustryatlas.com/humble-objects/</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://chinaindustryatlas.com/tea-towns/</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://chinaindustryatlas.com/drink-towns/</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://chinaindustryatlas.com/appliance-towns/</loc><changefreq>monthly</changefreq></url>
+>>>>>>> 550d3db (Make site fully free: remove buy-bar, lemon.js, all field-guide €19.99 CTAs, print sales page; disable buybar injector)
   <url><loc>https://chinaindustryatlas.com/beauty-towns/</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://chinaindustryatlas.com/art-towns/</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://chinaindustryatlas.com/getting-it-out/</loc><changefreq>monthly</changefreq></url>
@@ -46,6 +53,18 @@
   <url><loc>https://chinaindustryatlas.com/corridors/</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://chinaindustryatlas.com/high-speed-rail/</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://chinaindustryatlas.com/deep-dives/zhengan/</loc><changefreq>monthly</changefreq></url>
+<<<<<<< HEAD
+=======
+  <url><loc>https://chinaindustryatlas.com/deep-dives/fenshui/</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://chinaindustryatlas.com/deep-dives/anxi/</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://chinaindustryatlas.com/deep-dives/maotai/</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://chinaindustryatlas.com/deep-dives/puyuan/</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://chinaindustryatlas.com/deep-dives/haining/</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://chinaindustryatlas.com/deep-dives/zhili/</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://chinaindustryatlas.com/deep-dives/xintang/</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://chinaindustryatlas.com/deep-dives/dalang/</loc><changefreq>monthly</changefreq></url>
+  <url><loc>https://chinaindustryatlas.com/deep-dives/humen/</loc><changefreq>monthly</changefreq></url>
+>>>>>>> 550d3db (Make site fully free: remove buy-bar, lemon.js, all field-guide €19.99 CTAs, print sales page; disable buybar injector)
   <url><loc>https://chinaindustryatlas.com/deep-dives/yangjiang/</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://chinaindustryatlas.com/deep-dives/hangji/</loc><changefreq>monthly</changefreq></url>
   <url><loc>https://chinaindustryatlas.com/deep-dives/anji/</loc><changefreq>monthly</changefreq></url>

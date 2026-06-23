@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Humble objects, hidden depth | China Industry Atlas</title>
+<meta name="description" content="The most ordinary object in your hand often has a single world capital — and a hidden upgrade underneath. The toothbrush (Hangji), the kitchen knife (Yangjiang) and the fishing rod (Weihai).">
+<link rel="canonical" href="https://chinaindustryatlas.com/humble-objects/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/humble-objects/">
+<meta property="og:title" content="Humble objects, hidden depth">
+<meta property="og:description" content="A toothbrush, a knife, a fishing rod: each has a single world capital, and each capital built something more serious underneath.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Humble objects, hidden depth","name":"Humble objects, hidden depth","description":"The most ordinary object in your hand often has a single world capital — and a hidden upgrade underneath. The toothbrush (Hangji), the kitchen knife (Yangjiang) and the fishing rod (Weihai).","url":"https://chinaindustryatlas.com/humble-objects/","author":{"@type":"Person","name":"Hans Stam"},"publisher":{"@type":"Organization","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"isPartOf":{"@type":"WebSite","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"inLanguage":"en"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"China Industry Atlas","item":"https://chinaindustryatlas.com/"},{"@type":"ListItem","position":2,"name":"Humble Objects","item":"https://chinaindustryatlas.com/#maps"},{"@type":"ListItem","position":3,"name":"Humble objects, hidden depth","item":"https://chinaindustryatlas.com/humble-objects/"}]}]}</script>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Themes</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<style>
+  .shapes{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:8px}
+  @media(max-width:640px){.shapes{grid-template-columns:1fr}}
+  .shape{border:1px solid var(--line);background:var(--paper-2);padding:22px 22px 20px;text-decoration:none;display:block;transition:border-color .15s ease,transform .15s ease,box-shadow .15s ease}
+  .shape:hover{border-color:var(--chop);transform:translateY(-2px);box-shadow:0 8px 22px rgba(22,36,42,.08)}
+  .shape .glyph{background:var(--paper);border:1px solid var(--line);padding:8px 6px;margin-bottom:16px}
+  .shape .sh-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+  .shape .sh-name{font-family:var(--disp);font-weight:700;font-size:23px;color:var(--ink);line-height:1.05}
+  .shape .sh-cn{font-family:var(--disp);font-weight:400;font-size:13px;color:var(--ink-3)}
+  .shape .sh-obj{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.13em;color:var(--chop);margin-top:7px}
+  .shape .sh-d{font-size:14px;color:var(--ink-2);margin-top:11px;line-height:1.5}
+  .shape .sh-go{font-family:var(--mono);font-size:11px;color:var(--ink-3);margin-top:13px}
+  .shape:hover .sh-go{color:var(--chop)}
+  .essay{max-width:74ch;margin-top:8px}
+  .essay h2{font-size:clamp(22px,2.6vw,30px);margin-bottom:14px}
+  .essay p{color:var(--ink-2);font-size:15.5px;line-height:1.62;margin:0 0 15px}
+  .essay b{color:var(--ink)}
+</style>
+<div class="wrap hero">
+  <div class="eyebrow">Themes · humble object, hidden depth</div>
+  <h1>Humble objects<span class="cn">平凡之物</span></h1>
+  <p class="lede">The most ordinary thing in your hand often has a single world capital, and a hidden upgrade underneath. A toothbrush, a kitchen knife, a fishing rod: each comes mostly from one Chinese town, and each town has quietly built something more serious beneath the cheap product.</p>
+</div>
+<section><div class="wrap"><div class="shapes">
+<a class="shape" href="/deep-dives/hangji/"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M72 42 L182 42 a5 5 0 0 1 0 10 L72 52 a5 5 0 0 1 0 -10 Z" fill="#C0402A" opacity=".14" stroke="#C0402A" stroke-width="2"/><rect x="46" y="43" width="28" height="8" rx="3" fill="#C0402A" opacity=".14" stroke="#C0402A" stroke-width="2"/><g stroke="#C0402A" stroke-width="2" stroke-linecap="round"><line x1="51" y1="43" x2="50" y2="30"/><line x1="58" y1="43" x2="58" y2="28"/><line x1="65" y1="43" x2="66" y2="28"/><line x1="72" y1="43" x2="73" y2="30"/></g></svg></div><div class="sh-top"><span class="sh-name">Hangji</span><span class="sh-cn">杭集 · 牙刷</span></div><div class="sh-obj">The object: a toothbrush</div><div class="sh-d">One 40-square-kilometre town makes one in three of the world's toothbrushes. <b>The hidden depth:</b> the same town quietly owns the global hotel-amenity supply chain, the wrapped brush, comb, soap and slippers in seemingly every hotel room on Earth.</div><div class="sh-go">Read the deep-dive →</div></a><a class="shape" href="/deep-dives/yangjiang/"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M40 56 L150 40 L150 52 L62 60 Z" fill="#C0402A" opacity=".14" stroke="#C0402A" stroke-width="2" stroke-linejoin="round"/><rect x="150" y="39" width="34" height="13" rx="3.5" fill="#C0402A" opacity=".22" stroke="#C0402A" stroke-width="2"/><circle cx="160" cy="45.5" r="1.7" fill="#C0402A"/><circle cx="170" cy="45.5" r="1.7" fill="#C0402A"/></svg></div><div class="sh-top"><span class="sh-name">Yangjiang</span><span class="sh-cn">阳江 · 刀剪</span></div><div class="sh-obj">The object: a kitchen knife</div><div class="sh-d">One Guangdong city grinds about 75% of China's knives and 85% of its blade exports. <b>The hidden depth:</b> beneath the ¥10 cleaver, a climb into premium aerospace-grade steels and a new wave of collector-grade EDC and tactical knives.</div><div class="sh-go">Read the deep-dive →</div></a><a class="shape" href="/deep-dives/weihai/"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><line x1="44" y1="72" x2="182" y2="18" stroke="#C0402A" stroke-width="4" stroke-linecap="round"/><circle cx="62" cy="64" r="7" fill="#C0402A" opacity=".16" stroke="#C0402A" stroke-width="2"/><circle cx="102" cy="48" r="2.4" fill="none" stroke="#C0402A" stroke-width="1.6"/><circle cx="132" cy="36" r="2.2" fill="none" stroke="#C0402A" stroke-width="1.6"/><circle cx="160" cy="25" r="2" fill="none" stroke="#C0402A" stroke-width="1.6"/><path d="M182 18 q7 18 -2 31 q-5 7 -12 4" fill="none" stroke="#C0402A" stroke-width="1.4"/></svg></div><div class="sh-top"><span class="sh-name">Weihai</span><span class="sh-cn">威海 · 钓具</span></div><div class="sh-obj">The object: a fishing rod</div><div class="sh-d">One Shandong city makes around 60% of the world's fishing rods. <b>The hidden depth:</b> learning to roll carbon-fibre rods, a local firm built China's own carbon-fibre industry and cracked a Japanese-American monopoly on a defence and aerospace material.</div><div class="sh-go">Read the deep-dive →</div></a>
+</div></div></section>
+<section><div class="wrap"><div class="essay"><h2>Humble object, hidden depth</h2><p>Pick up the most boring object you own. Odds are it has a single world capital, one Chinese town that makes most of them, and odds are that town has used the cheap, unglamorous product as a ladder to something far more valuable. The pattern is so consistent it is almost a law: the humble object is never just the humble object.</p><p>Walk these three. The <b>toothbrush</b> leads to <b>Hangji</b>, which makes one in three on Earth, and from there to the invisible supply chain of every hotel bathroom. The <b>kitchen knife</b> leads to <b>Yangjiang</b>, 1,400 years of blades and three-quarters of China’s, climbing from throwaway cleavers toward premium steel. The <b>fishing rod</b> leads to <b>Weihai</b>, about 60% of the world’s, and to the carbon fibre underneath it, a material that goes into fighter jets, whose foreign monopoly a rod-maker helped break.</p><div class="pull">The cheapest object in your hand is often the ladder to the most valuable thing the town makes.</div><p>It happens because the cheap product builds everything else. Churning out billions of toothbrushes teaches a town injection moulding, polymers and precision tooling. Grinding millions of knives teaches it steel and heat treatment. Rolling fishing rods teaches it carbon fibre. The boring object is the on-ramp; the skills, the materials science and the supply chain it forces into existence are the real prize. Which is exactly why this atlas maps the dull things most closely.</p></div></div></section>
+<footer><div class="wrap"><div class="ftlinks">
+  <a class="dl" href="/">← Full atlas</a>
+  <a class="dl" href="/deep-dives/hangji/">Hangji: the toothbrush town →</a>
+  <a class="dl" href="/deep-dives/yangjiang/">Yangjiang: the blade city →</a>
+  <a class="dl" href="/deep-dives/weihai/">Weihai: the fishing-rod city →</a>
+</div>
+  <div class="fine">Themes · humble object, hidden depth · China Industry Atlas · 2026</div></div></footer>
+</body></html>

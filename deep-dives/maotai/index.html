@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maotai — the liquor that cannot leave its own town | China Industry Atlas</title>
+<meta name="description" content="A deep dive on Maotai, the Guizhou river town whose sauce-aroma baijiu is so bound to its microclimate that the same water, pit mud, grain and process, moved 150 km away, could not reproduce it — and how it became the world's most valuable spirit.">
+<link rel="canonical" href="https://chinaindustryatlas.com/deep-dives/maotai/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/deep-dives/maotai/">
+<meta property="og:title" content="Maotai — the liquor that cannot leave its town">
+<meta property="og:description" content="How a hot, windless river valley in China's poorest province came to make the world's most valuable spirit — and why it cannot be made anywhere else.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Maotai — the liquor that cannot leave its own town","name":"Maotai — the liquor that cannot leave its own town","description":"A deep dive on Maotai, the Guizhou river town whose sauce-aroma baijiu is so bound to its microclimate that the same water, pit mud, grain and process, moved 150 km away, could not reproduce it — and how it became the world's most valuable spirit.","url":"https://chinaindustryatlas.com/deep-dives/maotai/","author":{"@type":"Person","name":"Hans Stam"},"publisher":{"@type":"Organization","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"isPartOf":{"@type":"WebSite","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"inLanguage":"en"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"China Industry Atlas","item":"https://chinaindustryatlas.com/"},{"@type":"ListItem","position":2,"name":"Deep dives","item":"https://chinaindustryatlas.com/#maps"},{"@type":"ListItem","position":3,"name":"Maotai — the liquor that cannot leave its own town","item":"https://chinaindustryatlas.com/deep-dives/maotai/"}]}]}</script>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Town deep-dives</span></div>
+    <a class="back" href="/">← back to atlas</a>
+  </div>
+</header>
+
+<div class="wrap hero">
+  <div class="eyebrow">Town deep-dive · Guizhou</div>
+  <h1>Maotai<span class="cn">茅台 · the liquor that cannot leave town</span></h1>
+  <p class="lede">A hot, windless river valley in <b>China's poorest province</b> makes the <b>world's most valuable spirit</b>. The proof that it cannot be made anywhere else is an experiment the state ran itself: it shipped Maotai's own water, mud and grain 150 km away, ran the identical process — and failed.</p>
+  <div class="readouts">
+    <div class="readout"><div class="n">≈$230bn</div><div class="l">market value of Kweichow Moutai — the world's most valuable spirits company</div></div>
+    <div class="readout"><div class="n">150 km</div><div class="l">to the 1974 site that got Maotai's own water, mud and grain — and still failed</div></div>
+    <div class="readout"><div class="n">12987</div><div class="l">1 year · 2 feedings · 9 steamings · 8 ferments · 7 drawings, then years in jar</div></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="mapcard">
+    <div class="maphead"><span class="t">Where it is · and the thing that would not travel</span><span class="sc">drag to pan</span></div>
+    <div id="map"></div>
+    <div class="legend">
+      <span><i class="dot" style="background:var(--chop)"></i>Maotai Town (on the Chishui River)</span>
+      <span><i style="border-top-color:var(--chop);border-top-style:dashed"></i>1974 relocation experiment — could not be reproduced</span>
+      <span><i class="dot" style="background:var(--ink-2)"></i>Reference city</span>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap dd-grid">
+    <div>
+      <div class="sec">
+        <div class="num">01</div><h2>The lowest point on the plateau</h2>
+        <p>Maotai Town sits at about <b>423 metres</b> in the valley of the Chishui River, the lowest point of the whole Guizhou Plateau, walled in by mountains. That bowl of low ground does something specific: it traps heat and moisture. The town runs through roughly five months a year at 35–39°C, stays humid and almost windless, and goes frost-free about 326 days. Crucially, the still, warm air holds something too — a resident community of yeasts, moulds and bacteria (Aspergillus, Bacillus, Saccharopolyspora and hundreds more) that does the actual fermenting. The microbes live in the pits, the jars, the workshop walls and the air itself.</p>
+        <p>The rest of the recipe is local as well. The slightly acidic purple sandstone soil grows a tough local red sorghum, <b>hongyingzi</b>, and the Chishui — often called the only large tributary of the upper Yangtze never spoiled by industry, the "river of fine wine" — supplies mineral water filtered through red rock. The town earned its place on the map first as a Chishui salt port, the point where boats carried Sichuan salt into landlocked Guizhou; that traffic is how a remote valley got rich and connected enough to become a liquor town in the first place.</p>
+      </div>
+
+      <div class="sec">
+        <div class="num">02</div><h2>The experiment that proved the point</h2>
+        <p>In <b>1974</b>, under pressure to make far more Maotai than one small town could, the distillery built a second base in the southern suburbs of Zunyi, about <b>150 km away</b>. This was not a knock-off. They trucked in Maotai's own Chishui water, its aged pit mud, its hongyingzi sorghum and its wheat starter, and ran the identical lunar-calendar process with Maotai's own master brewers. The result came close. It was never the same. After years of trials it was quietly accepted as a different drink, and the project became the most famous proof in Chinese industry of a single idea: you cannot move Maotai.</p>
+        <p>Microbiology later explained why. The active ingredient is the <b>place</b> — a living microbial ecology that took centuries to settle into one valley and will not transplant. Copy everything portable and the one thing left behind is the one that matters. Hence the saying every distiller in Guizhou knows: leave Maotai Town and you cannot brew Maotai.</p>
+        <div class="pull">You can copy the recipe, the grain, even the river water. The one thing you cannot copy is the air.</div>
+      </div>
+
+      <div class="sec">
+        <div class="num">03</div><h2>12987: a year to start, five to finish</h2>
+        <p>Maotai is made to the lunar calendar. The wheat <b>qū</b> starter is pressed into bricks around the Dragon Boat Festival in midsummer; the red sorghum — called "sand" locally, because crushed it looks like the gravel of the Chishui — goes in around the Double Ninth in autumn. Then a single cycle takes a full year, summarised in the shorthand <b>12987</b>: one year, two feedings, nine rounds of steaming, eight rounds of fermentation in stone-walled pits, seven drawings of liquor. The hongyingzi sorghum is prized for exactly one reason — its small, thick-husked grains can survive being steamed nine times without turning to mush.</p>
+        <p>The young spirit is then blended across batches and aged in terracotta jars. About <b>five years</b> pass between the first feeding and a bottle on a shelf. The slowness is not romance; it is the scarcity engine. Supply is inelastic by design, and that is half of why the bottle is worth what it is.</p>
+      </div>
+
+      <div class="sec">
+        <div class="num">04</div><h2>From a salt port to the most valuable bottle on earth</h2>
+        <p>Liquor from this stretch of the Chishui was praised at the Han court more than two thousand years ago and refined under the Qing. In <b>1915</b> it took a prize at the Panama–Pacific Exposition in San Francisco; the favourite story, of a delegate smashing a dull-looking bottle so the aroma could fill the hall, is almost certainly a myth, but a "1915 Square" stands in town to this day. During the Long March in 1935 the Red Army crossed the Chishui four times around Maotai and used the local liquor on their wounds, which bound the drink to Communist Party mythology for good.</p>
+        <p>In <b>1951</b> the new state merged the town's three private workshops — the Hua, Wang and Lai houses — into a single state distillery. Maotai became the national banquet liquor, the favourite of Mao and Zhou Enlai, and the drink Zhou poured for Richard Nixon in 1972. "I think if we drink enough Moutai," Henry Kissinger later joked, "we can solve anything."</p>
+      </div>
+
+      <div class="sec">
+        <div class="num">05</div><h2>The crown jewel, and the catch</h2>
+        <p>Kweichow Moutai listed in Shanghai in 2001 and is now worth around <b>$230 billion</b> — the most valuable spirits company in the world and routinely the single most valuable stock on China's A-share market. That is a remarkable thing to grow in what was for decades <b>China's poorest province</b>; today the company is Guizhou's economic backbone. Output has gone from roughly <b>1,800 tonnes in 1990 to over 100,000 in 2023</b>, and demand still outruns it, so a bottle does triple duty as gift, social currency and speculative store of value — a sort of liquid blue chip.</p>
+        <p>That same status is the vulnerability. A drink whose value is half liquid and half prestige is exposed to anti-corruption campaigns, price caps and a younger generation that drinks less of it. But the reason Maotai belongs in this atlas is simpler than its share price. It is the purest case of <b>terroir as an industrial moat</b>: a factory nobody can build a copy of, because the most important machine inside it is the air.</p>
+      </div>
+    </div>
+
+    <aside>
+      <div class="facts">
+        <h4>The facts</h4>
+        <div class="frow"><div class="k">Place</div><div class="v">Maotai Town, Renhuai, Guizhou · Chishui River valley · 27°51′N, ~423 m</div></div>
+        <div class="frow"><div class="k">Product</div><div class="v">Sauce-aroma (<i>jiangxiang</i>) baijiu, 53% ABV, from red sorghum &amp; wheat qū</div></div>
+        <div class="frow"><div class="k">Maker</div><div class="v"><b>Kweichow Moutai</b> (600519.SH), state-controlled · ≈$230bn market value</div></div>
+        <div class="frow"><div class="k">Why here</div><div class="v">Hot, windless valley; a resident pit-and-air microbiome; mineral river water; purple-soil red sorghum</div></div>
+        <div class="frow"><div class="k">The process</div><div class="v"><b>"12987"</b> — 1 year, 2 feedings, 9 steamings, 8 ferments, 7 drawings; ~5 years to bottle</div></div>
+        <div class="frow"><div class="k">The proof</div><div class="v">1974 relocation 150 km to Zunyi, with Maotai's own water, mud &amp; grain — failed to match</div></div>
+        <div class="frow"><div class="k">Scale</div><div class="v">~1,800 t (1990) → <b>100,000+ t</b> (2023); ~97% of sales inside China</div></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="fine" style="max-width:80ch">
+      Sources: peer-reviewed work on Maotai's brewing microbiome and the 1974 relocation experiment (Frontiers in Microbiology, 2019; Science of the Total Environment, 2023; review in ScienceDirect, 2025) and spirits-trade and reference writing (PUNCH, Sotheby's, the Oxford Companion to Spirits). Market value per companiesmarketcap and PitchBook (June 2026) and fluctuates daily. Accounts of the 1915 prize vary and the bottle-smashing tale is almost certainly apocryphal; "national liquor" is customary usage, not a registered trademark. Figures are orders of magnitude, not audited totals. Part of the atlas's Town deep-dive series. Alcohol is for adults of legal drinking age.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="ftlinks">
+      <a class="dl" href="/">← Full atlas</a>
+      <a class="dl" href="/drink-towns/">Drink towns →</a>
+      <a class="dl" href="/tea-towns/">Tea towns →</a>
+      <a class="dl" href="/deep-dives/zhengan/">Zheng'an: the guitar county →</a>
+    </div>
+    <div class="fine">Town deep-dive · Maotai · 2026 · location approximate · basemap © OpenStreetMap, © CARTO.</div>
+  </div>
+</footer>
+
+<script>
+if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}
+</script>
+<script>
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([28.05,106.55],7);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:9,subdomains:'abcd'}).addTo(map);
+
+const MAOTAI=[27.86,106.36], ZUNYI=[27.62,106.90], GUIYANG=[26.65,106.63], CHONGQING=[29.56,106.55];
+// the thing that would NOT travel: water, mud and grain shipped 150 km to Zunyi, and it still wasn't Maotai
+L.polyline([MAOTAI,ZUNYI],{color:'#C0402A',weight:3,opacity:.8,dashArray:'7,6'}).addTo(map)
+  .bindTooltip('1974: Maotai\u2019s own water, mud and grain shipped 150 km here \u2014 still not Maotai',{sticky:true,className:'pinlbl'});
+
+function ref(c,name){
+  L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);
+  L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);
+}
+ref(ZUNYI,"Zunyi \u2014 the 1974 relocation base");
+ref(GUIYANG,"Guiyang");
+ref(CHONGQING,"Chongqing");
+// Maotai
+L.marker(MAOTAI,{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map)
+  .bindTooltip("Maotai \u2014 on the Chishui River",{direction:'top',offset:[0,-7],className:'pinlbl'});
+L.marker(MAOTAI,{icon:L.divIcon({html:'<div class="pinlbl big">Maotai 茅台</div>',iconSize:[1,1],iconAnchor:[-9,6],className:''})}).addTo(map);
+</script>
+</body>
+</html>

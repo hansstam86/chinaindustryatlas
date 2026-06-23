@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Haining — China's leather and fur capital between Hangzhou and Shanghai | China Industry Atlas</title>
+<meta name="description" content="How Haining became China's leather capital, home to Asia's largest leather-and-fur market (China Leather City, 1994) — and a warp-knit hub making the base cloth for yoga and swimwear.">
+<link rel="canonical" href="https://chinaindustryatlas.com/deep-dives/haining/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/deep-dives/haining/">
+<meta property="og:title" content="Haining — the leather city">
+<meta property="og:description" content="China's leather & fur capital, and the source of your gym clothes' stretch.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Haining — China's leather and fur capital between Hangzhou and Shanghai","name":"Haining — China's leather and fur capital between Hangzhou and Shanghai","description":"How Haining became China's leather capital, home to Asia's largest leather-and-fur market (China Leather City, 1994) — and a warp-knit hub making the base cloth for yoga and swimwear.","url":"https://chinaindustryatlas.com/deep-dives/haining/","author":{"@type":"Person","name":"Hans Stam"},"publisher":{"@type":"Organization","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"isPartOf":{"@type":"WebSite","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"inLanguage":"en"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"China Industry Atlas","item":"https://chinaindustryatlas.com/"},{"@type":"ListItem","position":2,"name":"Deep dives","item":"https://chinaindustryatlas.com/#maps"},{"@type":"ListItem","position":3,"name":"Haining — China's leather and fur capital between Hangzhou and Shanghai","item":"https://chinaindustryatlas.com/deep-dives/haining/"}]}]}</script>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Town deep-dive</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<div class="wrap hero">
+  <div class="eyebrow">Town deep-dive · Zhejiang</div>
+  <h1>Haining<span class="cn">海宁 · 中国皮革之都</span></h1>
+  <p class="lede">Between Hangzhou and Shanghai, Haining is China's leather capital. Its China Leather City, opened in 1994, is the largest leather-and-fur market in Asia, with turnover in the <b>hundreds of billions of yuan</b>. The fur coat in a Russian winter and the stretch in your yoga pants can both trace back here.</p>
+  <div class="readouts"><div class="readout"><div class="n">1994</div><div class="l">China Leather City opened</div></div><div class="readout"><div class="n">Asia's largest</div><div class="l">leather & fur market</div></div><div class="readout"><div class="n">¥100B+</div><div class="l">annual turnover</div></div></div>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">Where it is · one corner of the northern-Zhejiang silk-country triangle</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend"><span><i class="dot" style="background:var(--chop)"></i>Haining (leather)</span><span><i class="dot" style="background:#C0402A;opacity:.7"></i>Puyuan · Zhili</span><span><i class="dot" style="background:var(--ink-2)"></i>Hangzhou</span></div>
+</div></div>
+<section><div class="wrap dd-grid"><div>
+<div class="sec"><div class="num">01</div><h2>China's leather capital</h2><p>Haining, in Jiaxing, sits squarely between Hangzhou and Shanghai, and it is China's leather capital. Its China Leather City, opened in 1994 and now a publicly listed company, is the most influential leather market in the country and the largest specialised leather-and-fur market in Asia, multiple multi-storey malls of finished leather jackets, fur coats, raw hides of mink, fox and cowhide, bags and footwear, with annual turnover in the hundred-billions of yuan and millions of visitors. Russia is the single biggest buyer of Haining's fur and heavy leather, for obvious reasons of climate.</p></div>
+<div class="sec"><div class="num">02</div><h2>From hand-stitched belts to a leather kingdom</h2><p>The skill is old, the market is new. Haining's leatherwork goes back to the late Qing and early Republic, when craftsmen made belts and bags by hand; it grew into a global leather-garment base, and the China Leather City of 1994 turned that base into a marketplace. Many firms are vertically integrated, owning the tannery, the design studio and the factory at once, and the town has grown its own brands, Snow Leopard and the light-luxury label FOVVO, founded in 2003 by a team that had made bags for Coach and Michael Kors. The positioning is “high quality, mid-to-high price,” edging toward luxury and the Italians.</p></div>
+<div class="sec"><div class="num">03</div><h2>The other Haining: the stretch in your gym clothes</h2><p>Haining has a quieter second identity that few shoppers ever connect to the fur malls. In its Maqiao district, German warp-knitting machines run around the clock turning out high-performance fabric, the elastic base cloth for yoga pants and swimwear, plus technical textiles for car interiors. So Haining occupies two premium corners of the clothing world at once: luxury materials in leather and fur, and performance materials in warp knits. It is a town that sells both the mink coat and the gym legging's stretch.</p></div>
+<div class="sec"><div class="num">04</div><h2>The triangle</h2><p>Haining is one corner of the northern-Zhejiang garment triangle, with Puyuan's sweater market and Zhili's children's-wear town both within about forty kilometres, all in the Hang-Jia-Hu silk plain. (Haining is famous for one more thing entirely: the Qiantang River tidal bore, the largest in the world, which draws crowds every autumn a short way from the leather malls.) Cross-links below.</p></div>
+<div class="pull">The fur coat in a Russian winter and the stretch in your yoga pants can both trace back to one town between Hangzhou and Shanghai.</div>
+</div></div></section>
+<footer><div class="wrap"><div class="ftlinks"><a class="dl" href="/">← Full atlas</a><a class="dl" href="/deep-dives/puyuan/">Puyuan: the sweater market →</a><a class="dl" href="/deep-dives/zhili/">Zhili: the children's-wear town →</a><a class="dl" href="/one-product-towns/">One-product towns →</a></div><div class="fine">Town deep-dive · Haining · 2026 · “Asia's largest” and turnover figures are market-operator and state-media claims · basemap © OpenStreetMap, © CARTO.</div></div></footer>
+<script>
+if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}
+</script>
+<script>
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([30.58,120.4],9);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:12,subdomains:'abcd'}).addTo(map);
+L.polyline([[30.51,120.68],[30.59,120.56],[30.84,120.3],[30.51,120.68]],{color:'#C0402A',weight:1.3,opacity:.5,dashArray:'4 5'}).addTo(map);
+function ref(c,name){L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);}
+ref([30.27,120.16],"Hangzhou");
+function sib(c,name){L.marker(c,{icon:L.divIcon({html:'<div style="width:12px;height:12px;border-radius:50%;background:#C0402A;border:2px solid var(--paper);box-shadow:0 0 0 1px #C0402A"></div>',iconSize:[12,12],iconAnchor:[6,6],className:''})}).addTo(map).bindTooltip(name,{direction:'top',offset:[0,-6],className:'pinlbl'});}
+sib([30.59,120.56],"Puyuan — sweaters");
+sib([30.84,120.3],"Zhili — kids' wear");
+L.marker([30.51,120.68],{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[16,16],iconAnchor:[8,8],className:''})}).addTo(map).bindTooltip("Haining — leather",{direction:'top',offset:[0,-8],className:'pinlbl'});
+L.marker([30.51,120.68],{icon:L.divIcon({html:'<div class="pinlbl big">Haining</div>',iconSize:[1,1],iconAnchor:[-10,6],className:''})}).addTo(map);
+</script>
+</body></html>

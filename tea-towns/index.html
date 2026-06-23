@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tea towns — the map of China's famous teas | China Industry Atlas</title>
+<meta name="description" content="A map of China's famous teas and the towns that make them — Longjing, Tieguanyin, Da Hong Pao, Pu'er, Keemun and Silver Needle — and why each tea grows where it does.">
+<link rel="canonical" href="https://chinaindustryatlas.com/tea-towns/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/tea-towns/">
+<meta property="og:title" content="Tea towns — the map of China's famous teas">
+<meta property="og:description" content="Six famous Chinese teas, the towns that make them, and why each grows where it does.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Tea towns — the map of China's famous teas","name":"Tea towns — the map of China's famous teas","description":"A map of China's famous teas and the towns that make them — Longjing, Tieguanyin, Da Hong Pao, Pu'er, Keemun and Silver Needle — and why each tea grows where it does.","url":"https://chinaindustryatlas.com/tea-towns/","author":{"@type":"Person","name":"Hans Stam"},"publisher":{"@type":"Organization","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"isPartOf":{"@type":"WebSite","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"inLanguage":"en"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"China Industry Atlas","item":"https://chinaindustryatlas.com/"},{"@type":"ListItem","position":2,"name":"Tea Towns","item":"https://chinaindustryatlas.com/#maps"},{"@type":"ListItem","position":3,"name":"Tea towns — the map of China's famous teas","item":"https://chinaindustryatlas.com/tea-towns/"}]}]}</script>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Themes</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<style>
+  .shapes{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:8px}
+  @media(max-width:640px){.shapes{grid-template-columns:1fr}}
+  .shape{border:1px solid var(--line);background:var(--paper-2);padding:22px 22px 20px;display:block}
+  .shape .glyph{background:var(--paper);border:1px solid var(--line);padding:8px 6px;margin-bottom:16px}
+  .shape .sh-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+  .shape .sh-name{font-family:var(--disp);font-weight:700;font-size:23px;color:var(--ink);line-height:1.05}
+  .shape .sh-cn{font-family:var(--disp);font-weight:400;font-size:13px;color:var(--ink-3)}
+  .shape .sh-obj{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.11em;color:var(--chop);margin-top:7px}
+  .shape .sh-d{font-size:14px;color:var(--ink-2);margin-top:11px;line-height:1.5}
+  .shape .sh-go{display:inline-block;font-family:var(--mono);font-size:11px;color:var(--chop);margin-top:13px;text-decoration:none;border-bottom:1px solid var(--chop)}
+  .essay{max-width:74ch;margin-top:8px}
+  .essay h2{font-size:clamp(22px,2.6vw,30px);margin-bottom:14px}
+  .essay p{color:var(--ink-2);font-size:15.5px;line-height:1.62;margin:0 0 15px}
+  .essay b{color:var(--ink)}
+</style>
+<div class="wrap hero">
+  <div class="eyebrow">Themes · the tea map</div>
+  <h1>Tea towns<span class="cn">茶乡 · 名茶名乡</span></h1>
+  <p class="lede">China's famous teas are tied to specific places the way wines are tied to their vineyards. Here are six of the most celebrated, the towns that make them, and why each tea grows where it does: it is one plant, Camellia sinensis, turned by climate, rock, cultivar and craft into green, white, oolong, black and aged dark tea.</p>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">The map · six famous teas and their towns</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend"><span><i class="dot" style="background:var(--chop)"></i>Tea town</span><span><i class="dot" style="background:var(--ink-2)"></i>Reference city</span></div>
+</div></div>
+<section><div class="wrap"><div class="shapes">
+<div class="shape"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M40 44 Q110 22 180 44 Q110 66 40 44 Z" fill="#C0402A" opacity=".13" stroke="#C0402A" stroke-width="2" stroke-linejoin="round"/><line x1="50" y1="44" x2="170" y2="44" stroke="#C0402A" stroke-width="1.6"/><path d="M90 40 q12 4 0 8 M118 39 q12 5 0 10" stroke="#C0402A" stroke-width="1.2" fill="none" opacity=".7"/></svg></div><div class="sh-top"><span class="sh-name">Longjing</span><span class="sh-cn">龙井 · 西湖</span></div><div class="sh-obj">Green tea · West Lake, Hangzhou (Zhejiang)</div><div class="sh-d">“Dragon Well,” China's most famous green tea, pan-fired by hand into flat blades. <b>Why here:</b> the misty, acidic, mineral-rich hills around West Lake diffuse the light and slow the leaf; the tiny core zone on Lion Peak (Shifeng) is smaller than Manhattan. Picked before Qingming in early April; the Qianlong emperor's 18 tribute bushes still stand.</div></div><div class="shape"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="110" cy="44" r="23" fill="#C0402A" opacity=".11" stroke="#C0402A" stroke-width="2"/><path d="M110 24 A20 20 0 1 1 90 44 A12 12 0 1 1 110 32 A5 5 0 1 1 105 44" fill="none" stroke="#C0402A" stroke-width="2" stroke-linecap="round"/></svg></div><div class="sh-top"><span class="sh-name">Tieguanyin</span><span class="sh-cn">铁观音 · 安溪</span></div><div class="sh-obj">Oolong (light, rolled) · Anxi (Fujian)</div><div class="sh-d">The “Iron Boddhisattva,” a fragrant oolong rolled into tight beads. <b>Why here:</b> Anxi's misty mid-altitude subtropical hills and the Tieguanyin cultivar, discovered locally ~300 years ago, plus the cutting-propagation method its farmers invented to clone it.</div><a class="sh-go" href="/deep-dives/anxi/">Read the Anxi deep-dive →</a></div><div class="shape"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M38 70 L38 44 L72 44 L72 34 L108 34 L108 52 L150 52 L150 30 L184 30 L184 70 Z" fill="#C0402A" opacity=".12" stroke="#C0402A" stroke-width="2" stroke-linejoin="round"/><path d="M167 30 q3 -11 9 -13 M167 30 q-3 -9 1 -15" stroke="#C0402A" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div><div class="sh-top"><span class="sh-name">Da Hong Pao</span><span class="sh-cn">大红袍 · 武夷</span></div><div class="sh-obj">Oolong (rock, roasted) · Wuyishan (Fujian)</div><div class="sh-d">“Big Red Robe,” the crown of Wuyi rock tea, twisted into dark strips and charcoal-roasted. <b>Why here:</b> the Danxia cliffs of weathered red rock feed minerals to roots in the crevices and block the sun for all but a few midday hours, giving the prized “rock rhyme” (yan yun). Just six original mother trees remain, harvest-protected since 2006.</div></div><div class="shape"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="110" cy="50" rx="54" ry="19" fill="#C0402A" opacity=".12" stroke="#C0402A" stroke-width="2"/><ellipse cx="110" cy="42" rx="54" ry="19" fill="var(--paper-2)" stroke="#C0402A" stroke-width="2"/><circle cx="110" cy="42" r="6.5" fill="none" stroke="#C0402A" stroke-width="2"/></svg></div><div class="sh-top"><span class="sh-name">Pu'er</span><span class="sh-cn">普洱 · 云南</span></div><div class="sh-obj">Dark / aged tea · Yunnan (Xishuangbanna)</div><div class="sh-d">A post-fermented tea pressed into cakes that improves with age like wine, raw (sheng) or ripe (shou). <b>Why here:</b> Yunnan's large-leaf varietal and ancient tea forests, and the old Tea Horse Road to Tibet, the leaf was pressed into 357-gram cakes to survive the caravan, and the journey's heat and damp taught it to ferment.</div></div><div class="shape"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M52 60 C90 30 130 70 168 32" fill="none" stroke="#C0402A" stroke-width="6" stroke-linecap="round" opacity=".85"/><path d="M56 55 C92 33 128 65 164 35" fill="none" stroke="#C0402A" stroke-width="1.6" opacity=".55"/></svg></div><div class="sh-top"><span class="sh-name">Keemun</span><span class="sh-cn">祁门 · 安徽</span></div><div class="sh-obj">Black tea · Qimen (Anhui)</div><div class="sh-d">The “Champagne of black teas,” the floral, cocoa-noted backbone of English Breakfast blends. <b>Why here:</b> Qimen was a green-tea county in the misty foothills of Huangshan until 1875, when a disgraced official named Yu Ganchen carried black-tea craft home from Fujian and found the local terroir suited it perfectly.</div></div><div class="shape"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M110 18 C99 40 99 56 110 72 C121 56 121 40 110 18 Z" fill="#C0402A" opacity=".12" stroke="#C0402A" stroke-width="2"/><g stroke="#C0402A" stroke-width="1.4" opacity=".75" stroke-linecap="round"><line x1="110" y1="28" x2="103" y2="24"/><line x1="110" y1="38" x2="118" y2="34"/><line x1="110" y1="48" x2="102" y2="45"/><line x1="110" y1="56" x2="118" y2="54"/></g></svg></div><div class="sh-top"><span class="sh-name">Silver Needle</span><span class="sh-cn">白毫银针 · 福鼎</span></div><div class="sh-obj">White tea · Fuding (Fujian)</div><div class="sh-d">Bai Hao Yinzhen, the most prized white tea, made of nothing but downy spring buds. <b>Why here:</b> Fuding's misty high-mountain terroir and its Da Bai (“Big White”) cultivar grow fat, silver-haired buds; picked in a window of days and simply withered and dried, the least-processed tea there is.</div></div>
+</div></div></section>
+<section><div class="wrap"><div class="essay"><h2>Why tea grows where it grows</h2><p>Look at the map and the teas cluster in a band across the warm, wet, hilly south and southwest, and that is not an accident. The tea plant wants mild temperatures, heavy rainfall, acidic well-drained slopes and, above all, mist: cloud and fog diffuse the sunlight and slow the leaf’s growth, which concentrates the amino acids and aromatics that make a tea worth naming. Flat, sunny, fertile plains grow rice; misty hillsides grow famous tea.</p><p>But terroir is never only climate. It is the rock, the cultivar and the craft as well. Wuyi’s mineral cliffs lend Da Hong Pao its “rock rhyme”; Yunnan’s ancient large-leaf trees and a caravan road to Tibet made Pu’er a tea built to age; Fuding’s downy Da Bai bud makes a tea barely processed at all; Anxi’s hills and a single lucky cultivar make Tieguanyin; and a misty green-tea county in Anhui became a black-tea one the year a disgraced official carried the method home. Same plant, six places, six completely different teas.</p><div class="pull">Same plant, six places, six teas: terroir is climate, rock, cultivar and craft together.</div><p>These six are a starting map, not the whole of it, and between them they already cover almost the entire spectrum of Chinese tea, from unoxidised green and barely-touched white, through two faces of oolong, to black and to fermented, aged pu’er. The leaf is only half the story, of course: the cup it is brewed in comes from this atlas too, the purple-clay teapots of <a href="/deep-dives/yixing/" style="color:var(--chop)">Yixing</a> and the porcelain of <a href="/deep-dives/jingdezhen/" style="color:var(--chop)">Jingdezhen</a>.</p></div></div></section>
+<footer><div class="wrap"><div class="ftlinks">
+  <a class="dl" href="/">← Full atlas</a>
+  <a class="dl" href="/deep-dives/anxi/">Anxi: the tea capital →</a>
+  <a class="dl" href="/deep-dives/yixing/">Yixing: the teapot town →</a>
+  <a class="dl" href="/deep-dives/jingdezhen/">Jingdezhen: the porcelain capital →</a>
+</div>
+  <div class="fine">Themes · the tea map · China Industry Atlas · 2026 · terroir notes from tea-trade and heritage sources.</div></div></footer>
+<script>
+if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}
+</script>
+<script>
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([26.8,111.3],5);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:10,subdomains:'abcd'}).addTo(map);
+function ref(c,name){L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);}
+function town(c,name){L.marker(c,{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map);L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl big">'+name+'</div>',iconSize:[1,1],iconAnchor:[-9,6],className:''})}).addTo(map);}
+ref([31.23,121.47],"Shanghai");
+ref([23.13,113.26],"Guangzhou");
+ref([25.04,102.71],"Kunming");
+town([30.24,120.13],"Longjing");
+town([25.06,118.19],"Tieguanyin");
+town([27.72,117.96],"Da Hong Pao");
+town([22.78,100.97],"Pu'er");
+town([29.86,117.72],"Keemun");
+town([27.2,120.22],"Silver Needle");
+</script>
+</body></html>

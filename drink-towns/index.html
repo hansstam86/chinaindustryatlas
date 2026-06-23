@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drink towns — the map of China's famous liquors, beer and wine | China Industry Atlas</title>
+<meta name="description" content="A map of China's famous drinks and the towns that make them — Maotai, Wuliangye, Luzhou Laojiao and Fenjiu baijiu, Tsingtao beer and Shaoxing rice wine — and why each is made where it is.">
+<link rel="canonical" href="https://chinaindustryatlas.com/drink-towns/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://chinaindustryatlas.com/drink-towns/">
+<meta property="og:title" content="Drink towns — the map of China's famous drinks">
+<meta property="og:description" content="China's great baijiu, beer and rice-wine towns, and why each drink is made where it is.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700;10..48,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --paper:#E8EAE3; --paper-2:#F2F3EE; --paper-3:#DFE2DA;
+  --ink:#16242A; --ink-2:#46565B; --ink-3:#6C7A7E;
+  --line:#C7CCC3; --chop:#C0402A; --chop-soft:#D98A78; --brass:#9C7A3C;
+  --disp:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+  --maxw:1240px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.62}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+a{color:var(--chop)}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(232,234,227,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--maxw);margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand .b1{font-family:var(--disp);font-weight:800;letter-spacing:.01em;font-size:15px}
+.brand .b2{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-top:2px}
+.back{font-family:var(--mono);font-size:12px;color:var(--ink-2);text-decoration:none}
+.back:hover{color:var(--chop)}
+.hero{padding:46px 0 26px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--disp);font-weight:800;font-size:clamp(42px,7.5vw,82px);line-height:.95;letter-spacing:-.01em;margin:14px 0 0}
+h1 .cn{display:block;font-weight:400;font-size:.34em;letter-spacing:.04em;color:var(--ink-2);margin-top:12px;font-family:var(--disp)}
+.lede{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:68ch}
+.lede b{color:var(--ink);font-weight:700}
+.readouts{display:flex;gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin-top:26px;max-width:680px;flex-wrap:wrap}
+.readout{flex:1;padding:13px 0;min-width:150px}.readout+.readout{border-left:1px solid var(--line)}
+.readout .n{font-family:var(--mono);font-size:24px;font-weight:700;line-height:1;color:var(--chop)}
+.readout .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:7px}
+.mapcard{position:relative;border:1px solid var(--line);background:var(--paper-2);margin:8px 0 0}
+.maphead{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line)}
+.maphead .t{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-2)}
+.maphead .sc{font-family:var(--mono);font-size:10px;color:var(--ink-3)}
+#map{height:420px;width:100%;background:var(--paper-3)}
+.leaflet-container{background:var(--paper-3)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;padding:11px 15px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;color:var(--ink-2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:0;border-top-width:3px;border-top-style:solid;display:inline-block}
+.legend i.dot{width:10px;height:10px;border-top:0;border-radius:50%}
+.pinlbl{font-family:var(--mono);font-size:10px;color:var(--ink-2);white-space:nowrap;text-shadow:0 0 3px var(--paper),0 0 3px var(--paper),0 0 3px var(--paper)}
+.pinlbl.big{font-size:12px;font-weight:700;color:var(--ink)}
+.towndot{width:15px;height:15px;background:var(--chop);border:2px solid var(--paper);transform:rotate(45deg);box-shadow:0 0 0 1px var(--chop)}
+.citydot{width:9px;height:9px;border-radius:50%;background:var(--ink-2);border:2px solid var(--paper)}
+section{padding:40px 0;border-top:1px solid var(--line)}
+.dd-grid{display:grid;grid-template-columns:1fr 300px;gap:40px}
+@media(max-width:880px){.dd-grid{grid-template-columns:1fr}}
+.sec{margin-bottom:34px}
+.sec:last-child{margin-bottom:0}
+.sec .num{font-family:var(--mono);font-size:12px;color:var(--chop);letter-spacing:.1em}
+.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(23px,3.2vw,30px);margin:6px 0 14px;letter-spacing:-.01em;line-height:1.05}
+.sec p{margin:0 0 15px;font-size:16.5px;color:var(--ink-2)}
+.sec p b{color:var(--ink)}
+.pull{font-family:var(--disp);font-weight:700;font-size:21px;line-height:1.35;color:var(--ink);border-left:3px solid var(--chop);padding:4px 0 4px 18px;margin:26px 0}
+aside{align-self:start}
+@media(min-width:881px){aside{position:sticky;top:78px}}
+.facts{border:1px solid var(--line);background:var(--paper-2);padding:18px 19px}
+.facts h4{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin:0 0 14px}
+.frow{padding:9px 0;border-top:1px solid var(--line)}
+.frow:first-of-type{border-top:0}
+.frow .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.frow .v{font-size:14px;color:var(--ink);margin-top:2px}
+.facts .v b{color:var(--chop)}
+footer{border-top:1px solid var(--ink);margin-top:8px;padding:34px 0 50px}
+.ftlinks{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px}
+.dl{font-family:var(--mono);font-size:12.5px;color:var(--chop);text-decoration:none}
+.fine{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);line-height:1.7}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"Drink towns — the map of China's famous liquors, beer and wine","name":"Drink towns — the map of China's famous liquors, beer and wine","description":"A map of China's famous drinks and the towns that make them — Maotai, Wuliangye, Luzhou Laojiao and Fenjiu baijiu, Tsingtao beer and Shaoxing rice wine — and why each is made where it is.","url":"https://chinaindustryatlas.com/drink-towns/","author":{"@type":"Person","name":"Hans Stam"},"publisher":{"@type":"Organization","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"isPartOf":{"@type":"WebSite","name":"China Industry Atlas","url":"https://chinaindustryatlas.com/"},"inLanguage":"en"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"China Industry Atlas","item":"https://chinaindustryatlas.com/"},{"@type":"ListItem","position":2,"name":"Drink Towns","item":"https://chinaindustryatlas.com/#maps"},{"@type":"ListItem","position":3,"name":"Drink towns — the map of China's famous liquors, beer and wine","item":"https://chinaindustryatlas.com/drink-towns/"}]}]}</script>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <div class="brand"><span class="b1">CHINA INDUSTRY ATLAS</span><span class="b2">深度 · Themes</span></div>
+  <a class="back" href="/">← back to atlas</a></div></header>
+<style>
+  .shapes{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:8px}
+  @media(max-width:640px){.shapes{grid-template-columns:1fr}}
+  .shape{border:1px solid var(--line);background:var(--paper-2);padding:22px 22px 20px;display:block}
+  .shape .glyph{background:var(--paper);border:1px solid var(--line);padding:8px 6px;margin-bottom:16px}
+  .shape .sh-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+  .shape .sh-name{font-family:var(--disp);font-weight:700;font-size:23px;color:var(--ink);line-height:1.05}
+  .shape .sh-cn{font-family:var(--disp);font-weight:400;font-size:13px;color:var(--ink-3)}
+  .shape .sh-obj{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.11em;color:var(--chop);margin-top:7px}
+  .shape .sh-d{font-size:14px;color:var(--ink-2);margin-top:11px;line-height:1.5}
+  .shape .sh-go{display:inline-block;font-family:var(--mono);font-size:11px;color:var(--chop);margin-top:13px;text-decoration:none;border-bottom:1px solid var(--chop)}
+  .essay{max-width:74ch;margin-top:8px}
+  .essay h2{font-size:clamp(22px,2.6vw,30px);margin-bottom:14px}
+  .essay p{color:var(--ink-2);font-size:15.5px;line-height:1.62;margin:0 0 15px}
+  .essay b{color:var(--ink)}
+</style>
+<div class="wrap hero">
+  <div class="eyebrow">Themes · the drink map</div>
+  <h1>Drink towns<span class="cn">酒乡 · 名酒名乡</span></h1>
+  <p class="lede">China's great drinks are tied to specific towns the way wines are tied to their vineyards. Here are six of the most famous — four baijiu spanning the three aroma schools, plus the country's iconic beer and its benchmark rice wine — the places that make them, and why each is made where it is. With liquor the binding agent is not a leaf but water, grain and a local microbial ecology that will not travel.</p>
+</div>
+<div class="wrap"><div class="mapcard">
+  <div class="maphead"><span class="t">The map · six famous drinks and their towns</span><span class="sc">drag to pan</span></div>
+  <div id="map"></div>
+  <div class="legend"><span><i class="dot" style="background:var(--chop)"></i>Drink town</span><span><i class="dot" style="background:var(--ink-2)"></i>Reference city</span></div>
+</div></div>
+<section><div class="wrap"><div class="shapes">
+<div class="shape"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M105 22 h10 v12 q11 5 11 18 v14 q0 4 -4 4 h-24 q-4 0 -4 -4 v-14 q0 -13 11 -18 z" fill="#C0402A" opacity=".12" stroke="#C0402A" stroke-width="2" stroke-linejoin="round"/><rect x="105" y="16" width="10" height="6" rx="1" fill="#C0402A" opacity=".55"/><rect x="94" y="52" width="32" height="13" fill="none" stroke="#C0402A" stroke-width="1.5"/></svg></div><div class="sh-top"><span class="sh-name">Maotai</span><span class="sh-cn">茅台 · 贵州</span></div><div class="sh-obj">Sauce-aroma baijiu · Maotai Town, Renhuai (Guizhou)</div><div class="sh-d">China's “national liquor” and the world's most valuable spirits brand, a savoury, soy-and-mushroom sauce-aroma baijiu from red sorghum. <b>Why here:</b> the town sits low in the humid Chishui River valley on mineral water filtered through red sandstone, and the wild microbial ecology that drives its year-long, nine-steaming, lunar-cycle process is so place-bound that attempts to brew it on nearby stretches of the same river have failed.</div><a class="sh-go" href="/deep-dives/maotai/">Read the Maotai deep-dive →</a></div><div class="shape"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g stroke="#C0402A" stroke-width="1.7" fill="#C0402A" fill-opacity=".14" stroke-linecap="round"><g><ellipse cx="84" cy="48" rx="5" ry="12"/><line x1="84" y1="40" x2="84" y2="56"/></g><g><ellipse cx="97" cy="42" rx="5" ry="12"/><line x1="97" y1="34" x2="97" y2="50"/></g><g><ellipse cx="110" cy="50" rx="5" ry="12"/><line x1="110" y1="42" x2="110" y2="58"/></g><g><ellipse cx="123" cy="42" rx="5" ry="12"/><line x1="123" y1="34" x2="123" y2="50"/></g><g><ellipse cx="136" cy="48" rx="5" ry="12"/><line x1="136" y1="40" x2="136" y2="56"/></g></g></svg></div><div class="sh-top"><span class="sh-name">Wuliangye</span><span class="sh-cn">五粮液 · 四川</span></div><div class="sh-obj">Strong-aroma baijiu · Yibin (Sichuan)</div><div class="sh-d">The strong-aroma giant, distilled from five grains — sorghum, rice, glutinous rice, wheat and corn — into a rich, fruity-ester spirit; the world's second most valuable spirits brand. <b>Why here:</b> Yibin sits where rivers meet to form the Yangtze, on Min River water in the warm, damp Sichuan basin, and ferments in earthen pits first dug in the Ming.</div></div><div class="shape"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><line x1="34" y1="40" x2="186" y2="40" stroke="#C0402A" stroke-width="2"/><path d="M78 40 L142 40 L132 72 L88 72 Z" fill="#C0402A" opacity=".12" stroke="#C0402A" stroke-width="2" stroke-linejoin="round"/><line x1="85" y1="52" x2="135" y2="52" stroke="#C0402A" stroke-width="1.2" opacity=".6"/><line x1="87" y1="62" x2="133" y2="62" stroke="#C0402A" stroke-width="1.2" opacity=".6"/></svg></div><div class="sh-top"><span class="sh-name">Luzhou Laojiao</span><span class="sh-cn">泸州老窖 · 四川</span></div><div class="sh-obj">Strong-aroma baijiu · Luzhou (Sichuan)</div><div class="sh-d">Another strong-aroma classic, and keeper of the oldest pits in the business. <b>Why here:</b> its “National Cellar 1573” mud fermentation pits have run continuously since the Ming dynasty, more than 450 years. The value is literally in the aged pit mud (niqu) and the microbiome it houses, which a fresh pit takes about thirty years to even begin to develop.</div></div><div class="shape"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="110" cy="50" rx="21" ry="19" fill="#C0402A" opacity=".12" stroke="#C0402A" stroke-width="2"/><path d="M101 33 q9 -6 18 0" fill="none" stroke="#C0402A" stroke-width="2"/><rect x="103" y="28" width="14" height="6" rx="2" fill="none" stroke="#C0402A" stroke-width="1.6"/><line x1="44" y1="58" x2="176" y2="58" stroke="#C0402A" stroke-width="1.6" stroke-dasharray="2 3" opacity=".7"/></svg></div><div class="sh-top"><span class="sh-name">Fenjiu</span><span class="sh-cn">汾酒 · 山西</span></div><div class="sh-obj">Light-aroma baijiu · Xinghua Village, Fenyang (Shanxi)</div><div class="sh-d">The light-aroma school: crisp, clean and floral, and one of the oldest baijiu of all, often called the “founder” of the industry. <b>Why here:</b> Apricot Blossom Village (Xinghua) in dry, cold Shanxi has brewed for over a thousand years on local sorghum and deep spring water, fermenting cleanly in buried earthen jars rather than mud pits. Every Chinese schoolchild knows the Tang poem that points the thirsty traveller here.</div></div><div class="shape"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="90" y="36" width="34" height="36" rx="3" fill="#C0402A" opacity=".12" stroke="#C0402A" stroke-width="2"/><path d="M124 44 q15 1 15 14 q0 13 -15 14" fill="none" stroke="#C0402A" stroke-width="2"/><path d="M88 36 q6 -9 14 -3 q6 -8 14 -1 q8 -6 12 4" fill="none" stroke="#C0402A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="98" y1="48" x2="98" y2="66" stroke="#C0402A" stroke-width="1.1" opacity=".5"/><line x1="108" y1="48" x2="108" y2="66" stroke="#C0402A" stroke-width="1.1" opacity=".5"/></svg></div><div class="sh-top"><span class="sh-name">Tsingtao</span><span class="sh-cn">青岛 · 山东</span></div><div class="sh-obj">Beer · Qingdao (Shandong)</div><div class="sh-d">China's most internationally famous beer, a crisp German-style lager that accounts for about half the country's beer exports. <b>Why here:</b> German settlers founded the Germania-Brauerei in 1903 in their Jiaozhou Bay colony, brewing to the Reinheitsgebot purity law, and chose Qingdao for the soft, pure spring water of nearby Laoshan Mountain — still in the bottle today.</div></div><div class="shape"><div class="glyph"><svg viewBox="0 0 220 88" width="100%" height="88" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="98" cy="52" rx="20" ry="19" fill="#C0402A" opacity=".12" stroke="#C0402A" stroke-width="2"/><path d="M89 35 q9 -6 18 0" fill="none" stroke="#C0402A" stroke-width="2"/><rect x="91" y="30" width="14" height="6" rx="2" fill="none" stroke="#C0402A" stroke-width="1.6"/><g stroke="#C0402A" stroke-width="1.4" fill="none" opacity=".85"><circle cx="98" cy="54" r="2.4"/><path d="M98 48 v-3 M98 60 v3 M92 54 h-3 M104 54 h3"/></g><path d="M130 52 h18 l-2.5 13 h-13 z" fill="#C0402A" fill-opacity=".10" stroke="#C0402A" stroke-width="1.8" stroke-linejoin="round"/></svg></div><div class="sh-top"><span class="sh-name">Shaoxing</span><span class="sh-cn">绍兴 · 浙江</span></div><div class="sh-obj">Yellow rice wine (huangjiu) · Shaoxing (Zhejiang)</div><div class="sh-d">The benchmark huangjiu, an amber, fermented (not distilled) rice wine and the most-used cooking wine in the world. <b>Why here:</b> Shaoxing brews glutinous rice with the mineral-rich water of Jianhu Lake, fed by 36 mountain streams and unusually kind to yeast, then ages it in earthen jars for years. By tradition a jar of “daughter red” is buried when a girl is born and dug up at her wedding.</div></div>
+</div></div></section>
+<section><div class="wrap"><div class="essay"><h2>Why drink is made where it’s made</h2><p>China’s drinks are as place-bound as its teas, but the thing that binds them is different. A famous tea is tied to a hillside and a leaf; a famous liquor is tied to water, grain, climate and, above all, to microbes. Every town on this map has its own water — the Chishui, the Min, Jianhu Lake, the springs of Laoshan — and its own grain, from Guizhou’s red sorghum to Shaoxing’s glutinous rice. But the real secret is invisible: the local community of yeasts and bacteria living in the pits, the jars, the starter and the very air, an ecology that takes centuries to settle and refuses to travel.</p><p>That is why Maotai cannot be made outside Maotai, why Luzhou’s worth is literally in 450-year-old mud, and why Shaoxing’s lake and microflora are called the prime terroir for yellow wine. The grain is the easy part; the place is the hard part. The three schools of baijiu even map onto three landscapes: sauce-aroma in the warm, humid Guizhou river valley, strong-aroma in the damp Sichuan basin with its ancient pits, and light-aroma in the cold, dry Shanxi north, fermented clean in buried jars.</p><div class="pull">The grain is the easy part. The place, the water and the microbes are the hard part.</div><p>The one outlier, Tsingtao, proves the rule from the other side: its terroir is half-imported. A German colony, a German purity law and German brewmasters, married to a single local ingredient — the soft spring water of Laoshan. China’s most global drink was born from the same logic as its most local one: find the right water, then build a culture around it. For the vessels these drinks are poured into, the atlas turns to the porcelain of <a href="/deep-dives/jingdezhen/" style="color:var(--chop)">Jingdezhen</a>; for the other half of the Chinese table, see the <a href="/tea-towns/" style="color:var(--chop)">tea towns</a>.</p></div></div></section>
+<footer><div class="wrap"><div class="ftlinks">
+  <a class="dl" href="/">← Full atlas</a>
+  <a class="dl" href="/tea-towns/">Tea towns →</a>
+  <a class="dl" href="/deep-dives/jingdezhen/">Jingdezhen: the porcelain capital →</a>
+</div>
+  <div class="fine">Themes · the drink map · China Industry Atlas · 2026 · brand-value rankings per World Brand Lab and trade press; “oldest pits” and terroir notes from distillery and spirits-trade sources. Alcohol is for adults of legal drinking age.</div></div></footer>
+<script>
+if(typeof L==='undefined'){document.write('<scr'+'ipt src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></scr'+'ipt>');}
+</script>
+<script>
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:false}).setView([32.5,110.5],4);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{maxZoom:10,subdomains:'abcd'}).addTo(map);
+function ref(c,name){L.marker(c,{icon:L.divIcon({html:'<div class="citydot"></div>',iconSize:[9,9],iconAnchor:[4,4],className:''})}).addTo(map);L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl">'+name+'</div>',iconSize:[1,1],iconAnchor:[-6,4],className:''})}).addTo(map);}
+function town(c,name){L.marker(c,{icon:L.divIcon({html:'<div class="towndot"></div>',iconSize:[15,15],iconAnchor:[7,7],className:''})}).addTo(map);L.marker(c,{icon:L.divIcon({html:'<div class="pinlbl big">'+name+'</div>',iconSize:[1,1],iconAnchor:[-9,6],className:''})}).addTo(map);}
+ref([39.9,116.41],"Beijing");
+ref([31.23,121.47],"Shanghai");
+ref([23.13,113.26],"Guangzhou");
+town([27.84,106.38],"Maotai");
+town([28.77,104.62],"Wuliangye");
+town([28.87,105.44],"Luzhou Laojiao");
+town([37.31,111.74],"Fenjiu");
+town([36.07,120.38],"Tsingtao");
+town([30.0,120.58],"Shaoxing");
+</script>
+</body></html>
